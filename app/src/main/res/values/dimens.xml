@@ -2,4 +2,7 @@
 <resources>
     <dimen name="medium_padding">20dp</dimen>
     <dimen name="small_margin">10dp</dimen>
+    <dimen name="medium_text">16sp</dimen>
+    <dimen name="large_text">25sp</dimen>
+    <dimen name="xlarge_text">40sp</dimen>
 </resources>
