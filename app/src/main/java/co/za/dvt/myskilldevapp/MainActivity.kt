@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.animation.Animation
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import co.za.dvt.myskilldevapp.databinding.ActivityMainBinding
@@ -21,13 +22,18 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         binding.mainViewModel = mainViewModel
+
+        mainViewModel.setNewLuckyNumber()
+        binding.luckyNumber = mainViewModel.luckyNumber
+
+
         Log.i("MV", "Called ViewModel providers of")
     }
 
     fun onRollButtonClicked(view: View) {
         view.blinkView(0.5f, 1.0f, 500, 2, Animation.REVERSE, 0)
-
         imgDice.rotateView(0f, 180f, 0.5f, 0.5f,300, 2, Animation.REVERSE, 0, ::onRotateDone, ::onRotateStart)
+
         Log.i("MV", "onRollButtonClicked")
     }
 
@@ -35,10 +41,26 @@ class MainActivity : AppCompatActivity() {
         imgDice.rotateView(0f, 180f, 0.5f, 0.5f,500, 2, Animation.REVERSE, 0, ::onRollComplete)
     }
 
+    private fun onRotateStart() {
+        btnDice.isEnabled = false
+
+        binding.invalidateAll()
+        mainViewModel.getLuckyNumber()
+        binding.luckyNumber = mainViewModel.luckyNumber
+
+        Log.i("MV", "onRotateStart...")
+    }
+
     private fun onRollComplete() {
         binding.invalidateAll()
         mainViewModel.onLuckyNumberRetrieved()
         showRolledNumber(mainViewModel.rolledNumber)
+
+        if(mainViewModel.isWin){
+            mainViewModel.resetGame()
+            Toast.makeText(this, "You won :)", Toast.LENGTH_SHORT).show()
+        }
+
         btnDice.isEnabled = true
 
         Log.i("MV", "onRollComplete...")
@@ -58,11 +80,5 @@ class MainActivity : AppCompatActivity() {
         imgDice.setImageResource(diceImageRes)
     }
 
-    private fun onRotateStart() {
-        btnDice.isEnabled = false
-        binding.invalidateAll()
-        mainViewModel.getLuckyNumber()
-        Log.i("MV", "onRotateStart...")
-    }
 
 }

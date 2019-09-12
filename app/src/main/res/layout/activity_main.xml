@@ -6,6 +6,9 @@
         <variable
                 name="mainViewModel"
                 type="co.za.dvt.myskilldevapp.MainViewModel"/>
+        <variable
+                name="luckyNumber"
+                type="Integer"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -14,10 +17,10 @@
             tools:context=".MainActivity">
 
         <TextView
-                android:id="@+id/tvHeading"
-                style="@style/largeTextView"
-                tools:text="Try your luck... roll the dice"
-                android:text="@={mainViewModel.message}"
+                android:id="@+id/tvLuckyNumberMessage"
+                style="@style/MediumTextView"
+                tools:text="This is your lucky number"
+                android:text="This is your lucky number"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -25,15 +28,40 @@
                 app:layout_constraintVertical_bias="0.052"
                 app:layout_constraintHorizontal_bias="0.4"/>
 
+        <TextView
+                android:id="@+id/tvLuckyNumber"
+                style="@style/largeTextView"
+                tools:text="0"
+                android:text="@{String.valueOf(luckyNumber)}"
+                android:textColor="#0088cc"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLuckyNumberMessage"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.4"/>
+
+        <TextView
+                android:id="@+id/tvMessage"
+                style="@style/MediumTextView"
+                tools:text="Try your luck... roll the dice"
+                android:text="@={mainViewModel.message}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLuckyNumber"
+                app:layout_constraintVertical_bias="0.13"
+                app:layout_constraintHorizontal_bias="0.4"/>
+
         <ImageView
                 android:id="@+id/imgDice"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 tools:srcCompat="@mipmap/ic_dice_1"
                 android:src="@mipmap/ic_dice_1"
                 android:layout_marginTop="28dp"
                 android:scaleType="fitCenter"
-                app:layout_constraintTop_toBottomOf="@+id/tvHeading"
+                app:layout_constraintTop_toBottomOf="@+id/tvMessage"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginLeft="8dp"
