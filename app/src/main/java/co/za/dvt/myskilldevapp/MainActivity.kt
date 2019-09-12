@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onRotateDone() {
-        imgDice.rotateView(0f, 180f, 0.5f, 0.5f,500, 2, Animation.REVERSE, 0, ::onRotateDone, ::onRotateStart)
+        imgDice.rotateView(0f, 180f, 0.5f, 0.5f,500, 2, Animation.REVERSE, 0)
     }
 
     private fun onRotateStart() {
