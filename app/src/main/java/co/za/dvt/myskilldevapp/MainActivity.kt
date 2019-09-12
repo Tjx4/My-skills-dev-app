@@ -31,10 +31,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onRotateDone() {
-        imgDice.rotateView(0f, 180f, 0.5f, 0.5f,500, 2, Animation.REVERSE, 0)
+        imgDice.rotateView(0f, 180f, 0.5f, 0.5f,500, 2, Animation.REVERSE, 0, ::onRollComplete)
+    }
+
+    private fun onRollComplete() {
+        tvHeading.text = "You rolled a 1"
+        Log.i("MV", "onRollComplete...")
     }
 
     private fun onRotateStart() {
+        tvHeading.text = "Rolling..."
         Log.i("MV", "onRotateStart...")
     }
 
