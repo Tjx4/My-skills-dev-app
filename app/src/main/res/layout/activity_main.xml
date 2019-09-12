@@ -26,11 +26,12 @@
 
         <ImageView
                 android:id="@+id/imgDice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:srcCompat="@tools:sample/avatars"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                tools:srcCompat="@mipmap/ic_dice_1"
                 android:src="@mipmap/ic_dice_1"
                 android:layout_marginTop="28dp"
+                android:scaleType="fitCenter"
                 app:layout_constraintTop_toBottomOf="@+id/tvHeading"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

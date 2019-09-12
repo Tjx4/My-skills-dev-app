@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     fun onRollButtonClicked(view: View) {
         view.blinkView(0.5f, 1.0f, 500, 2, Animation.REVERSE, 0)
 
-        imgDice.rotateView(0f, 180f, 0.5f, 0.5f,250, 2, Animation.REVERSE, 0, ::onRotateDone, ::onRotateStart)
+        imgDice.rotateView(0f, 180f, 0.5f, 0.5f,300, 2, Animation.REVERSE, 0, ::onRotateDone, ::onRotateStart)
         Log.i("MV", "onRollButtonClicked")
     }
 
