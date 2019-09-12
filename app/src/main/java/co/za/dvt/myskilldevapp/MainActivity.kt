@@ -38,8 +38,24 @@ class MainActivity : AppCompatActivity() {
     private fun onRollComplete() {
         binding.invalidateAll()
         mainViewModel.onLuckyNumberRetrieved()
+        showRolledNumber(mainViewModel.rolledNumber)
         btnDice.isEnabled = true
+
         Log.i("MV", "onRollComplete...")
+    }
+
+    private fun showRolledNumber(rolledNumber:Int) {
+        var diceImageRes = 1
+        when(rolledNumber){
+            1 -> diceImageRes = R.mipmap.ic_dice_1
+            2 ->  diceImageRes = R.mipmap.ic_dice_2
+            3 ->  diceImageRes = R.mipmap.ic_dice_3
+            4 ->  diceImageRes = R.mipmap.ic_dice_4
+            5 ->  diceImageRes = R.mipmap.ic_dice_5
+            else ->  diceImageRes = R.mipmap.ic_dice_6
+        }
+
+        imgDice.setImageResource(diceImageRes)
     }
 
     private fun onRotateStart() {

@@ -2,10 +2,13 @@ package co.za.dvt.myskilldevapp
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import java.util.*
 
 class MainViewModel : ViewModel() {
     var loginRepo: MainRepo
     var message: String
+    var luckyNumber: Int = 0
+    var rolledNumber: Int = 0
 
     init {
         loginRepo = MainRepo()
@@ -19,6 +22,8 @@ class MainViewModel : ViewModel() {
     }
 
     fun onLuckyNumberRetrieved() {
+        luckyNumber = 2
+        rolledNumber = (1..6).random()
         message = "You rolled a 1"
     }
 
