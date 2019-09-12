@@ -1,13 +1,18 @@
 package co.za.dvt.myskilldevapp
 
-class MainViewModel {
-    var message: String
+import android.util.Log
+import androidx.lifecycle.ViewModel
+
+class MainViewModel : ViewModel() {
+    var loginRepo: MainRepo
 
     init {
-        message = "Hello MVVM"
+        loginRepo = MainRepo()
+        Log.i("MV", "ViewModel init...")
     }
 
-    fun showAllGood(){
-        message = "All good"
+    override fun onCleared() {
+        super.onCleared()
+        Log.i("MV", "onCleared")
     }
 }
