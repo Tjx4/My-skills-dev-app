@@ -1,6 +1,7 @@
 package co.za.dvt.myskilldevapp
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class MainViewModel : ViewModel() {
@@ -8,10 +9,11 @@ class MainViewModel : ViewModel() {
     var message: String
     var luckyNumber: Int
     var rolledNumber: Int
-    var isWin: Boolean = false
+    val isWin: MutableLiveData<Boolean>
 
     init {
         loginRepo = MainRepo()
+        isWin = MutableLiveData()
         luckyNumber = 0
         rolledNumber = 0
         message = "Try your luck... roll the dice"
@@ -30,7 +32,7 @@ class MainViewModel : ViewModel() {
     fun onLuckyNumberRetrieved() {
         rolledNumber = (1..6).random()
         message = "You rolled a $rolledNumber please try again"
-        isWin = luckyNumber == rolledNumber
+        isWin.value = luckyNumber == rolledNumber
     }
 
     override fun onCleared() {

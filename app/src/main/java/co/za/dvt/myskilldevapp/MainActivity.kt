@@ -7,6 +7,7 @@ import android.view.View
 import android.view.animation.Animation
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import co.za.dvt.myskilldevapp.databinding.ActivityMainBinding
 import co.za.dvt.myskilldevapp.extensions.blinkView
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        mainViewModel.isWin.observe(this, Observer { onGameStatusChanged() })
         binding.mainViewModel = mainViewModel
 
         mainViewModel.setNewLuckyNumber()
@@ -55,15 +57,17 @@ class MainActivity : AppCompatActivity() {
         binding.invalidateAll()
         mainViewModel.onLuckyNumberRetrieved()
         showRolledNumber(mainViewModel.rolledNumber)
+        btnDice.isEnabled = true
 
-        if(mainViewModel.isWin){
+        Log.i("MV", "onRollComplete...")
+    }
+
+    private fun onGameStatusChanged() {
+        if(mainViewModel.isWin.value!!){
             mainViewModel.resetGame()
             Toast.makeText(this, "You won :)", Toast.LENGTH_SHORT).show()
         }
 
-        btnDice.isEnabled = true
-
-        Log.i("MV", "onRollComplete...")
     }
 
     private fun showRolledNumber(rolledNumber:Int) {
