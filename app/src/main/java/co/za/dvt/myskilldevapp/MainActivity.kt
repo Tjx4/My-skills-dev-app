@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        binding.mainViewModel = mainViewModel
         Log.i("MV", "Called ViewModel providers of")
     }
 
@@ -35,12 +36,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onRollComplete() {
-        tvHeading.text = "You rolled a 1"
+        binding.invalidateAll()
+        mainViewModel.onLuckyNumberRetrieved()
         Log.i("MV", "onRollComplete...")
     }
 
     private fun onRotateStart() {
-        tvHeading.text = "Rolling..."
+        binding.invalidateAll()
+        mainViewModel.getLuckyNumber()
         Log.i("MV", "onRotateStart...")
     }
 
