@@ -30,7 +30,7 @@
 
         <TextView
                 android:id="@+id/tvLuckyNumber"
-                style="@style/largeTextView"
+                style="@style/xlargeTextView"
                 tools:text="0"
                 android:text="@{String.valueOf(luckyNumber)}"
                 android:textColor="#0088cc"

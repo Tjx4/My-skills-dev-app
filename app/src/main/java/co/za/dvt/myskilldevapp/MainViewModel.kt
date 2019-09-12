@@ -41,6 +41,6 @@ class MainViewModel : ViewModel() {
 
     fun resetGame(){
         setNewLuckyNumber()
-        message = "You've won this round... please roll the again to win more"
+        message = "You've won this round... please roll again to win more"
     }
 }
