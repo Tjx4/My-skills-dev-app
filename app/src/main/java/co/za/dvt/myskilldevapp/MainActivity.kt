@@ -38,10 +38,12 @@ class MainActivity : AppCompatActivity() {
     private fun onRollComplete() {
         binding.invalidateAll()
         mainViewModel.onLuckyNumberRetrieved()
+        btnDice.isEnabled = true
         Log.i("MV", "onRollComplete...")
     }
 
     private fun onRotateStart() {
+        btnDice.isEnabled = false
         binding.invalidateAll()
         mainViewModel.getLuckyNumber()
         Log.i("MV", "onRotateStart...")
