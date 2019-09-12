@@ -25,9 +25,7 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.isWin.observe(this, Observer { onGameStatusChanged() })
         binding.mainViewModel = mainViewModel
 
-        mainViewModel.setNewLuckyNumber()
         binding.luckyNumber = mainViewModel.luckyNumber
-
 
         Log.i("MV", "Called ViewModel providers of")
     }

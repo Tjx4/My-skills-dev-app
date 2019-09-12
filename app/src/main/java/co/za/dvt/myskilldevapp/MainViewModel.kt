@@ -18,15 +18,13 @@ class MainViewModel : ViewModel() {
         rolledNumber = 0
         message = "Try your luck... roll the dice"
 
+        luckyNumber = loginRepo.getLuckyNumber()?.luckyNumber
+
         Log.i("MV", "ViewModel init...")
     }
 
     fun getLuckyNumber(){
         message = "Rolling..."
-    }
-
-    fun setNewLuckyNumber(){
-        luckyNumber = (1..6).random()
     }
 
     fun onLuckyNumberRetrieved() {
@@ -42,7 +40,7 @@ class MainViewModel : ViewModel() {
     }
 
     fun resetGame(){
-        setNewLuckyNumber()
-        message = "You've won this round... please roll again to win more"
+        message = "$luckyNumber is your lucky number you've won this round... please roll again to win more"
+        luckyNumber = loginRepo.getLuckyNumber()?.luckyNumber
     }
 }
