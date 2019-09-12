@@ -29,7 +29,7 @@ class MainViewModel : ViewModel() {
 
     fun onLuckyNumberRetrieved() {
         rolledNumber = (1..6).random()
-        message = "You rolled a $rolledNumber"
+        message = "You rolled a $rolledNumber please try again"
         isWin = luckyNumber == rolledNumber
     }
 
