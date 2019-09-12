@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        mainViewModel.isWin.observe(this, Observer { onGameStatusChanged() })
+        mainViewModel.isWin.observe(this, Observer { onGameStatusChanged(it) })
         binding.mainViewModel = mainViewModel
 
         binding.luckyNumber = mainViewModel.luckyNumber
@@ -60,12 +60,11 @@ class MainActivity : AppCompatActivity() {
         Log.i("MV", "onRollComplete...")
     }
 
-    private fun onGameStatusChanged() {
-        if(mainViewModel.isWin.value!!){
+    private fun onGameStatusChanged(isWin: Boolean) {
+        if(isWin){
             mainViewModel.resetGame()
             Toast.makeText(this, "You won :)", Toast.LENGTH_SHORT).show()
         }
-
     }
 
     private fun showRolledNumber(rolledNumber:Int) {
