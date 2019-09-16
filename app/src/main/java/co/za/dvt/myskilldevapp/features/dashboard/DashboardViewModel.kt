@@ -7,11 +7,20 @@ import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
 
 class DashboardViewModel : BaseVieModel() {
-    var dashboardRepository: DashboardRepository
+    private val dashboardRepository: DashboardRepository
 
-    private var message: String
-    private var luckyNumber: Int
-    private var rolledNumber: Int
+    private var _message: String
+    var message: String? = null
+    get() = _message
+
+    private var _luckyNumber: Int
+    var luckyNumber: Int = 0
+    get() = _luckyNumber
+
+    private var _rolledNumber: Int
+    var rolledNumber: Int = 0
+
+    private var timeLeft: String
     private var countDownTimer: CountDownTimer
 
     private val _isBusy: MutableLiveData<Boolean>
@@ -32,14 +41,15 @@ class DashboardViewModel : BaseVieModel() {
         _isBusy = MutableLiveData()
         _isWin = MutableLiveData()
         _isError = MutableLiveData()
-        luckyNumber = 0
-        rolledNumber = 0
-        message = "Try your luck... roll the dice"
+        _luckyNumber = 0
+        _rolledNumber = 0
+        _message = "Try your luck... roll the dice"
 
+        timeLeft = "0:00"
         countDownTimer = object : CountDownTimer(30000, 1000) {
 
             override fun onTick(millisUntilFinished: Long) {
-
+                timeLeft = millisUntilFinished.toString()
             }
 
             override fun onFinish() {
@@ -52,14 +62,14 @@ class DashboardViewModel : BaseVieModel() {
 
     fun getLuckyNumber(){
         _isBusy.value = true
-        message = "Rolling..."
+        _message = "Rolling..."
         dashboardRepository.fetchLuckyNumberFromRepo()
     }
 
     fun onLuckyNumberRetrieved() {
-        rolledNumber = (1..6).random()
-        message = "You rolled a $rolledNumber please try again"
-        _isWin.value = luckyNumber == rolledNumber
+        _rolledNumber = (1..6).random()
+        _message = "You rolled a $_rolledNumber please try again"
+        _isWin.value = _luckyNumber == _rolledNumber
     }
 
     fun onConnectionError() {
@@ -72,7 +82,7 @@ class DashboardViewModel : BaseVieModel() {
     }
 
     fun resetGame(){
-        message = "$luckyNumber is your lucky number you've won this round... please roll again to win more"
+        _message = "$_luckyNumber is your lucky number you've won this round... please roll again to win more"
         // isBusy.value = false
         // isWin.value = false
         // isError.value = false

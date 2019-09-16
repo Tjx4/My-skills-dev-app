@@ -2,7 +2,6 @@ package co.za.dvt.myskilldevapp.features.dashboard
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.widget.Toast
@@ -21,7 +20,6 @@ class DashboardActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         dashboardViewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
         dashboardViewModel.getLuckyNumber()
 
@@ -29,55 +27,32 @@ class DashboardActivity : AppCompatActivity() {
         dashboardViewModel.isError.observe(this, Observer { onGetLuckyNumber(it) })
         dashboardViewModel.isBusy.observe(this, Observer { toggleIsBusy(it) })
 
-        binding.mainViewModel = dashboardViewModel // get direct value instead of trough viewModel
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.currentMessage = dashboardViewModel.message
         binding.luckyNumber = dashboardViewModel.luckyNumber
     }
 
     fun onRollButtonClicked(view: View) {
         view.blinkView(0.5f, 1.0f, 500, 2, Animation.REVERSE, 0)
-        imgDice.rotateView(0f, 180f, 0.5f, 0.5f,300, 2, Animation.REVERSE, 0, ::onRotateDone, ::onRotateStart)
+        imgDice.rotateView(0f, 180f, 0.5f, 0.5f,300, 2, Animation.REVERSE, 0, ::onInitialRotateDone, ::onRotateStart)
     }
 
-    private fun onRotateDone() {
+    private fun onInitialRotateDone() {
         imgDice.rotateView(0f, 180f, 0.5f, 0.5f,500, 2, Animation.REVERSE, 0, ::onRollComplete)
     }
 
     private fun onRotateStart() {
         btnDice.isEnabled = false
 
-        binding.invalidateAll()
+binding.invalidateAll()
         binding.luckyNumber = dashboardViewModel.luckyNumber
-
-        Log.i("MV", "onRotateStart...")
     }
 
     private fun onRollComplete() {
-        binding.invalidateAll()
+binding.invalidateAll()
         dashboardViewModel.onLuckyNumberRetrieved()
         showRolledNumber(dashboardViewModel.rolledNumber)
         btnDice.isEnabled = true
-
-        Log.i("MV", "onRollComplete...")
-    }
-
-    private fun onGameStatusChanged(isWin: Boolean) {
-        if(isWin){
-            dashboardViewModel.resetGame()
-            Toast.makeText(this, "You won :)", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun onGetLuckyNumber(isError: Boolean) {
-        Toast.makeText(this, "Error getting lucky number :(", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun toggleIsBusy(isBusy: Boolean) {
-       if(isBusy){
-           // Show loader
-       }
-        else{
-           // hide loader
-       }
     }
 
     private fun showRolledNumber(rolledNumber:Int) {
@@ -91,6 +66,27 @@ class DashboardActivity : AppCompatActivity() {
         }
 
         imgDice.setImageResource(diceImageRes)
+    }
+
+    private fun onGameStatusChanged(isWin: Boolean) {
+        if(isWin){
+            dashboardViewModel.resetGame()
+            Toast.makeText(this, "You won :)", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun onGetLuckyNumber(isError: Boolean) {
+        if(isError)
+            Toast.makeText(this, "Error getting lucky number :(", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun toggleIsBusy(isBusy: Boolean) {
+       if(isBusy){
+           // Show loader
+       }
+        else{
+           // hide loader
+       }
     }
 
 }
