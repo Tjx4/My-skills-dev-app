@@ -26,6 +26,7 @@ class DashboardActivity : AppCompatActivity() {
         dashboardViewModel.isWin.observe(this, Observer { onGameStatusChanged(it) })
         dashboardViewModel.isError.observe(this, Observer { onGetLuckyNumber(it) })
         dashboardViewModel.isBusy.observe(this, Observer { toggleIsBusy(it) })
+        dashboardViewModel.rolledNumber.observe(this, Observer { showRolledNumber(it) })
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.currentMessage = dashboardViewModel.message
@@ -51,20 +52,11 @@ binding.invalidateAll()
     private fun onRollComplete() {
 binding.invalidateAll()
         dashboardViewModel.onLuckyNumberRetrieved()
-        showRolledNumber(dashboardViewModel.rolledNumber)
+        dashboardViewModel.setRolledNumberDi()
         btnDice.isEnabled = true
     }
 
-    private fun showRolledNumber(rolledNumber:Int) {
-        var diceImageRes = when(rolledNumber){
-            1 -> R.mipmap.ic_dice_1
-            2 -> R.mipmap.ic_dice_2
-            3 -> R.mipmap.ic_dice_3
-            4 -> R.mipmap.ic_dice_4
-            5 -> R.mipmap.ic_dice_5
-            else -> R.mipmap.ic_dice_6
-        }
-
+    private fun showRolledNumber(diceImageRes:Int) {
         imgDice.setImageResource(diceImageRes)
     }
 

@@ -4,6 +4,7 @@ import android.os.CountDownTimer
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
 
 class DashboardViewModel : BaseVieModel() {
@@ -17,8 +18,9 @@ class DashboardViewModel : BaseVieModel() {
     var luckyNumber: Int = 0
     get() = _luckyNumber
 
-    private var _rolledNumber: Int
-    var rolledNumber: Int = 0
+    private val _rolledNumber: MutableLiveData<Int>
+    val rolledNumber: LiveData<Int>
+    get() = _rolledNumber
 
     private var timeLeft: String
     private var countDownTimer: CountDownTimer
@@ -42,7 +44,7 @@ class DashboardViewModel : BaseVieModel() {
         _isWin = MutableLiveData()
         _isError = MutableLiveData()
         _luckyNumber = 0
-        _rolledNumber = 0
+        _rolledNumber = MutableLiveData()
         _message = "Try your luck... roll the dice"
 
         timeLeft = "0:00"
@@ -67,9 +69,20 @@ class DashboardViewModel : BaseVieModel() {
     }
 
     fun onLuckyNumberRetrieved() {
-        _rolledNumber = (1..6).random()
-        _message = "You rolled a $_rolledNumber please try again"
-        _isWin.value = _luckyNumber == _rolledNumber
+        _rolledNumber.value  = (1..6).random()
+        _message = "You rolled a ${_rolledNumber.value}  please try again"
+        _isWin.value = _luckyNumber == _rolledNumber.value
+    }
+
+    fun setRolledNumberDi() {
+        var diceImageRes = when(_rolledNumber.value){
+            1 -> R.mipmap.ic_dice_1
+            2 -> R.mipmap.ic_dice_2
+            3 -> R.mipmap.ic_dice_3
+            4 -> R.mipmap.ic_dice_4
+            5 -> R.mipmap.ic_dice_5
+            else -> R.mipmap.ic_dice_6
+        }
     }
 
     fun onConnectionError() {
