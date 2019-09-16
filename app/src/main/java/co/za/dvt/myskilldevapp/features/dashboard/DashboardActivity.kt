@@ -1,4 +1,4 @@
-package co.za.dvt.myskilldevapp
+package co.za.dvt.myskilldevapp.features.dashboard
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,32 +9,33 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.databinding.ActivityMainBinding
 import co.za.dvt.myskilldevapp.extensions.blinkView
 import co.za.dvt.myskilldevapp.extensions.rotateView
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class DashboardActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var mainViewModel: MainViewModel
+    private lateinit var dashboardViewModel: DashboardViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        mainViewModel.isWin.observe(this, Observer { onGameStatusChanged(it) })
-        binding.mainViewModel = mainViewModel
+        dashboardViewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
+        dashboardViewModel.getLuckyNumber()
 
-        binding.luckyNumber = mainViewModel.luckyNumber
+        dashboardViewModel.isWin.observe(this, Observer { onGameStatusChanged(it) })
+        dashboardViewModel.isError.observe(this, Observer { onGetLuckyNumber(it) })
+        dashboardViewModel.isBusy.observe(this, Observer { toggleIsBusy(it) })
 
-        Log.i("MV", "Called ViewModel providers of")
+        binding.mainViewModel = dashboardViewModel // get direct value instead of trough viewModel
+        binding.luckyNumber = dashboardViewModel.luckyNumber
     }
 
     fun onRollButtonClicked(view: View) {
         view.blinkView(0.5f, 1.0f, 500, 2, Animation.REVERSE, 0)
         imgDice.rotateView(0f, 180f, 0.5f, 0.5f,300, 2, Animation.REVERSE, 0, ::onRotateDone, ::onRotateStart)
-
-        Log.i("MV", "onRollButtonClicked")
     }
 
     private fun onRotateDone() {
@@ -45,16 +46,15 @@ class MainActivity : AppCompatActivity() {
         btnDice.isEnabled = false
 
         binding.invalidateAll()
-        mainViewModel.getLuckyNumber()
-        binding.luckyNumber = mainViewModel.luckyNumber
+        binding.luckyNumber = dashboardViewModel.luckyNumber
 
         Log.i("MV", "onRotateStart...")
     }
 
     private fun onRollComplete() {
         binding.invalidateAll()
-        mainViewModel.onLuckyNumberRetrieved()
-        showRolledNumber(mainViewModel.rolledNumber)
+        dashboardViewModel.onLuckyNumberRetrieved()
+        showRolledNumber(dashboardViewModel.rolledNumber)
         btnDice.isEnabled = true
 
         Log.i("MV", "onRollComplete...")
@@ -62,24 +62,35 @@ class MainActivity : AppCompatActivity() {
 
     private fun onGameStatusChanged(isWin: Boolean) {
         if(isWin){
-            mainViewModel.resetGame()
+            dashboardViewModel.resetGame()
             Toast.makeText(this, "You won :)", Toast.LENGTH_SHORT).show()
         }
     }
 
+    private fun onGetLuckyNumber(isError: Boolean) {
+        Toast.makeText(this, "Error getting lucky number :(", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun toggleIsBusy(isBusy: Boolean) {
+       if(isBusy){
+           // Show loader
+       }
+        else{
+           // hide loader
+       }
+    }
+
     private fun showRolledNumber(rolledNumber:Int) {
-        var diceImageRes = 1
-        when(rolledNumber){
-            1 -> diceImageRes = R.mipmap.ic_dice_1
-            2 ->  diceImageRes = R.mipmap.ic_dice_2
-            3 ->  diceImageRes = R.mipmap.ic_dice_3
-            4 ->  diceImageRes = R.mipmap.ic_dice_4
-            5 ->  diceImageRes = R.mipmap.ic_dice_5
-            else ->  diceImageRes = R.mipmap.ic_dice_6
+        var diceImageRes = when(rolledNumber){
+            1 -> R.mipmap.ic_dice_1
+            2 -> R.mipmap.ic_dice_2
+            3 -> R.mipmap.ic_dice_3
+            4 -> R.mipmap.ic_dice_4
+            5 -> R.mipmap.ic_dice_5
+            else -> R.mipmap.ic_dice_6
         }
 
         imgDice.setImageResource(diceImageRes)
     }
-
 
 }
