@@ -3,6 +3,7 @@ package co.za.dvt.myskilldevapp.features.dashboard
 import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.constants.ATMT
 import co.za.dvt.myskilldevapp.features.repositories.BaseRepositories
+import co.za.dvt.myskilldevapp.models.Car
 import co.za.dvt.myskilldevapp.models.Roll
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,7 +21,7 @@ class DashboardRepository : BaseRepositories() {
         atmpt = 0
     }
 
-    fun getLuckyNumber() {
+    fun fetchLuckyNumberFromRepo() {
         ++atmpt
 
         val payload = HashMap<String, String>()
@@ -31,7 +32,8 @@ class DashboardRepository : BaseRepositories() {
             override fun onResponse(call: Call<Roll>, response: Response<Roll>) {
 
                 if (response.isSuccessful) {
-                  //  onLuckyNumberRetrieved()
+                    dashboardModel.value?.roll = response.body()
+                    atmpt = 0
                 } else {
 
                 }
@@ -42,6 +44,27 @@ class DashboardRepository : BaseRepositories() {
             override fun onFailure(call: Call<Roll>, t: Throwable) {
                // isBusy.value = false
                // isError.value = true
+            }
+        })
+    }
+
+    fun fetchAvailableCarsFromRepo() {
+        val call1 = retrofitHelper.getAvailableCars()
+        call1.enqueue(object : Callback<List<Car>> {
+            override fun onResponse(call: Call<List<Car>>, response: Response<List<Car>>) {
+
+                if (response.isSuccessful) {
+                    dashboardModel.value?.availableCars = response.body()
+                } else {
+
+                }
+
+                // isBusy.value = false
+            }
+
+            override fun onFailure(call: Call<List<Car>>, t: Throwable) {
+                // isBusy.value = false
+                // isError.value = true
             }
         })
     }
