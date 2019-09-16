@@ -5,5 +5,5 @@ import co.za.dvt.myskilldevapp.models.Roll
 
 class DashboardModel {
     var roll: Roll? = null
-    var cars: List<Car>? = null
+    var availableCars: List<Car>? = null
 }
