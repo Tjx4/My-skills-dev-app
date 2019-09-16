@@ -13,5 +13,5 @@ interface RetrofitHelper {
     fun getLuckyNumner(@QueryMap params: Map<String, String>): Call<Roll>
 
     @GET(GET_AVAILABLE_CARS)
-    fun getAvailableCars(@QueryMap params: Map<String, String>): Call<List<Car>>
+    fun getAvailableCars(): Call<List<Car>>
 }
