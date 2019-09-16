@@ -1,6 +1,7 @@
 package co.za.dvt.myskilldevapp.features.dashboard
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
 
@@ -9,32 +10,45 @@ class DashboardViewModel : BaseVieModel() {
     var message: String
     var luckyNumber: Int
     var rolledNumber: Int
-    val isBusy: MutableLiveData<Boolean>
-    val isWin: MutableLiveData<Boolean>
-    val isError: MutableLiveData<Boolean>
+
+    private val _isBusy: MutableLiveData<Boolean>
+    val isBusy: LiveData<Boolean>
+    get() = _isBusy
+
+    private val _isError: MutableLiveData<Boolean>
+    val isError: LiveData<Boolean>
+    get() = _isError
+
+    private val _isWin: MutableLiveData<Boolean>
+    val isWin: LiveData<Boolean>
+    get() = _isWin
 
     init {
         dashboardRepository = DashboardRepository()
-        isBusy = MutableLiveData()
-        isWin = MutableLiveData()
-        isError = MutableLiveData()
+        _isBusy = MutableLiveData()
+        _isWin = MutableLiveData()
+        _isError = MutableLiveData()
         luckyNumber = 0
         rolledNumber = 0
         message = "Try your luck... roll the dice"
 
-        Log.i("MV", "ViewModel init...")
+        //dashboardRepository.dashboardModel.observe(this, Observer { })
     }
 
     fun getLuckyNumber(){
-        isBusy.value = true
+        _isBusy.value = true
         message = "Rolling..."
-        dashboardRepository.getLuckyNumber()
+        dashboardRepository.fetchLuckyNumberFromRepo()
     }
 
     fun onLuckyNumberRetrieved() {
         rolledNumber = (1..6).random()
         message = "You rolled a $rolledNumber please try again"
-        isWin.value = luckyNumber == rolledNumber
+        _isWin.value = luckyNumber == rolledNumber
+    }
+
+    fun onConnectionError() {
+        _isError.value = true
     }
 
     override fun onCleared() {
@@ -44,6 +58,8 @@ class DashboardViewModel : BaseVieModel() {
 
     fun resetGame(){
         message = "$luckyNumber is your lucky number you've won this round... please roll again to win more"
-       // luckyNumber = dashboardRepository.getLuckyNumber()?.luckyNumber
+        // isBusy.value = false
+        // isWin.value = false
+        // isError.value = false
     }
 }
