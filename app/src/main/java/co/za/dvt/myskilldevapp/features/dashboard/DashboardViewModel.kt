@@ -1,5 +1,6 @@
 package co.za.dvt.myskilldevapp.features.dashboard
 
+import android.os.CountDownTimer
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,9 +8,11 @@ import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
 
 class DashboardViewModel : BaseVieModel() {
     var dashboardRepository: DashboardRepository
-    var message: String
-    var luckyNumber: Int
-    var rolledNumber: Int
+
+    private var message: String
+    private var luckyNumber: Int
+    private var rolledNumber: Int
+    private var countDownTimer: CountDownTimer
 
     private val _isBusy: MutableLiveData<Boolean>
     val isBusy: LiveData<Boolean>
@@ -25,12 +28,24 @@ class DashboardViewModel : BaseVieModel() {
 
     init {
         dashboardRepository = DashboardRepository()
+
         _isBusy = MutableLiveData()
         _isWin = MutableLiveData()
         _isError = MutableLiveData()
         luckyNumber = 0
         rolledNumber = 0
         message = "Try your luck... roll the dice"
+
+        countDownTimer = object : CountDownTimer(30000, 1000) {
+
+            override fun onTick(millisUntilFinished: Long) {
+
+            }
+
+            override fun onFinish() {
+
+            }
+        }.start()
 
         //dashboardRepository.dashboardModel.observe(this, Observer { })
     }
