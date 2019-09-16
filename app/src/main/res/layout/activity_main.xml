@@ -4,8 +4,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-                name="dashboardViewModel"
-                type="co.za.dvt.myskilldevapp.features.dashboard.DashboardViewModel"/>
+                name="currentMessage"
+                type="String"/>
         <variable
                 name="luckyNumber"
                 type="Integer"/>
@@ -46,14 +46,16 @@
                 style="@style/MediumTextView"
                 tools:text="Try your luck... roll the dice and you might win"
                 android:gravity="start"
-                android:text="@={dashboardViewModel.message}"
+                android:text="@={currentMessage}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvLuckyNumber"
                 app:layout_constraintVertical_bias="0.137"
-                app:layout_constraintHorizontal_bias="0.716" android:layout_width="wrap_content"
-                android:layout_marginLeft="16dp" android:layout_marginRight="16dp"/>
+                app:layout_constraintHorizontal_bias="0.716"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"/>
 
         <ImageView
                 android:id="@+id/imgDice"
