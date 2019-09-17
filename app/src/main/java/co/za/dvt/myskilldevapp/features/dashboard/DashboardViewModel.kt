@@ -4,18 +4,20 @@ import android.os.CountDownTimer
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
 
 class DashboardViewModel : BaseVieModel() {
-    private val dashboardRepository: DashboardRepository
+    private var dashboardRepository: DashboardRepository
+    private var dashboardModel: MutableLiveData<DashboardModel>? = null
 
     private var _message: String
     var message: String? = null
     get() = _message
 
-    private var _luckyNumber: Int
-    var luckyNumber: Int = 0
+    private val _luckyNumber:  MutableLiveData<Int>
+    val luckyNumber:  MutableLiveData<Int>
     get() = _luckyNumber
 
     private val _rolledNumber: MutableLiveData<Int>
@@ -39,11 +41,10 @@ class DashboardViewModel : BaseVieModel() {
 
     init {
         dashboardRepository = DashboardRepository()
-
         _isBusy = MutableLiveData()
         _isWin = MutableLiveData()
         _isError = MutableLiveData()
-        _luckyNumber = 0
+        _luckyNumber = MutableLiveData()
         _rolledNumber = MutableLiveData()
         _message = "Try your luck... roll the dice"
 
@@ -59,22 +60,32 @@ class DashboardViewModel : BaseVieModel() {
             }
         }.start()
 
-        //dashboardRepository.dashboardModel.observe(this, Observer { })
+        getLuckyNumber()
+        //dashboardRepository.dashboardModel.observe(this, Observer {setLuckyNumber()})
     }
 
     fun getLuckyNumber(){
         _isBusy.value = true
+        dashboardModel = dashboardRepository?.fetchLuckyNumberFromRepo()
+    }
+
+    fun rollDice(){
         _message = "Rolling..."
-        dashboardRepository.fetchLuckyNumberFromRepo()
+    }
+
+    fun setLuckyNumber() {
+        _luckyNumber.value = dashboardModel?.value?.roll?.luckyNumber ?: 0
+        _isBusy.value = false
     }
 
     fun onLuckyNumberRetrieved() {
-        _rolledNumber.value  = (1..6).random()
         _message = "You rolled a ${_rolledNumber.value}  please try again"
-        _isWin.value = _luckyNumber == _rolledNumber.value
+        _isWin.value = _luckyNumber.value == _rolledNumber.value
     }
 
     fun setRolledNumberDi() {
+        _rolledNumber.value  = (1..6).random()
+
         var diceImageRes = when(_rolledNumber.value){
             1 -> R.mipmap.ic_dice_1
             2 -> R.mipmap.ic_dice_2

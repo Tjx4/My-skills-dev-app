@@ -18,10 +18,11 @@ class DashboardRepository : BaseRepositories() {
 
     init {
         dashboardModel = MutableLiveData()
+        dashboardModel.value = DashboardModel()
         atmpt = 0
     }
 
-    fun fetchLuckyNumberFromRepo() {
+    fun fetchLuckyNumberFromRepo(): MutableLiveData<DashboardModel>{
         ++atmpt
 
         val payload = HashMap<String, String>()
@@ -35,7 +36,7 @@ class DashboardRepository : BaseRepositories() {
                     dashboardModel.value?.roll = response.body()
                     atmpt = 0
                 } else {
-
+                    dashboardModel.value?.roll = null
                 }
 
                // isBusy.value = false
@@ -46,6 +47,8 @@ class DashboardRepository : BaseRepositories() {
                // isError.value = true
             }
         })
+
+        return dashboardModel
     }
 
     fun fetchAvailableCarsFromRepo() {

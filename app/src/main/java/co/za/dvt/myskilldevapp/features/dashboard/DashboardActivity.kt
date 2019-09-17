@@ -21,16 +21,17 @@ class DashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dashboardViewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
-        dashboardViewModel.getLuckyNumber()
 
         dashboardViewModel.isWin.observe(this, Observer { onGameStatusChanged(it) })
         dashboardViewModel.isError.observe(this, Observer { onGetLuckyNumber(it) })
         dashboardViewModel.isBusy.observe(this, Observer { toggleIsBusy(it) })
         dashboardViewModel.rolledNumber.observe(this, Observer { showRolledNumber(it) })
+        dashboardViewModel.luckyNumber.observe(this, Observer { showLuckyNumber(it) })
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.dashboardViewModel = dashboardViewModel
         binding.currentMessage = dashboardViewModel.message
-        binding.luckyNumber = dashboardViewModel.luckyNumber
+        binding.luckyNumber = dashboardViewModel.luckyNumber.value
     }
 
     fun onRollButtonClicked(view: View) {
@@ -44,20 +45,20 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun onRotateStart() {
         btnDice.isEnabled = false
-
-binding.invalidateAll()
-        binding.luckyNumber = dashboardViewModel.luckyNumber
+        dashboardViewModel.rollDice()
     }
 
     private fun onRollComplete() {
-binding.invalidateAll()
-        dashboardViewModel.onLuckyNumberRetrieved()
         dashboardViewModel.setRolledNumberDi()
         btnDice.isEnabled = true
     }
 
     private fun showRolledNumber(diceImageRes:Int) {
         imgDice.setImageResource(diceImageRes)
+    }
+
+    private fun showLuckyNumber(luckyNumber:Int) {
+        binding.luckyNumber = luckyNumber
     }
 
     private fun onGameStatusChanged(isWin: Boolean) {
