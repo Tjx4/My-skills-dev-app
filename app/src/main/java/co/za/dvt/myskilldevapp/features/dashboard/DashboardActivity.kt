@@ -34,11 +34,11 @@ class DashboardActivity : AppCompatActivity() {
 
     fun onRollButtonClicked(view: View) {
         view.blinkView(0.5f, 1.0f, 500, 2, Animation.REVERSE, 0)
-        imgDice.rotateView(0f, 180f, 0.5f, 0.5f,300, 2, Animation.REVERSE, 0, ::onInitialRotateDone, ::onRotateStart)
+        imgDice.rotateView(0f, 360f, 0.5f, 0.5f,600, 2, Animation.ABSOLUTE, 0, ::onInitialRotateDone, ::onRotateStart)
     }
 
     private fun onInitialRotateDone() {
-        imgDice.rotateView(0f, 180f, 0.5f, 0.5f,500, 2, Animation.REVERSE, 0, ::onRollComplete)
+        imgDice.rotateView(0f, 360f, 0.5f, 0.5f,900, 2, Animation.REVERSE, 0, ::onRollComplete)
     }
 
     private fun onRotateStart() {
