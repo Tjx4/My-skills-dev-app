@@ -62,7 +62,6 @@ class DashboardViewModel : BaseVieModel() {
         }.start()
 
         getLuckyNumber()
-        //dashboardRepository.dashboardModel.observe(this, Observer {setLuckyNumber()})
     }
 
     fun getLuckyNumber(){
@@ -108,7 +107,7 @@ class DashboardViewModel : BaseVieModel() {
     }
 
     fun showWin(){
-        _message.value  = "$_luckyNumber is your lucky number you've won this round... please roll again to win more"
+        _message.value  = "${_luckyNumber.value} is your lucky number you've won this round... please roll again to win more"
     }
 
     fun resetGame(){
