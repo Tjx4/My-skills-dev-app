@@ -26,12 +26,10 @@ class DashboardActivity : AppCompatActivity() {
         dashboardViewModel.isError.observe(this, Observer { onGetLuckyNumber(it) })
         dashboardViewModel.isBusy.observe(this, Observer { toggleIsBusy(it) })
         dashboardViewModel.rolledNumber.observe(this, Observer { showRolledNumber(it) })
-        dashboardViewModel.luckyNumber.observe(this, Observer { showLuckyNumber(it) })
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.dashboardViewModel = dashboardViewModel
-        binding.currentMessage = dashboardViewModel.message
-        binding.luckyNumber = dashboardViewModel.luckyNumber.value
+        binding.lifecycleOwner = this
     }
 
     fun onRollButtonClicked(view: View) {
@@ -49,23 +47,23 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun onRollComplete() {
-        dashboardViewModel.setRolledNumberDi()
+        dashboardViewModel.onRollCompleted()
         btnDice.isEnabled = true
     }
 
-    private fun showRolledNumber(diceImageRes:Int) {
-        imgDice.setImageResource(diceImageRes)
-    }
-
-    private fun showLuckyNumber(luckyNumber:Int) {
-        binding.luckyNumber = luckyNumber
+    private fun showRolledNumber(rolledNumber:Int) {
+        imgDice.setImageResource(dashboardViewModel.getRolledNumberDi(rolledNumber))
     }
 
     private fun onGameStatusChanged(isWin: Boolean) {
         if(isWin){
-            dashboardViewModel.resetGame()
+            dashboardViewModel.showWin()
             Toast.makeText(this, "You won :)", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun onRestartGameClicked(veiw: View) {
+        dashboardViewModel.resetGame()
     }
 
     private fun onGetLuckyNumber(isError: Boolean) {

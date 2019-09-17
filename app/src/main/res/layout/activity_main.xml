@@ -6,13 +6,6 @@
         <variable
                 name="dashboardViewModel"
                 type="co.za.dvt.myskilldevapp.features.dashboard.DashboardViewModel"/>
-
-        <variable
-                name="currentMessage"
-                type="String"/>
-        <variable
-                name="luckyNumber"
-                type="Integer"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -36,7 +29,7 @@
                 android:id="@+id/tvLuckyNumber"
                 style="@style/xlargeTextView"
                 tools:text="0"
-                android:text="@{String.valueOf(luckyNumber)}"
+                android:text="@{dashboardViewModel.luckyNumber}"
                 android:textColor="#0088cc"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -50,7 +43,7 @@
                 style="@style/MediumTextView"
                 tools:text="Try your luck... roll the dice and you might win"
                 android:gravity="start"
-                android:text="@={currentMessage}"
+                android:text="@{dashboardViewModel.message}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
