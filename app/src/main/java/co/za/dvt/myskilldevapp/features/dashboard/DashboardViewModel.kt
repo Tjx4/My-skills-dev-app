@@ -93,12 +93,12 @@ class DashboardViewModel : BaseVieModel() {
 
     fun getRolledNumberDi(rolledNumber: Int): Int {
         return when(rolledNumber){
-            1 -> R.mipmap.ic_dice_1
-            2 -> R.mipmap.ic_dice_2
-            3 -> R.mipmap.ic_dice_3
-            4 -> R.mipmap.ic_dice_4
-            5 -> R.mipmap.ic_dice_5
-            else -> R.mipmap.ic_dice_6
+            1 -> R.drawable.ic_di_1
+            2 -> R.drawable.ic_di_2
+            3 -> R.drawable.ic_di_3
+            4 -> R.drawable.ic_di_4
+            5 -> R.drawable.ic_di_5
+            else -> R.drawable.ic_di_6
         }
     }
 
