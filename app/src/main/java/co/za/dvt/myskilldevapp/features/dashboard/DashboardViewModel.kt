@@ -12,11 +12,11 @@ class DashboardViewModel : BaseVieModel() {
     private var dashboardModel: MutableLiveData<DashboardModel>? = null
 
     private val _message: MutableLiveData<String>
-    val message: MutableLiveData<String>
+    val message: LiveData<String>
     get() = _message
 
     private val _luckyNumber:  MutableLiveData<Int>
-    val luckyNumber:  MutableLiveData<Int>
+    val luckyNumber:  LiveData<Int>
     get() = _luckyNumber
 
     private val _rolledNumber: MutableLiveData<Int>
