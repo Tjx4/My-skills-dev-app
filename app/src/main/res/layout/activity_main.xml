@@ -24,12 +24,12 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.052"
                 app:layout_constraintHorizontal_bias="0.4"/>
-        <!-- @{dashboardViewModel.luckyNumber}" -->
+
         <TextView
                 android:id="@+id/tvLuckyNumber"
                 style="@style/xlargeTextView"
                 tools:text="0"
-                android:text="0"
+                android:text="@{@string/numeric_formater(dashboardViewModel.currentLuckyNumber)}"
                 android:textColor="#0088cc"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -58,8 +58,8 @@
                 android:id="@+id/imgDice"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                tools:srcCompat="@mipmap/ic_dice_1"
-                android:src="@mipmap/ic_dice_1"
+                tools:srcCompat="@drawable/ic_di_1"
+                android:src="@drawable/ic_di_1"
                 android:layout_marginTop="28dp"
                 android:scaleType="fitCenter"
                 app:layout_constraintTop_toBottomOf="@+id/tvMessage"

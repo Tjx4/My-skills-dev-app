@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">My skill dev app</string>
+    <string name="numeric_formater">num = %d</string>
 </resources>

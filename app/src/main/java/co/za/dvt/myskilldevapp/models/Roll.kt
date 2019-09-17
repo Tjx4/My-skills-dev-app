@@ -5,6 +5,6 @@ import com.google.gson.annotations.SerializedName
 class Roll {
     @SerializedName("attempt")
     var attempt:Int = 0
-    @SerializedName("luckyNumber")
+    @SerializedName("currentLuckyNumber")
     var luckyNumber:Int = 0
 }

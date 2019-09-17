@@ -15,8 +15,8 @@ class DashboardViewModel : BaseVieModel() {
     val message: LiveData<String>
     get() = _message
 
-    private val _luckyNumber:  MutableLiveData<Int>
-    val luckyNumber:  LiveData<Int>
+    private val _luckyNumber: MutableLiveData<Int>
+    val currentLuckyNumber: LiveData<Int>
     get() = _luckyNumber
 
     private val _rolledNumber: MutableLiveData<Int>
