@@ -109,13 +109,13 @@ class DashboardActivity : BaseActivity() {
 
     private fun onGetLuckyNumber(isError: Boolean) {
         if(isError){
-            showCancellableErrorAlert(this, "Error",  "Error getting lucky number :(", "Try again", {dashboardViewModel.fetchLuckyNumber()}, ::finish)
+            showCancellableErrorAlert(this, "Error",  "Error getting lucky number :(", "Try again", "Close app", {dashboardViewModel.fetchLuckyNumber()}, ::finish)
         }
     }
 
     private fun onGetCars(isError: Boolean) {
         if(isError){
-            showCancellableErrorAlert(this, "Error",  "Error getting cars :(", "Try again",{dashboardViewModel.fetchCars()}, ::finish)
+            showCancellableErrorAlert(this, "Error",  "Error getting cars :(", "Try again","Close app", {dashboardViewModel.fetchCars()}, ::finish)
         }
     }
 

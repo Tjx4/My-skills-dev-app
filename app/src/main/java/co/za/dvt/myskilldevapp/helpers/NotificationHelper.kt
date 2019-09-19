@@ -36,8 +36,8 @@ fun showSuccessAlert(context: Context, title: String, message: String, buttonTex
     showAlertMessage(ab, context)
 }
 
-fun showCancellableErrorAlert(context: Context, title: String, message: String, buttonText: String = "Ok", callbackFun: () -> Unit = {}, callbackCancelFun: () -> Unit = {}){
-    val ab = setupBasicMessage(title, message, buttonText, "", "Cancel", callbackFun, {}, callbackCancelFun, context)
+fun showCancellableErrorAlert(context: Context, title: String, message: String, buttonText: String = "Ok", negativeButtonText: String = "Cancel",callbackFun: () -> Unit = {}, callbackCancelFun: () -> Unit = {}){
+    val ab = setupBasicMessage(title, message, buttonText, "", negativeButtonText, callbackFun, {}, callbackCancelFun, context)
     ab.setIcon(R.drawable.error_icon)
     ab.setCancelable(false)
     showAlertMessage(ab, context)
