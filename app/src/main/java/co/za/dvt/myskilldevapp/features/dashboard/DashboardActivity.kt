@@ -11,10 +11,7 @@ import co.za.dvt.myskilldevapp.databinding.ActivityMainBinding
 import co.za.dvt.myskilldevapp.extensions.blinkView
 import co.za.dvt.myskilldevapp.extensions.rotateView
 import co.za.dvt.myskilldevapp.features.activities.BaseActivity
-import co.za.dvt.myskilldevapp.helpers.hideLoadingDialog
-import co.za.dvt.myskilldevapp.helpers.showErrorAlert
-import co.za.dvt.myskilldevapp.helpers.showLoadingDialog
-import co.za.dvt.myskilldevapp.helpers.showSuccessAlert
+import co.za.dvt.myskilldevapp.helpers.*
 import co.za.dvt.myskilldevapp.models.Car
 import co.za.dvt.myskilldevapp.models.LuckyNumberModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -83,25 +80,42 @@ class DashboardActivity : BaseActivity() {
 
     private fun onGameStatusChanged(isWin: Boolean) {
         if(isWin){
+            dashboardViewModel.incrimentWin()
             dashboardViewModel.resetMessage()
-            showSuccessAlert(this,"You win",  "${dashboardViewModel.currentLuckyNumber.value} is your lucky number you've won this round... please roll again to win more"
-                ,"Play again", ::onRestartGameClicked)
+
+            when(dashboardViewModel.winCount){
+                4 -> {
+                    showSuccessAlert(this,"You've won for the fourth time now you can Select a price",  "${dashboardViewModel.currentLuckyNumber.value} is your lucky number you've won this round... please roll again to win more"
+                        ,"View prices", ::onViewPricesClicked)
+                }
+                else -> {
+
+                    showSuccessAlert(this,"You win",  "${dashboardViewModel.currentLuckyNumber.value} is your lucky number you've won this round... please roll again to win more"
+                        ,"Play again", ::onRestartGameClicked)
+                }
+
+            }
         }
+    }
+
+    private fun onViewPricesClicked() {
+        dashboardViewModel.showPrices()
     }
 
     private fun onRestartGameClicked() {
         dashboardViewModel.resetGame()
     }
 
+
     private fun onGetLuckyNumber(isError: Boolean) {
         if(isError){
-            showErrorAlert(this, "Error",  "Error getting lucky number :(", "Try again") {dashboardViewModel.fetchLuckyNumber()}
+            showCancellableErrorAlert(this, "Error",  "Error getting lucky number :(", "Try again", {dashboardViewModel.fetchLuckyNumber()}, ::finish)
         }
     }
 
     private fun onGetCars(isError: Boolean) {
         if(isError){
-            showErrorAlert(this, "Error",  "Error getting cars :(", "Try again") {dashboardViewModel.fetchCars()}
+            showCancellableErrorAlert(this, "Error",  "Error getting cars :(", "Try again",{dashboardViewModel.fetchCars()}, ::finish)
         }
     }
 

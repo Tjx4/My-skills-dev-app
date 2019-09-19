@@ -11,6 +11,7 @@ import co.za.dvt.myskilldevapp.models.LuckyNumberModel
 
 class DashboardViewModel : BaseVieModel() {
     private var dashboardRepository: DashboardRepository = DashboardRepository()
+    var winCount: Int = 0
 
     private val _luckyNumberModel: MutableLiveData<LuckyNumberModel?>
     val luckyNumberModel: LiveData<LuckyNumberModel?>
@@ -51,15 +52,16 @@ class DashboardViewModel : BaseVieModel() {
     val isWin: LiveData<Boolean>
     get() = _isWin
 
+
     init {
         _luckyNumberModel = dashboardRepository.luckyNumberModel
         _availableCars = dashboardRepository.availableCars
         _isBusy = MutableLiveData()
-        _isWin = MutableLiveData()
         _isError = MutableLiveData()
         _isCarsError = MutableLiveData()
         _luckyNumber = MutableLiveData()
         _rolledNumber = MutableLiveData()
+        _isWin = MutableLiveData()
 
         _message = MutableLiveData()
         _message.value = "Try your luck... roll the dice"
@@ -145,6 +147,15 @@ class DashboardViewModel : BaseVieModel() {
         fetchLuckyNumber()
         _isWin.value = false
         _isError.value = false
+    }
+
+    fun showPrices(){
+        fetchCars()
+
+    }
+
+    fun incrimentWin() {
+        ++winCount
     }
 
 }
