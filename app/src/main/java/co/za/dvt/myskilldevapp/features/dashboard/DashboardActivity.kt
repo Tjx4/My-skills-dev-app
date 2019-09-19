@@ -12,6 +12,8 @@ import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.databinding.ActivityMainBinding
 import co.za.dvt.myskilldevapp.extensions.blinkView
 import co.za.dvt.myskilldevapp.extensions.rotateView
+import co.za.dvt.myskilldevapp.models.Car
+import co.za.dvt.myskilldevapp.models.LuckyNumberModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class DashboardActivity : AppCompatActivity() {
@@ -26,6 +28,8 @@ class DashboardActivity : AppCompatActivity() {
         dashboardViewModel.isError.observe(this, Observer { onGetLuckyNumber(it) })
         dashboardViewModel.isBusy.observe(this, Observer { toggleIsBusy(it) })
         dashboardViewModel.rolledNumber.observe(this, Observer { showRolledNumber(it) })
+        dashboardViewModel.luckyNumberModel.observe(this, Observer { onLuckyNumberModelChanged(it) })
+        dashboardViewModel.availableCars.observe(this, Observer { onAvailableCarsChanged(it) })
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.dashboardViewModel = dashboardViewModel
@@ -53,6 +57,21 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun showRolledNumber(rolledNumber:Int) {
         imgDice.setImageResource(dashboardViewModel.getRolledNumberDi(rolledNumber))
+    }
+
+    private fun onLuckyNumberModelChanged(luckyNumberModel:LuckyNumberModel) {
+        if(luckyNumberModel != null){
+            dashboardViewModel.setLuckyNumber()
+        }
+        else{
+            dashboardViewModel.onConnectionError()
+        }
+    }
+
+    private fun onAvailableCarsChanged(availableCars:List<Car>) {
+        if(availableCars == null){
+            dashboardViewModel.onConnectionError()
+        }
     }
 
     private fun onGameStatusChanged(isWin: Boolean) {

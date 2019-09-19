@@ -6,10 +6,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
+import co.za.dvt.myskilldevapp.models.Car
+import co.za.dvt.myskilldevapp.models.LuckyNumberModel
 
 class DashboardViewModel : BaseVieModel() {
-    private var dashboardRepository: DashboardRepository
-    private var dashboardModel: MutableLiveData<DashboardModel>? = null
+    private var dashboardRepository: DashboardRepository = DashboardRepository()
+
+    private val _luckyNumberModel: MutableLiveData<LuckyNumberModel>
+    val luckyNumberModel: LiveData<LuckyNumberModel>
+    get() = _luckyNumberModel
+
+    private val _availableCars: MutableLiveData<List<Car>>
+    val availableCars: LiveData<List<Car>>
+    get() = _availableCars
 
     private val _message: MutableLiveData<String>
     val message: LiveData<String>
@@ -39,7 +48,8 @@ class DashboardViewModel : BaseVieModel() {
     get() = _isWin
 
     init {
-        dashboardRepository = DashboardRepository()
+        _luckyNumberModel = dashboardRepository.luckyNumberModel
+        _availableCars = dashboardRepository.availableCars
         _isBusy = MutableLiveData()
         _isWin = MutableLiveData()
         _isError = MutableLiveData()
@@ -61,12 +71,7 @@ class DashboardViewModel : BaseVieModel() {
             }
         }.start()
 
-        getLuckyNumber()
-    }
-
-    fun getLuckyNumber(){
-        _isBusy.value = true
-        dashboardModel = dashboardRepository?.fetchLuckyNumberFromRepo()
+        fetchLuckyNumber()
     }
 
     fun rollDice(){
@@ -74,9 +79,14 @@ class DashboardViewModel : BaseVieModel() {
     }
 
     fun setLuckyNumber() {
-        _luckyNumber.value = dashboardModel?.value?.roll?.luckyNumber ?: 0
+        _luckyNumber.value = _luckyNumberModel?.value?.luckyNumber ?: 0
         _isBusy.value = false
         _isError.value = false
+    }
+
+    private fun fetchLuckyNumber() {
+        _isBusy.value = true
+        dashboardRepository.fetchLuckyNumber()
     }
 
     fun onConnectionError() {
@@ -86,7 +96,7 @@ class DashboardViewModel : BaseVieModel() {
 
     fun onRollCompleted() {
         _rolledNumber.value  = (1..6).random()
-        _message.value  = "You rolled a ${_rolledNumber.value}  please try again"
+        _message.value  = "You rolled a ${_rolledNumber.value} please try again"
         _isWin.value = _luckyNumber.value == _rolledNumber.value
     }
 
@@ -107,13 +117,13 @@ class DashboardViewModel : BaseVieModel() {
     }
 
     fun showWin(){
-        _message.value  = "${_luckyNumber.value} is your lucky number you've won this round... please roll again to win more"
+        _message.value  = "${_luckyNumber.value} is your lucky number you've won this round... please luckyNumberModel again to win more"
     }
 
     fun resetGame(){
-        getLuckyNumber()
-        _isBusy.value = true
+        fetchLuckyNumber()
         _isWin.value = false
         _isError.value = false
     }
+
 }

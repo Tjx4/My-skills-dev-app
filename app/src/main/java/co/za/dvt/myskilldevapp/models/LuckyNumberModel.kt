@@ -2,7 +2,7 @@ package co.za.dvt.myskilldevapp.models
 
 import com.google.gson.annotations.SerializedName
 
-class Roll {
+class LuckyNumberModel {
     @SerializedName("attempt")
     var attempt:Int = 0
     @SerializedName("luckyNumber")

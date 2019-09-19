@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.constants.ATMT
 import co.za.dvt.myskilldevapp.features.repositories.BaseRepositories
 import co.za.dvt.myskilldevapp.models.Car
-import co.za.dvt.myskilldevapp.models.Roll
+import co.za.dvt.myskilldevapp.models.LuckyNumberModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -12,65 +12,57 @@ import java.util.HashMap
 
 class DashboardRepository : BaseRepositories() {
 
-    //Todo: fix logic
-    val dashboardModel: MutableLiveData<DashboardModel>
+    val luckyNumberModel: MutableLiveData<LuckyNumberModel> = MutableLiveData()
+    val availableCars: MutableLiveData<List<Car>> = MutableLiveData()
+
     var atmpt: Int
 
     init {
-        dashboardModel = MutableLiveData()
-        dashboardModel.value = DashboardModel()
+        luckyNumberModel.value = LuckyNumberModel()
+        availableCars.value = ArrayList()
         atmpt = 0
     }
 
-    fun fetchLuckyNumberFromRepo(): MutableLiveData<DashboardModel>{
+    fun fetchLuckyNumber(){
         ++atmpt
 
         val payload = HashMap<String, String>()
         payload[ATMT] = atmpt.toString()
 
         val call1 = retrofitHelper.getLuckyNumner(payload)
-        call1.enqueue(object : Callback<Roll> {
-            override fun onResponse(call: Call<Roll>, response: Response<Roll>) {
+        call1.enqueue(object : Callback<LuckyNumberModel> {
+            override fun onResponse(call: Call<LuckyNumberModel>, response: Response<LuckyNumberModel>) {
 
                 if (response.isSuccessful) {
-                    dashboardModel.value?.roll = response.body()
+                    luckyNumberModel.value = response.body()
                     atmpt = 0
                 } else {
-                    dashboardModel.value?.roll = null
+                    luckyNumberModel.value = null
                 }
-
-               // isBusy.value = false
             }
 
-            override fun onFailure(call: Call<Roll>, t: Throwable) {
-               // isBusy.value = false
-               // isError.value = true
+            override fun onFailure(call: Call<LuckyNumberModel>, t: Throwable) {
+                luckyNumberModel.value = null
             }
         })
-
-        return dashboardModel
     }
 
-    fun fetchAvailableCarsFromRepo() {
+    fun fetchAvailableCars() {
         val call1 = retrofitHelper.getAvailableCars()
         call1.enqueue(object : Callback<List<Car>> {
             override fun onResponse(call: Call<List<Car>>, response: Response<List<Car>>) {
 
                 if (response.isSuccessful) {
-                    dashboardModel.value?.availableCars = response.body()
+                    availableCars.value = response.body()
                 } else {
-
+                    availableCars.value = null
                 }
-
-                // isBusy.value = false
             }
 
             override fun onFailure(call: Call<List<Car>>, t: Throwable) {
-                // isBusy.value = false
-                // isError.value = true
+                availableCars.value = null
             }
         })
     }
 
 }
-
