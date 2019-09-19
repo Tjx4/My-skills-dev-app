@@ -29,6 +29,7 @@ class DashboardActivity : BaseActivity() {
 
         dashboardViewModel.isWin.observe(this, Observer { onGameStatusChanged(it) })
         dashboardViewModel.isError.observe(this, Observer { onGetLuckyNumber(it) })
+        dashboardViewModel.isCarsError.observe(this, Observer { onGetCars(it) })
         dashboardViewModel.isBusy.observe(this, Observer { toggleIsBusy(it) })
         dashboardViewModel.rolledNumber.observe(this, Observer { showRolledNumber(it) })
         dashboardViewModel.luckyNumberModel.observe(this, Observer { onLuckyNumberModelChanged(it) })
@@ -62,18 +63,21 @@ class DashboardActivity : BaseActivity() {
         imgDice.setImageResource(dashboardViewModel.getRolledNumberDi(rolledNumber))
     }
 
-    private fun onLuckyNumberModelChanged(luckyNumberModel:LuckyNumberModel) {
-        if(luckyNumberModel != null){
-            dashboardViewModel.setLuckyNumber()
+    private fun onLuckyNumberModelChanged(luckyNumberModel:LuckyNumberModel?) {
+        if(luckyNumberModel == null){
+            dashboardViewModel.onLuckyNumnerError()
         }
         else{
-            dashboardViewModel.onConnectionError()
+            dashboardViewModel.setLuckyNumber()
         }
     }
 
-    private fun onAvailableCarsChanged(availableCars:List<Car>) {
+    private fun onAvailableCarsChanged(availableCars:List<Car>?) {
         if(availableCars == null){
-            dashboardViewModel.onConnectionError()
+            dashboardViewModel.onAvailableCarsError()
+        }
+        else{
+            dashboardViewModel.setAvailableCars()
         }
     }
 
@@ -91,7 +95,13 @@ class DashboardActivity : BaseActivity() {
 
     private fun onGetLuckyNumber(isError: Boolean) {
         if(isError){
-            showErrorAlert(this, "Error",  "Error getting lucky number :(", "Try again")
+            showErrorAlert(this, "Error",  "Error getting lucky number :(", "Try again") {dashboardViewModel.fetchLuckyNumber()}
+        }
+    }
+
+    private fun onGetCars(isError: Boolean) {
+        if(isError){
+            showErrorAlert(this, "Error",  "Error getting cars :(", "Try again") {dashboardViewModel.fetchCars()}
         }
     }
 

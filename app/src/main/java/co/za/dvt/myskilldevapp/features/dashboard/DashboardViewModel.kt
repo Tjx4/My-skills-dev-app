@@ -12,12 +12,12 @@ import co.za.dvt.myskilldevapp.models.LuckyNumberModel
 class DashboardViewModel : BaseVieModel() {
     private var dashboardRepository: DashboardRepository = DashboardRepository()
 
-    private val _luckyNumberModel: MutableLiveData<LuckyNumberModel>
-    val luckyNumberModel: LiveData<LuckyNumberModel>
+    private val _luckyNumberModel: MutableLiveData<LuckyNumberModel?>
+    val luckyNumberModel: LiveData<LuckyNumberModel?>
     get() = _luckyNumberModel
 
-    private val _availableCars: MutableLiveData<List<Car>>
-    val availableCars: LiveData<List<Car>>
+    private val _availableCars: MutableLiveData<List<Car>?>
+    val availableCars: LiveData<List<Car>?>
     get() = _availableCars
 
     private val _message: MutableLiveData<String>
@@ -43,6 +43,10 @@ class DashboardViewModel : BaseVieModel() {
     val isError: LiveData<Boolean>
     get() = _isError
 
+    private val _isCarsError: MutableLiveData<Boolean>
+    val isCarsError: LiveData<Boolean>
+    get() = _isCarsError
+
     private val _isWin: MutableLiveData<Boolean>
     val isWin: LiveData<Boolean>
     get() = _isWin
@@ -53,6 +57,7 @@ class DashboardViewModel : BaseVieModel() {
         _isBusy = MutableLiveData()
         _isWin = MutableLiveData()
         _isError = MutableLiveData()
+        _isCarsError = MutableLiveData()
         _luckyNumber = MutableLiveData()
         _rolledNumber = MutableLiveData()
 
@@ -78,20 +83,36 @@ class DashboardViewModel : BaseVieModel() {
         _message.value = "Rolling..."
     }
 
+    fun fetchLuckyNumber() {
+        _isBusy.value = true
+        dashboardRepository.fetchLuckyNumber()
+    }
+
+    fun fetchCars() {
+        _isBusy.value = true
+        dashboardRepository.fetchAvailableCars()
+    }
+
     fun setLuckyNumber() {
         _luckyNumber.value = _luckyNumberModel?.value?.luckyNumber ?: 0
         _isBusy.value = false
         _isError.value = false
     }
 
-    private fun fetchLuckyNumber() {
-        _isBusy.value = true
-        dashboardRepository.fetchLuckyNumber()
+    fun setAvailableCars() {
+        _availableCars.value = _availableCars?.value
+        _isBusy.value = false
+        _isCarsError.value = false
     }
 
-    fun onConnectionError() {
+    fun onLuckyNumnerError() {
         _isBusy.value = false
         _isError.value = true
+    }
+
+    fun onAvailableCarsError() {
+        _isBusy.value = false
+        _isCarsError.value = true
     }
 
     fun resetMessage() {

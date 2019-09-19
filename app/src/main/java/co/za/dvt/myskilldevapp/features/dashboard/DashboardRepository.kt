@@ -12,15 +12,13 @@ import java.util.HashMap
 
 class DashboardRepository : BaseRepositories() {
 
-    val luckyNumberModel: MutableLiveData<LuckyNumberModel> = MutableLiveData()
-    val availableCars: MutableLiveData<List<Car>> = MutableLiveData()
+    val luckyNumberModel: MutableLiveData<LuckyNumberModel?> = MutableLiveData()
+    val availableCars: MutableLiveData<List<Car>?> = MutableLiveData()
 
-    var atmpt: Int
+    var atmpt: Int = 0
 
     init {
         luckyNumberModel.value = LuckyNumberModel()
-        availableCars.value = ArrayList()
-        atmpt = 0
     }
 
     fun fetchLuckyNumber(){
@@ -54,7 +52,8 @@ class DashboardRepository : BaseRepositories() {
 
                 if (response.isSuccessful) {
                     availableCars.value = response.body()
-                } else {
+                }
+                else{
                     availableCars.value = null
                 }
             }
