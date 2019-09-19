@@ -5,8 +5,15 @@ import android.content.Context
 import android.content.DialogInterface
 import android.view.Window
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import co.za.dvt.myskilldevapp.R
+import co.za.dvt.myskilldevapp.features.fragments.LoadingSpinnerFragment
 
+
+fun showLoadingDialog(loadingMessage: String, activity: AppCompatActivity) {
+    var loadingSpinnerFragment = LoadingSpinnerFragment.newInstance("")
+    showFragmentDialog(loadingMessage, R.layout.fragment_loading_spinner, loadingSpinnerFragment, activity)
+}
 
 fun showShortToast(message: String, context: Context){
     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
