@@ -1,10 +1,8 @@
 package co.za.dvt.myskilldevapp.features.dashboard
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -12,13 +10,16 @@ import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.databinding.ActivityMainBinding
 import co.za.dvt.myskilldevapp.extensions.blinkView
 import co.za.dvt.myskilldevapp.extensions.rotateView
+import co.za.dvt.myskilldevapp.features.activities.BaseActivity
+import co.za.dvt.myskilldevapp.helpers.hideLoadingDialog
 import co.za.dvt.myskilldevapp.helpers.showErrorAlert
+import co.za.dvt.myskilldevapp.helpers.showLoadingDialog
 import co.za.dvt.myskilldevapp.helpers.showSuccessAlert
 import co.za.dvt.myskilldevapp.models.Car
 import co.za.dvt.myskilldevapp.models.LuckyNumberModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-class DashboardActivity : AppCompatActivity() {
+class DashboardActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var dashboardViewModel: DashboardViewModel
 
@@ -95,10 +96,10 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun toggleIsBusy(isBusy: Boolean) {
        if(isBusy){
-           // Show loader
+           showLoadingDialog("Starting game please wait...", this)
        }
         else{
-           // hide loader
+           hideLoadingDialog(this)
        }
     }
 
