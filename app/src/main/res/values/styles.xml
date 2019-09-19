@@ -32,5 +32,11 @@
         <item name="android:textColor">@color/lightText</item>
         <item name="android:background">@drawable/round_button_background</item>
     </style>
+    <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
+    </style>
+    <style name="DialogTheme">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style>
 
 </resources>
