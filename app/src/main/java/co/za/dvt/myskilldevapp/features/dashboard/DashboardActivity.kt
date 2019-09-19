@@ -12,6 +12,8 @@ import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.databinding.ActivityMainBinding
 import co.za.dvt.myskilldevapp.extensions.blinkView
 import co.za.dvt.myskilldevapp.extensions.rotateView
+import co.za.dvt.myskilldevapp.helpers.showErrorAlert
+import co.za.dvt.myskilldevapp.helpers.showSuccessAlert
 import co.za.dvt.myskilldevapp.models.Car
 import co.za.dvt.myskilldevapp.models.LuckyNumberModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -76,18 +78,19 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun onGameStatusChanged(isWin: Boolean) {
         if(isWin){
-            dashboardViewModel.showWin()
-            Toast.makeText(this, "You won :)", Toast.LENGTH_SHORT).show()
+            showSuccessAlert(this,"You win",  "${dashboardViewModel.currentLuckyNumber.value} is your lucky number you've won this round... please roll again to win more"
+                ,"Play again", ::onRestartGameClicked)
         }
     }
 
-    private fun onRestartGameClicked(veiw: View) {
+    private fun onRestartGameClicked() {
         dashboardViewModel.resetGame()
     }
 
     private fun onGetLuckyNumber(isError: Boolean) {
-        if(isError)
-            Toast.makeText(this, "Error getting lucky number :(", Toast.LENGTH_SHORT).show()
+        if(isError){
+            showErrorAlert(this, "Error",  "Error getting lucky number :(", "Try again")
+        }
     }
 
     private fun toggleIsBusy(isBusy: Boolean) {
