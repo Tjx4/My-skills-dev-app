@@ -116,10 +116,6 @@ class DashboardViewModel : BaseVieModel() {
         Log.i("MV", "onCleared")
     }
 
-    fun showWin(){
-        _message.value  = "${_luckyNumber.value} is your lucky number you've won this round... please luckyNumberModel again to win more"
-    }
-
     fun resetGame(){
         fetchLuckyNumber()
         _isWin.value = false
