@@ -32,8 +32,7 @@ class DashboardRepository : BaseRepositories() {
             override fun onResponse(call: Call<LuckyNumberModel>, response: Response<LuckyNumberModel>) {
 
                 if (response.isSuccessful) {
-                    luckyNumberModel.value = null
-                    //luckyNumberModel.value = response.body()
+                    luckyNumberModel.value = response.body()
                     atmpt = 0
                 } else {
                     luckyNumberModel.value = null

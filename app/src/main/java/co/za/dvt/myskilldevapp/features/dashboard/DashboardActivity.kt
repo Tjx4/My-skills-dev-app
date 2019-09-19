@@ -85,7 +85,7 @@ class DashboardActivity : BaseActivity() {
 
             when(dashboardViewModel.winCount){
                 4 -> {
-                    showSuccessAlert(this,"You've won for the fourth time now you can Select a price",  "${dashboardViewModel.currentLuckyNumber.value} is your lucky number you've won this round... please roll again to win more"
+                    showSuccessAlert(this,"You've won for the fourth",  "You can now select from our list of a prices"
                         ,"View prices", ::onViewPricesClicked)
                 }
                 else -> {
