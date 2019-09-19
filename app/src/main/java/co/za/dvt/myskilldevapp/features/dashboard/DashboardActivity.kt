@@ -79,6 +79,7 @@ class DashboardActivity : BaseActivity() {
 
     private fun onGameStatusChanged(isWin: Boolean) {
         if(isWin){
+            dashboardViewModel.resetMessage()
             showSuccessAlert(this,"You win",  "${dashboardViewModel.currentLuckyNumber.value} is your lucky number you've won this round... please roll again to win more"
                 ,"Play again", ::onRestartGameClicked)
         }

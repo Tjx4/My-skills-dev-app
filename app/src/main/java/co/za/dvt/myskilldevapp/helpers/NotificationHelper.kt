@@ -13,6 +13,7 @@ import co.za.dvt.myskilldevapp.features.fragments.LoadingSpinnerFragment
 fun showLoadingDialog(loadingMessage: String, activity: BaseActivity) {
     var loadingSpinnerFragment = LoadingSpinnerFragment.newInstance("")
     showFragmentDialog(loadingMessage, R.layout.fragment_loading_spinner, loadingSpinnerFragment, activity)
+    loadingSpinnerFragment.isCancelable = false
     activity.activeDialogFragment = loadingSpinnerFragment
 }
 
@@ -31,18 +32,21 @@ fun showLongToast(message: String, context: Context){
 fun showSuccessAlert(context: Context, title: String, message: String, buttonText: String = "Ok", callbackFun:  () -> Unit = {}){
     val ab = setupBasicMessage(title, message, buttonText, "", "", callbackFun, {}, {}, context)
     ab.setIcon(R.drawable.success_icon)
+    ab.setCancelable(false)
     showAlertMessage(ab, context)
 }
 
 fun showErrorAlert(context: Context, title: String, message: String, buttonText: String = "Ok", callbackFun: () -> Unit = {}){
     val ab = setupBasicMessage(title, message, buttonText, "", "", callbackFun, {}, {}, context)
     ab.setIcon(R.drawable.error_icon)
+    ab.setCancelable(false)
     showAlertMessage(ab, context)
 }
 
 fun showConfirmAlert(context: Context, title: String, message: String, yesButtonText: String, neutralButtonText: String, noButtonText: String, yesCallbackFun: () -> Unit, neutralCallback: () -> Unit = {}, noCallbackFun: () -> Unit){
     val ab = setupBasicMessage(title, message, yesButtonText, neutralButtonText, noButtonText, yesCallbackFun, neutralCallback, noCallbackFun, context)
     ab.setIcon(R.drawable.confirm_icon)
+    ab.setCancelable(false)
     showAlertMessage(ab, context)
 }
 
@@ -79,7 +83,7 @@ private fun showAlertMessage(ab: AlertDialog.Builder, context: Context) {
     a.requestWindowFeature(Window.FEATURE_NO_TITLE)
     a.show()
 
-    a.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(context.resources.getColor(R.color.lightText))
-    a.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(context.resources.getColor(R.color.lightText))
-    a.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(context.resources.getColor(R.color.lightText))
+    a.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(context.resources.getColor(R.color.darkText))
+    a.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(context.resources.getColor(R.color.darkText))
+    a.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(context.resources.getColor(R.color.darkText))
 }

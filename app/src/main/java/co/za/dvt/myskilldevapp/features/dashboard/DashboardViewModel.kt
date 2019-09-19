@@ -94,6 +94,10 @@ class DashboardViewModel : BaseVieModel() {
         _isError.value = true
     }
 
+    fun resetMessage() {
+        _message.value = "Try your luck... roll the dice"
+    }
+
     fun onRollCompleted() {
         _rolledNumber.value  = (1..6).random()
         _message.value  = "You rolled a ${_rolledNumber.value} please try again"
