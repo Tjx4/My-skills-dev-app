@@ -74,8 +74,15 @@ class DashboardActivity : BaseActivity() {
             dashboardViewModel.onAvailableCarsError()
         }
         else{
-            dashboardViewModel.setAvailableCars()
+            if(availableCars.isNotEmpty()){
+                showPrices(availableCars)
+            }
+
         }
+    }
+
+    private fun showPrices(availableCars:List<Car>) {
+
     }
 
     private fun onGameStatusChanged(isWin: Boolean) {
@@ -84,8 +91,8 @@ class DashboardActivity : BaseActivity() {
             dashboardViewModel.resetMessage()
 
             when(dashboardViewModel.winCount){
-                4 -> {
-                    showSuccessAlert(this,"You've won for the fourth",  "You can now select from our list of a prices"
+                2 -> {
+                    showSuccessAlert(this,"You've won for the fourth time",  "You can now select from our list of a prices"
                         ,"View prices", ::onViewPricesClicked)
                 }
                 else -> {

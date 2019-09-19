@@ -151,7 +151,6 @@ class DashboardViewModel : BaseVieModel() {
 
     fun showPrices(){
         fetchCars()
-
     }
 
     fun incrimentWin() {
