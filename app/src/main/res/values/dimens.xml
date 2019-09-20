@@ -3,6 +3,7 @@
     <dimen name="medium_padding">20dp</dimen>
     <dimen name="small_margin">10dp</dimen>
     <dimen name="medium_text">16sp</dimen>
+    <dimen name="medium_plus_text">23sp</dimen>
     <dimen name="large_text">35sp</dimen>
     <dimen name="xlarge_text">50sp</dimen>
 </resources>

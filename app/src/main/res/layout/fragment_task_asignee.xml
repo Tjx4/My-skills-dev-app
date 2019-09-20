@@ -13,8 +13,10 @@
 
         <TextView
                 android:id="@+id/tvHeading"
-                style="@style/largeTextView"
+                style="@style/MediumPlusTextView"
                 tools:text="Please select a price"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:text="Please select a price"/>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -28,6 +30,9 @@
                 style="@style/MySkillsButton"
                 android:layout_below="@+id/lstAsignees"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:text="Button" />
 
     </RelativeLayout>
