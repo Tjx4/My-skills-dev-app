@@ -14,7 +14,6 @@ class DashboardRepository : BaseRepositories() {
 
     val luckyNumberModel: MutableLiveData<LuckyNumberModel?> = MutableLiveData()
     val availableCars: MutableLiveData<List<Car>?> = MutableLiveData()
-
     var atmpt: Int = 0
 
     init {

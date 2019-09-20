@@ -18,7 +18,6 @@ import co.za.dvt.myskilldevapp.models.Car
 
 class CarsListFragment : BaseDialogFragment(), CarPricesAdapter.ItemClickListener {
     private var dashboardActivity: DashboardActivity? = null
-    private var redeemPriceButton: Button? = null
     private var carsRv: RecyclerView? = null
     private var cars: List<Car>? = null
 
@@ -28,8 +27,7 @@ class CarsListFragment : BaseDialogFragment(), CarPricesAdapter.ItemClickListene
         return parentView
     }
 
-    protected fun initViews(parentView: View) {
-
+    private fun initViews(parentView: View) {
         cars = dashboardActivity?.dashboardViewModel?.availableCars?.value
         val workersViewAdapter = CarPricesAdapter(dashboardActivity as Context, cars!!)
         workersViewAdapter.setClickListener(this)
