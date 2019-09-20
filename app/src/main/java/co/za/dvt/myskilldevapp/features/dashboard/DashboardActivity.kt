@@ -85,8 +85,6 @@ class DashboardActivity : BaseActivity() {
     private fun showPrices(availableCars:List<Car>) {
         var carPricesFragment = CarPricesFragment.newInstance("")
         showFragmentDialog("", R.layout.fragment_task_asignee, carPricesFragment, this)
-        carPricesFragment.isCancelable = false
-        activeDialogFragment = carPricesFragment
     }
 
     private fun onGameStatusChanged(isWin: Boolean) {

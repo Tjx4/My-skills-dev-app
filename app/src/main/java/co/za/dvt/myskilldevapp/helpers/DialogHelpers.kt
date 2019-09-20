@@ -21,4 +21,5 @@ fun showFragmentDialog(title: String, Layout: Int, newFragmentBaseBase: BaseDial
     val ft = activity.supportFragmentManager.beginTransaction()
     var newFragment = getFragmentDialog(title, Layout, newFragmentBaseBase, activity)
     newFragment.show(ft, "dialog")
+    activity.activeDialogFragment = newFragmentBaseBase
 }
