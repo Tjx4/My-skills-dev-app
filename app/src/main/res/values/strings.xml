@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">My skill dev app</string>
     <string name="numeric_formater">%d</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

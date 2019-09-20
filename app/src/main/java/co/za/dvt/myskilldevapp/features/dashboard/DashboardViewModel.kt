@@ -97,7 +97,7 @@ class DashboardViewModel : BaseVieModel() {
 
     fun setLuckyNumber() {
         _luckyNumber.value = _luckyNumberModel?.value?.luckyNumber ?: 0
-        _isBusy.value = false
+        _isBusy.value = _luckyNumber?.value == 0
         _isError.value = false
     }
 
@@ -108,8 +108,8 @@ class DashboardViewModel : BaseVieModel() {
     }
 
     fun onLuckyNumnerError() {
-        _isBusy.value = false
         _isError.value = true
+        _isBusy.value = false
     }
 
     fun onAvailableCarsError() {

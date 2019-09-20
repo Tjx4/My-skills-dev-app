@@ -11,6 +11,7 @@ import co.za.dvt.myskilldevapp.databinding.ActivityMainBinding
 import co.za.dvt.myskilldevapp.extensions.blinkView
 import co.za.dvt.myskilldevapp.extensions.rotateView
 import co.za.dvt.myskilldevapp.features.activities.BaseActivity
+import co.za.dvt.myskilldevapp.features.dashboard.fragments.CarPricesFragment
 import co.za.dvt.myskilldevapp.helpers.*
 import co.za.dvt.myskilldevapp.models.Car
 import co.za.dvt.myskilldevapp.models.LuckyNumberModel
@@ -18,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class DashboardActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var dashboardViewModel: DashboardViewModel
+    lateinit var dashboardViewModel: DashboardViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,7 +83,10 @@ class DashboardActivity : BaseActivity() {
     }
 
     private fun showPrices(availableCars:List<Car>) {
-
+        var carPricesFragment = CarPricesFragment.newInstance("")
+        showFragmentDialog("", R.layout.fragment_task_asignee, carPricesFragment, this)
+        carPricesFragment.isCancelable = false
+        activeDialogFragment = carPricesFragment
     }
 
     private fun onGameStatusChanged(isWin: Boolean) {
