@@ -7,18 +7,18 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import co.za.dvt.myskilldevapp.R
-import co.za.dvt.myskilldevapp.databinding.ActivityMainBinding
+import co.za.dvt.myskilldevapp.databinding.ActivityDashboardBinding
 import co.za.dvt.myskilldevapp.extensions.blinkView
 import co.za.dvt.myskilldevapp.extensions.rotateView
 import co.za.dvt.myskilldevapp.features.activities.BaseActivity
-import co.za.dvt.myskilldevapp.features.dashboard.fragments.CarPricesFragment
+import co.za.dvt.myskilldevapp.features.dashboard.fragments.CarsListFragment
 import co.za.dvt.myskilldevapp.helpers.*
 import co.za.dvt.myskilldevapp.models.Car
 import co.za.dvt.myskilldevapp.models.LuckyNumberModel
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_dashboard.*
 
 class DashboardActivity : BaseActivity() {
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityDashboardBinding
     lateinit var dashboardViewModel: DashboardViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +33,7 @@ class DashboardActivity : BaseActivity() {
         dashboardViewModel.luckyNumberModel.observe(this, Observer { onLuckyNumberModelChanged(it) })
         dashboardViewModel.availableCars.observe(this, Observer { onAvailableCarsChanged(it) })
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard)
         binding.dashboardViewModel = dashboardViewModel
         binding.lifecycleOwner = this
     }
@@ -83,8 +83,8 @@ class DashboardActivity : BaseActivity() {
     }
 
     private fun showPrices(availableCars:List<Car>) {
-        var carPricesFragment = CarPricesFragment.newInstance("")
-        showFragmentDialog("", R.layout.fragment_task_asignee, carPricesFragment, this)
+        var carPricesFragment = CarsListFragment.newInstance("")
+        showFragmentDialog("", R.layout.fragment_cars_list, carPricesFragment, this)
     }
 
     private fun onGameStatusChanged(isWin: Boolean) {

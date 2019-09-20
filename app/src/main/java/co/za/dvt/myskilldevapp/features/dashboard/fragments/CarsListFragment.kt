@@ -16,7 +16,7 @@ import co.za.dvt.myskilldevapp.features.dashboard.DashboardActivity
 import co.za.dvt.myskilldevapp.features.fragments.BaseDialogFragment
 import co.za.dvt.myskilldevapp.models.Car
 
-class CarPricesFragment : BaseDialogFragment(), CarPricesAdapter.ItemClickListener {
+class CarsListFragment : BaseDialogFragment(), CarPricesAdapter.ItemClickListener {
     private var dashboardActivity: DashboardActivity? = null
     private var redeemPriceButton: Button? = null
     private var carsRv: RecyclerView? = null
@@ -51,7 +51,7 @@ class CarPricesFragment : BaseDialogFragment(), CarPricesAdapter.ItemClickListen
 
     companion object {
         fun newInstance(catId: String): BaseDialogFragment {
-            val catFragment = CarPricesFragment()
+            val catFragment = CarsListFragment()
             val bundle = Bundle()
             bundle.putString(CATID, catId)
             catFragment.arguments = bundle
