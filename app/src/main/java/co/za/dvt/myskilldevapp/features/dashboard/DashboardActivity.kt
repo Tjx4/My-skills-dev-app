@@ -94,7 +94,7 @@ class DashboardActivity : BaseActivity() {
 
             when(dashboardViewModel.winCount){
                 2 -> {
-                    showSuccessAlert(this,"You've won the Jackport",  "You can now select from our list of a prices"
+                    showSuccessAlert(this,"Congratulations!!",  "You've won the Jackport, you can now select from our list of a prices"
                         ,"View prices", ::onViewPricesClicked)
                 }
                 else -> {
