@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardActivity
+import co.za.dvt.myskilldevapp.helpers.loadImageFromInternet
 import co.za.dvt.myskilldevapp.models.Car
 import com.makeramen.roundedimageview.RoundedImageView
 
@@ -36,19 +37,18 @@ class CarPricesAdapter(context: Context, private val cars: List<Car>) : Recycler
         val year = car.year
         val pic = car.pic
 
-
-        holder.fullNameTv.text = model
-
+        holder.carNameTv.text = "$brand $model"
+        loadImageFromInternet(dashboardActivity, pic?: "", holder.carImg, R.drawable.ic_car)
     }
 
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
-        internal var fullNameTv: TextView
-        internal var profPicImgv: RoundedImageView
+        internal var carNameTv: TextView
+        internal var carImg: RoundedImageView
 
         init {
-            fullNameTv = itemView.findViewById(R.id.txtEmployeeName)
-            profPicImgv = itemView.findViewById(R.id.imgProfpic)
+            carNameTv = itemView.findViewById(R.id.txtEmployeeName)
+            carImg = itemView.findViewById(R.id.imgProfpic)
             itemView.setOnClickListener(this)
         }
 
