@@ -20,20 +20,10 @@
                 android:text="Please select a price"/>
 
         <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/lstAsignees"
+                android:id="@+id/rvCars"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_below="@+id/tvHeading"/>
-
-        <Button
-                android:id="@+id/btnCreateTask"
-                style="@style/MySkillsButton"
-                android:layout_below="@+id/lstAsignees"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:text="Button" />
 
     </RelativeLayout>
 
