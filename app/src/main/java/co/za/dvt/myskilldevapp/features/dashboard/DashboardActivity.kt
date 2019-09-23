@@ -82,8 +82,8 @@ class DashboardActivity : BaseActivity() {
         }
     }
 
-    private fun showPrices(availableCars:List<Car>) {
-        var carPricesFragment = CarsListFragment.newInstance("")
+    private fun showPrices(availableCars: List<Car>) {
+        var carPricesFragment = CarsListFragment.newInstance()
         showFragmentDialog("", R.layout.fragment_cars_list, carPricesFragment, this)
     }
 

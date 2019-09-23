@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -48,12 +47,12 @@ class CarsListFragment : BaseDialogFragment(), CarPricesAdapter.ItemClickListene
     }
 
     companion object {
-        fun newInstance(catId: String): BaseDialogFragment {
-            val catFragment = CarsListFragment()
+        fun newInstance(catId: String = ""): BaseDialogFragment {
+            val carsListFragment = CarsListFragment()
             val bundle = Bundle()
             bundle.putString(CATID, catId)
-            catFragment.arguments = bundle
-            return catFragment
+            carsListFragment.arguments = bundle
+            return carsListFragment
         }
     }
 }
