@@ -18,10 +18,13 @@ fun getFragmentDialog(title: String, Layout: Int, newFragmentBaseBase: BaseDialo
 }
 
 fun showFragmentDialog(title: String, Layout: Int, newFragmentBaseBase: BaseDialogFragment, activity: BaseActivity) {
+    if(activity.activeDialogFragment != null){
+        hideLoadingDialog(activity)
+    }
+
+    activity.activeDialogFragment = newFragmentBaseBase
+
     val ft = activity.supportFragmentManager.beginTransaction()
     var newFragment = getFragmentDialog(title, Layout, newFragmentBaseBase, activity)
     newFragment.show(ft, "dialog")
-
-
-    activity.activeDialogFragment = newFragmentBaseBase
 }

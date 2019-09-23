@@ -11,6 +11,7 @@ import co.za.dvt.myskilldevapp.features.fragments.LoadingSpinnerFragment
 
 fun showLoadingDialog(loadingMessage: String, activity: BaseActivity) {
     var loadingSpinnerFragment = LoadingSpinnerFragment.newInstance("")
+
     showFragmentDialog(loadingMessage, R.layout.fragment_loading_spinner, loadingSpinnerFragment, activity)
     loadingSpinnerFragment.isCancelable = false
 
