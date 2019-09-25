@@ -46,11 +46,18 @@ class CarsListFragment : BaseDialogFragment(), CarPricesAdapter.ItemClickListene
         dashboardActivity = context as DashboardActivity
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+    }
+
     companion object {
-        fun newInstance(catId: String = ""): BaseDialogFragment {
+        fun newInstance(): BaseDialogFragment {
             val carsListFragment = CarsListFragment()
             val bundle = Bundle()
-            bundle.putString(CATID, catId)
             carsListFragment.arguments = bundle
             return carsListFragment
         }

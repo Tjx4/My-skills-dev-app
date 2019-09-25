@@ -23,6 +23,7 @@
                         android:layout_height="60dp"
                         app:riv_corner_radius="30dp"
                         android:layout_gravity="center"
+                        android:scaleType="centerCrop"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
