@@ -14,7 +14,7 @@ data class GameStats (
     @ColumnInfo(name = "tries")
     var tries:Int = 0,
     @ColumnInfo(name = "jackpot_price")
-    var jackpotPrice:String,
+    var jackpotPrice:String? = null,
     @ColumnInfo(name = "start_time")
     var startTime:Long = System.currentTimeMillis(),
     @ColumnInfo(name = "end_time")
