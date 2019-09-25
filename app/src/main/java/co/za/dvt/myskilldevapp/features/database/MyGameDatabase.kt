@@ -9,7 +9,7 @@ import co.za.dvt.myskilldevapp.features.dashboard.database.GameStatsDAO
 
 @Database(entities = [GameStats::class], version = 1, exportSchema = false)
 abstract class MyGameDatabase : RoomDatabase() {
-    abstract val gameStatsDAO:GameStatsDAO
+    abstract val gameStatsDAO: GameStatsDAO
 
     companion object{
         @Volatile
@@ -23,7 +23,7 @@ abstract class MyGameDatabase : RoomDatabase() {
                     instance = Room.databaseBuilder(context.applicationContext, MyGameDatabase::class.java, "game_stats_database")
                                     .fallbackToDestructiveMigration()
                                     .build()
-                     INSTANCE = instance
+                    INSTANCE = instance
                 }
 
                 return  instance

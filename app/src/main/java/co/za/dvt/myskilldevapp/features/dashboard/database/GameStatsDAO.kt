@@ -8,7 +8,6 @@ import androidx.room.Update
 
 @Dao
 interface GameStatsDAO {
-
     @Insert
     fun insert(gameStats: GameStats)
 

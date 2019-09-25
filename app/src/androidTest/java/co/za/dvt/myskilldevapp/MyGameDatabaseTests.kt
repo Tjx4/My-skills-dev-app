@@ -1,5 +1,6 @@
 package co.za.dvt.myskilldevapp
 
+import android.content.Context
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
@@ -22,7 +23,9 @@ class MyGameDatabaseTests{
     @Before
     fun createDB(){
         var context = InstrumentationRegistry.getInstrumentation().targetContext
-        myGameDatabase = Room.inMemoryDatabaseBuilder(context, MyGameDatabase::class.java).allowMainThreadQueries().build()
+        myGameDatabase = Room.inMemoryDatabaseBuilder(context, MyGameDatabase::class.java)
+                                .allowMainThreadQueries()
+                                .build()
 
         gameStatsDAO = myGameDatabase.gameStatsDAO
     }
@@ -44,4 +47,6 @@ class MyGameDatabaseTests{
 
         assertEquals(currentGameStats.gameId, gameStats.gameId)
     }
+
+
 }
