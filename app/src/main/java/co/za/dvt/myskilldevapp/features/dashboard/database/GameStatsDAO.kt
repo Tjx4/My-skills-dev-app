@@ -18,10 +18,13 @@ interface GameStatsDAO {
     fun get(key: Long):GameStats
 
     @Query("SELECT * FROM game_stats_table ORDER BY game_id DESC LIMIT 1")
-    fun getCurrentStats():GameStats
+    fun getCurrentStats(): GameStats
 
     @Query("SELECT * FROM game_stats_table ORDER BY game_id DESC")
-    fun getAllGameStats(): LiveData<List<GameStats>>
+    fun getAllGameStatsLiveData(): LiveData<List<GameStats>>
+
+    @Query("SELECT * FROM game_stats_table ORDER BY game_id DESC")
+    fun getAllGameStats():List<GameStats>
 
     @Query("DELETE  FROM game_stats_table")
     fun clear()

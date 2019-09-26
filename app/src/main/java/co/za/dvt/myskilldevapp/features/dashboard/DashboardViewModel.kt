@@ -167,6 +167,13 @@ class DashboardViewModel(private val database: GameStatsDAO, application: Applic
             }
     }
 
+    private suspend fun getAllStatsFromDB(): List<GameStats>?{
+            return withContext(Dispatchers.IO){
+                var stats = database.getAllGameStats()
+                stats
+            }
+    }
+
     fun rollDice(){
         _message.value = "Rolling..."
     }

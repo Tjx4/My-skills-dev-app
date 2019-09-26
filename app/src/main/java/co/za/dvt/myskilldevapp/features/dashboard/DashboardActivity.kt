@@ -25,6 +25,7 @@ class DashboardActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         var application = requireNotNull(this).application
         var dataSource = MyGameDatabase.getInstance(application).gameStatsDAO
         var viewModelFactory = DashboardViewModelFactory(dataSource, application)
