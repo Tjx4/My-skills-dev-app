@@ -145,7 +145,7 @@ class DashboardActivity : BaseActivity() {
     fun showGameWin(jackpotPrice: String){
         dashboardViewModel?.setJackpotPrice(jackpotPrice)
 
-        showSuccessAlert(this,"Game completed",  "You chose the $jackpotPrice, you will be contacted soon to collect your price"
+        showSuccessAlert(this,"Game completed",  "You chose the $jackpotPrice as your price, you will be contacted soon to collect your price"
             ,"Finish game", ::onFinishGameClicked)
     }
 
