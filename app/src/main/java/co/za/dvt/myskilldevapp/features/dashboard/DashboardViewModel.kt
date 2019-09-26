@@ -60,7 +60,6 @@ class DashboardViewModel(private val database: GameStatsDAO, application: Applic
     val isWin: LiveData<Boolean>
     get() = _isWin
 
-
     init {
         _luckyNumberModel = dashboardRepository.luckyNumberModel
         _availableCars = dashboardRepository.availableCars
@@ -142,7 +141,7 @@ class DashboardViewModel(private val database: GameStatsDAO, application: Applic
             return withContext(Dispatchers.IO){
                 var stats = database.get(gameStats.value?.gameId ?: 0)
 
-                if(stats.endTime != stats.startTime){
+                if(stats == null || stats.endTime != stats.startTime){
                     null
                 }
 
