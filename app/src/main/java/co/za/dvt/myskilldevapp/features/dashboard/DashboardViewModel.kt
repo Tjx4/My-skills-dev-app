@@ -1,6 +1,7 @@
 package co.za.dvt.myskilldevapp.features.dashboard
 
 import android.app.Application
+import android.os.AsyncTask
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -130,16 +131,10 @@ class DashboardViewModel(private val database: GameStatsDAO, application: Applic
         }
     }
 
-    fun setJackpotPrice(jackpotPrice: String){
+    fun setJackpotPrice(jackpotPrice: String) {
         gameStats.value?.jackpotPrice = jackpotPrice
         //Todo: Move to relevant place
         onStopTracking()
-
-        var allStats = database.getAllGameStats().value ?: ArrayList()
-
-        for (stat in allStats){
-            Log.i("STATS", "id:"+stat.gameId+", user:"+stat.player+"\n")
-        }
     }
 
     private suspend fun getCurrentStatsFromDB(): GameStats{
