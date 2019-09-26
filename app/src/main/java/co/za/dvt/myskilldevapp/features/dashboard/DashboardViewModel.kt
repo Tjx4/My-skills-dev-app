@@ -15,6 +15,7 @@ class DashboardViewModel(private val database: GameStatsDAO, application: Applic
 
     private var dashboardRepository: DashboardRepository = DashboardRepository()
     var winCount: Int = 0
+    var tries: Int = 0
 
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
@@ -124,8 +125,17 @@ class DashboardViewModel(private val database: GameStatsDAO, application: Applic
         uiScope.launch {
             var oldStats = gameStats.value ?: return@launch
             oldStats.endTime = System.currentTimeMillis()
+            oldStats.tries = tries
+            oldStats.jackpotPrice = ""
             update(oldStats)
         }
+    }
+
+    fun setJackpotPrice(jackpotPrice: String){
+        gameStats.value?.jackpotPrice = jackpotPrice
+
+        //Todo: Move to relevant place
+        onStopTracking()
     }
 
     private suspend fun getCurrentStatsFromDB(): GameStats{
@@ -181,9 +191,14 @@ class DashboardViewModel(private val database: GameStatsDAO, application: Applic
     }
 
     fun onRollCompleted() {
+        ++tries
         _rolledNumber.value  = (1..6).random()
         _message.value  = "You rolled a ${_rolledNumber.value} please try again"
         _isWin.value = _luckyNumber.value == _rolledNumber.value
+
+        if(gameStats.value == null){
+            onStartTracking()
+        }
     }
 
     fun getRolledNumberDi(rolledNumber: Int): Int {
@@ -214,6 +229,15 @@ class DashboardViewModel(private val database: GameStatsDAO, application: Applic
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
+        uiScope.launch {
+            clear()
+            gameStats.value = null
+        }
     }
 
+    private suspend fun clear() {
+        withContext(Dispatchers.IO){
+            database.clear()
+        }
+    }
 }

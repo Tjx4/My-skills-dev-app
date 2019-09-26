@@ -38,7 +38,9 @@ class CarsListFragment : BaseDialogFragment(), CarPricesAdapter.ItemClickListene
 
     override fun onItemClick(view: View, position: Int) {
         dismiss()
-        Toast.makeText(dashboardActivity, "You chose the ${cars?.get(position)?.brand} ${cars?.get(position)?.model}", Toast.LENGTH_SHORT).show()
+        var selectedPrice = cars?.get(position)?.brand + cars?.get(position)?.model
+        Toast.makeText(dashboardActivity, "You chose the $selectedPrice", Toast.LENGTH_SHORT).show()
+        dashboardActivity?.dashboardViewModel?.setJackpotPrice(selectedPrice)
     }
 
     override fun onAttach(context: Context?) {
