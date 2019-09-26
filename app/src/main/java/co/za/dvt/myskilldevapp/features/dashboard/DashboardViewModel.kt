@@ -100,13 +100,31 @@ class DashboardViewModel(private val database: GameStatsDAO, application: Applic
         }
     }
 
+    private fun someWorkNeedsToBeDone(){
+        uiScope.launch {
+            suspendFuntion()
+        }
+    }
+
+    private suspend fun suspendFuntion(){
+        withContext(Dispatchers.IO){
+            longRunningWork()
+        }
+    }
+
+    private suspend fun longRunningWork(){
+        withContext(Dispatchers.IO){
+
+        }
+    }
+
     private fun onStartTracking(){
         uiScope.launch {
             var currentStats = GameStats()
             currentStats.player = 1
             insert(currentStats)
 
-            gameStats.value = currentStats
+            gameStats.value = getCurrentStatsFromDB()
         }
     }
 
@@ -139,9 +157,9 @@ class DashboardViewModel(private val database: GameStatsDAO, application: Applic
 
     private suspend fun getCurrentStatsFromDB(): GameStats{
             return withContext(Dispatchers.IO){
-                var stats = database.get(gameStats.value?.gameId ?: 0)
+                var stats = database.getCurrentStats()
 
-                if(stats == null || stats.endTime != stats.startTime){
+                if(stats?.endTime != stats?.startTime){
                     null
                 }
 
@@ -190,14 +208,15 @@ class DashboardViewModel(private val database: GameStatsDAO, application: Applic
     }
 
     fun onRollCompleted() {
-        ++tries
         _rolledNumber.value  = (1..6).random()
         _message.value  = "You rolled a ${_rolledNumber.value} please try again"
         _isWin.value = _luckyNumber.value == _rolledNumber.value
 
-        if(gameStats.value == null){
+        if(tries < 1){
             onStartTracking()
         }
+
+        ++tries
     }
 
     fun getRolledNumberDi(rolledNumber: Int): Int {

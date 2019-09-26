@@ -17,6 +17,9 @@ interface GameStatsDAO {
     @Query("SELECT * FROM game_stats_table WHERE game_id = :key")
     fun get(key: Long):GameStats
 
+    @Query("SELECT * FROM game_stats_table ORDER BY game_id DESC LIMIT 1")
+    fun getCurrentStats():GameStats
+
     @Query("SELECT * FROM game_stats_table ORDER BY game_id DESC")
     fun getAllGameStats(): LiveData<List<GameStats>>
 
