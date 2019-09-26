@@ -1,17 +1,24 @@
 package co.za.dvt.myskilldevapp.features.dashboard
 
-import android.os.CountDownTimer
-import android.util.Log
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.R
+import co.za.dvt.myskilldevapp.features.dashboard.database.GameStats
+import co.za.dvt.myskilldevapp.features.dashboard.database.GameStatsDAO
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
 import co.za.dvt.myskilldevapp.models.Car
 import co.za.dvt.myskilldevapp.models.LuckyNumberModel
+import kotlinx.coroutines.*
 
-class DashboardViewModel : BaseVieModel() {
+class DashboardViewModel(private val database: GameStatsDAO, application: Application) : BaseVieModel(application) {
+
     private var dashboardRepository: DashboardRepository = DashboardRepository()
     var winCount: Int = 0
+
+    private var viewModelJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    private var gameStats: MutableLiveData<GameStats?>
 
     private val _luckyNumberModel: MutableLiveData<LuckyNumberModel?>
     val luckyNumberModel: LiveData<LuckyNumberModel?>
@@ -33,8 +40,8 @@ class DashboardViewModel : BaseVieModel() {
     val rolledNumber: LiveData<Int>
     get() = _rolledNumber
 
-    private var timeLeft: String
-    private var countDownTimer: CountDownTimer
+    //private var timeLeft: String
+    //private var countDownTimer: CountDownTimer
 
     private val _isBusy: MutableLiveData<Boolean>
     val isBusy: LiveData<Boolean>
@@ -62,10 +69,12 @@ class DashboardViewModel : BaseVieModel() {
         _luckyNumber = MutableLiveData()
         _rolledNumber = MutableLiveData()
         _isWin = MutableLiveData()
+        gameStats = MutableLiveData()
 
         _message = MutableLiveData()
         _message.value = "Try your luck... roll the dice"
 
+        /*Todo: include time later
         timeLeft = "0:00"
         countDownTimer = object : CountDownTimer(30000, 1000) {
 
@@ -77,8 +86,58 @@ class DashboardViewModel : BaseVieModel() {
 
             }
         }.start()
+        */
 
         fetchLuckyNumber()
+        initStats()
+    }
+
+    private fun initStats(){
+        uiScope.launch {
+            gameStats.value = getCurrentStatsFromDB()
+        }
+    }
+
+    private fun onStartTracking(){
+        uiScope.launch {
+            var currentStats = GameStats()
+            currentStats.player = 1
+            insert(currentStats)
+
+            gameStats.value = getCurrentStatsFromDB()
+        }
+    }
+
+    private suspend fun insert(currentStats: GameStats) {
+         withContext(Dispatchers.IO){
+           database.insert(currentStats)
+        }
+    }
+
+    private suspend fun update(oldStats: GameStats) {
+         withContext(Dispatchers.IO){
+             database.update(oldStats)
+        }
+    }
+
+    private fun onStopTracking(){
+        uiScope.launch {
+            var oldStats = gameStats.value ?: return@launch
+            oldStats.endTime = System.currentTimeMillis()
+            update(oldStats)
+        }
+    }
+
+    private suspend fun getCurrentStatsFromDB(): GameStats{
+            return withContext(Dispatchers.IO){
+                var stats = database.get(990)
+
+                if(stats.endTime != stats.startTime){
+                    null
+                }
+
+                stats
+            }
     }
 
     fun rollDice(){
@@ -138,11 +197,6 @@ class DashboardViewModel : BaseVieModel() {
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        Log.i("MV", "onCleared")
-    }
-
     fun resetGame(){
         fetchLuckyNumber()
         _isWin.value = false
@@ -155,6 +209,11 @@ class DashboardViewModel : BaseVieModel() {
 
     fun incrimentWin() {
         ++winCount
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
     }
 
 }

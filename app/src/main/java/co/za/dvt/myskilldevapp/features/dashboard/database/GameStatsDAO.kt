@@ -20,7 +20,6 @@ interface GameStatsDAO {
     @Query("SELECT * FROM game_stats_table ORDER BY game_id DESC")
     fun getAllGameStats(): LiveData<List<GameStats>>
 
-
     @Query("DELETE  FROM game_stats_table")
     fun clear()
 }
