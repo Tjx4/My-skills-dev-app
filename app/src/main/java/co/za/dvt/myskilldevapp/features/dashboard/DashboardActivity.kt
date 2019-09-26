@@ -3,6 +3,7 @@ package co.za.dvt.myskilldevapp.features.dashboard
 import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -141,8 +142,15 @@ class DashboardActivity : BaseActivity() {
        }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    fun showGameWin(jackpotPrice: String){
+        dashboardViewModel?.setJackpotPrice(jackpotPrice)
+
+        showSuccessAlert(this,"Game completed",  "You chose the $jackpotPrice, you will be contacted soon to collect your price"
+            ,"Finish game", ::onFinishGameClicked)
+    }
+
+    private fun onFinishGameClicked() {
+        finish()
     }
 
 }

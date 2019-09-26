@@ -1,6 +1,7 @@
 package co.za.dvt.myskilldevapp.features.dashboard
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.R
@@ -104,7 +105,7 @@ class DashboardViewModel(private val database: GameStatsDAO, application: Applic
             currentStats.player = 1
             insert(currentStats)
 
-            gameStats.value = getCurrentStatsFromDB()
+            gameStats.value = currentStats
         }
     }
 
@@ -125,16 +126,20 @@ class DashboardViewModel(private val database: GameStatsDAO, application: Applic
             var oldStats = gameStats.value ?: return@launch
             oldStats.endTime = System.currentTimeMillis()
             oldStats.tries = tries
-            oldStats.jackpotPrice = ""
             update(oldStats)
         }
     }
 
     fun setJackpotPrice(jackpotPrice: String){
         gameStats.value?.jackpotPrice = jackpotPrice
-
         //Todo: Move to relevant place
         onStopTracking()
+
+        var allStats = database.getAllGameStats().value ?: ArrayList()
+
+        for (stat in allStats){
+            Log.i("STATS", "id:"+stat.gameId+", user:"+stat.player+"\n")
+        }
     }
 
     private suspend fun getCurrentStatsFromDB(): GameStats{
