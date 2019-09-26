@@ -140,7 +140,7 @@ class DashboardViewModel(private val database: GameStatsDAO, application: Applic
 
     private suspend fun getCurrentStatsFromDB(): GameStats{
             return withContext(Dispatchers.IO){
-                var stats = database.get(990)
+                var stats = database.get(gameStats.value?.gameId ?: 0)
 
                 if(stats.endTime != stats.startTime){
                     null

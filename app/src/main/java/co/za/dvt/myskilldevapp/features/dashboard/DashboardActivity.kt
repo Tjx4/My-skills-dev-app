@@ -12,6 +12,7 @@ import co.za.dvt.myskilldevapp.extensions.blinkView
 import co.za.dvt.myskilldevapp.extensions.rotateView
 import co.za.dvt.myskilldevapp.features.activities.BaseActivity
 import co.za.dvt.myskilldevapp.features.dashboard.fragments.CarsListFragment
+import co.za.dvt.myskilldevapp.features.database.MyGameDatabase
 import co.za.dvt.myskilldevapp.helpers.*
 import co.za.dvt.myskilldevapp.models.Car
 import co.za.dvt.myskilldevapp.models.LuckyNumberModel
@@ -23,7 +24,10 @@ class DashboardActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        dashboardViewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
+        var application = requireNotNull(this).application
+        var dataSource = MyGameDatabase.getInstance(application).gameStatsDAO
+        var viewModelFactory = DashboardViewModelFactory(dataSource, application)
+        dashboardViewModel = ViewModelProviders.of(this, viewModelFactory).get(DashboardViewModel::class.java)
 
         dashboardViewModel.isWin.observe(this, Observer { onGameStatusChanged(it) })
         dashboardViewModel.isError.observe(this, Observer { onGetLuckyNumber(it) })
