@@ -5,17 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.za.dvt.myskilldevapp.R
-import co.za.dvt.myskilldevapp.adapters.CarPricesAdapter
-import co.za.dvt.myskilldevapp.constants.CATID
+import co.za.dvt.myskilldevapp.adapters.CarPrizesAdapter
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardActivity
 import co.za.dvt.myskilldevapp.features.fragments.BaseDialogFragment
 import co.za.dvt.myskilldevapp.models.Car
 
-class CarsListFragment : BaseDialogFragment(), CarPricesAdapter.ItemClickListener {
+class CarPrizesFragment : BaseDialogFragment(), CarPrizesAdapter.ItemClickListener {
     private var dashboardActivity: DashboardActivity? = null
     private var carsRv: RecyclerView? = null
     private var cars: List<Car>? = null
@@ -28,7 +26,7 @@ class CarsListFragment : BaseDialogFragment(), CarPricesAdapter.ItemClickListene
 
     private fun initViews(parentView: View) {
         cars = dashboardActivity?.dashboardViewModel?.availableCars?.value
-        val workersViewAdapter = CarPricesAdapter(dashboardActivity as Context, cars!!)
+        val workersViewAdapter = CarPrizesAdapter(dashboardActivity as Context, cars!!)
         workersViewAdapter.setClickListener(this)
 
         carsRv = parentView.findViewById(R.id.rvCars)
@@ -57,7 +55,7 @@ class CarsListFragment : BaseDialogFragment(), CarPricesAdapter.ItemClickListene
 
     companion object {
         fun newInstance(): BaseDialogFragment {
-            val carsListFragment = CarsListFragment()
+            val carsListFragment = CarPrizesFragment()
             val bundle = Bundle()
             carsListFragment.arguments = bundle
             return carsListFragment
