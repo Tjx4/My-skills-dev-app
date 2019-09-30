@@ -12,8 +12,7 @@ import co.za.dvt.myskilldevapp.helpers.loadImageFromInternet
 import co.za.dvt.myskilldevapp.models.Car
 import com.makeramen.roundedimageview.RoundedImageView
 
-
-class CarPricesAdapter(context: Context, private val cars: List<Car>) : RecyclerView.Adapter<CarPricesAdapter.ViewHolder>() {
+class CarPrizesAdapter(context: Context, private val cars: List<Car>) : RecyclerView.Adapter<CarPrizesAdapter.ViewHolder>() {
 
     private val dashboardActivity: DashboardActivity
     private val mInflater: LayoutInflater
@@ -54,7 +53,7 @@ class CarPricesAdapter(context: Context, private val cars: List<Car>) : Recycler
 
         override fun onClick(view: View) {
             if (mClickListener != null)
-                mClickListener!!.onItemClick(view, getAdapterPosition())
+                mClickListener!!.onItemClick(view, adapterPosition)
         }
     }
 
