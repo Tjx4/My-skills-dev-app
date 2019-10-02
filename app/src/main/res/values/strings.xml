@@ -3,4 +3,9 @@
     <string name="numeric_formater">%d</string>
     <string name="error">Error</string>
     <string name="game_completed">Game completed</string>
+    <string name="finish_game">Finish game</string>
+    <string name="view_prices">View prices</string>
+    <string name="play_again">Play again</string>
+    <string name="you_win">You win</string>
+    <string name="congratulations">Congratulations!!</string>
 </resources>

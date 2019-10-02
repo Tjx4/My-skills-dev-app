@@ -100,13 +100,13 @@ class DashboardActivity : BaseActivity() {
 
             when(dashboardViewModel.winCount){
                 2 -> {
-                    showSuccessAlert(this,"Congratulations!!",  "You've won the Jackport, you can now select from our list of a prices"
-                        ,"View prices", ::onViewPricesClicked)
+                    showSuccessAlert(this,getString(R.string.congratulations),  "You've won the Jackport, you can now select from our list of a prices"
+                        ,getString(R.string.view_prices), ::onViewPricesClicked)
                 }
                 else -> {
 
-                    showSuccessAlert(this,"You win",  "${dashboardViewModel.currentLuckyNumber.value} is your lucky number you've won this round... please roll again to win more"
-                        ,"Play again", ::onRestartGameClicked)
+                    showSuccessAlert(this,getString(R.string.you_win),  "${dashboardViewModel.currentLuckyNumber.value} is your lucky number you've won this round... please roll again to win more"
+                        ,getString(R.string.play_again), ::onRestartGameClicked)
                 }
 
             }
@@ -147,7 +147,7 @@ class DashboardActivity : BaseActivity() {
         dashboardViewModel?.setJackpotPrice(jackpotPrice)
 
         showSuccessAlert(this,getString(R.string.game_completed),  "You chose the $jackpotPrice as your price, you will be contacted soon to collect your price"
-            ,"Finish game", ::onFinishGameClicked)
+            ,getString(R.string.finish_game), ::onFinishGameClicked)
     }
 
     private fun onFinishGameClicked() {
