@@ -89,6 +89,7 @@ class DashboardActivity : BaseActivity() {
 
     private fun showPrices(availableCars: List<Car>) {
         var carPricesFragment = CarPrizesFragment.newInstance()
+        carPricesFragment.isCancelable = false
         showFragmentDialog("", R.layout.fragment_cars_list, carPricesFragment, this)
     }
 
