@@ -15,16 +15,16 @@ import com.makeramen.roundedimageview.RoundedImageView
 class CarPrizesAdapter(context: Context, private val cars: List<Car>) : RecyclerView.Adapter<CarPrizesAdapter.ViewHolder>() {
 
     private val dashboardActivity: DashboardActivity
-    private val mInflater: LayoutInflater
-    private var mClickListener: ItemClickListener? = null
+    private val layoutInflater: LayoutInflater
+    private var itemClickListener: ItemClickListener? = null
 
     init {
-        this.mInflater = LayoutInflater.from(context)
+        layoutInflater = LayoutInflater.from(context)
         dashboardActivity = context as DashboardActivity
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = mInflater.inflate(R.layout.price_layout, parent, false)
+        val view = layoutInflater.inflate(R.layout.price_layout, parent, false)
         return ViewHolder(view)
     }
 
@@ -52,8 +52,8 @@ class CarPrizesAdapter(context: Context, private val cars: List<Car>) : Recycler
         }
 
         override fun onClick(view: View) {
-            if (mClickListener != null)
-                mClickListener!!.onItemClick(view, adapterPosition)
+            if (itemClickListener != null)
+                itemClickListener!!.onItemClick(view, adapterPosition)
         }
     }
 
@@ -62,7 +62,7 @@ class CarPrizesAdapter(context: Context, private val cars: List<Car>) : Recycler
     }
 
     fun setClickListener(itemClickListener: ItemClickListener) {
-        this.mClickListener = itemClickListener
+        this.itemClickListener = itemClickListener
     }
 
     interface ItemClickListener {
