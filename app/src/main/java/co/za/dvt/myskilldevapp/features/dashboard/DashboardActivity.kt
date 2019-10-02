@@ -15,7 +15,7 @@ import co.za.dvt.myskilldevapp.features.dashboard.fragments.CarPrizesFragment
 import co.za.dvt.myskilldevapp.features.database.MyGameDatabase
 import co.za.dvt.myskilldevapp.helpers.*
 import co.za.dvt.myskilldevapp.models.Car
-import co.za.dvt.myskilldevapp.models.LuckyNumberModel
+import co.za.dvt.myskilldevapp.models.LuckyNumber
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
 class DashboardActivity : BaseActivity() {
@@ -35,7 +35,7 @@ class DashboardActivity : BaseActivity() {
         dashboardViewModel.isCarsError.observe(this, Observer { onGetCars(it) })
         dashboardViewModel.isBusy.observe(this, Observer { toggleIsBusy(it) })
         dashboardViewModel.rolledNumber.observe(this, Observer { showRolledNumber(it) })
-        dashboardViewModel.luckyNumberModel.observe(this, Observer { onLuckyNumberModelChanged(it) })
+        dashboardViewModel.luckyNumber.observe(this, Observer { onLuckyNumberModelChanged(it) })
         dashboardViewModel.availableCars.observe(this, Observer { onAvailableCarsChanged(it) })
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard)
@@ -66,8 +66,8 @@ class DashboardActivity : BaseActivity() {
         imgDice.setImageResource(dashboardViewModel.getRolledNumberDi(rolledNumber))
     }
 
-    private fun onLuckyNumberModelChanged(luckyNumberModel:LuckyNumberModel?) {
-        if(luckyNumberModel == null){
+    private fun onLuckyNumberModelChanged(luckyNumber:LuckyNumber?) {
+        if(luckyNumber == null){
             dashboardViewModel.onLuckyNumnerError()
         }
         else{

@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.constants.ATMT
 import co.za.dvt.myskilldevapp.features.repositories.BaseRepositories
 import co.za.dvt.myskilldevapp.models.Car
-import co.za.dvt.myskilldevapp.models.LuckyNumberModel
+import co.za.dvt.myskilldevapp.models.LuckyNumber
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -12,12 +12,12 @@ import java.util.HashMap
 
 class DashboardRepository : BaseRepositories() {
 
-    val luckyNumberModel: MutableLiveData<LuckyNumberModel?> = MutableLiveData()
+    val luckyNumber: MutableLiveData<LuckyNumber?> = MutableLiveData()
     val availableCars: MutableLiveData<List<Car>?> = MutableLiveData()
     var atmpt: Int = 0
 
     init {
-        luckyNumberModel.value = LuckyNumberModel()
+        luckyNumber.value = LuckyNumber()
     }
 
     fun fetchLuckyNumber(){
@@ -27,19 +27,19 @@ class DashboardRepository : BaseRepositories() {
         payload[ATMT] = atmpt.toString()
 
         val call1 = retrofitHelper.getLuckyNumner(payload)
-        call1.enqueue(object : Callback<LuckyNumberModel> {
-            override fun onResponse(call: Call<LuckyNumberModel>, response: Response<LuckyNumberModel>) {
+        call1.enqueue(object : Callback<LuckyNumber> {
+            override fun onResponse(call: Call<LuckyNumber>, response: Response<LuckyNumber>) {
 
                 if (response.isSuccessful) {
-                    luckyNumberModel.value = response.body()
+                    luckyNumber.value = response.body()
                     atmpt = 0
                 } else {
-                    luckyNumberModel.value = null
+                    luckyNumber.value = null
                 }
             }
 
-            override fun onFailure(call: Call<LuckyNumberModel>, t: Throwable) {
-                luckyNumberModel.value = null
+            override fun onFailure(call: Call<LuckyNumber>, t: Throwable) {
+                luckyNumber.value = null
             }
         })
     }

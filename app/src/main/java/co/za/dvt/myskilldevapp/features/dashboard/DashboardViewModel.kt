@@ -1,8 +1,6 @@
 package co.za.dvt.myskilldevapp.features.dashboard
 
 import android.app.Application
-import android.os.AsyncTask
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.R
@@ -10,7 +8,7 @@ import co.za.dvt.myskilldevapp.features.dashboard.database.GameStats
 import co.za.dvt.myskilldevapp.features.dashboard.database.GameStatsDAO
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
 import co.za.dvt.myskilldevapp.models.Car
-import co.za.dvt.myskilldevapp.models.LuckyNumberModel
+import co.za.dvt.myskilldevapp.models.LuckyNumber
 import kotlinx.coroutines.*
 
 class DashboardViewModel(private val database: GameStatsDAO, application: Application) : BaseVieModel(application) {
@@ -23,8 +21,8 @@ class DashboardViewModel(private val database: GameStatsDAO, application: Applic
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private var gameStats: MutableLiveData<GameStats?>
 
-    private val _luckyNumberModel: MutableLiveData<LuckyNumberModel?>
-    val luckyNumberModel: LiveData<LuckyNumberModel?>
+    private val _luckyNumberModel: MutableLiveData<LuckyNumber?>
+    val luckyNumber: LiveData<LuckyNumber?>
     get() = _luckyNumberModel
 
     private val _availableCars: MutableLiveData<List<Car>?>
@@ -63,7 +61,7 @@ class DashboardViewModel(private val database: GameStatsDAO, application: Applic
     get() = _isWin
 
     init {
-        _luckyNumberModel = dashboardRepository.luckyNumberModel
+        _luckyNumberModel = dashboardRepository.luckyNumber
         _availableCars = dashboardRepository.availableCars
         _isBusy = MutableLiveData()
         _isError = MutableLiveData()
