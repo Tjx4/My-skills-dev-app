@@ -123,13 +123,13 @@ class DashboardActivity : BaseActivity() {
 
     private fun onGetLuckyNumber(isError: Boolean) {
         if(isError){
-            showCancellableErrorAlert(this, "Error",  "Error getting lucky number :(", "Try again", "Close app", {dashboardViewModel.fetchLuckyNumber()}, ::finish)
+            showCancellableErrorAlert(this, getString(R.string.error),  "Error getting lucky number :(", "Try again", "Close app", {dashboardViewModel.fetchLuckyNumber()}, ::finish)
         }
     }
 
     private fun onGetCars(isError: Boolean) {
         if(isError){
-            showCancellableErrorAlert(this, "Error",  "Error getting cars :(", "Try again","Close app", {dashboardViewModel.fetchCars()}, ::finish)
+            showCancellableErrorAlert(this, getString(R.string.error),  "Error getting cars :(", "Try again","Close app", {dashboardViewModel.fetchCars()}, ::finish)
         }
     }
 
@@ -145,7 +145,7 @@ class DashboardActivity : BaseActivity() {
     fun showGameWin(jackpotPrice: String){
         dashboardViewModel?.setJackpotPrice(jackpotPrice)
 
-        showSuccessAlert(this,"Game completed",  "You chose the $jackpotPrice as your price, you will be contacted soon to collect your price"
+        showSuccessAlert(this,getString(R.string.game_completed),  "You chose the $jackpotPrice as your price, you will be contacted soon to collect your price"
             ,"Finish game", ::onFinishGameClicked)
     }
 

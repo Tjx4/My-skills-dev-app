@@ -265,4 +265,8 @@ class DashboardViewModel(private val database: GameStatsDAO, application: Applic
             database.clear()
         }
     }
+
+    fun resetPrizes() {
+        _availableCars.value = ArrayList()
+    }
 }

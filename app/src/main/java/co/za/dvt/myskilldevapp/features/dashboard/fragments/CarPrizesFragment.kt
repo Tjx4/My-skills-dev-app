@@ -35,6 +35,7 @@ class CarPrizesFragment : BaseDialogFragment(), CarPrizesAdapter.ItemClickListen
     }
 
     override fun onItemClick(view: View, position: Int) {
+        dashboardActivity?.dashboardViewModel?.resetPrizes()
         dismiss()
         var selectedPrice = cars?.get(position)?.brand +" "+ cars?.get(position)?.model
         dashboardActivity?.showGameWin(selectedPrice)
