@@ -30,4 +30,6 @@ private fun getTransitionAnimation(inAnimation: Int, outAnimation: Int): Transit
 }
 
 val SLIDE_IN_ACTIVITY = getTransitionAnimation(R.anim.slide_right, R.anim.no_transition)
-val slideOutActivity =  getTransitionAnimation(R.anim.no_transition, R.anim.slide_left)
+val SLIDE_OUT_ACTIVITY =  getTransitionAnimation(R.anim.no_transition, R.anim.slide_left)
+val FADE_IN_ACTIVITY = getTransitionAnimation(R.anim.fade_in, R.anim.no_transition)
+val FADE_OUT_ACTIVITY = getTransitionAnimation(R.anim.no_transition, R.anim.fade_out)
