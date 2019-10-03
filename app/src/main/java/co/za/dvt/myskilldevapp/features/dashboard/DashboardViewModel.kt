@@ -1,6 +1,7 @@
 package co.za.dvt.myskilldevapp.features.dashboard
 
 import android.app.Application
+import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.R
@@ -10,6 +11,7 @@ import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
 import co.za.dvt.myskilldevapp.models.Car
 import co.za.dvt.myskilldevapp.models.LuckyNumber
 import kotlinx.coroutines.*
+import java.util.concurrent.TimeUnit
 
 class DashboardViewModel(private val dashboardRepository: DashboardRepository, private val database: GameStatsDAO, application: Application) : BaseVieModel(application) {
 
@@ -19,6 +21,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private var gameStats: MutableLiveData<GameStats?>
+    private var countDownTimer: CountDownTimer
 
     private val _luckyNumberModel: MutableLiveData<LuckyNumber?>
     val luckyNumberModel: LiveData<LuckyNumber?>
@@ -48,6 +51,10 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     val isError: LiveData<Boolean>
     get() = _isError
 
+    private val _isTimeFinished: MutableLiveData<Boolean>
+    val isTimeFinished: LiveData<Boolean>
+    get() = _isTimeFinished
+
     private val _isCarsError: MutableLiveData<Boolean>
     val isCarsError: LiveData<Boolean>
     get() = _isCarsError
@@ -56,8 +63,10 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     val isWin: LiveData<Boolean>
     get() = _isWin
 
-    //private var timeLeft: String
-    //private var countDownTimer: CountDownTimer
+    private val _timeLeft: MutableLiveData<String>
+    val timeLeft: LiveData<String>
+    get() = _timeLeft
+
 
     init {
         _luckyNumberModel = dashboardRepository.luckyNumber
@@ -71,23 +80,25 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         _isWin = MutableLiveData()
         gameStats = MutableLiveData()
         _message = MutableLiveData()
+        _timeLeft = MutableLiveData()
+        _isTimeFinished = MutableLiveData()
 
-        /*Todo: include time later
-        timeLeft = "0:00"
         countDownTimer = object : CountDownTimer(30000, 1000) {
 
             override fun onTick(millisUntilFinished: Long) {
-                timeLeft = millisUntilFinished.toString()
+                _timeLeft.value = String.format("%d min, %d sec",
+                    TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
+                    TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)))
             }
 
             override fun onFinish() {
-
+                _isTimeFinished.value = true
             }
         }.start()
-        */
+
 
         fetchLuckyNumber()
-        initStats()
     }
 
     fun rollDice(){
@@ -136,6 +147,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         _isWin.value = _luckyNumber.value == _rolledNumber.value
 
         if(tries < 1){
+            initStats()
             onStartTracking()
         }
 

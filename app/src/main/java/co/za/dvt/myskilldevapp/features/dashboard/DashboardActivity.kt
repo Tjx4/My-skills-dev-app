@@ -38,6 +38,7 @@ class DashboardActivity : BaseActivity() {
         dashboardViewModel.rolledNumber.observe(this, Observer { showRolledNumber(it) })
         dashboardViewModel.luckyNumberModel.observe(this, Observer { onLuckyNumberModelChanged(it) })
         dashboardViewModel.availableCars.observe(this, Observer { onAvailableCarsChanged(it) })
+        dashboardViewModel.isTimeFinished.observe(this, Observer { onTimeFinished(it) })
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard)
         binding.dashboardViewModel = dashboardViewModel
@@ -86,6 +87,10 @@ class DashboardActivity : BaseActivity() {
             }
 
         }
+    }
+
+    private fun onTimeFinished(timeFinished:Boolean?) {
+        showErrorAlert(this, getString(R.string.error),  "Sorry you've run out of time", "End game") {finish()}
     }
 
     private fun showPrices(availableCars: List<Car>) {
