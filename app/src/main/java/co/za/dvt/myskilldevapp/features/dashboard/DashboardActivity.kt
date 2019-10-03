@@ -91,7 +91,7 @@ class DashboardActivity : BaseActivity() {
     private fun showPrices(availableCars: List<Car>) {
         var carPricesFragment = CarPrizesFragment.newInstance()
         carPricesFragment.isCancelable = false
-        showFragmentDialog("", R.layout.fragment_cars_list, carPricesFragment, this)
+        showDialogFragment("", R.layout.fragment_cars_list, carPricesFragment, this)
     }
 
     private fun onGameStatusChanged(isWin: Boolean) {
@@ -101,7 +101,7 @@ class DashboardActivity : BaseActivity() {
 
             when(dashboardViewModel.winCount){
                 2 -> {
-                    showSuccessAlert(this,getString(R.string.congratulations),  "You've won the Jackport, you can now select from our list of a prices"
+                    showSuccessAlert(this,getString(R.string.congratulations),  "You've won the Jackpot, you can now select from our list of a prices"
                         ,getString(R.string.view_prices), ::onViewPricesClicked)
                 }
                 else -> {

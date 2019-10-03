@@ -5,19 +5,22 @@ import co.za.dvt.myskilldevapp.features.dashboard.DashboardRepository
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardViewModel
 import co.za.dvt.myskilldevapp.features.dashboard.database.GameStatsDAO
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
-import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.TestInstance
 import org.junit.runner.RunWith
-import org.junit.runners.JUnit4
 import org.mockito.Mock
-import org.mockito.MockitoAnnotations
+import org.mockito.junit.MockitoJUnit
+import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.junit.MockitoRule
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@RunWith(JUnit4::class)
+//@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@RunWith(MockitoJUnitRunner::class)
 class DashboardUnitTest {
 
     lateinit var dashboardViewModel: DashboardViewModel
+
     @Mock
     lateinit var repository: DashboardRepository
     @Mock
@@ -25,9 +28,12 @@ class DashboardUnitTest {
     @Mock
     lateinit var application: Application
 
+    @Rule
+    @JvmField
+    val mockitoRule: MockitoRule = MockitoJUnit.rule()
+
     @Before
     fun setUp() {
-        MockitoAnnotations.initMocks(this)
         dashboardViewModel = DashboardViewModel(repository, database, application)
     }
 
@@ -42,7 +48,19 @@ class DashboardUnitTest {
         val expectedResult = true
 
         // then
-        Assertions.assertEquals(expectedResult, actualResult)
+        assertEquals(expectedResult, actualResult)
+    }
+
+    @Test
+    fun rolling_text_correctly_displaying() {
+        // given
+        var testRollingText = "Rolling..."
+
+        // when
+        dashboardViewModel.rollDice()
+
+        // then
+       assertEquals(dashboardViewModel.message.value, testRollingText)
     }
 
 }

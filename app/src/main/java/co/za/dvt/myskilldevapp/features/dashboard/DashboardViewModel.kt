@@ -91,7 +91,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     }
 
     fun rollDice(){
-        _message.value = "Rolling..."
+        _message.value = app.getString(R.string.rolling)
     }
 
     fun fetchLuckyNumber() {

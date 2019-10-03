@@ -17,7 +17,7 @@ fun getFragmentDialog(title: String, Layout: Int, newFragmentBaseBase: BaseDialo
     return newFragmentBaseBase
 }
 
-fun showFragmentDialog(title: String, Layout: Int, newFragmentBaseBase: BaseDialogFragment, activity: BaseActivity) {
+fun showDialogFragment(title: String, Layout: Int, newFragmentBaseBase: BaseDialogFragment, activity: BaseActivity) {
     if(activity.activeDialogFragment != null){
         hideLoadingDialog(activity)
     }
