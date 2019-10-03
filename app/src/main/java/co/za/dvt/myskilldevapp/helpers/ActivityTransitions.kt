@@ -9,12 +9,11 @@ interface ActivityTransitions {
 
     fun initTransitions(activity: Activity) {
         try {
-            val activityTransition = activity.intent.getBundleExtra(PAYLOAD_KEY).getIntArray(
-                ACTIVITY_TRANSITION
-            )
+            val activityTransition = activity.intent.getBundleExtra(PAYLOAD_KEY).getIntArray(ACTIVITY_TRANSITION)
             activity.overridePendingTransition(activityTransition!![0], activityTransition[1])
-        } catch (e: Exception) {
-          Log.e("TR", "$e")
+        }
+        catch (e: Exception) {
+          Log.e("AT", "$e")
         }
     }
 }

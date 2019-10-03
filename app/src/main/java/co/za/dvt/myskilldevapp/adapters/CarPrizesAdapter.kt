@@ -24,7 +24,7 @@ class CarPrizesAdapter(context: Context, private val cars: List<Car>) : Recycler
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = layoutInflater.inflate(R.layout.price_layout, parent, false)
+        val view = layoutInflater.inflate(R.layout.prize_layout, parent, false)
         return ViewHolder(view)
     }
 
