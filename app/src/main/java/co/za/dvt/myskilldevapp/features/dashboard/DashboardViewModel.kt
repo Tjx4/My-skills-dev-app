@@ -11,9 +11,8 @@ import co.za.dvt.myskilldevapp.models.Car
 import co.za.dvt.myskilldevapp.models.LuckyNumber
 import kotlinx.coroutines.*
 
-class DashboardViewModel(private val database: GameStatsDAO, application: Application) : BaseVieModel(application) {
+class DashboardViewModel(private val dashboardRepository: DashboardRepository, private val database: GameStatsDAO, application: Application) : BaseVieModel(application) {
 
-    private var dashboardRepository: DashboardRepository = DashboardRepository()
     var winCount: Int = 0
     var tries: Int = 0
 
@@ -41,9 +40,6 @@ class DashboardViewModel(private val database: GameStatsDAO, application: Applic
     val rolledNumber: LiveData<Int>
     get() = _rolledNumber
 
-    //private var timeLeft: String
-    //private var countDownTimer: CountDownTimer
-
     private val _isBusy: MutableLiveData<Boolean>
     val isBusy: LiveData<Boolean>
     get() = _isBusy
@@ -60,9 +56,13 @@ class DashboardViewModel(private val database: GameStatsDAO, application: Applic
     val isWin: LiveData<Boolean>
     get() = _isWin
 
+    //private var timeLeft: String
+    //private var countDownTimer: CountDownTimer
+
     init {
         _luckyNumberModel = dashboardRepository.luckyNumber
         _availableCars = dashboardRepository.availableCars
+
         _isBusy = MutableLiveData()
         _isError = MutableLiveData()
         _isCarsError = MutableLiveData()
@@ -70,9 +70,7 @@ class DashboardViewModel(private val database: GameStatsDAO, application: Applic
         _rolledNumber = MutableLiveData()
         _isWin = MutableLiveData()
         gameStats = MutableLiveData()
-
         _message = MutableLiveData()
-        _message.value = "Try your luck... roll the dice"
 
         /*Todo: include time later
         timeLeft = "0:00"
@@ -92,86 +90,6 @@ class DashboardViewModel(private val database: GameStatsDAO, application: Applic
         initStats()
     }
 
-    private fun initStats(){
-        uiScope.launch {
-            gameStats.value = getCurrentStatsFromDB()
-        }
-    }
-
-    private fun someWorkNeedsToBeDone(){
-        uiScope.launch {
-            suspendFuntion()
-        }
-    }
-
-    private suspend fun suspendFuntion(){
-        withContext(Dispatchers.IO){
-            longRunningWork()
-        }
-    }
-
-    private suspend fun longRunningWork(){
-        withContext(Dispatchers.IO){
-
-        }
-    }
-
-    private fun onStartTracking(){
-        uiScope.launch {
-            var currentStats = GameStats()
-            currentStats.player = 1
-            insert(currentStats)
-
-            gameStats.value = getCurrentStatsFromDB()
-        }
-    }
-
-    private suspend fun insert(currentStats: GameStats) {
-         withContext(Dispatchers.IO){
-           database.insert(currentStats)
-        }
-    }
-
-    private suspend fun update(oldStats: GameStats) {
-         withContext(Dispatchers.IO){
-             database.update(oldStats)
-        }
-    }
-
-    private fun onStopTracking(){
-        uiScope.launch {
-            var oldStats = gameStats.value ?: return@launch
-            oldStats.endTime = System.currentTimeMillis()
-            oldStats.tries = tries
-            update(oldStats)
-        }
-    }
-
-    fun setJackpotPrice(jackpotPrice: String) {
-        gameStats.value?.jackpotPrice = jackpotPrice
-        //Todo: Move to relevant place
-        onStopTracking()
-    }
-
-    private suspend fun getCurrentStatsFromDB(): GameStats{
-            return withContext(Dispatchers.IO){
-                var stats = database.getCurrentStats()
-
-                if(stats?.endTime != stats?.startTime){
-                    null
-                }
-
-                stats
-            }
-    }
-
-    private suspend fun getAllStatsFromDB(): List<GameStats>?{
-        return withContext(Dispatchers.IO){
-            var stats = database.getAllGameStats()
-            stats
-        }
-    }
-
     fun rollDice(){
         _message.value = "Rolling..."
     }
@@ -186,14 +104,14 @@ class DashboardViewModel(private val database: GameStatsDAO, application: Applic
         dashboardRepository.fetchAvailableCars()
     }
 
-    fun setLuckyNumber() {
-        _luckyNumber.value = _luckyNumberModel?.value?.luckyNumber ?: 0
+    fun setLuckyNumber(luckyNumber: Int) {
+        _luckyNumber.value = luckyNumber
         _isBusy.value = _luckyNumber?.value == 0
         _isError.value = false
     }
 
-    fun setAvailableCars() {
-        _availableCars.value = _availableCars?.value
+    fun setAvailableCars(availableCars: List<Car>) {
+        _availableCars.value = availableCars
         _isBusy.value = false
         _isCarsError.value = false
     }
@@ -267,4 +185,86 @@ class DashboardViewModel(private val database: GameStatsDAO, application: Applic
     fun resetPrizes() {
         _availableCars.value = ArrayList()
     }
+
+
+    private fun initStats(){
+        uiScope.launch {
+            gameStats.value = getCurrentStatsFromDB()
+        }
+    }
+
+    private fun someWorkNeedsToBeDone(){
+        uiScope.launch {
+            suspendFuntion()
+        }
+    }
+
+    private suspend fun suspendFuntion(){
+        withContext(Dispatchers.IO){
+            longRunningWork()
+        }
+    }
+
+    private suspend fun longRunningWork(){
+        withContext(Dispatchers.IO){
+
+        }
+    }
+
+    private fun onStartTracking(){
+        uiScope.launch {
+            var currentStats = GameStats()
+            currentStats.player = 1
+            insert(currentStats)
+
+            gameStats.value = getCurrentStatsFromDB()
+        }
+    }
+
+    private suspend fun getCurrentStatsFromDB(): GameStats{
+        return withContext(Dispatchers.IO){
+            var stats = database.getCurrentStats()
+
+            if(stats?.endTime != stats?.startTime){
+                null
+            }
+
+            stats
+        }
+    }
+
+    private suspend fun insert(currentStats: GameStats) {
+        withContext(Dispatchers.IO){
+            database.insert(currentStats)
+        }
+    }
+
+    private suspend fun update(oldStats: GameStats) {
+        withContext(Dispatchers.IO){
+            database.update(oldStats)
+        }
+    }
+
+    private fun onStopTracking(){
+        uiScope.launch {
+            var oldStats = gameStats.value ?: return@launch
+            oldStats.endTime = System.currentTimeMillis()
+            oldStats.tries = tries
+            update(oldStats)
+        }
+    }
+
+    fun setJackpotPrice(jackpotPrice: String) {
+        gameStats.value?.jackpotPrice = jackpotPrice
+        //Todo: Move to relevant place
+        onStopTracking()
+    }
+
+    private suspend fun getAllStatsFromDB(): List<GameStats>?{
+        return withContext(Dispatchers.IO){
+            var stats = database.getAllGameStats()
+            stats
+        }
+    }
+
 }

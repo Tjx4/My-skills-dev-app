@@ -17,7 +17,7 @@
                 android:id="@+id/tvLuckyNumberMessage"
                 style="@style/MediumTextView"
                 tools:text="This is your lucky number"
-                android:text="This is your lucky number"
+                android:text="@string/try_your_luck_roll_the_dice"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"

@@ -25,9 +25,10 @@ class DashboardActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        var application = requireNotNull(this).application
+        var repository = DashboardRepository()
         var dataSource = MyGameDatabase.getInstance(application).gameStatsDAO
-        var viewModelFactory = DashboardViewModelFactory(dataSource, application)
+        var application = requireNotNull(this).application
+        var viewModelFactory = DashboardViewModelFactory(repository, dataSource, application)
         dashboardViewModel = ViewModelProviders.of(this, viewModelFactory).get(DashboardViewModel::class.java)
 
         dashboardViewModel.isWin.observe(this, Observer { onGameStatusChanged(it) })
@@ -66,12 +67,12 @@ class DashboardActivity : BaseActivity() {
         imgDice.setImageResource(dashboardViewModel.getRolledNumberDi(rolledNumber))
     }
 
-    private fun onLuckyNumberModelChanged(luckyNumber:LuckyNumber?) {
+    private fun onLuckyNumberModelChanged(luckyNumber: LuckyNumber?) {
         if(luckyNumber == null){
             dashboardViewModel.onLuckyNumnerError()
         }
         else{
-            dashboardViewModel.setLuckyNumber()
+            dashboardViewModel.setLuckyNumber(luckyNumber.luckyNumber)
         }
     }
 

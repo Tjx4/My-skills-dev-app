@@ -10,7 +10,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.HashMap
 
-class DashboardRepository : BaseRepositories() {
+open class DashboardRepository : BaseRepositories() {
 
     val luckyNumber: MutableLiveData<LuckyNumber?> = MutableLiveData()
     val availableCars: MutableLiveData<List<Car>?> = MutableLiveData()
