@@ -21,7 +21,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     private var gameStats: MutableLiveData<GameStats?>
 
     private val _luckyNumberModel: MutableLiveData<LuckyNumber?>
-    val luckyNumber: LiveData<LuckyNumber?>
+    val luckyNumberModel: LiveData<LuckyNumber?>
     get() = _luckyNumberModel
 
     private val _availableCars: MutableLiveData<List<Car>?>
@@ -87,7 +87,6 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         */
 
         fetchLuckyNumber()
-        initStats()
     }
 
     fun rollDice(){
@@ -136,6 +135,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         _isWin.value = _luckyNumber.value == _rolledNumber.value
 
         if(tries < 1){
+            initStats()
             onStartTracking()
         }
 

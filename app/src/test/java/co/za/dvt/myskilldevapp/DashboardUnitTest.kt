@@ -9,12 +9,9 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoJUnitRunner
-import org.mockito.junit.MockitoRule
 
 @RunWith(MockitoJUnitRunner::class)
 class DashboardUnitTest {
@@ -39,7 +36,6 @@ class DashboardUnitTest {
     @Test
     fun fetch_lucky_number() {
         //dashboardViewModel.isBusy.value == true
-       // Mockito.`when`(repository.fetchLuckyNumber()).thenReturn({true})
     }
 
     @Test
@@ -49,7 +45,21 @@ class DashboardUnitTest {
 
         // when
         dashboardViewModel.setLuckyNumber(testLuckyNumber)
-        val actualResult = dashboardViewModel.luckyNumber.value?.luckyNumber != 0 && dashboardViewModel.isError.value == false
+        val actualResult = dashboardViewModel?.currentLuckyNumber?.value != 0 &&  dashboardViewModel?.currentLuckyNumber?.value!! < 7
+        val expectedResult = true
+
+        // then
+        assertEquals(expectedResult, actualResult)
+    }
+
+    @Test
+    fun luckyNumber_state_correct() {
+        // given
+        var testLuckyNumber = 1
+
+        // when
+        dashboardViewModel.setLuckyNumber(testLuckyNumber)
+        val actualResult = dashboardViewModel?.currentLuckyNumber?.value != 0 && dashboardViewModel?.isError?.value == false
         val expectedResult = true
 
         // then

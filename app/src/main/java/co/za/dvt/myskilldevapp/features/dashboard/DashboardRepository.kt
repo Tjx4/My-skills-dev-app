@@ -26,8 +26,8 @@ open class DashboardRepository : BaseRepositories() {
         val payload = HashMap<String, String>()
         payload[ATMT] = atmpt.toString()
 
-        val call1 = retrofitHelper.getLuckyNumner(payload)
-        call1.enqueue(object : Callback<LuckyNumber> {
+        val call1 = retrofitHelper?.getLuckyNumner(payload)
+        call1?.enqueue(object : Callback<LuckyNumber> {
             override fun onResponse(call: Call<LuckyNumber>, response: Response<LuckyNumber>) {
 
                 if (response.isSuccessful) {

@@ -5,6 +5,6 @@ import com.google.gson.annotations.SerializedName
 class LuckyNumber {
     @SerializedName("attempt")
     var attempt:Int = 0
-    @SerializedName("luckyNumber")
+    @SerializedName("luckyNumberModel")
     var luckyNumber:Int = 0
 }

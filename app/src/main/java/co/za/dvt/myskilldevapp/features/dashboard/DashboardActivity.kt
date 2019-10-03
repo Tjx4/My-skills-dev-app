@@ -36,7 +36,7 @@ class DashboardActivity : BaseActivity() {
         dashboardViewModel.isCarsError.observe(this, Observer { onGetCars(it) })
         dashboardViewModel.isBusy.observe(this, Observer { toggleIsBusy(it) })
         dashboardViewModel.rolledNumber.observe(this, Observer { showRolledNumber(it) })
-        dashboardViewModel.luckyNumber.observe(this, Observer { onLuckyNumberModelChanged(it) })
+        dashboardViewModel.luckyNumberModel.observe(this, Observer { onLuckyNumberModelChanged(it) })
         dashboardViewModel.availableCars.observe(this, Observer { onAvailableCarsChanged(it) })
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard)
