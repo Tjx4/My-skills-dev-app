@@ -1,6 +1,7 @@
 package co.za.dvt.myskilldevapp
 
 import android.app.Application
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardRepository
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardViewModel
 import co.za.dvt.myskilldevapp.features.dashboard.database.GameStatsDAO
@@ -8,14 +9,13 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.junit.MockitoRule
 
-//@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @RunWith(MockitoJUnitRunner::class)
 class DashboardUnitTest {
 
@@ -28,9 +28,8 @@ class DashboardUnitTest {
     @Mock
     lateinit var application: Application
 
-    @Rule
-    @JvmField
-    val mockitoRule: MockitoRule = MockitoJUnit.rule()
+    @get:Rule
+    val rule = InstantTaskExecutorRule()
 
     @Before
     fun setUp() {
@@ -38,7 +37,13 @@ class DashboardUnitTest {
     }
 
     @Test
-    fun isLuckyNumber_set_correctly() {
+    fun fetch_lucky_number() {
+        //dashboardViewModel.isBusy.value == true
+       // Mockito.`when`(repository.fetchLuckyNumber()).thenReturn({true})
+    }
+
+    @Test
+    fun luckyNumber_set_correctly() {
         // given
         var testLuckyNumber = 1
 
