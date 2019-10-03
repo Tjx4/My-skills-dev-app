@@ -87,6 +87,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         */
 
         fetchLuckyNumber()
+        initStats()
     }
 
     fun rollDice(){
@@ -135,7 +136,6 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         _isWin.value = _luckyNumber.value == _rolledNumber.value
 
         if(tries < 1){
-            initStats()
             onStartTracking()
         }
 

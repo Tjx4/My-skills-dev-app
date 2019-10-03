@@ -1,7 +1,7 @@
 package co.za.dvt.myskilldevapp.constants
 
 const val HOST = "http://appic.co.za/"
-const val PAYLOAD_KEY = "payload";
+const val PAYLOAD_KEY = "payload"
 const val GET_LUCKY_NUMBER = "api/luckyNumber.php"
 const val GET_AVAILABLE_CARS = "api/cars.php"
 
