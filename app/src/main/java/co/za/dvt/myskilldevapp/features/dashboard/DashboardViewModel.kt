@@ -21,7 +21,10 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private var gameStats: MutableLiveData<GameStats?>
-    private var countDownTimer: CountDownTimer
+
+    private val _countDownTimer: CountDownTimer
+    val countDownTimer: CountDownTimer
+    get() = _countDownTimer
 
     private val _luckyNumberModel: MutableLiveData<LuckyNumber?>
     val luckyNumberModel: LiveData<LuckyNumber?>
@@ -83,7 +86,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         _timeLeft = MutableLiveData()
         _isTimeFinished = MutableLiveData()
 
-        countDownTimer = object : CountDownTimer(30000, 1000) {
+        _countDownTimer = object : CountDownTimer(30000, 1000) {
 
             override fun onTick(millisUntilFinished: Long) {
                 _timeLeft.value = String.format("%d min, %d sec",
@@ -96,7 +99,6 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
                 _isTimeFinished.value = true
             }
         }.start()
-
 
         fetchLuckyNumber()
     }
