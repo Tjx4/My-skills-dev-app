@@ -18,7 +18,7 @@ import co.za.dvt.myskilldevapp.models.Car
 import co.za.dvt.myskilldevapp.models.LuckyNumber
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
-class DashboardActivity : BaseActivity() {
+class DashboardActivity : BaseActivity()
     //This is a test change to check build pipeline #1
 
     private lateinit var binding: ActivityDashboardBinding
