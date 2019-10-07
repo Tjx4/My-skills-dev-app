@@ -128,7 +128,6 @@ class DashboardActivity : BaseActivity() {
         dashboardViewModel.resetGame()
     }
 
-
     private fun onGetLuckyNumber(isError: Boolean) {
         if(isError){
             showCancellableErrorAlert(this, getString(R.string.error),  "Error getting lucky number :(", "Try again", "Close app", {dashboardViewModel.fetchLuckyNumber()}, ::finish)
