@@ -39,6 +39,11 @@ class DashboardUnitTest {
     }
 
     @Test
+    fun fetch_lucky_number_game_state_correct() {
+
+    }
+
+    @Test
     fun luckyNumber_set_correctly() {
         // given
         var testLuckyNumber = 1
@@ -53,7 +58,7 @@ class DashboardUnitTest {
     }
 
     @Test
-    fun get_luckyNumber_game_state_correct() {
+    fun set_luckyNumber_game_state_correct() {
         // given
         var testLuckyNumber = 1
 
