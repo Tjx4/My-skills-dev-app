@@ -53,7 +53,7 @@ class DashboardUnitTest {
     }
 
     @Test
-    fun luckyNumber_state_correct() {
+    fun get_luckyNumber_game_state_correct() {
         // given
         var testLuckyNumber = 1
 
