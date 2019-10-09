@@ -26,9 +26,9 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     val countDownTimer: CountDownTimer
     get() = _countDownTimer
 
-    private val _luckyNumberModel: MutableLiveData<LuckyNumber?>
-    val luckyNumberModel: LiveData<LuckyNumber?>
-    get() = _luckyNumberModel
+    private val _roundModel: MutableLiveData<LuckyNumber?>
+    val roundModel: LiveData<LuckyNumber?>
+    get() = _roundModel
 
     private val _availableCars: MutableLiveData<List<Car>?>
     val availableCars: LiveData<List<Car>?>
@@ -38,9 +38,9 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     val message: LiveData<String>
     get() = _message
 
-    private val _luckyNumber: MutableLiveData<Int>
+    private val _currentLuckyNumber: MutableLiveData<Int>
     val currentLuckyNumber: LiveData<Int>
-    get() = _luckyNumber
+    get() = _currentLuckyNumber
 
     private val _rolledNumber: MutableLiveData<Int>
     val rolledNumber: LiveData<Int>
@@ -72,13 +72,13 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
 
 
     init {
-        _luckyNumberModel = dashboardRepository.luckyNumber
+        _roundModel = dashboardRepository.luckyNumber
         _availableCars = dashboardRepository.availableCars
 
         _isBusy = MutableLiveData()
         _isError = MutableLiveData()
         _isCarsError = MutableLiveData()
-        _luckyNumber = MutableLiveData()
+        _currentLuckyNumber = MutableLiveData()
         _rolledNumber = MutableLiveData()
         _isWin = MutableLiveData()
         gameStats = MutableLiveData()
@@ -118,8 +118,8 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     }
 
     fun setLuckyNumber(luckyNumber: Int) {
-        _luckyNumber.value = luckyNumber
-        _isBusy.value = _luckyNumber?.value == 0
+        _currentLuckyNumber.value = luckyNumber
+        _isBusy.value = _currentLuckyNumber?.value == 0
         _isError.value = false
     }
 
@@ -146,7 +146,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     fun onRollCompleted() {
         _rolledNumber.value  = (1..6).random()
         _message.value  = "You rolled a ${_rolledNumber.value} please try again"
-        _isWin.value = _luckyNumber.value == _rolledNumber.value
+        _isWin.value = _currentLuckyNumber.value == _rolledNumber.value
 
         if(tries < 1){
             initStats()
