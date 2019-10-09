@@ -140,7 +140,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     }
 
     fun resetMessage() {
-        _// message.value = appl.getString(R.string.try_your_luck_roll_dice)
+        _message.value =   "" //getString(R.string.try_your_luck_roll_dice)
     }
 
     fun onRollCompleted() {
