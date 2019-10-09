@@ -86,7 +86,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         _timeLeft = MutableLiveData()
         _isTimeFinished = MutableLiveData()
 
-        _countDownTimer = object : CountDownTimer(30000, 1000) {
+        _countDownTimer = object : CountDownTimer(60000, 1000) {
 
             override fun onTick(millisUntilFinished: Long) {
                 _timeLeft.value = String.format("%d min, %d sec",
@@ -121,6 +121,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         _currentLuckyNumber.value = luckyNumber
         _isBusy.value = _currentLuckyNumber?.value == 0
         _isError.value = false
+        _message.value = app.getString(R.string.try_your_luck_roll_the_dice)
     }
 
     fun setAvailableCars(availableCars: List<Car>) {
