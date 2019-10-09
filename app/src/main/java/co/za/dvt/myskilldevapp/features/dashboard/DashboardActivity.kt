@@ -37,7 +37,7 @@ class DashboardActivity : BaseActivity() {
         dashboardViewModel.isCarsError.observe(this, Observer { onGetCars(it) })
         dashboardViewModel.isBusy.observe(this, Observer { toggleIsBusy(it) })
         dashboardViewModel.rolledNumber.observe(this, Observer { showRolledNumber(it) })
-        dashboardViewModel.luckyNumberModel.observe(this, Observer { onLuckyNumberModelChanged(it) })
+        dashboardViewModel.roundModel.observe(this, Observer { onLuckyNumberModelChanged(it) })
         dashboardViewModel.availableCars.observe(this, Observer { onAvailableCarsChanged(it) })
         dashboardViewModel.isTimeFinished.observe(this, Observer { onTimeFinished(it) })
 
