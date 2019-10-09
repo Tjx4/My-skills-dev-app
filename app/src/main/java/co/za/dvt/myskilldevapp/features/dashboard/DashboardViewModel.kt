@@ -201,31 +201,31 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     }
 
 
-    private fun initStats(){
+    fun initStats(){
         uiScope.launch {
             gameStats.value = getCurrentStatsFromDB()
         }
     }
 
-    private fun someWorkNeedsToBeDone(){
+    fun someWorkNeedsToBeDone(){
         uiScope.launch {
             suspendFuntion()
         }
     }
 
-    private suspend fun suspendFuntion(){
+    suspend fun suspendFuntion(){
         withContext(Dispatchers.IO){
             longRunningWork()
         }
     }
 
-    private suspend fun longRunningWork(){
+    suspend fun longRunningWork(){
         withContext(Dispatchers.IO){
 
         }
     }
 
-    private fun onStartTracking(){
+    fun onStartTracking(){
         uiScope.launch {
             var currentStats = GameStats()
             currentStats.player = 1
@@ -235,7 +235,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         }
     }
 
-    private suspend fun getCurrentStatsFromDB(): GameStats{
+    suspend fun getCurrentStatsFromDB(): GameStats{
         return withContext(Dispatchers.IO){
             var stats = database.getCurrentStats()
 
@@ -247,19 +247,19 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         }
     }
 
-    private suspend fun insert(currentStats: GameStats) {
+    suspend fun insert(currentStats: GameStats) {
         withContext(Dispatchers.IO){
             database.insert(currentStats)
         }
     }
 
-    private suspend fun update(oldStats: GameStats) {
+    suspend fun update(oldStats: GameStats) {
         withContext(Dispatchers.IO){
             database.update(oldStats)
         }
     }
 
-    private fun onStopTracking(){
+    fun onStopTracking(){
         uiScope.launch {
             var oldStats = gameStats.value ?: return@launch
             oldStats.endTime = System.currentTimeMillis()
@@ -274,7 +274,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         onStopTracking()
     }
 
-    private suspend fun getAllStatsFromDB(): List<GameStats>?{
+    suspend fun getAllStatsFromDB(): List<GameStats>?{
         return withContext(Dispatchers.IO){
             var stats = database.getAllGameStats()
             stats
