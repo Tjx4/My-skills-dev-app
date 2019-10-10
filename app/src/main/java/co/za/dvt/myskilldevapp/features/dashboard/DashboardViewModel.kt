@@ -9,7 +9,7 @@ import co.za.dvt.myskilldevapp.features.dashboard.database.GameStats
 import co.za.dvt.myskilldevapp.features.dashboard.database.GameStatsDAO
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
 import co.za.dvt.myskilldevapp.models.Car
-import co.za.dvt.myskilldevapp.models.LuckyNumber
+import co.za.dvt.myskilldevapp.models.RoundModel
 import kotlinx.coroutines.*
 import java.util.concurrent.TimeUnit
 
@@ -26,8 +26,8 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     val countDownTimer: CountDownTimer
     get() = _countDownTimer
 
-    private val _roundModel: MutableLiveData<LuckyNumber?>
-    val roundModel: LiveData<LuckyNumber?>
+    private val _roundModel: MutableLiveData<RoundModel?>
+    val roundModel: LiveData<RoundModel?>
     get() = _roundModel
 
     private val _availableCars: MutableLiveData<List<Car>?>
@@ -72,7 +72,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
 
 
     init {
-        _roundModel = dashboardRepository.luckyNumber
+        _roundModel = dashboardRepository.roundModel
         _availableCars = dashboardRepository.availableCars
 
         _isBusy = MutableLiveData()

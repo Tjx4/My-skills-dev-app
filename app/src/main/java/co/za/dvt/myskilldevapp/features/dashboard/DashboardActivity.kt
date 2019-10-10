@@ -15,7 +15,7 @@ import co.za.dvt.myskilldevapp.features.dashboard.fragments.CarPrizesFragment
 import co.za.dvt.myskilldevapp.features.database.MyGameDatabase
 import co.za.dvt.myskilldevapp.helpers.*
 import co.za.dvt.myskilldevapp.models.Car
-import co.za.dvt.myskilldevapp.models.LuckyNumber
+import co.za.dvt.myskilldevapp.models.RoundModel
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
 class DashboardActivity : BaseActivity() {
@@ -69,12 +69,12 @@ class DashboardActivity : BaseActivity() {
         imgDice.setImageResource(dashboardViewModel.getRolledNumberDi(rolledNumber))
     }
 
-    private fun onLuckyNumberModelChanged(luckyNumber: LuckyNumber?) {
-        if(luckyNumber == null){
+    private fun onLuckyNumberModelChanged(roundModel: RoundModel?) {
+        if(roundModel == null){
             dashboardViewModel.onLuckyNumnerError()
         }
         else{
-            dashboardViewModel.setLuckyNumber(luckyNumber.luckyNumber)
+            dashboardViewModel.setLuckyNumber(roundModel.luckyNumber)
         }
     }
 
