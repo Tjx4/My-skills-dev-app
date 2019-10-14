@@ -126,8 +126,8 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
 
     fun setAvailableCars(availableCars: List<Car>) {
         _availableCars.value = availableCars
-        _isBusy.value = false
         _isCarsError.value = false
+        _isBusy.value = false
     }
 
     fun onLuckyNumnerError() {
@@ -136,8 +136,8 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     }
 
     fun onAvailableCarsError() {
-        _isBusy.value = false
         _isCarsError.value = true
+        _isBusy.value = false
     }
 
     fun resetMessage() {
