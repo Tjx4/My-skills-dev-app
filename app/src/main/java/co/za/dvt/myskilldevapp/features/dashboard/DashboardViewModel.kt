@@ -119,9 +119,9 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
 
     fun setLuckyNumber(luckyNumber: Int) {
         _currentLuckyNumber.value = luckyNumber
-        _isBusy.value = _currentLuckyNumber?.value == 0
         _isError.value = false
         _message.value = app.getString(R.string.try_your_luck_roll_the_dice)
+        _isBusy.value = _currentLuckyNumber?.value == 0
     }
 
     fun setAvailableCars(availableCars: List<Car>) {
