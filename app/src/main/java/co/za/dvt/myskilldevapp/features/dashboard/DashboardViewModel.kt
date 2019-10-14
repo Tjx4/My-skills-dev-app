@@ -22,7 +22,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private var gameStats: MutableLiveData<GameStats?>
 
-    private val _countDownTimer: CountDownTimer
+    private lateinit var _countDownTimer: CountDownTimer
     val countDownTimer: CountDownTimer
     get() = _countDownTimer
 
@@ -86,20 +86,6 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         _timeLeft = MutableLiveData()
         _isTimeFinished = MutableLiveData()
 
-        _countDownTimer = object : CountDownTimer(60000, 1000) {
-
-            override fun onTick(millisUntilFinished: Long) {
-                _timeLeft.value = String.format("%d min, %d sec",
-                    TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
-                    TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
-                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)))
-            }
-
-            override fun onFinish() {
-                _isTimeFinished.value = true
-            }
-        }.start()
-
         fetchLuckyNumber()
     }
 
@@ -122,6 +108,23 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         _isError.value = false
         _message.value = app.getString(R.string.try_your_luck_roll_the_dice)
         _isBusy.value = _currentLuckyNumber?.value == 0
+        startCountDown()
+    }
+
+    fun startCountDown(){
+        _countDownTimer = object : CountDownTimer(60000, 1000) {
+
+            override fun onTick(millisUntilFinished: Long) {
+                _timeLeft.value = String.format("%d min, %d sec",
+                    TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
+                    TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)))
+            }
+
+            override fun onFinish() {
+                _isTimeFinished.value = true
+            }
+        }.start()
     }
 
     fun setAvailableCars(availableCars: List<Car>) {
