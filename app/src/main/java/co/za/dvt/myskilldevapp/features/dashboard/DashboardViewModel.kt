@@ -22,8 +22,8 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private var gameStats: MutableLiveData<GameStats?>
 
-    private lateinit var _countDownTimer: CountDownTimer
-    val countDownTimer: CountDownTimer
+    private var _countDownTimer: CountDownTimer? = null
+    val countDownTimer: CountDownTimer?
     get() = _countDownTimer
 
     private val _roundModel: MutableLiveData<RoundModel?>
@@ -108,7 +108,9 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         _isError.value = false
         _message.value = app.getString(R.string.try_your_luck_roll_the_dice)
         _isBusy.value = _currentLuckyNumber?.value == 0
-        startCountDown()
+
+        if(_countDownTimer == null)
+            startCountDown()
     }
 
     fun startCountDown(){

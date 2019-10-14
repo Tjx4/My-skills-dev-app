@@ -107,7 +107,7 @@ class DashboardActivity : BaseActivity() {
 
             when(dashboardViewModel.winCount){
                 2 -> {
-                    dashboardViewModel.countDownTimer.cancel()
+                    dashboardViewModel.countDownTimer?.cancel()
                     showSuccessAlert(this,getString(R.string.congratulations),  "You've won the Jackpot, you can now select from our list of a prices"
                         ,getString(R.string.view_prices), ::onViewPricesClicked)
                 }
