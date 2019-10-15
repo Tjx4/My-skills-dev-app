@@ -11,4 +11,5 @@
     <string name="try_your_luck_roll_the_dice">Try your luck... roll the dice</string>
     <string name="rolling">Rolling...</string>
     <string name="try_your_luck_roll_dice">Try your luck... roll the dice</string>
+    <string name="lucky_number_error_message">Error getting lucky number :(</string>
 </resources>
