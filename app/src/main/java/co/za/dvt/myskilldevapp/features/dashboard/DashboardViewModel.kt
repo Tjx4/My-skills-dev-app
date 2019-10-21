@@ -109,8 +109,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         _message.value = app.getString(R.string.try_your_luck_roll_the_dice)
         _isBusy.value = _currentLuckyNumber?.value == 0
 
-        //if(_countDownTimer == null)
-        //    startCountDown()
+       _countDownTimer ?: startCountDown()
     }
 
     fun startCountDown(){
