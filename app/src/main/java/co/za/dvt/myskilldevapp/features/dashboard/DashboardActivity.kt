@@ -17,6 +17,9 @@ import co.za.dvt.myskilldevapp.helpers.*
 import co.za.dvt.myskilldevapp.models.Car
 import co.za.dvt.myskilldevapp.models.RoundModel
 import kotlinx.android.synthetic.main.activity_dashboard.*
+import com.microsoft.appcenter.crashes.Crashes
+import com.microsoft.appcenter.analytics.Analytics
+import com.microsoft.appcenter.AppCenter
 
 class DashboardActivity : BaseActivity() {
 
@@ -44,6 +47,11 @@ class DashboardActivity : BaseActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard)
         binding.dashboardViewModel = dashboardViewModel
         binding.lifecycleOwner = this
+
+        AppCenter.start(
+            getApplication(), "216da36a-b463-4c90-89f0-c9857579cc60",
+            Analytics::class.java, Crashes::class.java
+        )
     }
 
     fun onRollButtonClicked(view: View) {
