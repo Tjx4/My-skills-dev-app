@@ -125,7 +125,9 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
             override fun onFinish() {
                 _isTimeFinished.value = true
             }
-        }.start()
+        }
+
+        _countDownTimer?.start()
     }
 
     fun setAvailableCars(availableCars: List<Car>) {

@@ -26,11 +26,10 @@ class DashboardActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        var repository = DashboardRepository()
-        var dataSource = MyGameDatabase.getInstance(application).gameStatsDAO
-        var application = requireNotNull(this).application
-        var viewModelFactory = DashboardViewModelFactory(repository, dataSource, application)
-
+        val repository = DashboardRepository()
+        val dataSource = MyGameDatabase.getInstance(application).gameStatsDAO
+        val application = requireNotNull(this).application
+        val viewModelFactory = DashboardViewModelFactory(repository, dataSource, application)
         dashboardViewModel = ViewModelProviders.of(this, viewModelFactory).get(DashboardViewModel::class.java)
 
         dashboardViewModel.isWin.observe(this, Observer { onGameStatusChanged(it) })
@@ -72,7 +71,7 @@ class DashboardActivity : BaseActivity() {
 
     private fun onLuckyNumberModelChanged(roundModel: RoundModel?) {
         if(roundModel == null){
-            dashboardViewModel.onLuckyNumberError()
+            dashboardViewModel.onLuckyNumnerError()
         }
         else{
             dashboardViewModel.setLuckyNumber(roundModel.luckyNumber)
