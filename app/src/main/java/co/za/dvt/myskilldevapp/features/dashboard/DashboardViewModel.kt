@@ -214,24 +214,6 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         }
     }
 
-    fun someWorkNeedsToBeDone(){
-        uiScope.launch {
-            suspendFuntion()
-        }
-    }
-
-    suspend fun suspendFuntion(){
-        withContext(Dispatchers.IO){
-            longRunningWork()
-        }
-    }
-
-    suspend fun longRunningWork(){
-        withContext(Dispatchers.IO){
-
-        }
-    }
-
     fun onStartTracking(){
         uiScope.launch {
             var currentStats = GameStats()
@@ -277,7 +259,6 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
 
     fun setJackpotPrice(jackpotPrice: String) {
         gameStats.value?.jackpotPrice = jackpotPrice
-        //Todo: Move to relevant place
         onStopTracking()
     }
 
