@@ -1,0 +1,47 @@
+Index: app/src/main/java/co/za/dvt/myskilldevapp/features/dashboard/DashboardViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package co.za.dvt.myskilldevapp.features.dashboard\n\nimport android.app.Application\nimport android.os.AsyncTask\nimport android.util.Log\nimport androidx.lifecycle.LiveData\nimport androidx.lifecycle.MutableLiveData\nimport co.za.dvt.myskilldevapp.R\nimport co.za.dvt.myskilldevapp.features.dashboard.database.GameStats\nimport co.za.dvt.myskilldevapp.features.dashboard.database.GameStatsDAO\nimport co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel\nimport co.za.dvt.myskilldevapp.models.Car\nimport co.za.dvt.myskilldevapp.models.LuckyNumberModel\nimport kotlinx.coroutines.*\n\nclass DashboardViewModel(private val database: GameStatsDAO, application: Application) : BaseVieModel(application) {\n\n    private var dashboardRepository: DashboardRepository = DashboardRepository()\n    var winCount: Int = 0\n    var tries: Int = 0\n\n    private var viewModelJob = Job()\n    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)\n    private var gameStats: MutableLiveData<GameStats?>\n\n    private val _luckyNumberModel: MutableLiveData<LuckyNumberModel?>\n    val luckyNumberModel: LiveData<LuckyNumberModel?>\n    get() = _luckyNumberModel\n\n    private val _availableCars: MutableLiveData<List<Car>?>\n    val availableCars: LiveData<List<Car>?>\n    get() = _availableCars\n\n    private val _message: MutableLiveData<String>\n    val message: LiveData<String>\n    get() = _message\n\n    private val _luckyNumber: MutableLiveData<Int>\n    val currentLuckyNumber: LiveData<Int>\n    get() = _luckyNumber\n\n    private val _rolledNumber: MutableLiveData<Int>\n    val rolledNumber: LiveData<Int>\n    get() = _rolledNumber\n\n    //private var timeLeft: String\n    //private var countDownTimer: CountDownTimer\n\n    private val _isBusy: MutableLiveData<Boolean>\n    val isBusy: LiveData<Boolean>\n    get() = _isBusy\n\n    private val _isError: MutableLiveData<Boolean>\n    val isError: LiveData<Boolean>\n    get() = _isError\n\n    private val _isCarsError: MutableLiveData<Boolean>\n    val isCarsError: LiveData<Boolean>\n    get() = _isCarsError\n\n    private val _isWin: MutableLiveData<Boolean>\n    val isWin: LiveData<Boolean>\n    get() = _isWin\n\n    init {\n        _luckyNumberModel = dashboardRepository.luckyNumberModel\n        _availableCars = dashboardRepository.availableCars\n        _isBusy = MutableLiveData()\n        _isError = MutableLiveData()\n        _isCarsError = MutableLiveData()\n        _luckyNumber = MutableLiveData()\n        _rolledNumber = MutableLiveData()\n        _isWin = MutableLiveData()\n        gameStats = MutableLiveData()\n\n        _message = MutableLiveData()\n        _message.value = \"Try your luck... roll the dice\"\n\n        /*Todo: include time later\n        timeLeft = \"0:00\"\n        countDownTimer = object : CountDownTimer(30000, 1000) {\n\n            override fun onTick(millisUntilFinished: Long) {\n                timeLeft = millisUntilFinished.toString()\n            }\n\n            override fun onFinish() {\n\n            }\n        }.start()\n        */\n\n        fetchLuckyNumber()\n        initStats()\n    }\n\n    private fun initStats(){\n        uiScope.launch {\n            gameStats.value = getCurrentStatsFromDB()\n        }\n    }\n\n    private fun onStartTracking(){\n        uiScope.launch {\n            var currentStats = GameStats()\n            currentStats.player = 1\n            insert(currentStats)\n\n            gameStats.value = currentStats\n        }\n    }\n\n    private suspend fun insert(currentStats: GameStats) {\n         withContext(Dispatchers.IO){\n           database.insert(currentStats)\n        }\n    }\n\n    private suspend fun update(oldStats: GameStats) {\n         withContext(Dispatchers.IO){\n             database.update(oldStats)\n        }\n    }\n\n    private fun onStopTracking(){\n        uiScope.launch {\n            var oldStats = gameStats.value ?: return@launch\n            oldStats.endTime = System.currentTimeMillis()\n            oldStats.tries = tries\n            update(oldStats)\n        }\n    }\n\n    fun setJackpotPrice(jackpotPrice: String) {\n        gameStats.value?.jackpotPrice = jackpotPrice\n        //Todo: Move to relevant place\n        onStopTracking()\n    }\n\n    private suspend fun getCurrentStatsFromDB(): GameStats{\n            return withContext(Dispatchers.IO){\n                var stats = database.get(gameStats.value?.gameId ?: 0)\n\n                if(stats == null || stats.endTime != stats.startTime){\n                    null\n                }\n\n                stats\n            }\n    }\n\n    fun rollDice(){\n        _message.value = \"Rolling...\"\n    }\n\n    fun fetchLuckyNumber() {\n        _isBusy.value = true\n        dashboardRepository.fetchLuckyNumber()\n    }\n\n    fun fetchCars() {\n        _isBusy.value = true\n        dashboardRepository.fetchAvailableCars()\n    }\n\n    fun setLuckyNumber() {\n        _luckyNumber.value = _luckyNumberModel?.value?.luckyNumber ?: 0\n        _isBusy.value = _luckyNumber?.value == 0\n        _isError.value = false\n    }\n\n    fun setAvailableCars() {\n        _availableCars.value = _availableCars?.value\n        _isBusy.value = false\n        _isCarsError.value = false\n    }\n\n    fun onLuckyNumnerError() {\n        _isError.value = true\n        _isBusy.value = false\n    }\n\n    fun onAvailableCarsError() {\n        _isBusy.value = false\n        _isCarsError.value = true\n    }\n\n    fun resetMessage() {\n        _message.value = \"Try your luck... roll the dice\"\n    }\n\n    fun onRollCompleted() {\n        ++tries\n        _rolledNumber.value  = (1..6).random()\n        _message.value  = \"You rolled a ${_rolledNumber.value} please try again\"\n        _isWin.value = _luckyNumber.value == _rolledNumber.value\n\n        if(gameStats.value == null){\n            onStartTracking()\n        }\n    }\n\n    fun getRolledNumberDi(rolledNumber: Int): Int {\n        return when(rolledNumber){\n            1 -> R.drawable.ic_di_1\n            2 -> R.drawable.ic_di_2\n            3 -> R.drawable.ic_di_3\n            4 -> R.drawable.ic_di_4\n            5 -> R.drawable.ic_di_5\n            else -> R.drawable.ic_di_6\n        }\n    }\n\n    fun resetGame(){\n        fetchLuckyNumber()\n        _isWin.value = false\n        _isError.value = false\n    }\n\n    fun showPrices(){\n        fetchCars()\n    }\n\n    fun incrimentWin() {\n        ++winCount\n    }\n\n    override fun onCleared() {\n        super.onCleared()\n        viewModelJob.cancel()\n        uiScope.launch {\n            clear()\n            gameStats.value = null\n        }\n    }\n\n    private suspend fun clear() {\n        withContext(Dispatchers.IO){\n            database.clear()\n        }\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/co/za/dvt/myskilldevapp/features/dashboard/DashboardViewModel.kt	(date 1569497165000)
++++ app/src/main/java/co/za/dvt/myskilldevapp/features/dashboard/DashboardViewModel.kt	(date 1569497199000)
+@@ -135,7 +135,37 @@
+         gameStats.value?.jackpotPrice = jackpotPrice
+         //Todo: Move to relevant place
+         onStopTracking()
++
++        AgentAsyncTask(database, gameStats.value!!).execute()
+     }
++
++
++    private class AgentAsyncTask(database:GameStatsDAO, gameStats:GameStats) : AsyncTask<Void, Void, GameStats>() {
++
++        private var database: GameStatsDAO
++        private var gameStats: GameStats
++
++        init {
++            this.database = database
++            this.gameStats = gameStats
++        }
++
++        override fun doInBackground(vararg params: Void): GameStats? {
++            var stats = database.get(gameStats.gameId)
++            return stats
++        }
++
++        override fun onPostExecute(stats: GameStats?) {
++            Log.i("STATS", "id:"+stats?.gameId+", user:"+stats?.player+"\n")
++
++            var allStats = database.getAllGameStats().value ?: ArrayList<GameStats>()
++
++            for (stat in allStats){
++                Log.i("STATS", "id:"+stat.gameId+", user:"+stat.player+"\n")
++            }
++        }
++    }
++
+ 
+     private suspend fun getCurrentStatsFromDB(): GameStats{
+             return withContext(Dispatchers.IO){
