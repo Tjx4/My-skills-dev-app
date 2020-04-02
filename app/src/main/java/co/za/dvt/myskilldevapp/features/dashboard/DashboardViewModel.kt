@@ -78,7 +78,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         ioScope.launch {
             val payload = HashMap<String, String>()
             payload[ATMT] = "0"
-            var round = dashboardRepository.fetchLuckyNumber(payload)
+            val round = dashboardRepository.fetchLuckyNumber(payload)
 
             CoroutineScope(Dispatchers.Main).launch {
 
@@ -95,16 +95,30 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         }
     }
 
-    fun fetchCars() {
-        ioScope.launch {
-            CoroutineScope(Dispatchers.Main).launch {
-                _isBusy.value = true
-                _availableCars.value = dashboardRepository.fetchAvailableCars()
-                _isBusy.value = false
 
-                if(availableCars == null){
-                    onAvailableCarsError()
+    fun showPrices(){
+
+    }
+
+
+    fun fetchCars() {
+        _isBusy.value = true
+
+        ioScope.launch {
+
+            val cars = dashboardRepository.fetchAvailableCars()
+
+            CoroutineScope(Dispatchers.Main).launch {
+
+                if(cars != null) {
+
+                    _availableCars.value = cars
                 }
+                else{
+                    _isError.value = true
+                }
+
+                _isBusy.value = false
             }
         }
 
@@ -131,11 +145,6 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     fun setAvailableCars(availableCars: List<Car>) {
         _availableCars.value = availableCars
         _isCarsError.value = false
-        _isBusy.value = false
-    }
-
-    fun onAvailableCarsError() {
-        _isCarsError.value = true
         _isBusy.value = false
     }
 
@@ -169,10 +178,6 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
             5 -> R.drawable.ic_di_5
             else -> R.drawable.ic_di_6
         }
-    }
-
-    fun showPrices(){
-
     }
 
   fun resetGame(){
