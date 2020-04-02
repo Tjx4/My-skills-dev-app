@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.adapters.CarPrizesAdapter
+import co.za.dvt.myskilldevapp.constants.CARS
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardActivity
 import co.za.dvt.myskilldevapp.features.fragments.BaseDialogFragment
 import co.za.dvt.myskilldevapp.models.Car
@@ -25,20 +26,21 @@ class CarPrizesFragment : BaseDialogFragment(), CarPrizesAdapter.ItemClickListen
     }
 
     private fun initViews(parentView: View) {
-        cars = dashboardActivity?.dashboardViewModel?.availableCars?.value
-        val workersViewAdapter = CarPrizesAdapter(dashboardActivity as Context, cars!!)
-        workersViewAdapter.setClickListener(this)
+        cars = arguments?.getParcelableArrayList(CARS)
+
+        if(cars == null) return
+
+        val carPrizesAdapter = CarPrizesAdapter(dashboardActivity as Context, cars as java.util.ArrayList<Car>)
+        carPrizesAdapter.setClickListener(this)
 
         carsRv = parentView.findViewById(R.id.rvCars)
         carsRv?.layoutManager = LinearLayoutManager(dashboardActivity)
-        carsRv?.adapter = workersViewAdapter
+        carsRv?.adapter = carPrizesAdapter
     }
 
     override fun onItemClick(view: View, position: Int) {
-        dashboardActivity?.dashboardViewModel?.resetPrizes()
+        dashboardActivity?.onPriceItemClick(position)
         dismiss()
-        var selectedPrice = cars?.get(position)?.brand +" "+ cars?.get(position)?.model
-        dashboardActivity?.showGameWin(selectedPrice)
     }
 
     override fun onAttach(context: Context?) {
@@ -55,9 +57,10 @@ class CarPrizesFragment : BaseDialogFragment(), CarPrizesAdapter.ItemClickListen
     }
 
     companion object {
-        fun newInstance(): BaseDialogFragment {
+        fun newInstance(cars: List<Car>?): BaseDialogFragment {
             val carsListFragment = CarPrizesFragment()
             val bundle = Bundle()
+            bundle.putParcelableArrayList(CARS, cars as ArrayList<Car>)
             carsListFragment.arguments = bundle
             return carsListFragment
         }

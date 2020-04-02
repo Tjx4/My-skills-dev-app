@@ -20,13 +20,14 @@ open class DashboardRepository : BaseRepositories() {
         roundModel.value = RoundModel()
     }
 
-    fun fetchLuckyNumber(){
+    suspend fun fetchLuckyNumber(): RoundModel{
         ++atmpt
 
         val payload = HashMap<String, String>()
         payload[ATMT] = atmpt.toString()
 
         val call1 = retrofitHelper?.getLuckyNumner(payload)
+
         call1?.enqueue(object : Callback<RoundModel> {
             override fun onResponse(call: Call<RoundModel>, response: Response<RoundModel>) {
 
@@ -44,7 +45,7 @@ open class DashboardRepository : BaseRepositories() {
         })
     }
 
-    fun fetchAvailableCars() {
+    suspend fun fetchAvailableCars(): List<Car> {
         val call1 = retrofitHelper.getAvailableCars()
         call1.enqueue(object : Callback<List<Car>> {
             override fun onResponse(call: Call<List<Car>>, response: Response<List<Car>>) {

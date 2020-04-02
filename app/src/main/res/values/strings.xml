@@ -13,4 +13,7 @@
     <string name="try_your_luck_roll_dice">Try your luck... roll the dice</string>
     <string name="lucky_number_error_message">Error getting lucky number :(</string>
     <string name="cars_error_message">Error getting cars :(</string>
+    <string name="roll">Roll</string>
+    <string name="out_of_time_message">Sorry you\'ve run out of time</string>
+    <string name="end_game">End game</string>
 </resources>

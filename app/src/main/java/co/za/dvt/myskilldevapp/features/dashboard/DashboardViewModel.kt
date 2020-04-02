@@ -20,87 +20,88 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
 
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-    private var gameStats: MutableLiveData<GameStats?>
+    private var gameStats: MutableLiveData<GameStats?> = MutableLiveData()
 
     private var _countDownTimer: CountDownTimer? = null
     val countDownTimer: CountDownTimer?
     get() = _countDownTimer
 
-    private val _roundModel: MutableLiveData<RoundModel?>
+    private val _roundModel: MutableLiveData<RoundModel?> = MutableLiveData()
     val roundModel: LiveData<RoundModel?>
     get() = _roundModel
 
-    private val _availableCars: MutableLiveData<List<Car>?>
+    private val _availableCars: MutableLiveData<List<Car>?> = MutableLiveData()
     val availableCars: LiveData<List<Car>?>
     get() = _availableCars
 
-    private val _message: MutableLiveData<String>
-    val message: LiveData<String>
+    private val _message: MutableLiveData<String> = MutableLiveData()
+    val message: MutableLiveData<String>
     get() = _message
 
-    private val _currentLuckyNumber: MutableLiveData<Int>
+    private val _currentLuckyNumber: MutableLiveData<Int> = MutableLiveData()
     val currentLuckyNumber: LiveData<Int>
     get() = _currentLuckyNumber
 
-    private val _rolledNumber: MutableLiveData<Int>
+    private val _rolledNumber: MutableLiveData<Int> = MutableLiveData()
     val rolledNumber: LiveData<Int>
     get() = _rolledNumber
 
-    private val _isBusy: MutableLiveData<Boolean>
+    private val _isBusy: MutableLiveData<Boolean> = MutableLiveData()
     val isBusy: LiveData<Boolean>
     get() = _isBusy
 
-    private val _isError: MutableLiveData<Boolean>
+    private val _isError: MutableLiveData<Boolean> = MutableLiveData()
     val isError: LiveData<Boolean>
     get() = _isError
 
-    private val _isTimeFinished: MutableLiveData<Boolean>
+    private val _isTimeFinished: MutableLiveData<Boolean> = MutableLiveData()
     val isTimeFinished: LiveData<Boolean>
     get() = _isTimeFinished
 
-    private val _isCarsError: MutableLiveData<Boolean>
+    private val _isCarsError: MutableLiveData<Boolean> = MutableLiveData()
     val isCarsError: LiveData<Boolean>
     get() = _isCarsError
 
-    private val _isWin: MutableLiveData<Boolean>
+    private val _isWin: MutableLiveData<Boolean> = MutableLiveData()
     val isWin: LiveData<Boolean>
     get() = _isWin
 
-    private val _timeLeft: MutableLiveData<String>
+    private val _timeLeft: MutableLiveData<String> = MutableLiveData()
     val timeLeft: LiveData<String>
     get() = _timeLeft
 
 
     init {
-        _roundModel = dashboardRepository.roundModel
-        _availableCars = dashboardRepository.availableCars
-
-        _isBusy = MutableLiveData()
-        _isError = MutableLiveData()
-        _isCarsError = MutableLiveData()
-        _currentLuckyNumber = MutableLiveData()
-        _rolledNumber = MutableLiveData()
-        _isWin = MutableLiveData()
-        gameStats = MutableLiveData()
-        _message = MutableLiveData()
-        _timeLeft = MutableLiveData()
-        _isTimeFinished = MutableLiveData()
-
         fetchLuckyNumber()
     }
 
-    fun rollDice(){
-        _message.value = app.getString(R.string.rolling)
-    }
 
     fun fetchLuckyNumber() {
         _isBusy.value = true
-        dashboardRepository.fetchLuckyNumber()
+        _roundModel.value = dashboardRepository.fetchLuckyNumber()
+        _isBusy.value = false
+
+        if(_roundModel.value == null){
+            onLuckyNumberError()
+        }
+        else{
+            setLuckyNumber(_roundModel.value?.luckyNumber)
+        }
     }
 
     fun fetchCars() {
         _isBusy.value = true
-        dashboardRepository.fetchAvailableCars()
+        _availableCars.value = dashboardRepository.fetchAvailableCars()
+        _isBusy.value = false
+
+        if(availableCars == null){
+           onAvailableCarsError()
+        }
+        else{
+            if(_availableCars.value?.isNotEmpty()){
+                showPrices(_availableCars.value)
+            }
+        }
     }
 
     fun setLuckyNumber(luckyNumber: Int) {
@@ -146,6 +147,10 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         _isBusy.value = false
     }
 
+    fun showRolling() {
+        _message.value = app.getString(R.string.rolling)
+    }
+
     fun resetMessage() {
         _message.value = app.getString(R.string.try_your_luck_roll_dice)
     }
@@ -163,7 +168,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         ++tries
     }
 
-    fun getRolledNumberDi(rolledNumber: Int): Int {
+    fun getRolledNumberDiceImage(rolledNumber: Int): Int {
         return when(rolledNumber){
             1 -> R.drawable.ic_di_1
             2 -> R.drawable.ic_di_2
@@ -181,7 +186,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     }
 
     fun showPrices(){
-        fetchCars()
+
     }
 
     fun incrimentWin() {

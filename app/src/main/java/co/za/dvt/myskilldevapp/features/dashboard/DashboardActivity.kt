@@ -15,11 +15,7 @@ import co.za.dvt.myskilldevapp.features.dashboard.fragments.CarPrizesFragment
 import co.za.dvt.myskilldevapp.features.database.MyGameDatabase
 import co.za.dvt.myskilldevapp.helpers.*
 import co.za.dvt.myskilldevapp.models.Car
-import co.za.dvt.myskilldevapp.models.RoundModel
 import kotlinx.android.synthetic.main.activity_dashboard.*
-import com.microsoft.appcenter.crashes.Crashes
-import com.microsoft.appcenter.analytics.Analytics
-import com.microsoft.appcenter.AppCenter
 
 class DashboardActivity : BaseActivity() {
 
@@ -29,43 +25,44 @@ class DashboardActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val repository = DashboardRepository()
-        val dataSource = MyGameDatabase.getInstance(application).gameStatsDAO
-        val application = requireNotNull(this).application
-        val viewModelFactory = DashboardViewModelFactory(repository, dataSource, application)
+        var repository = DashboardRepository()
+        var dataSource = MyGameDatabase.getInstance(application).gameStatsDAO
+        var application = requireNotNull(this).application
+        var viewModelFactory = DashboardViewModelFactory(repository, dataSource, application)
+
         dashboardViewModel = ViewModelProviders.of(this, viewModelFactory).get(DashboardViewModel::class.java)
 
         dashboardViewModel.isWin.observe(this, Observer { onGameStatusChanged(it) })
         dashboardViewModel.isError.observe(this, Observer { onGetLuckyNumber(it) })
         dashboardViewModel.isCarsError.observe(this, Observer { onGetCars(it) })
         dashboardViewModel.isBusy.observe(this, Observer { toggleIsBusy(it) })
-        dashboardViewModel.rolledNumber.observe(this, Observer { showRolledNumber(it) })
-        dashboardViewModel.roundModel.observe(this, Observer { onLuckyNumberModelChanged(it) })
-        dashboardViewModel.availableCars.observe(this, Observer { onAvailableCarsChanged(it) })
+        dashboardViewModel.rolledNumber.observe(this, Observer { showRolledDiceNumber(it) })
         dashboardViewModel.isTimeFinished.observe(this, Observer { onTimeFinished(it) })
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard)
         binding.dashboardViewModel = dashboardViewModel
         binding.lifecycleOwner = this
 
+        /*
         AppCenter.start(
             getApplication(), "216da36a-b463-4c90-89f0-c9857579cc60",
             Analytics::class.java, Crashes::class.java
         )
+        */
     }
 
     fun onRollButtonClicked(view: View) {
         view.blinkView(0.5f, 1.0f, 500, 2, Animation.REVERSE, 0)
-        imgDice.rotateView(0f, 360f, 0.5f, 0.5f,600, 2, Animation.ABSOLUTE, 0, ::onInitialRotateDone, ::onRotateStart)
+        imgDice.rotateView(0f, 360f, 0.5f, 0.5f,600, 2, Animation.ABSOLUTE, 0, ::slowDownDiceRoll, ::onRotateStart)
     }
 
-    private fun onInitialRotateDone() {
+    private fun slowDownDiceRoll() {
         imgDice.rotateView(0f, 360f, 0.5f, 0.5f,900, 2, Animation.REVERSE, 0, ::onRollComplete)
     }
 
     private fun onRotateStart() {
         btnDice.isEnabled = false
-        dashboardViewModel.rollDice()
+        dashboardViewModel.showRolling()
     }
 
     private fun onRollComplete() {
@@ -73,37 +70,16 @@ class DashboardActivity : BaseActivity() {
         btnDice.isEnabled = true
     }
 
-    private fun showRolledNumber(rolledNumber:Int) {
-        imgDice.setImageResource(dashboardViewModel.getRolledNumberDi(rolledNumber))
+    private fun showRolledDiceNumber(rolledNumber: Int) {
+        imgDice.setImageResource(dashboardViewModel.getRolledNumberDiceImage(rolledNumber))
     }
 
-    private fun onLuckyNumberModelChanged(roundModel: RoundModel?) {
-        if(roundModel == null){
-            dashboardViewModel.onLuckyNumnerError()
-        }
-        else{
-            dashboardViewModel.setLuckyNumber(roundModel.luckyNumber)
-        }
-    }
-
-    private fun onAvailableCarsChanged(availableCars:List<Car>?) {
-        if(availableCars == null){
-            dashboardViewModel.onAvailableCarsError()
-        }
-        else{
-            if(availableCars.isNotEmpty()){
-                showPrices(availableCars)
-            }
-
-        }
-    }
-
-    private fun onTimeFinished(timeFinished:Boolean?) {
-        showErrorAlert(this, getString(R.string.error),  "Sorry you've run out of time", "End game") {finish()}
+    private fun onTimeFinished(timeFinished: Boolean) {
+        showErrorAlert(this, getString(R.string.error),  getString(R.string.out_of_time_message), getString(R.string.end_game)) {finish()}
     }
 
     private fun showPrices(availableCars: List<Car>) {
-        var carPricesFragment = CarPrizesFragment.newInstance()
+        var carPricesFragment = CarPrizesFragment.newInstance(availableCars)
         carPricesFragment.isCancelable = false
         showDialogFragment("", R.layout.fragment_cars_list, carPricesFragment, this)
     }
@@ -131,6 +107,13 @@ class DashboardActivity : BaseActivity() {
 
     private fun onViewPricesClicked() {
         dashboardViewModel.showPrices()
+    }
+
+    fun onPriceItemClick(position: Int) {
+       dashboardViewModel?.resetPrizes()
+        val cars = dashboardViewModel.availableCars.value
+        var selectedPrice = cars?.get(position)?.brand +" "+ cars?.get(position)?.model
+       showGameWin(selectedPrice)
     }
 
     private fun onRestartGameClicked() {
