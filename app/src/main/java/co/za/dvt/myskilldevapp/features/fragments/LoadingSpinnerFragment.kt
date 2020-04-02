@@ -18,7 +18,7 @@ class LoadingSpinnerFragment : BaseDialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         dialog.setCancelable(false)
         dialog.setCanceledOnTouchOutside(false)
-        dialog.window?.setDimAmount(0.9f)
+        dialog.window?.setDimAmount(1f)
 
         val parentView = super.onCreateView(inflater, container, savedInstanceState)
         loader = parentView?.findViewById(R.id.progressBarLoading)

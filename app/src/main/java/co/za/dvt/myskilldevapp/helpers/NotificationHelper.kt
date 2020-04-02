@@ -6,19 +6,6 @@ import android.content.DialogInterface
 import android.view.Window
 import android.widget.Toast
 import co.za.dvt.myskilldevapp.R
-import co.za.dvt.myskilldevapp.features.activities.BaseActivity
-import co.za.dvt.myskilldevapp.features.fragments.LoadingSpinnerFragment
-
-fun showLoadingDialog(loadingMessage: String, activity: BaseActivity) {
-    var loadingSpinnerFragment = LoadingSpinnerFragment.newInstance("")
-    showDialogFragment(loadingMessage, R.layout.fragment_loading_spinner, loadingSpinnerFragment, activity)
-    loadingSpinnerFragment.isCancelable = false
-    activity.activeDialogFragment = loadingSpinnerFragment
-}
-
-fun hideCurrentLoadingDialog(activity: BaseActivity) {
-    activity.activeDialogFragment?.dismiss()
-}
 
 fun showShortToast(message: String, context: Context){
     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
@@ -56,9 +43,9 @@ fun showConfirmAlert(context: Context, title: String, message: String, yesButton
     showAlertMessage(ab, context)
 }
 
-private fun setupBasicMessage(title: String,message: String,
-                              positiveButtonText: String?, neutralButtonText: String?, negetiveButtonText: String?,
-                              positiveCallback: () -> Unit, neutralCallback: () -> Unit, negetiveCallback: () -> Unit,
+private fun setupBasicMessage(title: String, message: String,
+                              positiveButtonText: String?, neutralButtonText: String?, negativeButtonText: String?,
+                              positiveCallback: () -> Unit, neutralCallback: () -> Unit, negativeCallback: () -> Unit,
                               context: Context
 ): AlertDialog.Builder {
 
@@ -75,9 +62,9 @@ private fun setupBasicMessage(title: String,message: String,
         }
     }
 
-    if (negetiveButtonText != null) {
-        ab.setNegativeButton(negetiveButtonText) { dialogInterface, i ->
-            negetiveCallback()
+    if (negativeButtonText != null) {
+        ab.setNegativeButton(negativeButtonText) { dialogInterface, i ->
+            negativeCallback()
         }
     }
 

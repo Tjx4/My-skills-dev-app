@@ -122,7 +122,7 @@ class DashboardActivity : BaseActivity() {
 
     private fun onGetLuckyNumber(isError: Boolean) {
         if(isError){
-            showCancellableErrorAlert(this, getString(R.string.error), getString(R.string.lucky_number_error_message) , "Try again", "Close app", {dashboardViewModel.fetchLuckyNumber()}, ::finish)
+            showCancellableErrorAlert(this, getString(R.string.error), getString(R.string.lucky_number_error_message) , "Try again", "Close app", {dashboardViewModel.startNewRound()}, ::finish)
         }
     }
 

@@ -69,10 +69,10 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     get() = _timeLeft
 
     init {
-        fetchLuckyNumber()
+        startNewRound()
     }
 
-    fun fetchLuckyNumber() {
+    fun startNewRound() {
         _isBusy.value = true
 
         ioScope.launch {
@@ -85,6 +85,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
 
                 if(round != null){
                     _currentLuckyNumber.value = round.luckyNumber
+                    _countDownTimer ?: startCountDown()
                 }
                 else{
                     _isError.value = true
@@ -105,19 +106,9 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
                 if(availableCars == null){
                     onAvailableCarsError()
                 }
-
             }
         }
 
-    }
-
-    fun setLuckyNumber(luckyNumber: Int) {
-
-        _isError.value = false
-        _message.value = app.getString(R.string.try_your_luck_roll_the_dice)
-        _isBusy.value = _currentLuckyNumber?.value == 0
-
-       _countDownTimer ?: startCountDown()
     }
 
     fun startCountDown(){
@@ -186,7 +177,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     }
 
   fun resetGame(){
-        fetchLuckyNumber()
+        startNewRound()
         _isWin.value = false
         _isError.value = false
     }
