@@ -12,19 +12,11 @@ import java.util.HashMap
 
 open class DashboardRepository : BaseRepositories() {
 
-    val roundModel: MutableLiveData<RoundModel?> = MutableLiveData()
-    val availableCars: MutableLiveData<List<Car>?> = MutableLiveData()
-    var atmpt: Int = 0
-
-    init {
-        roundModel.value = RoundModel()
-    }
-
-    suspend fun fetchLuckyNumber(): RoundModel{
-        ++atmpt
+    suspend fun fetchLuckyNumber(atempt: Int): RoundModel?{
+        var roundModel: RoundModel? = null
 
         val payload = HashMap<String, String>()
-        payload[ATMT] = atmpt.toString()
+        payload[ATMT] = atempt.toString()
 
         val call1 = retrofitHelper?.getLuckyNumner(payload)
 
@@ -32,17 +24,18 @@ open class DashboardRepository : BaseRepositories() {
             override fun onResponse(call: Call<RoundModel>, response: Response<RoundModel>) {
 
                 if (response.isSuccessful) {
-                    roundModel.value = response.body()
-                    atmpt = 0
+                    roundModel = response.body()
                 } else {
-                    roundModel.value = null
+                    roundModel = null
                 }
             }
 
             override fun onFailure(call: Call<RoundModel>, t: Throwable) {
-                roundModel.value = null
+                roundModel = null
             }
         })
+
+        return roundModel
     }
 
     suspend fun fetchAvailableCars(): List<Car> {

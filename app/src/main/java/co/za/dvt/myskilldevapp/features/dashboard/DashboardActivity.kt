@@ -128,17 +128,15 @@ class DashboardActivity : BaseActivity() {
 
     private fun onGetCars(isError: Boolean) {
         if(isError){
-            showCancellableErrorAlert(this, getString(R.string.error), getString(R.string.cars_error_message), "Try again","Close app", {dashboardViewModel.fetchCars()}, ::finish)
+            showCancellableErrorAlert(this, getString(R.string.error), getString(R.string.cars_error_message), "Try again","Close app", { dashboardViewModel.fetchCars()}, ::finish)
         }
     }
 
     private fun toggleIsBusy(isBusy: Boolean) {
-       if(isBusy){
+       if(isBusy)
            showLoadingDialog("Starting game please wait...", this)
-       }
-        else{
+        else
            hideCurrentLoadingDialog(this)
-       }
     }
 
     fun showGameWin(jackpotPrice: String){

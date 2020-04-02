@@ -2,6 +2,7 @@ package co.za.dvt.myskilldevapp.features.dashboard
 
 import android.app.Application
 import android.os.CountDownTimer
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.R
@@ -20,6 +21,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
 
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    protected val ioScope = CoroutineScope(Dispatchers.IO + viewModelJob)
     private var gameStats: MutableLiveData<GameStats?> = MutableLiveData()
 
     private var _countDownTimer: CountDownTimer? = null
@@ -70,38 +72,46 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     val timeLeft: LiveData<String>
     get() = _timeLeft
 
-
     init {
         fetchLuckyNumber()
     }
 
-
     fun fetchLuckyNumber() {
-        _isBusy.value = true
-        _roundModel.value = dashboardRepository.fetchLuckyNumber()
-        _isBusy.value = false
+        ioScope.launch {
 
-        if(_roundModel.value == null){
-            onLuckyNumberError()
-        }
-        else{
-            setLuckyNumber(_roundModel.value?.luckyNumber)
+            CoroutineScope(Dispatchers.Main).launch {
+                _isBusy.value = true
+                _roundModel.value = dashboardRepository.fetchLuckyNumber(0)
+                _isBusy.value = false
+
+                if(_roundModel.value != null){
+                    setLuckyNumber(_roundModel.value.luckyNumber)
+                }
+                else{
+                    onLuckyNumberError()
+                }
+            }
         }
     }
 
     fun fetchCars() {
-        _isBusy.value = true
-        _availableCars.value = dashboardRepository.fetchAvailableCars()
-        _isBusy.value = false
+        ioScope.launch {
+            CoroutineScope(Dispatchers.Main).launch {
+                _isBusy.value = true
+                _availableCars.value = dashboardRepository.fetchAvailableCars()
+                _isBusy.value = false
 
-        if(availableCars == null){
-           onAvailableCarsError()
-        }
-        else{
-            if(_availableCars.value?.isNotEmpty()){
-                showPrices(_availableCars.value)
+                if(availableCars == null){
+                    onAvailableCarsError()
+                }
+                else{
+                    if(_availableCars.value?.isNotEmpty()){
+                        showPrices(_availableCars.value)
+                    }
+                }
             }
         }
+
     }
 
     fun setLuckyNumber(luckyNumber: Int) {
