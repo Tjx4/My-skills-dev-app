@@ -135,7 +135,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         _isBusy.value = false
     }
 
-    fun onLuckyNumnerError() {
+    fun onLuckyNumberError() {
         _isError.value = true
         _isBusy.value = false
     }

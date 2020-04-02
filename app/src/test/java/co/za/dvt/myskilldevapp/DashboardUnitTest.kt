@@ -35,12 +35,10 @@ class DashboardUnitTest {
 
     @Test
     fun fetch_lucky_number() {
-        //dashboardViewModel.isBusy.value == true
-    }
 
-    @Test
-    fun fetch_lucky_number_game_state_correct() {
+       // val actual = dashboardViewModel?.fetchLuckyNumber()
 
+       //  assert()
     }
 
     @Test
@@ -55,32 +53,6 @@ class DashboardUnitTest {
 
         // then
         assertEquals(expectedResult, actualResult)
-    }
-
-    @Test
-    fun set_luckyNumber_game_state_correct() {
-        // given
-        var testLuckyNumber = 1
-
-        // when
-        dashboardViewModel.setLuckyNumber(testLuckyNumber)
-        val actualResult = dashboardViewModel?.currentLuckyNumber?.value != 0 && dashboardViewModel?.isError?.value == false
-        val expectedResult = true
-
-        // then
-        assertEquals(expectedResult, actualResult)
-    }
-
-    @Test
-    fun rolling_text_correctly_displaying() {
-        // given
-        var testRollingText = "Rolling..."
-
-        // when
-        dashboardViewModel.rollDice()
-
-        // then
-       assertEquals(dashboardViewModel.message.value, testRollingText)
     }
 
 }

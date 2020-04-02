@@ -30,6 +30,7 @@ class DashboardActivity : BaseActivity() {
         var dataSource = MyGameDatabase.getInstance(application).gameStatsDAO
         var application = requireNotNull(this).application
         var viewModelFactory = DashboardViewModelFactory(repository, dataSource, application)
+
         dashboardViewModel = ViewModelProviders.of(this, viewModelFactory).get(DashboardViewModel::class.java)
 
         dashboardViewModel.isWin.observe(this, Observer { onGameStatusChanged(it) })
@@ -71,7 +72,7 @@ class DashboardActivity : BaseActivity() {
 
     private fun onLuckyNumberModelChanged(roundModel: RoundModel?) {
         if(roundModel == null){
-            dashboardViewModel.onLuckyNumnerError()
+            dashboardViewModel.onLuckyNumberError()
         }
         else{
             dashboardViewModel.setLuckyNumber(roundModel.luckyNumber)
