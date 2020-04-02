@@ -1,6 +1,5 @@
 package co.za.dvt.myskilldevapp.features.dashboard
 
-import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.constants.ATMT
 import co.za.dvt.myskilldevapp.features.repositories.BaseRepositories
 import co.za.dvt.myskilldevapp.models.Car
@@ -12,11 +11,11 @@ import java.util.HashMap
 
 open class DashboardRepository : BaseRepositories() {
 
-    suspend fun fetchLuckyNumber(atempt: Int): RoundModel?{
+    suspend fun fetchLuckyNumber(): RoundModel?{
         var roundModel: RoundModel? = null
 
         val payload = HashMap<String, String>()
-        payload[ATMT] = atempt.toString()
+        payload[ATMT] = "0"
 
         val call1 = retrofitHelper?.getLuckyNumner(payload)
 
@@ -38,23 +37,25 @@ open class DashboardRepository : BaseRepositories() {
         return roundModel
     }
 
-    suspend fun fetchAvailableCars(): List<Car> {
+    suspend fun fetchAvailableCars(): List<Car>? {
+        var availableCars: List<Car>? = ArrayList()
         val call1 = retrofitHelper.getAvailableCars()
         call1.enqueue(object : Callback<List<Car>> {
             override fun onResponse(call: Call<List<Car>>, response: Response<List<Car>>) {
 
                 if (response.isSuccessful) {
-                    availableCars.value = response.body()
+                    availableCars = response.body()
                 }
                 else{
-                    availableCars.value = null
+                    availableCars = null
                 }
             }
 
             override fun onFailure(call: Call<List<Car>>, t: Throwable) {
-                availableCars.value = null
+                availableCars = null
             }
         })
-    }
 
+        return availableCars
+    }
 }

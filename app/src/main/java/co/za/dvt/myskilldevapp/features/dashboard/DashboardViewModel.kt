@@ -2,7 +2,6 @@ package co.za.dvt.myskilldevapp.features.dashboard
 
 import android.app.Application
 import android.os.CountDownTimer
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.R
@@ -77,18 +76,20 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     }
 
     fun fetchLuckyNumber() {
+        _isBusy.value = true
+
         ioScope.launch {
+            _roundModel.value = dashboardRepository.fetchLuckyNumber()
 
             CoroutineScope(Dispatchers.Main).launch {
-                _isBusy.value = true
-                _roundModel.value = dashboardRepository.fetchLuckyNumber(0)
+
                 _isBusy.value = false
 
                 if(_roundModel.value != null){
-                    setLuckyNumber(_roundModel.value.luckyNumber)
+                    _currentLuckyNumber.value = _roundModel.value?.luckyNumber ?: 0
                 }
                 else{
-                    onLuckyNumberError()
+                    _isError.value = true
                 }
             }
         }
@@ -104,18 +105,14 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
                 if(availableCars == null){
                     onAvailableCarsError()
                 }
-                else{
-                    if(_availableCars.value?.isNotEmpty()){
-                        showPrices(_availableCars.value)
-                    }
-                }
+
             }
         }
 
     }
 
     fun setLuckyNumber(luckyNumber: Int) {
-        _currentLuckyNumber.value = luckyNumber
+
         _isError.value = false
         _message.value = app.getString(R.string.try_your_luck_roll_the_dice)
         _isBusy.value = _currentLuckyNumber?.value == 0
@@ -144,11 +141,6 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     fun setAvailableCars(availableCars: List<Car>) {
         _availableCars.value = availableCars
         _isCarsError.value = false
-        _isBusy.value = false
-    }
-
-    fun onLuckyNumberError() {
-        _isError.value = true
         _isBusy.value = false
     }
 
@@ -189,14 +181,14 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         }
     }
 
-    fun resetGame(){
+    fun showPrices(){
+
+    }
+
+  fun resetGame(){
         fetchLuckyNumber()
         _isWin.value = false
         _isError.value = false
-    }
-
-    fun showPrices(){
-
     }
 
     fun incrimentWin() {
