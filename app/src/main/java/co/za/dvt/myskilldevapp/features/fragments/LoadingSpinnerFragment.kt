@@ -25,7 +25,7 @@ class LoadingSpinnerFragment : BaseDialogFragment() {
         loadingTxt = parentView?.findViewById(R.id.txtLoading)
 
         val loadingMessage = arguments?.getString(TITLE)
-        loadingTxt!!.setText(loadingMessage)
+        loadingTxt?.text = loadingMessage
 
         return parentView
     }

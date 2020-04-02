@@ -5,12 +5,13 @@ import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.R
+import co.za.dvt.myskilldevapp.constants.ATMT
 import co.za.dvt.myskilldevapp.features.dashboard.database.GameStats
 import co.za.dvt.myskilldevapp.features.dashboard.database.GameStatsDAO
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
 import co.za.dvt.myskilldevapp.models.Car
-import co.za.dvt.myskilldevapp.models.RoundModel
 import kotlinx.coroutines.*
+import java.util.HashMap
 import java.util.concurrent.TimeUnit
 
 class DashboardViewModel(private val dashboardRepository: DashboardRepository, private val database: GameStatsDAO, application: Application) : BaseVieModel(application) {
@@ -26,10 +27,6 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     private var _countDownTimer: CountDownTimer? = null
     val countDownTimer: CountDownTimer?
     get() = _countDownTimer
-
-    private val _roundModel: MutableLiveData<RoundModel?> = MutableLiveData()
-    val roundModel: LiveData<RoundModel?>
-    get() = _roundModel
 
     private val _availableCars: MutableLiveData<List<Car>?> = MutableLiveData()
     val availableCars: LiveData<List<Car>?>
@@ -79,18 +76,21 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         _isBusy.value = true
 
         ioScope.launch {
-            _roundModel.value = dashboardRepository.fetchLuckyNumber()
+
+            val payload = HashMap<String, String>()
+            payload[ATMT] = "0"
+            var round = dashboardRepository.fetchLuckyNumber(payload)
 
             CoroutineScope(Dispatchers.Main).launch {
 
-                _isBusy.value = false
-
-                if(_roundModel.value != null){
-                    _currentLuckyNumber.value = _roundModel.value?.luckyNumber ?: 0
+                if(round != null){
+                    _currentLuckyNumber.value = round.luckyNumber
                 }
                 else{
                     _isError.value = true
                 }
+
+                _isBusy.value = false
             }
         }
     }

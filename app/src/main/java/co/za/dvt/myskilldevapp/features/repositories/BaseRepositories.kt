@@ -15,6 +15,6 @@ abstract class BaseRepositories {
             .addConverterFactory(GsonConverterFactory.create())
         val retrofit = builder.build()
 
-        retrofitHelper = retrofit.create(RetrofitHelper::class.java!!)
+        retrofitHelper = retrofit.create(RetrofitHelper::class.java)
     }
 }
