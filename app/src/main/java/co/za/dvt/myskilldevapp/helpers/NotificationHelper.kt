@@ -16,13 +16,13 @@ fun showLoadingDialog(loadingMessage: String, activity: BaseActivity) {
     loadingSpinnerFragment.isCancelable = false
 
     if(activity.activeDialogFragment != null){
-        hideLoadingDialog(activity)
+        hideCurrentLoadingDialog(activity)
     }
 
     activity.activeDialogFragment = loadingSpinnerFragment
 }
 
-fun hideLoadingDialog( activity: BaseActivity) {
+fun hideCurrentLoadingDialog(activity: BaseActivity) {
     activity.activeDialogFragment?.dismiss()
 }
 

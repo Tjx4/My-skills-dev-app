@@ -1,7 +1,6 @@
 package co.za.dvt.myskilldevapp.helpers
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import co.za.dvt.myskilldevapp.constants.LAYOUT
 import co.za.dvt.myskilldevapp.constants.TITLE
 import co.za.dvt.myskilldevapp.features.activities.BaseActivity
@@ -19,7 +18,7 @@ fun getFragmentDialog(title: String, Layout: Int, newFragmentBaseBase: BaseDialo
 
 fun showDialogFragment(title: String, Layout: Int, newFragmentBaseBase: BaseDialogFragment, activity: BaseActivity) {
     if(activity.activeDialogFragment != null){
-        hideLoadingDialog(activity)
+        hideCurrentLoadingDialog(activity)
     }
 
     activity.activeDialogFragment = newFragmentBaseBase

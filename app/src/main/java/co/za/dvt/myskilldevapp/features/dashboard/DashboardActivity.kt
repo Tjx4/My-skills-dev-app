@@ -154,7 +154,7 @@ class DashboardActivity : BaseActivity() {
            showLoadingDialog("Starting game please wait...", this)
        }
         else{
-           hideLoadingDialog(this)
+           hideCurrentLoadingDialog(this)
        }
     }
 
