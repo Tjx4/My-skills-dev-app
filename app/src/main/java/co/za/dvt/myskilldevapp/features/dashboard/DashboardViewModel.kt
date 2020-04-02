@@ -21,7 +21,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
 
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-    protected val ioScope = CoroutineScope(Dispatchers.IO + viewModelJob)
+    private val ioScope = CoroutineScope(Dispatchers.IO + viewModelJob)
     private var gameStats: MutableLiveData<GameStats?> = MutableLiveData()
 
     private var _countDownTimer: CountDownTimer? = null
@@ -76,7 +76,6 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         _isBusy.value = true
 
         ioScope.launch {
-
             val payload = HashMap<String, String>()
             payload[ATMT] = "0"
             var round = dashboardRepository.fetchLuckyNumber(payload)
