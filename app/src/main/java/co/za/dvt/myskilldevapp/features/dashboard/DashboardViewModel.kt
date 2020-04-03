@@ -167,7 +167,7 @@ if(tries < 1){
         ++tries
     }
 
-    fun getRolledNumberDiceImage(rolledNumber: Int): Int {
+  fun getRolledNumberDiceResource(rolledNumber: Int): Int {
         return when(rolledNumber){
             1 -> R.drawable.ic_di_1
             2 -> R.drawable.ic_di_2

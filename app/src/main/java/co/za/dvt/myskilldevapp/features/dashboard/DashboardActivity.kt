@@ -65,7 +65,7 @@ class DashboardActivity : BaseActivity() {
     }
 
     private fun showRolledDiceNumber(rolledNumber: Int) {
-        imgDice.setImageResource(dashboardViewModel.getRolledNumberDiceImage(rolledNumber))
+        imgDice.setImageResource(dashboardViewModel.getRolledNumberDiceResource(rolledNumber))
     }
 
     private fun onTimeFinished(timeFinished: Boolean) {
@@ -81,7 +81,7 @@ class DashboardActivity : BaseActivity() {
     }
 
     private fun onGameStatusChanged(isWin: Boolean) {
-        if(isWin){
+        if(isWin) {
             dashboardViewModel.pauseCountDown()
             dashboardViewModel.incrimentWin()
 
@@ -110,7 +110,6 @@ class DashboardActivity : BaseActivity() {
     private fun onGetLuckyNumber(isError: Boolean) {
         if(isError)
             showCancellableErrorAlert(this, getString(R.string.error), getString(R.string.lucky_number_error_message) , getString(R.string.try_again), getString(R.string.close_app), {dashboardViewModel.startNewRound()}, ::finish)
-
     }
 
     private fun onGetCarsError(isError: Boolean) {
@@ -128,7 +127,7 @@ class DashboardActivity : BaseActivity() {
     }
 
     fun onPriceItemClick(car: CarModel) {
-        var selectedPrice = car?.brand +" "+ car?.model
+        var selectedPrice = "${car?.brand}  ${car?.model}"
         showGameWin(selectedPrice)
 
         dashboardViewModel?.availableCars.value = ArrayList()
