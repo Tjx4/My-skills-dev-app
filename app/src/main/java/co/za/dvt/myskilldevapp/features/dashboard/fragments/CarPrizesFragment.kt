@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.adapters.CarPrizesAdapter
 import co.za.dvt.myskilldevapp.constants.CARS
+import co.za.dvt.myskilldevapp.constants.TITLE
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardActivity
 import co.za.dvt.myskilldevapp.features.fragments.BaseDialogFragment
 import co.za.dvt.myskilldevapp.models.Car
@@ -25,7 +26,24 @@ class CarPrizesFragment : BaseDialogFragment(), CarPrizesAdapter.ItemClickListen
         return parentView
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        var title = arguments?.getString(TITLE)
+        cars = arguments?.getParcelableArrayList(CARS)
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        dashboardActivity = context as DashboardActivity
+
+        arguments?.getString(TITLE).let {
+            var title = it
+        }
+        cars = arguments?.getParcelableArrayList(CARS)
+    }
+
     private fun initViews(parentView: View) {
+        var title = arguments?.getString(TITLE)
         cars = arguments?.getParcelableArrayList(CARS)
 
         if(cars == null) return
@@ -43,11 +61,6 @@ class CarPrizesFragment : BaseDialogFragment(), CarPrizesAdapter.ItemClickListen
         dismiss()
     }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        dashboardActivity = context as DashboardActivity
-    }
-
     override fun onDestroy() {
         super.onDestroy()
     }
@@ -57,10 +70,12 @@ class CarPrizesFragment : BaseDialogFragment(), CarPrizesAdapter.ItemClickListen
     }
 
     companion object {
-        fun newInstance(cars: List<Car>?): BaseDialogFragment {
-            val carsListFragment = CarPrizesFragment()
+        fun newInstance(title: String, cars: List<Car>?): BaseDialogFragment {
             val bundle = Bundle()
+            bundle.putString(TITLE, title)
             bundle.putParcelableArrayList(CARS, cars as ArrayList<Car>)
+
+            val carsListFragment = CarPrizesFragment()
             carsListFragment.arguments = bundle
             return carsListFragment
         }

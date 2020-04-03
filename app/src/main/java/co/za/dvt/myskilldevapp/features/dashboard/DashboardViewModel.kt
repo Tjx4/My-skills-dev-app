@@ -23,13 +23,15 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private val ioScope = CoroutineScope(Dispatchers.IO + viewModelJob)
     private var gameStats: MutableLiveData<GameStats?> = MutableLiveData()
+    private var fullGameTime: Long = 0
+    private var remainingGameTime: Long = 0
 
     private var _countDownTimer: CountDownTimer? = null
     val countDownTimer: CountDownTimer?
     get() = _countDownTimer
 
-    private val _availableCars: MutableLiveData<List<Car>?> = MutableLiveData()
-    val availableCars: LiveData<List<Car>?>
+    private val _availableCars: MutableLiveData<List<Car>> = MutableLiveData()
+    val availableCars: LiveData<List<Car>>
     get() = _availableCars
 
     private val _message: MutableLiveData<String> = MutableLiveData()
@@ -69,6 +71,8 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     get() = _timeLeft
 
     init {
+        fullGameTime = 60000
+        remainingGameTime = fullGameTime
         startNewRound()
     }
 
@@ -84,7 +88,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
 
                 if(round != null){
                     _currentLuckyNumber.value = round.luckyNumber
-                    _countDownTimer ?: startCountDown()
+                    startCountDown(remainingGameTime)
                 }
                 else{
                     _isError.value = true
@@ -95,13 +99,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         }
     }
 
-
-    fun showPrices(){
-
-    }
-
-
-    fun fetchCars() {
+    fun fetchCarPrices() {
         _isBusy.value = true
 
         ioScope.launch {
@@ -111,11 +109,10 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
             CoroutineScope(Dispatchers.Main).launch {
 
                 if(cars != null) {
-
                     _availableCars.value = cars
                 }
                 else{
-                    _isError.value = true
+                    _isCarsError.value = true
                 }
 
                 _isBusy.value = false
@@ -124,10 +121,16 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
 
     }
 
-    fun startCountDown(){
-        _countDownTimer = object : CountDownTimer(60000, 1000) {
+    fun pauseCountDown(){
+       _countDownTimer?.cancel()
+    }
+
+    fun startCountDown(gameTime: Long){
+        _countDownTimer = object : CountDownTimer(gameTime, 1000) {
 
             override fun onTick(millisUntilFinished: Long) {
+                remainingGameTime = millisUntilFinished
+
                 _timeLeft.value = String.format("%d min, %d sec",
                     TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
                     TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
@@ -142,12 +145,6 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         _countDownTimer?.start()
     }
 
-    fun setAvailableCars(availableCars: List<Car>) {
-        _availableCars.value = availableCars
-        _isCarsError.value = false
-        _isBusy.value = false
-    }
-
     fun showRolling() {
         _message.value = app.getString(R.string.rolling)
     }
@@ -159,7 +156,12 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     fun onRollCompleted() {
         _rolledNumber.value  = (1..6).random()
         _message.value  = "You rolled a ${_rolledNumber.value} please try again"
-        _isWin.value = _currentLuckyNumber.value == _rolledNumber.value
+        val win = _currentLuckyNumber.value == _rolledNumber.value
+
+        //Todo: finish
+        if(win){
+            _isWin.value = win
+        }
 
         if(tries < 1){
             initStats()

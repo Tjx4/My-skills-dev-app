@@ -34,10 +34,11 @@ class DashboardActivity : BaseActivity() {
 
         dashboardViewModel.isWin.observe(this, Observer { onGameStatusChanged(it) })
         dashboardViewModel.isError.observe(this, Observer { onGetLuckyNumber(it) })
-        dashboardViewModel.isCarsError.observe(this, Observer { onGetCars(it) })
+        dashboardViewModel.isCarsError.observe(this, Observer { onGetCarsError(it) })
         dashboardViewModel.isBusy.observe(this, Observer { toggleIsBusy(it) })
         dashboardViewModel.rolledNumber.observe(this, Observer { showRolledDiceNumber(it) })
         dashboardViewModel.isTimeFinished.observe(this, Observer { onTimeFinished(it) })
+        dashboardViewModel.availableCars.observe(this, Observer { showPrices(it) })
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard)
         binding.dashboardViewModel = dashboardViewModel
@@ -79,19 +80,19 @@ class DashboardActivity : BaseActivity() {
     }
 
     private fun showPrices(availableCars: List<Car>) {
-        var carPricesFragment = CarPrizesFragment.newInstance(availableCars)
+        var carPricesFragment = CarPrizesFragment.newInstance("Prices", availableCars)
         carPricesFragment.isCancelable = false
         showDialogFragment("", R.layout.fragment_cars_list, carPricesFragment, this)
     }
 
     private fun onGameStatusChanged(isWin: Boolean) {
         if(isWin){
+            dashboardViewModel.pauseCountDown()
             dashboardViewModel.incrimentWin()
             dashboardViewModel.resetMessage()
 
             when(dashboardViewModel.winCount){
                 2 -> {
-                    dashboardViewModel.countDownTimer?.cancel()
                     showSuccessAlert(this,getString(R.string.congratulations),  "You've won the Jackpot, you can now select from our list of a prices"
                         ,getString(R.string.view_prices), ::onViewPricesClicked)
                 }
@@ -106,7 +107,7 @@ class DashboardActivity : BaseActivity() {
     }
 
     private fun onViewPricesClicked() {
-        dashboardViewModel.showPrices()
+        dashboardViewModel.fetchCarPrices()
     }
 
     fun onPriceItemClick(position: Int) {
@@ -126,10 +127,8 @@ class DashboardActivity : BaseActivity() {
         }
     }
 
-    private fun onGetCars(isError: Boolean) {
-        if(isError){
-            showCancellableErrorAlert(this, getString(R.string.error), getString(R.string.cars_error_message), "Try again","Close app", { dashboardViewModel.fetchCars()}, ::finish)
-        }
+    private fun onGetCarsError(isError: Boolean) {
+        showCancellableErrorAlert(this, getString(R.string.error), getString(R.string.cars_error_message), "Try again","Close app", { dashboardViewModel.fetchCarPrices()}, ::finish)
     }
 
     private fun toggleIsBusy(isBusy: Boolean) {
