@@ -94,7 +94,6 @@ class DashboardActivity : BaseActivity() {
 
                     showSuccessAlert(this,getString(R.string.you_win), getString(R.string.round_victory_message, dashboardViewModel.currentLuckyNumber.value), getString(R.string.play_again), ::onRestartGameClicked)
                 }
-
             }
         }
     }

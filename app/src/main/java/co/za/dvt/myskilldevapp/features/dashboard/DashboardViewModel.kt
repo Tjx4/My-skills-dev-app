@@ -151,7 +151,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
 
     fun onRollCompleted() {
         _rolledNumber.value  = (1..6).random()
-        _activityMessage.value  = "You rolled a ${_rolledNumber.value} please try again"
+        _activityMessage.value  =  app.getString(R.string.rolled_message, _rolledNumber.value)
         val win = _currentLuckyNumber.value == _rolledNumber.value
 
         //Todo: finish
@@ -161,7 +161,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
 
 if(tries < 1){
     initStats()
-    startTracking()
+    startTrackingGameStats()
 }
 
         ++tries
@@ -209,21 +209,31 @@ if(tries < 1){
         }
     }
 
-    fun startTracking(){
-        uiScope.launch {
+    fun startTrackingGameStats(){
+        ioScope.launch {
             var currentStats = GameStats()
             currentStats.player = 1
-            insert(currentStats)
 
+            currentStats.gameId = 0
+            currentStats.player = 0
+            currentStats.tries = 0
+            currentStats.jackpotPrice = ""
+            currentStats.startTime = 0
+            currentStats.endTime = 0
             gameStats.value = getCurrentStatsFromDB()
+
+            uiScope.launch {
+                //update on ui scope
+            }
         }
     }
 
-    fun stopTracking(){
+    fun stopTrackingGameStats(){
         uiScope.launch {
             var oldStats = gameStats.value ?: return@launch
             oldStats.endTime = System.currentTimeMillis()
             oldStats.tries = tries
+
             update(oldStats)
         }
     }
@@ -240,9 +250,16 @@ if(tries < 1){
         }
     }
 
+    suspend fun getAllStatsFromDB(): List<GameStats>?{
+        return withContext(Dispatchers.IO){
+            var stats = database.getAllGameStats()
+            stats
+        }
+    }
+
     fun setJackpotPrice(jackpotPrice: String) {
         gameStats.value?.jackpotPrice = jackpotPrice
-        stopTracking()
+        stopTrackingGameStats()
     }
 
     suspend fun insert(currentStats: GameStats) {
@@ -257,10 +274,4 @@ if(tries < 1){
         }
     }
 
-    suspend fun getAllStatsFromDB(): List<GameStats>?{
-        return withContext(Dispatchers.IO){
-            var stats = database.getAllGameStats()
-            stats
-        }
-    }
 }
