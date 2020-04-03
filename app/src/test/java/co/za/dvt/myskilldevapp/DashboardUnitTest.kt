@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardRepository
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardViewModel
-import co.za.dvt.myskilldevapp.features.dashboard.database.GameStatsDAO
+import co.za.dvt.myskilldevapp.features.database.GameStatsDAO
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

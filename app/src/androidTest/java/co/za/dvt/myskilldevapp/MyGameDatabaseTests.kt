@@ -3,8 +3,8 @@ package co.za.dvt.myskilldevapp
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
-import co.za.dvt.myskilldevapp.features.dashboard.database.GameStats
-import co.za.dvt.myskilldevapp.features.dashboard.database.GameStatsDAO
+import co.za.dvt.myskilldevapp.features.database.tables.GameStats
+import co.za.dvt.myskilldevapp.features.database.GameStatsDAO
 import co.za.dvt.myskilldevapp.features.database.MyGameDatabase
 import junit.framework.Assert.assertEquals
 import org.junit.After
@@ -39,7 +39,8 @@ class MyGameDatabaseTests{
     @Test
     @Throws(Exception::class)
     fun insertAndGetGameStats(){
-        var gameStats = GameStats()
+        var gameStats =
+            GameStats()
         gameStats.gameId = 404594
 
         gameStatsDAO.insert(gameStats)

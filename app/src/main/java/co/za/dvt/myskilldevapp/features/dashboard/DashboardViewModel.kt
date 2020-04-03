@@ -6,8 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.constants.ATMT
-import co.za.dvt.myskilldevapp.features.dashboard.database.GameStats
-import co.za.dvt.myskilldevapp.features.dashboard.database.GameStatsDAO
+import co.za.dvt.myskilldevapp.features.database.tables.GameStats
+import co.za.dvt.myskilldevapp.features.database.GameStatsDAO
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
 import co.za.dvt.myskilldevapp.models.CarModel
 import kotlinx.coroutines.*
@@ -220,10 +220,10 @@ if(tries < 1){
             currentStats.jackpotPrice = ""
             currentStats.startTime = 0
             currentStats.endTime = 0
-            gameStats.value = getCurrentStatsFromDB()
 
             uiScope.launch {
                 //update on ui scope
+                gameStats.value = getCurrentStatsFromDB()
             }
         }
     }
@@ -238,7 +238,7 @@ if(tries < 1){
         }
     }
 
-    suspend fun getCurrentStatsFromDB(): GameStats{
+    suspend fun getCurrentStatsFromDB(): GameStats {
         return withContext(Dispatchers.IO){
             var stats = database.getCurrentStats()
 

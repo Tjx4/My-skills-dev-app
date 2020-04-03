@@ -3,7 +3,7 @@ package co.za.dvt.myskilldevapp.features.dashboard
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import co.za.dvt.myskilldevapp.features.dashboard.database.GameStatsDAO
+import co.za.dvt.myskilldevapp.features.database.GameStatsDAO
 import java.lang.IllegalArgumentException
 
 class DashboardViewModelFactory(private val dashboardRepository: DashboardRepository, private val dataSource: GameStatsDAO, private val application: Application) : ViewModelProvider.Factory {

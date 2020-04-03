@@ -1,4 +1,4 @@
-package co.za.dvt.myskilldevapp.features.dashboard.database
+package co.za.dvt.myskilldevapp.features.database.tables
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
