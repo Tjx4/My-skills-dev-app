@@ -7,14 +7,13 @@ import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.constants.ATMT
 import co.za.dvt.myskilldevapp.features.database.tables.GameStats
-import co.za.dvt.myskilldevapp.features.database.GameStatsDAO
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
 import co.za.dvt.myskilldevapp.models.CarModel
 import kotlinx.coroutines.*
 import java.util.HashMap
 import java.util.concurrent.TimeUnit
 
-class DashboardViewModel(private val dashboardRepository: DashboardRepository, private val database: GameStatsDAO, application: Application) : BaseVieModel(application) {
+class DashboardViewModel(private val dashboardRepository: DashboardRepository, application: Application) : BaseVieModel(application) {
 
     var winCount: Int = 0
     var tries: Int = 0
@@ -188,24 +187,23 @@ if(tries < 1){
         ++winCount
     }
 
+    fun setJackpotPrice(jackpotPrice: String) {
+        gameStats.value?.jackpotPrice = jackpotPrice
+        stopTrackingGameStats()
+    }
+
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
         uiScope.launch {
-            clear()
+            dashboardRepository.clear()
             gameStats.value = null
-        }
-    }
-
-    private suspend fun clear() {
-        withContext(Dispatchers.IO){
-            database.clear()
         }
     }
 
     fun initStats(){
         uiScope.launch {
-            gameStats.value = getCurrentStatsFromDB()
+            gameStats.value = dashboardRepository.getCurrentStatsFromDB()
         }
     }
 
@@ -223,54 +221,18 @@ if(tries < 1){
 
             uiScope.launch {
                 //update on ui scope
-                gameStats.value = getCurrentStatsFromDB()
+                gameStats.value = dashboardRepository.getCurrentStatsFromDB()
             }
         }
     }
 
-    fun stopTrackingGameStats(){
+    fun stopTrackingGameStats() {
         uiScope.launch {
             var oldStats = gameStats.value ?: return@launch
             oldStats.endTime = System.currentTimeMillis()
             oldStats.tries = tries
 
-            update(oldStats)
-        }
-    }
-
-    suspend fun getCurrentStatsFromDB(): GameStats {
-        return withContext(Dispatchers.IO){
-            var stats = database.getCurrentStats()
-
-            if(stats?.endTime != stats?.startTime){
-                null
-            }
-
-            stats
-        }
-    }
-
-    suspend fun getAllStatsFromDB(): List<GameStats>?{
-        return withContext(Dispatchers.IO){
-            var stats = database.getAllGameStats()
-            stats
-        }
-    }
-
-    fun setJackpotPrice(jackpotPrice: String) {
-        gameStats.value?.jackpotPrice = jackpotPrice
-        stopTrackingGameStats()
-    }
-
-    suspend fun insert(currentStats: GameStats) {
-        withContext(Dispatchers.IO){
-            database.insert(currentStats)
-        }
-    }
-
-    suspend fun update(oldStats: GameStats) {
-        withContext(Dispatchers.IO){
-            database.update(oldStats)
+            dashboardRepository.update(oldStats)
         }
     }
 
