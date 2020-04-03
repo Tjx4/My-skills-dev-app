@@ -35,9 +35,9 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     val availableCars: MutableLiveData<List<CarModel>>
     get() = _availableCars
 
-    private val _message: MutableLiveData<String> = MutableLiveData()
-    val message: MutableLiveData<String>
-    get() = _message
+    private val _activityMessage: MutableLiveData<String> = MutableLiveData()
+    val activityMessage: MutableLiveData<String>
+    get() = _activityMessage
 
     private val _currentLuckyNumber: MutableLiveData<Int> = MutableLiveData()
     val currentLuckyNumber: LiveData<Int>
@@ -51,17 +51,17 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     val isBusy: LiveData<Boolean>
     get() = _isBusy
 
-    private val _isError: MutableLiveData<Boolean> = MutableLiveData()
-    val isError: LiveData<Boolean>
-    get() = _isError
-
-    private val _isTimeFinished: MutableLiveData<Boolean> = MutableLiveData()
-    val isTimeFinished: LiveData<Boolean>
-    get() = _isTimeFinished
+    private val _isLuckyNumberError: MutableLiveData<Boolean> = MutableLiveData()
+    val isLuckyNumberError: LiveData<Boolean>
+    get() = _isLuckyNumberError
 
     private val _isCarsError: MutableLiveData<Boolean> = MutableLiveData()
     val isCarsError: LiveData<Boolean>
     get() = _isCarsError
+
+    private val _isTimeFinished: MutableLiveData<Boolean> = MutableLiveData()
+    val isTimeFinished: LiveData<Boolean>
+    get() = _isTimeFinished
 
     private val _isWin: MutableLiveData<Boolean> = MutableLiveData()
     val isWin: LiveData<Boolean>
@@ -89,11 +89,12 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
             CoroutineScope(Dispatchers.Main).launch {
 
                 if(round != null){
+                    _activityMessage.value = app.getString(R.string.try_your_luck_roll_dice)
                     _currentLuckyNumber.value = round.luckyNumber
                     startCountDown(remainingGameTime)
                 }
                 else{
-                    _isError.value = true
+                    _isLuckyNumberError.value = true
                 }
 
                 _isBusy.value = false
@@ -148,17 +149,9 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         _countDownTimer?.start()
     }
 
-    fun showRolling() {
-        _message.value = app.getString(R.string.rolling)
-    }
-
-    fun resetMessage() {
-        _message.value = app.getString(R.string.try_your_luck_roll_dice)
-    }
-
     fun onRollCompleted() {
         _rolledNumber.value  = (1..6).random()
-        _message.value  = "You rolled a ${_rolledNumber.value} please try again"
+        _activityMessage.value  = "You rolled a ${_rolledNumber.value} please try again"
         val win = _currentLuckyNumber.value == _rolledNumber.value
 
         //Todo: finish
@@ -166,10 +159,10 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
             _isWin.value = win
         }
 
-        if(tries < 1){
-            initStats()
-            onStartTracking()
-        }
+if(tries < 1){
+    initStats()
+    startTracking()
+}
 
         ++tries
     }
@@ -188,7 +181,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
   fun resetGame(){
         startNewRound()
         _isWin.value = false
-        _isError.value = false
+        _isLuckyNumberError.value = false
     }
 
     fun incrimentWin() {
@@ -216,13 +209,22 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         }
     }
 
-    fun onStartTracking(){
+    fun startTracking(){
         uiScope.launch {
             var currentStats = GameStats()
             currentStats.player = 1
             insert(currentStats)
 
             gameStats.value = getCurrentStatsFromDB()
+        }
+    }
+
+    fun stopTracking(){
+        uiScope.launch {
+            var oldStats = gameStats.value ?: return@launch
+            oldStats.endTime = System.currentTimeMillis()
+            oldStats.tries = tries
+            update(oldStats)
         }
     }
 
@@ -238,6 +240,11 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         }
     }
 
+    fun setJackpotPrice(jackpotPrice: String) {
+        gameStats.value?.jackpotPrice = jackpotPrice
+        stopTracking()
+    }
+
     suspend fun insert(currentStats: GameStats) {
         withContext(Dispatchers.IO){
             database.insert(currentStats)
@@ -250,25 +257,10 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         }
     }
 
-    fun stopTracking(){
-        uiScope.launch {
-            var oldStats = gameStats.value ?: return@launch
-            oldStats.endTime = System.currentTimeMillis()
-            oldStats.tries = tries
-            update(oldStats)
-        }
-    }
-
-    fun setJackpotPrice(jackpotPrice: String) {
-        gameStats.value?.jackpotPrice = jackpotPrice
-        stopTracking()
-    }
-
     suspend fun getAllStatsFromDB(): List<GameStats>?{
         return withContext(Dispatchers.IO){
             var stats = database.getAllGameStats()
             stats
         }
     }
-
 }

@@ -33,7 +33,7 @@ class DashboardActivity : BaseActivity() {
         dashboardViewModel = ViewModelProviders.of(this, viewModelFactory).get(DashboardViewModel::class.java)
 
         dashboardViewModel.isWin.observe(this, Observer { onGameStatusChanged(it) })
-        dashboardViewModel.isError.observe(this, Observer { onGetLuckyNumber(it) })
+        dashboardViewModel.isLuckyNumberError.observe(this, Observer { onGetLuckyNumber(it) })
         dashboardViewModel.isCarsError.observe(this, Observer { onGetCarsError(it) })
         dashboardViewModel.isBusy.observe(this, Observer { toggleIsBusy(it) })
         dashboardViewModel.rolledNumber.observe(this, Observer { showRolledDiceNumber(it) })
@@ -43,13 +43,6 @@ class DashboardActivity : BaseActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard)
         binding.dashboardViewModel = dashboardViewModel
         binding.lifecycleOwner = this
-
-        /*
-        AppCenter.start(
-            getApplication(), "216da36a-b463-4c90-89f0-c9857579cc60",
-            Analytics::class.java, Crashes::class.java
-        )
-        */
     }
 
     fun onRollButtonClicked(view: View) {
@@ -62,8 +55,8 @@ class DashboardActivity : BaseActivity() {
     }
 
     private fun onRotateStart() {
+        dashboardViewModel.activityMessage.value = getString(R.string.rolling)
         btnDice.isEnabled = false
-        dashboardViewModel.showRolling()
     }
 
     private fun onRollComplete() {
@@ -91,17 +84,15 @@ class DashboardActivity : BaseActivity() {
         if(isWin){
             dashboardViewModel.pauseCountDown()
             dashboardViewModel.incrimentWin()
-            dashboardViewModel.resetMessage()
 
             when(dashboardViewModel.winCount){
                 2 -> {
-                    showSuccessAlert(this,getString(R.string.congratulations),  "You've won the Jackpot, you can now select from our list of a prices"
+                    showSuccessAlert(this, getString(R.string.congratulations),  getString(R.string.jackport_message)
                         ,getString(R.string.view_prices), ::onViewPricesClicked)
                 }
                 else -> {
 
-                    showSuccessAlert(this,getString(R.string.you_win),  "${dashboardViewModel.currentLuckyNumber.value} is your lucky number you've won this round... please roll again to win more"
-                        ,getString(R.string.play_again), ::onRestartGameClicked)
+                    showSuccessAlert(this,getString(R.string.you_win), getString(R.string.round_victory_message, dashboardViewModel.currentLuckyNumber.value), getString(R.string.play_again), ::onRestartGameClicked)
                 }
 
             }
@@ -118,12 +109,12 @@ class DashboardActivity : BaseActivity() {
 
     private fun onGetLuckyNumber(isError: Boolean) {
         if(isError)
-            showCancellableErrorAlert(this, getString(R.string.error), getString(R.string.lucky_number_error_message) , "Try again", "Close app", {dashboardViewModel.startNewRound()}, ::finish)
+            showCancellableErrorAlert(this, getString(R.string.error), getString(R.string.lucky_number_error_message) , getString(R.string.try_again), getString(R.string.close_app), {dashboardViewModel.startNewRound()}, ::finish)
 
     }
 
     private fun onGetCarsError(isError: Boolean) {
-        showCancellableErrorAlert(this, getString(R.string.error), getString(R.string.cars_error_message), "Try again","Close app", { dashboardViewModel.fetchCarPrices()}, ::finish)
+        showCancellableErrorAlert(this, getString(R.string.error), getString(R.string.cars_error_message), getString(R.string.try_again), getString(R.string.close_app), { dashboardViewModel.fetchCarPrices()}, ::finish)
     }
 
     private fun toggleIsBusy(isBusy: Boolean) {
@@ -145,9 +136,7 @@ class DashboardActivity : BaseActivity() {
 
     fun showGameWin(jackpotPrice: String){
         dashboardViewModel?.setJackpotPrice(jackpotPrice)
-
-        showSuccessAlert(this,getString(R.string.game_completed),  "You chose the $jackpotPrice as your prize, you will be contacted soon to collect your price"
-            ,getString(R.string.finish_game), ::onFinishGameClicked)
+        showSuccessAlert(this, getString(R.string.game_completed), getString(R.string.jackport_price_message, jackpotPrice), getString(R.string.finish_game), ::onFinishGameClicked)
     }
 
     private fun onFinishGameClicked() {

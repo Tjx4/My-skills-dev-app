@@ -18,4 +18,9 @@
     <string name="end_game">End game</string>
     <string name="fetching_prices">Fetching prices, please wait...</string>
     <string name="start_round_message">Starting game please wait...</string>
+    <string name="try_again">Try again</string>
+    <string name="close_app">Close app</string>
+    <string name="jackport_message">You\'ve won the Jackpot, you can now select from our list of a prices</string>
+    <string name="round_victory_message">%1$d is your lucky number you\'ve won this round... please roll again to win more</string>
+    <string name="jackport_price_message"> You chose the %1$s as your prize, you will be contacted soon to collect your price</string>
 </resources>

@@ -55,7 +55,7 @@
             style="@style/MediumLightTextView"
             tools:text="Try your luck... roll the dice and you might win"
             android:gravity="start"
-            android:text="@{dashboardViewModel.message}"
+            android:text="@{dashboardViewModel.activityMessage}"
             android:layout_width="wrap_content"
             android:layout_marginTop="40dp"
             android:layout_marginLeft="8dp"
