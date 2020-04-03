@@ -14,7 +14,7 @@ import co.za.dvt.myskilldevapp.features.activities.BaseActivity
 import co.za.dvt.myskilldevapp.features.dashboard.fragments.CarPrizesFragment
 import co.za.dvt.myskilldevapp.features.database.MyGameDatabase
 import co.za.dvt.myskilldevapp.helpers.*
-import co.za.dvt.myskilldevapp.models.Car
+import co.za.dvt.myskilldevapp.models.CarModel
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
 class DashboardActivity : BaseActivity() {
@@ -79,10 +79,12 @@ class DashboardActivity : BaseActivity() {
         showErrorAlert(this, getString(R.string.error),  getString(R.string.out_of_time_message), getString(R.string.end_game)) {finish()}
     }
 
-    private fun showPrices(availableCars: List<Car>) {
-        var carPricesFragment = CarPrizesFragment.newInstance("Prices", availableCars)
+    private fun showPrices(availableCars: List<CarModel>) {
+        if(availableCars.isEmpty()) return
+
+        var carPricesFragment = CarPrizesFragment.newInstance(availableCars)
         carPricesFragment.isCancelable = false
-        showDialogFragment("", R.layout.fragment_cars_list, carPricesFragment, this)
+        showDialogFragment("Prices", R.layout.fragment_cars_list, carPricesFragment, this)
     }
 
     private fun onGameStatusChanged(isWin: Boolean) {
@@ -110,21 +112,14 @@ class DashboardActivity : BaseActivity() {
         dashboardViewModel.fetchCarPrices()
     }
 
-    fun onPriceItemClick(position: Int) {
-       dashboardViewModel?.resetPrizes()
-        val cars = dashboardViewModel.availableCars.value
-        var selectedPrice = cars?.get(position)?.brand +" "+ cars?.get(position)?.model
-       showGameWin(selectedPrice)
-    }
-
     private fun onRestartGameClicked() {
         dashboardViewModel.resetGame()
     }
 
     private fun onGetLuckyNumber(isError: Boolean) {
-        if(isError){
+        if(isError)
             showCancellableErrorAlert(this, getString(R.string.error), getString(R.string.lucky_number_error_message) , "Try again", "Close app", {dashboardViewModel.startNewRound()}, ::finish)
-        }
+
     }
 
     private fun onGetCarsError(isError: Boolean) {
@@ -132,10 +127,20 @@ class DashboardActivity : BaseActivity() {
     }
 
     private fun toggleIsBusy(isBusy: Boolean) {
-       if(isBusy)
-           showLoadingDialog("Starting game please wait...", this)
-        else
+       if(isBusy) {
+           showLoadingDialog(dashboardViewModel.busyMessage, this)
+           clCParent.visibility = View.INVISIBLE
+       }else {
            hideCurrentLoadingDialog(this)
+           clCParent.visibility = View.VISIBLE
+       }
+    }
+
+    fun onPriceItemClick(car: CarModel) {
+        var selectedPrice = car?.brand +" "+ car?.model
+        showGameWin(selectedPrice)
+
+        dashboardViewModel?.availableCars.value = ArrayList()
     }
 
     fun showGameWin(jackpotPrice: String){

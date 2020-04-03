@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class Car (
+class CarModel (
     @SerializedName("brand") var brand:String? = null,
     @SerializedName("model") var model:String? = null,
     @SerializedName("year") var year:String? = null,

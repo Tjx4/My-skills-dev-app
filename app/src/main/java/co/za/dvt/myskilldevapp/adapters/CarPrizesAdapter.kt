@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardActivity
 import co.za.dvt.myskilldevapp.helpers.loadImageFromInternet
-import co.za.dvt.myskilldevapp.models.Car
+import co.za.dvt.myskilldevapp.models.CarModel
 import com.makeramen.roundedimageview.RoundedImageView
 
-class CarPrizesAdapter(context: Context, private val cars: List<Car>) : RecyclerView.Adapter<CarPrizesAdapter.ViewHolder>() {
+class CarPrizesAdapter(context: Context, private val cars: List<CarModel>) : RecyclerView.Adapter<CarPrizesAdapter.ViewHolder>() {
 
     private val dashboardActivity: DashboardActivity
     private val layoutInflater: LayoutInflater

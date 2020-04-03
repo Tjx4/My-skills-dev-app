@@ -9,7 +9,7 @@ import co.za.dvt.myskilldevapp.constants.ATMT
 import co.za.dvt.myskilldevapp.features.dashboard.database.GameStats
 import co.za.dvt.myskilldevapp.features.dashboard.database.GameStatsDAO
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
-import co.za.dvt.myskilldevapp.models.Car
+import co.za.dvt.myskilldevapp.models.CarModel
 import kotlinx.coroutines.*
 import java.util.HashMap
 import java.util.concurrent.TimeUnit
@@ -18,6 +18,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
 
     var winCount: Int = 0
     var tries: Int = 0
+    var busyMessage: String = ""
 
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
@@ -30,8 +31,8 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     val countDownTimer: CountDownTimer?
     get() = _countDownTimer
 
-    private val _availableCars: MutableLiveData<List<Car>> = MutableLiveData()
-    val availableCars: LiveData<List<Car>>
+    private val _availableCars: MutableLiveData<List<CarModel>> = MutableLiveData()
+    val availableCars: MutableLiveData<List<CarModel>>
     get() = _availableCars
 
     private val _message: MutableLiveData<String> = MutableLiveData()
@@ -77,6 +78,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     }
 
     fun startNewRound() {
+        busyMessage = app.getString(R.string.start_round_message)
         _isBusy.value = true
 
         ioScope.launch {
@@ -100,6 +102,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
     }
 
     fun fetchCarPrices() {
+        busyMessage = app.getString(R.string.fetching_prices)
         _isBusy.value = true
 
         ioScope.launch {
@@ -207,11 +210,6 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         }
     }
 
-    fun resetPrizes() {
-        _availableCars.value = ArrayList()
-    }
-
-
     fun initStats(){
         uiScope.launch {
             gameStats.value = getCurrentStatsFromDB()
@@ -252,7 +250,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
         }
     }
 
-    fun onStopTracking(){
+    fun stopTracking(){
         uiScope.launch {
             var oldStats = gameStats.value ?: return@launch
             oldStats.endTime = System.currentTimeMillis()
@@ -263,7 +261,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, p
 
     fun setJackpotPrice(jackpotPrice: String) {
         gameStats.value?.jackpotPrice = jackpotPrice
-        onStopTracking()
+        stopTracking()
     }
 
     suspend fun getAllStatsFromDB(): List<GameStats>?{

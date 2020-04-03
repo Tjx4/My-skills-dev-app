@@ -16,4 +16,6 @@
     <string name="roll">Roll</string>
     <string name="out_of_time_message">Sorry you\'ve run out of time</string>
     <string name="end_game">End game</string>
+    <string name="fetching_prices">Fetching prices, please wait...</string>
+    <string name="start_round_message">Starting game please wait...</string>
 </resources>

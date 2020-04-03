@@ -13,33 +13,17 @@ import co.za.dvt.myskilldevapp.constants.CARS
 import co.za.dvt.myskilldevapp.constants.TITLE
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardActivity
 import co.za.dvt.myskilldevapp.features.fragments.BaseDialogFragment
-import co.za.dvt.myskilldevapp.models.Car
+import co.za.dvt.myskilldevapp.models.CarModel
 
 class CarPrizesFragment : BaseDialogFragment(), CarPrizesAdapter.ItemClickListener {
     private var dashboardActivity: DashboardActivity? = null
     private var carsRv: RecyclerView? = null
-    private var cars: List<Car>? = null
+    private var cars: List<CarModel>? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val parentView = super.onCreateView(inflater, container, savedInstanceState)
         initViews(parentView)
         return parentView
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        var title = arguments?.getString(TITLE)
-        cars = arguments?.getParcelableArrayList(CARS)
-    }
-
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        dashboardActivity = context as DashboardActivity
-
-        arguments?.getString(TITLE).let {
-            var title = it
-        }
-        cars = arguments?.getParcelableArrayList(CARS)
     }
 
     private fun initViews(parentView: View) {
@@ -48,7 +32,7 @@ class CarPrizesFragment : BaseDialogFragment(), CarPrizesAdapter.ItemClickListen
 
         if(cars == null) return
 
-        val carPrizesAdapter = CarPrizesAdapter(dashboardActivity as Context, cars as java.util.ArrayList<Car>)
+        val carPrizesAdapter = CarPrizesAdapter(dashboardActivity as Context, cars as java.util.ArrayList<CarModel>)
         carPrizesAdapter.setClickListener(this)
 
         carsRv = parentView.findViewById(R.id.rvCars)
@@ -56,8 +40,15 @@ class CarPrizesFragment : BaseDialogFragment(), CarPrizesAdapter.ItemClickListen
         carsRv?.adapter = carPrizesAdapter
     }
 
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        dashboardActivity = context as DashboardActivity
+    }
+
     override fun onItemClick(view: View, position: Int) {
-        dashboardActivity?.onPriceItemClick(position)
+        var selectedCar = cars?.get(position) ?: return
+
+        dashboardActivity?.onPriceItemClick(selectedCar)
         dismiss()
     }
 
@@ -70,10 +61,9 @@ class CarPrizesFragment : BaseDialogFragment(), CarPrizesAdapter.ItemClickListen
     }
 
     companion object {
-        fun newInstance(title: String, cars: List<Car>?): BaseDialogFragment {
+        fun newInstance(cars: List<CarModel>?): BaseDialogFragment {
             val bundle = Bundle()
-            bundle.putString(TITLE, title)
-            bundle.putParcelableArrayList(CARS, cars as ArrayList<Car>)
+            bundle.putParcelableArrayList(CARS, cars as ArrayList<CarModel>)
 
             val carsListFragment = CarPrizesFragment()
             carsListFragment.arguments = bundle

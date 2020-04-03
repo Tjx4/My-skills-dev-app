@@ -1,6 +1,5 @@
 package co.za.dvt.myskilldevapp.helpers
 
-import android.os.Bundle
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.constants.LAYOUT
 import co.za.dvt.myskilldevapp.constants.TITLE
@@ -27,9 +26,9 @@ fun showDialogFragment(title: String, Layout: Int, newFragmentBaseBase: BaseDial
 }
 
 private fun getFragmentDialog(title: String, Layout: Int, newFragmentBaseBase: BaseDialogFragment) : BaseDialogFragment {
-    val payload = Bundle()
-    payload.putString(TITLE, title)
-    payload.putInt(LAYOUT, Layout)
+    val payload = newFragmentBaseBase.arguments
+    payload?.putString(TITLE, title)
+    payload?.putInt(LAYOUT, Layout)
 
     newFragmentBaseBase.arguments = payload
     return newFragmentBaseBase
