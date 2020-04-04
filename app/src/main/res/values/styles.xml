@@ -41,8 +41,11 @@
         <item name="android:textSize">@dimen/small_text</item>
         <item name="android:gravity">center</item>
     </style>
+    <style name="smallDarkTextView" parent="smallTextView">
+        <item name="android:textColor">@color/darkText</item>
+    </style>
     <style name="smallRedTextView" parent="smallTextView">
-        <item name="android:textColor">#ff0000</item>
+        <item name="android:textColor">@color/redText</item>
     </style>
 
     <style name="MySkillsButton">

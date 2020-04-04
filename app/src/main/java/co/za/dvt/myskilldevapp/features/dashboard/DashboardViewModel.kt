@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit
 class DashboardViewModel(private val dashboardRepository: DashboardRepository, application: Application) : BaseVieModel(application) {
 
     var tries: Int = 0
-    var jackportTarget: Int = 2
+    var maxRounds: Int = 2
     var busyMessage: String = ""
 
     private var viewModelJob = Job()
@@ -70,6 +70,10 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
     val timeLeft: LiveData<String>
     get() = _timeLeft
 
+    private val _round: MutableLiveData<Int> = MutableLiveData()
+    val round: LiveData<Int>
+    get() = _round
+
     init {
         initGame()
         startNewRound()
@@ -78,6 +82,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
     fun initGame() {
         fullGameTime = 60000
         remainingGameTime = fullGameTime
+        _round.value = 1
     }
 
     fun startNewRound() {
@@ -162,6 +167,12 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
             _winCount.value.let {
                 var lastCount = it ?: 0
                 _winCount.value = lastCount + 1
+            }
+
+            // Todo: resolve round and win
+            _round.value.let {
+                var lastRound = it ?: 0
+                _round.value = lastRound + 1
             }
         }
 

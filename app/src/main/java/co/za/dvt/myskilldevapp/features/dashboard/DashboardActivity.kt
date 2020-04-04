@@ -85,7 +85,7 @@ class DashboardActivity : BaseActivity() {
         dashboardViewModel.pauseCountDown()
 
         when(winCount){
-            dashboardViewModel.jackportTarget -> showSuccessAlert(this, getString(R.string.congratulations),  getString(R.string.jackport_message),getString(R.string.view_prices), ::onViewPricesClicked)
+            dashboardViewModel.maxRounds -> showSuccessAlert(this, getString(R.string.congratulations),  getString(R.string.jackport_message),getString(R.string.view_prices), ::onViewPricesClicked)
             else -> showSuccessAlert(this,getString(R.string.you_win), getString(R.string.round_victory_message, dashboardViewModel.currentLuckyNumber.value), getString(R.string.play_again), ::onRestartGameClicked)
         }
     }
@@ -125,6 +125,7 @@ class DashboardActivity : BaseActivity() {
     }
 
     fun showJackportWin(jackpotPrice: String){
+        clCParent.visibility = View.INVISIBLE
         dashboardViewModel?.setJackpotPrice(jackpotPrice)
         showSuccessAlert(this, getString(R.string.game_completed), getString(R.string.jackport_price_message, jackpotPrice), getString(R.string.finish_game), ::onFinishGameClicked)
     }
