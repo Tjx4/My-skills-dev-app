@@ -25,4 +25,6 @@
     <string name="jackport_price_message"> You chose the %1$s as your prize, you will be contacted soon to collect your price</string>
     <string name="rolled_message"> "You rolled a %1$d please try again</string>
     <string name="prices_heading">Please select a price</string>
+    <string name="help">Help</string>
+    <string name="history">History</string>
 </resources>

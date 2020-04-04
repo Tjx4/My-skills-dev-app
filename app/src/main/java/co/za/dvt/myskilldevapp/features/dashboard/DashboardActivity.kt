@@ -1,6 +1,9 @@
 package co.za.dvt.myskilldevapp.features.dashboard
 
 import android.os.Bundle
+import android.view.KeyEvent
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
 import androidx.databinding.DataBindingUtil
@@ -18,7 +21,6 @@ import co.za.dvt.myskilldevapp.models.CarModel
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
 class DashboardActivity : BaseActivity() {
-
     private lateinit var binding: ActivityDashboardBinding
     lateinit var dashboardViewModel: DashboardViewModel
 
@@ -117,12 +119,12 @@ class DashboardActivity : BaseActivity() {
 
     fun onPriceItemClick(car: CarModel) {
         var selectedPrice = "${car?.brand}  ${car?.model}"
-        showGameWin(selectedPrice)
+        showJackportWin(selectedPrice)
 
         dashboardViewModel?.availableCars.value = ArrayList()
     }
 
-    fun showGameWin(jackpotPrice: String){
+    fun showJackportWin(jackpotPrice: String){
         dashboardViewModel?.setJackpotPrice(jackpotPrice)
         showSuccessAlert(this, getString(R.string.game_completed), getString(R.string.jackport_price_message, jackpotPrice), getString(R.string.finish_game), ::onFinishGameClicked)
     }
@@ -131,4 +133,61 @@ class DashboardActivity : BaseActivity() {
         finish()
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_help -> showShortToast("Help", this)
+            R.id.action_history -> showShortToast("History", this)
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.dashboard_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+/*
+    override fun onMenuItemClicked(view: View) {
+        super.onMenuItemClicked(view)
+    }
+
+     override fun handleSlideMenuItemClicked(item: MenuItem): Boolean {
+        val itemId = item.itemId
+
+        when (itemId) {
+            R.id.action_stylist_finder -> {
+                goToActivityWithNoPayload(ClientDashboard::class.java, TRAIL_TO)
+                finish()
+            }
+            R.id.action_payment -> {
+                showShortMiddleToast("action_payment", this)
+            }
+            R.id.action_history -> {
+                showShortTopToast("action_history", this)
+            }
+            R.id.action_sell_product -> {
+                goToActivityWithNoPayload(StoreActivity::class.java, SLIDE_IN_ACTIVITY)
+            }
+            R.id.action_profile -> {
+            }
+            R.id.action_sign_out -> {
+                goToActivityWithNoPayload(LoginActivity::class.java, FADE_IN_ACTIVITY)
+                finish()
+            }
+        }
+
+        return super.handleSlideMenuItemClicked(item)
+    }
+
+*/
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            moveTaskToBack(true)
+            return super.onKeyDown(keyCode, event)
+        }
+
+        return true
+    }
 }
