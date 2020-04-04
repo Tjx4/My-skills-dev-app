@@ -15,8 +15,8 @@ import java.util.concurrent.TimeUnit
 
 class DashboardViewModel(private val dashboardRepository: DashboardRepository, application: Application) : BaseVieModel(application) {
 
-    var winCount: Int = 0
     var tries: Int = 0
+    var jackportTarget: Int = 2
     var busyMessage: String = ""
 
     private var viewModelJob = Job()
@@ -62,18 +62,22 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
     val isTimeFinished: LiveData<Boolean>
     get() = _isTimeFinished
 
-    private val _isWin: MutableLiveData<Boolean> = MutableLiveData()
-    val isWin: LiveData<Boolean>
-    get() = _isWin
+    private val _winCount: MutableLiveData<Int> = MutableLiveData()
+    val winCount: LiveData<Int>
+    get() = _winCount
 
     private val _timeLeft: MutableLiveData<String> = MutableLiveData()
     val timeLeft: LiveData<String>
     get() = _timeLeft
 
     init {
+        initGame()
+        startNewRound()
+    }
+
+    fun initGame() {
         fullGameTime = 60000
         remainingGameTime = fullGameTime
-        startNewRound()
     }
 
     fun startNewRound() {
@@ -121,7 +125,6 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
                 _isBusy.value = false
             }
         }
-
     }
 
     fun pauseCountDown(){
@@ -151,17 +154,16 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
     fun onRollCompleted() {
         _rolledNumber.value  = (1..6).random()
         _activityMessage.value  =  app.getString(R.string.rolled_message, _rolledNumber.value)
-        val win = _currentLuckyNumber.value == _rolledNumber.value
 
         //Todo: finish
-        if(win){
-            _isWin.value = win
-        }
+        val win = _currentLuckyNumber.value == _rolledNumber.value
 
-if(tries < 1){
-    initStats()
-    startTrackingGameStats()
-}
+        if(win){
+            _winCount.value.let {
+                var lastCount = it ?: 0
+                _winCount.value = lastCount + 1
+            }
+        }
 
         ++tries
     }
@@ -179,26 +181,22 @@ if(tries < 1){
 
   fun resetGame(){
         startNewRound()
-        _isWin.value = false
-        _isLuckyNumberError.value = false
-    }
-
-    fun incrimentWin() {
-        ++winCount
+_isLuckyNumberError.value = false
     }
 
     fun setJackpotPrice(jackpotPrice: String) {
         gameStats.value?.jackpotPrice = jackpotPrice
-        stopTrackingGameStats()
+
+stopTrackingGameStats()
     }
 
     override fun onCleared() {
         super.onCleared()
-        viewModelJob.cancel()
-        uiScope.launch {
-            dashboardRepository.clear()
-            gameStats.value = null
-        }
+viewModelJob.cancel()
+uiScope.launch {
+    dashboardRepository.clear()
+    gameStats.value = null
+}
     }
 
     fun initStats(){

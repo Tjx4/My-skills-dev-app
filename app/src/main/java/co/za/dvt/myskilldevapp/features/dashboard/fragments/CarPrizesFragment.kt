@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.za.dvt.myskilldevapp.R
@@ -17,6 +18,7 @@ import co.za.dvt.myskilldevapp.models.CarModel
 
 class CarPrizesFragment : BaseDialogFragment(), CarPrizesAdapter.ItemClickListener {
     private var dashboardActivity: DashboardActivity? = null
+    private var titleTv: TextView? = null
     private var carsRv: RecyclerView? = null
     private var cars: List<CarModel>? = null
 
@@ -27,10 +29,10 @@ class CarPrizesFragment : BaseDialogFragment(), CarPrizesAdapter.ItemClickListen
     }
 
     private fun initViews(parentView: View) {
-        var title = arguments?.getString(TITLE)
-        cars = arguments?.getParcelableArrayList(CARS)
+        titleTv = parentView.findViewById(R.id.tvHeading)
+        titleTv?.text = arguments?.getString(TITLE)
 
-        if(cars == null) return
+        cars = arguments?.getParcelableArrayList(CARS) ?: return
 
         val carPrizesAdapter = CarPrizesAdapter(dashboardActivity as Context, cars as java.util.ArrayList<CarModel>)
         carPrizesAdapter.setClickListener(this)
@@ -47,17 +49,8 @@ class CarPrizesFragment : BaseDialogFragment(), CarPrizesAdapter.ItemClickListen
 
     override fun onItemClick(view: View, position: Int) {
         var selectedCar = cars?.get(position) ?: return
-
         dashboardActivity?.onPriceItemClick(selectedCar)
         dismiss()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
-    override fun onDetach() {
-        super.onDetach()
     }
 
     companion object {

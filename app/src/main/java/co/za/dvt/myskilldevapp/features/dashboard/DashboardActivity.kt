@@ -33,7 +33,7 @@ class DashboardActivity : BaseActivity() {
 
         dashboardViewModel = ViewModelProviders.of(this, viewModelFactory).get(DashboardViewModel::class.java)
 
-        dashboardViewModel.isWin.observe(this, Observer { onGameStatusChanged(it) })
+        dashboardViewModel.winCount.observe(this, Observer { onRoundWin(it) })
         dashboardViewModel.isLuckyNumberError.observe(this, Observer { onGetLuckyNumber(it) })
         dashboardViewModel.isCarsError.observe(this, Observer { onGetCarsError(it) })
         dashboardViewModel.isBusy.observe(this, Observer { toggleIsBusy(it) })
@@ -78,24 +78,15 @@ class DashboardActivity : BaseActivity() {
 
         var carPricesFragment = CarPrizesFragment.newInstance(availableCars)
         carPricesFragment.isCancelable = false
-        showDialogFragment("Prices", R.layout.fragment_cars_list, carPricesFragment, this)
+        showDialogFragment(getString(R.string.prices_heading), R.layout.fragment_cars_list, carPricesFragment, this)
     }
 
-    private fun onGameStatusChanged(isWin: Boolean) {
-        if(isWin) {
-            dashboardViewModel.pauseCountDown()
-            dashboardViewModel.incrimentWin()
+    private fun onRoundWin(winCount: Int) {
+        dashboardViewModel.pauseCountDown()
 
-            when(dashboardViewModel.winCount){
-                2 -> {
-                    showSuccessAlert(this, getString(R.string.congratulations),  getString(R.string.jackport_message)
-                        ,getString(R.string.view_prices), ::onViewPricesClicked)
-                }
-                else -> {
-
-                    showSuccessAlert(this,getString(R.string.you_win), getString(R.string.round_victory_message, dashboardViewModel.currentLuckyNumber.value), getString(R.string.play_again), ::onRestartGameClicked)
-                }
-            }
+        when(winCount){
+            dashboardViewModel.jackportTarget -> showSuccessAlert(this, getString(R.string.congratulations),  getString(R.string.jackport_message),getString(R.string.view_prices), ::onViewPricesClicked)
+            else -> showSuccessAlert(this,getString(R.string.you_win), getString(R.string.round_victory_message, dashboardViewModel.currentLuckyNumber.value), getString(R.string.play_again), ::onRestartGameClicked)
         }
     }
 
