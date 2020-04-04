@@ -6,12 +6,12 @@
         android:id="@+id/action_help"
         android:icon="@drawable/ic_help_light"
         android:title="@string/help"
-        app:showAsAction="never"/>
+        app:showAsAction="always"/>
 
     <item
         android:id="@+id/action_history"
         android:icon="@drawable/ic_history_light"
         android:title="@string/history"
-        app:showAsAction="never"/>
+        app:showAsAction="always"/>
 
 </menu>

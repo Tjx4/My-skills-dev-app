@@ -118,10 +118,8 @@ class DashboardActivity : BaseActivity() {
     }
 
     fun onPriceItemClick(car: CarModel) {
-        var selectedPrice = "${car?.brand}  ${car?.model}"
+        var selectedPrice = "${car?.brand} ${car?.model}"
         showJackportWin(selectedPrice)
-
-        dashboardViewModel?.availableCars.value = ArrayList()
     }
 
     fun showJackportWin(jackpotPrice: String){
