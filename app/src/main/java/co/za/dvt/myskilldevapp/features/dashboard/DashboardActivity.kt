@@ -74,8 +74,6 @@ class DashboardActivity : BaseActivity() {
     }
 
     private fun showPrices(availableCars: List<CarModel>) {
-        if(availableCars.isEmpty()) return
-
         var carPricesFragment = CarPrizesFragment.newInstance(availableCars)
         carPricesFragment.isCancelable = false
         showDialogFragment(getString(R.string.prices_heading), R.layout.fragment_cars_list, carPricesFragment, this)

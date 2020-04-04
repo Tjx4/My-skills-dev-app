@@ -15,8 +15,8 @@
             android:id="@+id/tvHeading"
             style="@style/MediumPlusTextView"
             tools:text="Please select a price"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginTop="@dimen/medium__margin"
+            android:layout_marginBottom="@dimen/medium__margin"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCars"
