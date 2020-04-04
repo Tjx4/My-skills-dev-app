@@ -23,5 +23,5 @@
     <string name="jackport_message">You\'ve won the Jackpot, you can now select from our list of a prices</string>
     <string name="round_victory_message">%1$d is your lucky number you\'ve won this round... please roll again to win more</string>
     <string name="jackport_price_message"> You chose the %1$s as your prize, you will be contacted soon to collect your price</string>
-    <string name="rolled_message"> "You rolled a %1$d please try again"e</string>
+    <string name="rolled_message"> "You rolled a %1$d please try again</string>
 </resources>

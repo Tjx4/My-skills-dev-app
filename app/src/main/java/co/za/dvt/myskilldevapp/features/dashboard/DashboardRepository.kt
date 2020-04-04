@@ -42,13 +42,13 @@ open class DashboardRepository(private val database: GameStatsDAO) : BaseReposit
         }
     }
 
-    suspend fun insert(currentStats: GameStats) {
+    suspend fun addStatsToDB(currentStats: GameStats) {
         withContext(Dispatchers.IO){
             database.insert(currentStats)
         }
     }
 
-    suspend fun update(oldStats: GameStats) {
+    suspend fun updateStats(oldStats: GameStats) {
         withContext(Dispatchers.IO){
             database.update(oldStats)
         }

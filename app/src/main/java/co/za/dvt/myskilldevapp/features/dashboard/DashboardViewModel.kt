@@ -232,7 +232,7 @@ if(tries < 1){
             oldStats.endTime = System.currentTimeMillis()
             oldStats.tries = tries
 
-            dashboardRepository.update(oldStats)
+            dashboardRepository.updateStats(oldStats)
         }
     }
 
