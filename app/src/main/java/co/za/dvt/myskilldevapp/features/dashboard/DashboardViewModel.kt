@@ -86,6 +86,11 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
         busyMessage = app.getString(R.string.start_round_message)
         _isBusy.value = true
 
+        _round.value.let {
+            var lastRound = it ?: 0
+            _round.value = lastRound + 1
+        }
+
         ioScope.launch {
             val payload = HashMap<String, String>()
             payload[ATMT] = "0"  //Todo remove
@@ -169,12 +174,6 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
                 var lastCount = it ?: 0
                 _winCount.value = lastCount + 1
             }
-
-            // Todo: resolve round and win // Resolve increment
-            _round.value.let {
-                var lastRound = it ?: 0
-                _round.value = lastRound + 1
-            }
         }
 
         ++tries
@@ -204,8 +203,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
     fun initGame() {
         fullGameTime = 60000
         remainingGameTime = fullGameTime
-        _round.value = 1
-        _winCount.value = 0
+       // _winCount.value = 0
     }
 
     fun setJackpotPrice(jackpotPrice: String) {

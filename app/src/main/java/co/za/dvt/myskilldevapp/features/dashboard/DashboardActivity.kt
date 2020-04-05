@@ -110,7 +110,6 @@ class DashboardActivity : BaseActivity() {
     }
 
     private fun onViewPricesClicked() {
-        removeObservers()
         dashboardViewModel.fetchCarPrices()
     }
 
