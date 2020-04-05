@@ -37,10 +37,10 @@ class DashboardActivity : BaseActivity() {
         binding.dashboardViewModel = dashboardViewModel
         binding.lifecycleOwner = this
 
-        setObservers()
+        addObservers()
     }
 
-    private fun setObservers() {
+    private fun addObservers() {
         dashboardViewModel.winCount.observe(this, Observer { onRoundWin(it) })
         dashboardViewModel.luckyNumberError.observe(this, Observer { onGetLuckyNumberError(it) })
         dashboardViewModel.carsError.observe(this, Observer { onGetCarsError(it) })
@@ -90,7 +90,7 @@ class DashboardActivity : BaseActivity() {
 
     private fun onResetGameClicked() {
         dashboardViewModel.resetGame()
-        setObservers()
+        addObservers()
     }
 
     private fun showPrices(availableCars: List<CarModel>) {
