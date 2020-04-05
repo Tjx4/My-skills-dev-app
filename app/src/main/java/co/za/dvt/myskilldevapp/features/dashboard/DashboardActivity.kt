@@ -91,6 +91,7 @@ class DashboardActivity : BaseActivity() {
     }
 
     private fun onViewPricesClicked() {
+        clCParent.visibility = View.INVISIBLE
         dashboardViewModel.fetchCarPrices()
     }
 
@@ -119,17 +120,12 @@ class DashboardActivity : BaseActivity() {
 
     fun onPriceItemClick(car: CarModel) {
         var selectedPrice = "${car?.brand} ${car?.model}"
+        dashboardViewModel?.setJackpotPrice(selectedPrice)
         showJackportWin(selectedPrice)
     }
 
     fun showJackportWin(jackpotPrice: String){
-        clCParent.visibility = View.INVISIBLE
-        dashboardViewModel?.setJackpotPrice(jackpotPrice)
-        showSuccessAlert(this, getString(R.string.game_completed), getString(R.string.jackport_price_message, jackpotPrice), getString(R.string.finish_game), ::onFinishGameClicked)
-    }
-
-    private fun onFinishGameClicked() {
-        finish()
+        showSuccessAlert(this, getString(R.string.game_completed), getString(R.string.jackport_price_message, jackpotPrice), getString(R.string.finish_game), ::finish)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

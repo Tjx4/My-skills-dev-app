@@ -22,7 +22,6 @@ open class DashboardRepository(private val database: GameStatsDAO) : BaseReposit
         }
     }
 
-
     suspend fun getCurrentStatsFromDB(): GameStats {
         return withContext(Dispatchers.IO){
             var stats = database.getCurrentStats()
