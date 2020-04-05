@@ -50,13 +50,13 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
     val isBusy: LiveData<Boolean>
     get() = _isBusy
 
-    private val _isLuckyNumberError: MutableLiveData<Boolean> = MutableLiveData()
-    val isLuckyNumberError: LiveData<Boolean>
-    get() = _isLuckyNumberError
+    private val _luckyNumberError: MutableLiveData<String> = MutableLiveData()
+    val luckyNumberError: LiveData<String>
+    get() = _luckyNumberError
 
-    private val _isCarsError: MutableLiveData<Boolean> = MutableLiveData()
-    val isCarsError: LiveData<Boolean>
-    get() = _isCarsError
+    private val _carsError: MutableLiveData<String> = MutableLiveData()
+    val carsError: LiveData<String>
+    get() = _carsError
 
     private val _isTimeFinished: MutableLiveData<Boolean> = MutableLiveData()
     val isTimeFinished: LiveData<Boolean>
@@ -96,16 +96,17 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
 
             CoroutineScope(Dispatchers.Main).launch {
 
+                _isBusy.value = false
+
                 if(round != null){
                     _activityMessage.value = app.getString(R.string.try_your_luck_roll_dice)
                     _currentLuckyNumber.value = round.luckyNumber
                     startCountDown(remainingGameTime)
                 }
                 else{
-                    _isLuckyNumberError.value = true
+                    _luckyNumberError.value = app.getString(R.string.lucky_number_error_message)
                 }
 
-                _isBusy.value = false
             }
         }
     }
@@ -120,14 +121,15 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
 
             CoroutineScope(Dispatchers.Main).launch {
 
+                _isBusy.value = false
+
                 if(cars != null) {
                     _availableCars.value = cars
                 }
                 else{
-                    _isCarsError.value = true
+                    _carsError.value = app.getString(R.string.cars_error_message)
                 }
 
-                _isBusy.value = false
             }
         }
     }
@@ -190,9 +192,8 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
         }
     }
 
-  fun resetGame(){
+    fun resetGame(){
         startNewRound()
-_isLuckyNumberError.value = false
     }
 
     fun setJackpotPrice(jackpotPrice: String) {

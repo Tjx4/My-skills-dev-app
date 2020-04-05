@@ -36,8 +36,8 @@ class DashboardActivity : BaseActivity() {
         dashboardViewModel = ViewModelProviders.of(this, viewModelFactory).get(DashboardViewModel::class.java)
 
         dashboardViewModel.winCount.observe(this, Observer { onRoundWin(it) })
-        dashboardViewModel.isLuckyNumberError.observe(this, Observer { onGetLuckyNumber(it) })
-        dashboardViewModel.isCarsError.observe(this, Observer { onGetCarsError(it) })
+        dashboardViewModel.luckyNumberError.observe(this, Observer { onGetLuckyNumber(it) })
+        dashboardViewModel.carsError.observe(this, Observer { onGetCarsError(it) })
         dashboardViewModel.isBusy.observe(this, Observer { toggleIsBusy(it) })
         dashboardViewModel.rolledNumber.observe(this, Observer { showRolledDiceNumber(it) })
         dashboardViewModel.isTimeFinished.observe(this, Observer { onTimeFinished(it) })
@@ -76,6 +76,7 @@ class DashboardActivity : BaseActivity() {
     }
 
     private fun showPrices(availableCars: List<CarModel>) {
+        clCParent.visibility = View.INVISIBLE
         var carPricesFragment = CarPrizesFragment.newInstance(availableCars)
         carPricesFragment.isCancelable = false
         showDialogFragment(getString(R.string.prices_heading), R.layout.fragment_cars_list, carPricesFragment, this)
@@ -85,13 +86,12 @@ class DashboardActivity : BaseActivity() {
         dashboardViewModel.pauseCountDown()
 
         when(winCount){
-            dashboardViewModel.maxRounds -> showSuccessAlert(this, getString(R.string.congratulations),  getString(R.string.jackport_message),getString(R.string.view_prices), ::onViewPricesClicked)
+            dashboardViewModel.maxRounds -> showSuccessAlert(this, getString(R.string.congratulations), getString(R.string.jackport_message), getString(R.string.view_prices), ::onViewPricesClicked)
             else -> showSuccessAlert(this,getString(R.string.you_win), getString(R.string.round_victory_message, dashboardViewModel.currentLuckyNumber.value), getString(R.string.play_again), ::onRestartGameClicked)
         }
     }
 
     private fun onViewPricesClicked() {
-        clCParent.visibility = View.INVISIBLE
         dashboardViewModel.fetchCarPrices()
     }
 
@@ -99,13 +99,12 @@ class DashboardActivity : BaseActivity() {
         dashboardViewModel.resetGame()
     }
 
-    private fun onGetLuckyNumber(isError: Boolean) {
-        if(isError)
-            showCancellableErrorAlert(this, getString(R.string.error), getString(R.string.lucky_number_error_message) , getString(R.string.try_again), getString(R.string.close_app), {dashboardViewModel.startNewRound()}, ::finish)
+    private fun onGetLuckyNumber(errorMessage: String) {
+        showCancellableErrorAlert(this, getString(R.string.error), errorMessage, getString(R.string.try_again), getString(R.string.close_app), {dashboardViewModel.startNewRound()}, ::finish)
     }
 
-    private fun onGetCarsError(isError: Boolean) {
-        showCancellableErrorAlert(this, getString(R.string.error), getString(R.string.cars_error_message), getString(R.string.try_again), getString(R.string.close_app), { dashboardViewModel.fetchCarPrices()}, ::finish)
+    private fun onGetCarsError(errorMessage: String) {
+        showCancellableErrorAlert(this, getString(R.string.error), errorMessage, getString(R.string.try_again), getString(R.string.close_app), { dashboardViewModel.fetchCarPrices()}, ::finish)
     }
 
     private fun toggleIsBusy(isBusy: Boolean) {

@@ -9,11 +9,10 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clCParent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#000"
-            tools:context=".features.dashboard.DashboardActivity">
+        android:id="@+id/clCParent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".features.dashboard.DashboardActivity">
 
         <RelativeLayout
             android:id="@+id/rlBanner"
@@ -63,7 +62,6 @@
                 android:layout_centerVertical="true"/>
 
         </RelativeLayout>
-
 
         <RelativeLayout
                 android:id="@+id/rlLuckyNumberContainer"
