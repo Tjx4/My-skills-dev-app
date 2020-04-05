@@ -37,10 +37,10 @@ class DashboardActivity : BaseActivity() {
         binding.dashboardViewModel = dashboardViewModel
         binding.lifecycleOwner = this
 
-        setIbservers()
+        setObservers()
     }
 
-    private fun setIbservers() {
+    private fun setObservers() {
         dashboardViewModel.winCount.observe(this, Observer { onRoundWin(it) })
         dashboardViewModel.luckyNumberError.observe(this, Observer { onGetLuckyNumberError(it) })
         dashboardViewModel.carsError.observe(this, Observer { onGetCarsError(it) })
@@ -48,6 +48,16 @@ class DashboardActivity : BaseActivity() {
         dashboardViewModel.rolledNumber.observe(this, Observer { showRolledDiceNumber(it) })
         dashboardViewModel.isTimeFinished.observe(this, Observer { onTimeFinished(it) })
         dashboardViewModel.availableCars.observe(this, Observer { showPrices(it) })
+    }
+
+    private fun removeObservers() {
+        dashboardViewModel.winCount.removeObservers(this)
+        dashboardViewModel.luckyNumberError.removeObservers(this)
+        dashboardViewModel.carsError.removeObservers(this)
+        dashboardViewModel.isBusy.removeObservers(this)
+        dashboardViewModel.rolledNumber.removeObservers(this)
+        dashboardViewModel.isTimeFinished.removeObservers(this)
+        dashboardViewModel.availableCars.removeObservers(this)
     }
 
     fun onRollButtonClicked(view: View) {
@@ -75,7 +85,12 @@ class DashboardActivity : BaseActivity() {
 
     private fun onTimeFinished(timeFinished: Boolean) {
         clCParent.visibility = View.INVISIBLE
-        showCancellableErrorAlert(this, getString(R.string.error), getString(R.string.out_of_time_message), getString(R.string.try_again), getString(R.string.end_game), {dashboardViewModel.resetGame()}, ::finish)
+        showCancellableErrorAlert(this, getString(R.string.error), getString(R.string.out_of_time_message), getString(R.string.try_again), getString(R.string.end_game), ::onResetGameClicked, ::finish)
+    }
+
+    private fun onResetGameClicked() {
+        dashboardViewModel.resetGame()
+        setObservers()
     }
 
     private fun showPrices(availableCars: List<CarModel>) {
@@ -95,6 +110,7 @@ class DashboardActivity : BaseActivity() {
     }
 
     private fun onViewPricesClicked() {
+        removeObservers()
         dashboardViewModel.fetchCarPrices()
     }
 

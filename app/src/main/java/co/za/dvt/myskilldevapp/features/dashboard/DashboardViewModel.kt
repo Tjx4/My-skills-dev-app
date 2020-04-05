@@ -79,16 +79,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
     get() = _round
 
     init {
-        initGame()
-        startNewRound()
-    }
-
-    fun initGame() {
-        fullGameTime = 60000
-        remainingGameTime = fullGameTime
-        _round.value = 1
-        //Todo: Init without invoking oservers
-        //_winCount.value = 0
+        startGame()
     }
 
     fun startNewRound() {
@@ -200,9 +191,21 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
         }
     }
 
+    fun startGame(){
+        //Todo: Do things that should only be done the first time
+        resetGame()
+    }
+
     fun resetGame(){
         initGame()
         startNewRound()
+    }
+
+    fun initGame() {
+        fullGameTime = 60000
+        remainingGameTime = fullGameTime
+        _round.value = 1
+        _winCount.value = 0
     }
 
     fun setJackpotPrice(jackpotPrice: String) {
