@@ -36,7 +36,7 @@ class DashboardActivity : BaseActivity() {
         dashboardViewModel = ViewModelProviders.of(this, viewModelFactory).get(DashboardViewModel::class.java)
 
         dashboardViewModel.winCount.observe(this, Observer { onRoundWin(it) })
-        dashboardViewModel.luckyNumberError.observe(this, Observer { onGetLuckyNumber(it) })
+        dashboardViewModel.luckyNumberError.observe(this, Observer { onGetLuckyNumberError(it) })
         dashboardViewModel.carsError.observe(this, Observer { onGetCarsError(it) })
         dashboardViewModel.isBusy.observe(this, Observer { toggleIsBusy(it) })
         dashboardViewModel.rolledNumber.observe(this, Observer { showRolledDiceNumber(it) })
@@ -72,7 +72,8 @@ class DashboardActivity : BaseActivity() {
     }
 
     private fun onTimeFinished(timeFinished: Boolean) {
-        showErrorAlert(this, getString(R.string.error),  getString(R.string.out_of_time_message), getString(R.string.end_game)) {finish()}
+        clCParent.visibility = View.INVISIBLE
+        showCancellableErrorAlert(this, getString(R.string.error), getString(R.string.out_of_time_message), getString(R.string.try_again), getString(R.string.end_game), {dashboardViewModel.resetGame()}, ::finish)
     }
 
     private fun showPrices(availableCars: List<CarModel>) {
@@ -99,11 +100,13 @@ class DashboardActivity : BaseActivity() {
         dashboardViewModel.resetGame()
     }
 
-    private fun onGetLuckyNumber(errorMessage: String) {
+    private fun onGetLuckyNumberError(errorMessage: String) {
+        clCParent.visibility = View.INVISIBLE
         showCancellableErrorAlert(this, getString(R.string.error), errorMessage, getString(R.string.try_again), getString(R.string.close_app), {dashboardViewModel.startNewRound()}, ::finish)
     }
 
     private fun onGetCarsError(errorMessage: String) {
+        clCParent.visibility = View.INVISIBLE
         showCancellableErrorAlert(this, getString(R.string.error), errorMessage, getString(R.string.try_again), getString(R.string.close_app), { dashboardViewModel.fetchCarPrices()}, ::finish)
     }
 

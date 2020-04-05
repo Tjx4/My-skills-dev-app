@@ -6,12 +6,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.constants.ATMT
+import co.za.dvt.myskilldevapp.extensions.isValidLuckyNumber
 import co.za.dvt.myskilldevapp.features.database.tables.GameStats
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
 import co.za.dvt.myskilldevapp.models.CarModel
+import co.za.dvt.myskilldevapp.models.RoundModel
 import kotlinx.coroutines.*
+import java.lang.Exception
 import java.util.HashMap
 import java.util.concurrent.TimeUnit
+import java.util.regex.Pattern
 
 class DashboardViewModel(private val dashboardRepository: DashboardRepository, application: Application) : BaseVieModel(application) {
 
@@ -83,6 +87,8 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
         fullGameTime = 60000
         remainingGameTime = fullGameTime
         _round.value = 1
+        //Todo: Init without invoking oservers
+        //_winCount.value = 0
     }
 
     fun startNewRound() {
@@ -91,14 +97,16 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
 
         ioScope.launch {
             val payload = HashMap<String, String>()
-            payload[ATMT] = "0"
+            payload[ATMT] = "0"  //Todo remove
+
             val round = dashboardRepository.fetchLuckyNumber(payload)
 
             CoroutineScope(Dispatchers.Main).launch {
 
                 _isBusy.value = false
 
-                if(round != null){
+                //Todo: Test lucky number validity // && round.luckyNumber.toString().isValidLuckyNumber()
+                if(round != null) {
                     _activityMessage.value = app.getString(R.string.try_your_luck_roll_dice)
                     _currentLuckyNumber.value = round.luckyNumber
                     startCountDown(remainingGameTime)
@@ -193,6 +201,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
     }
 
     fun resetGame(){
+        initGame()
         startNewRound()
     }
 

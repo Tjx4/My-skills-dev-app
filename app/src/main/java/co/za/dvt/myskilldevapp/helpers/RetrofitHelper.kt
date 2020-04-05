@@ -9,8 +9,8 @@ import retrofit2.http.QueryMap
 
 interface RetrofitHelper {
     @GET(GET_LUCKY_NUMBER)
-    suspend fun getLuckyNumner(@QueryMap params: Map<String, String>): RoundModel
+    suspend fun getLuckyNumner(@QueryMap params: Map<String, String>): RoundModel?
 
     @GET(GET_AVAILABLE_CARS)
-    suspend fun getAvailableCars(): List<CarModel>
+    suspend fun getAvailableCars(): List<CarModel>?
 }

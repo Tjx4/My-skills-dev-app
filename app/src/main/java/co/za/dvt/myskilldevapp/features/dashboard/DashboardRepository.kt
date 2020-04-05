@@ -8,13 +8,13 @@ import java.util.HashMap
 
 open class DashboardRepository(private val database: GameStatsDAO) : BaseRepositories() {
 
-    private var viewModelJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-    private val ioScope = CoroutineScope(Dispatchers.IO + viewModelJob)
+    private var job = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + job)
+    private val ioScope = CoroutineScope(Dispatchers.IO + job)
 
-    suspend fun fetchLuckyNumber(payload: HashMap<String, String>) = retrofitHelper?.getLuckyNumner(payload)
-    suspend fun fetchAvailableCars() = retrofitHelper.getAvailableCars()
+    suspend fun fetchLuckyNumber(payload: HashMap<String, String>) = try { retrofitHelper?.getLuckyNumner(payload) } catch (e: Exception){ null }
 
+    suspend fun fetchAvailableCars() = try { retrofitHelper?.getAvailableCars() } catch (e: Exception){ null }
 
     suspend fun clear() {
         withContext(Dispatchers.IO){
