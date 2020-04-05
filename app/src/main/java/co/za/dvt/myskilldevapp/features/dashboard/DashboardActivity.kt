@@ -27,14 +27,20 @@ class DashboardActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         var dataSource = MyGameDatabase.getInstance(application).gameStatsDAO
         var repository = DashboardRepository(dataSource)
         var application = requireNotNull(this).application
         var viewModelFactory = DashboardViewModelFactory(repository, application)
 
         dashboardViewModel = ViewModelProviders.of(this, viewModelFactory).get(DashboardViewModel::class.java)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard)
+        binding.dashboardViewModel = dashboardViewModel
+        binding.lifecycleOwner = this
 
+        setIbservers()
+    }
+
+    private fun setIbservers() {
         dashboardViewModel.winCount.observe(this, Observer { onRoundWin(it) })
         dashboardViewModel.luckyNumberError.observe(this, Observer { onGetLuckyNumberError(it) })
         dashboardViewModel.carsError.observe(this, Observer { onGetCarsError(it) })
@@ -42,10 +48,6 @@ class DashboardActivity : BaseActivity() {
         dashboardViewModel.rolledNumber.observe(this, Observer { showRolledDiceNumber(it) })
         dashboardViewModel.isTimeFinished.observe(this, Observer { onTimeFinished(it) })
         dashboardViewModel.availableCars.observe(this, Observer { showPrices(it) })
-
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard)
-        binding.dashboardViewModel = dashboardViewModel
-        binding.lifecycleOwner = this
     }
 
     fun onRollButtonClicked(view: View) {

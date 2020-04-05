@@ -179,7 +179,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
                 _winCount.value = lastCount + 1
             }
 
-            // Todo: resolve round and win
+            // Todo: resolve round and win // Resolve increment
             _round.value.let {
                 var lastRound = it ?: 0
                 _round.value = lastRound + 1
