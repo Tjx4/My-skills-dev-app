@@ -133,14 +133,9 @@ class DashboardActivity : BaseActivity() {
        }
     }
 
-    fun onPriceItemClick(car: CarModel) {
-        var selectedPrice = "${car?.brand} ${car?.model}"
-        dashboardViewModel?.setJackpotPrice(selectedPrice)
-        showJackportWin(selectedPrice)
-    }
-
-    fun showJackportWin(jackpotPrice: String){
-        showSuccessAlert(this, getString(R.string.game_completed), getString(R.string.jackport_price_message, jackpotPrice), getString(R.string.finish_game), ::finish)
+    fun onPriceItemClick(selectedPrice: String) {
+        dashboardViewModel?.recordGameStats(selectedPrice)
+        showSuccessAlert(this, getString(R.string.game_completed), getString(R.string.jackport_price_message, selectedPrice), getString(R.string.finish_game), ::finish)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -6,16 +6,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.constants.ATMT
-import co.za.dvt.myskilldevapp.extensions.isValidLuckyNumber
 import co.za.dvt.myskilldevapp.features.database.tables.GameStats
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
+import co.za.dvt.myskilldevapp.helpers.getYearMonthDayAndTime
 import co.za.dvt.myskilldevapp.models.CarModel
-import co.za.dvt.myskilldevapp.models.RoundModel
 import kotlinx.coroutines.*
-import java.lang.Exception
 import java.util.HashMap
 import java.util.concurrent.TimeUnit
-import java.util.regex.Pattern
 
 class DashboardViewModel(private val dashboardRepository: DashboardRepository, application: Application) : BaseVieModel(application) {
 
@@ -191,7 +188,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
     }
 
     fun startGame(){
-        //Todo: Do things that should only be done the first time
+        gameStats.value?.startTime = getYearMonthDayAndTime()
         resetGame()
     }
 
@@ -206,19 +203,21 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
        // _winCount.value = 0
     }
 
-    fun setJackpotPrice(jackpotPrice: String) {
+    fun recordGameStats(jackpotPrice: String) {
         gameStats.value?.jackpotPrice = jackpotPrice
-
-stopTrackingGameStats()
+        gameStats.value?.player = app.getString(R.string.test_player)
+        gameStats.value?.tries = tries
+        gameStats.value?.endTime = getYearMonthDayAndTime()
     }
 
     override fun onCleared() {
         super.onCleared()
-viewModelJob.cancel()
-uiScope.launch {
-    dashboardRepository.clear()
-    gameStats.value = null
-}
+        viewModelJob.cancel()
+
+        uiScope.launch {
+            dashboardRepository.clear()
+            gameStats.value = null
+        }
     }
 
     fun initStats(){
@@ -230,29 +229,15 @@ uiScope.launch {
     fun startTrackingGameStats(){
         ioScope.launch {
             var currentStats = GameStats()
-            currentStats.player = 1
 
             currentStats.gameId = 0
-            currentStats.player = 0
+            currentStats.player = ""
             currentStats.tries = 0
             currentStats.jackpotPrice = ""
-            currentStats.startTime = 0
-            currentStats.endTime = 0
-
             uiScope.launch {
                 //update on ui scope
                 gameStats.value = dashboardRepository.getCurrentStatsFromDB()
             }
-        }
-    }
-
-    fun stopTrackingGameStats() {
-        uiScope.launch {
-            var oldStats = gameStats.value ?: return@launch
-            oldStats.endTime = System.currentTimeMillis()
-            oldStats.tries = tries
-
-            dashboardRepository.updateStats(oldStats)
         }
     }
 

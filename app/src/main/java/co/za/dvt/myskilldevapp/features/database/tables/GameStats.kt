@@ -10,13 +10,13 @@ data class GameStats (
     @ColumnInfo(name = "game_id")
     var gameId:Long = 0L,
     @ColumnInfo(name = "player")
-    var player:Long = 0L,
+    var player:String? = null,
     @ColumnInfo(name = "tries")
     var tries:Int = 0,
     @ColumnInfo(name = "jackpot_price")
     var jackpotPrice:String? = null,
     @ColumnInfo(name = "start_time")
-    var startTime:Long = System.currentTimeMillis(),
+    var startTime:String? = null,
     @ColumnInfo(name = "end_time")
-    var endTime:Long = startTime
+    var endTime:String? = null
 )
