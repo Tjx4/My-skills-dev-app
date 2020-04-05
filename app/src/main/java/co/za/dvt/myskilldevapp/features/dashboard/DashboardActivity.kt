@@ -88,16 +88,12 @@ class DashboardActivity : BaseActivity() {
 
         when(winCount){
             dashboardViewModel.maxRounds -> showSuccessAlert(this, getString(R.string.congratulations), getString(R.string.jackport_message), getString(R.string.view_prices), ::onViewPricesClicked)
-            else -> showSuccessAlert(this,getString(R.string.you_win), getString(R.string.round_victory_message, dashboardViewModel.currentLuckyNumber.value), getString(R.string.play_again), ::onRestartGameClicked)
+            else -> showSuccessAlert(this,getString(R.string.you_win), getString(R.string.round_victory_message, dashboardViewModel.currentLuckyNumber.value), getString(R.string.play_again)) {dashboardViewModel.startNewRound()}
         }
     }
 
     private fun onViewPricesClicked() {
         dashboardViewModel.fetchCarPrices()
-    }
-
-    private fun onRestartGameClicked() {
-        dashboardViewModel.resetGame()
     }
 
     private fun onGetLuckyNumberError(errorMessage: String) {
