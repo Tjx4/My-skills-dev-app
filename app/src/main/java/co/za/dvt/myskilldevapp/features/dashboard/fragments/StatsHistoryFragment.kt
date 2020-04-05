@@ -1,6 +1,7 @@
 package co.za.dvt.myskilldevapp.features.dashboard.fragments
 
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,7 +34,7 @@ class StatsHistoryFragment : BaseDialogFragment(), StatsAdapter.ItemClickListene
         titleTv = parentView.findViewById(R.id.tvHeading)
         titleTv?.text = arguments?.getString(TITLE)
 
-        stats = arguments?.getParcelableArrayList(CARS) ?: return
+        stats = arguments?.getParcelableArrayList(STATS) ?: return
 
         val statsAdapterAdapter = StatsAdapter(dashboardActivity as Context, stats as java.util.ArrayList<GameStats>)
         statsAdapterAdapter.setClickListener(this)
@@ -49,7 +50,12 @@ class StatsHistoryFragment : BaseDialogFragment(), StatsAdapter.ItemClickListene
     }
 
     override fun onItemClick(view: View, position: Int) {
-        dismiss()
+
+    }
+
+    override fun onDismiss(dialog: DialogInterface?) {
+        super.onDismiss(dialog)
+        dashboardActivity?.onStatsClose()
     }
 
     companion object {

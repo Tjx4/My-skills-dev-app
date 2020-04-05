@@ -29,27 +29,31 @@
 
         <TextView
             android:id="@+id/tvGameStartTime"
-            style="@style/MediumDarkTextView"
+            style="@style/SmallDarkTextView"
             android:layout_weight="1"
-            tools:text="Start time" />
+            tools:text="Start time"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tvGameTries"
-            style="@style/MediumDarkTextView"
+            style="@style/SmallDarkTextView"
             android:layout_weight="1"
-            tools:text="Tries" />
+            tools:text="Tries"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tvGameJackpotPrice"
-            style="@style/MediumDarkTextView"
+            style="@style/SmallDarkTextView"
             android:layout_weight="1"
-            tools:text="Jackpot price" />
+            tools:text="Jackpot price"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvGameEndTime"
-            style="@style/MediumDarkTextView"
+            style="@style/SmallDarkTextView"
             android:layout_weight="1"
-            tools:text="End time" />
+            tools:text="End time"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

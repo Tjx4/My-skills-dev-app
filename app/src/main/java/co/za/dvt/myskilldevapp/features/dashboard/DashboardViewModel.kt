@@ -113,7 +113,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
                 if(round != null) {
                     _activityMessage.value = app.getString(R.string.try_your_luck_roll_dice)
                     _currentLuckyNumber.value = round.luckyNumber
-                    startCountDown(remainingGameTime)
+                    continueCountDown()
                 }
                 else{
                     _luckyNumberError.value = app.getString(R.string.lucky_number_error_message)
@@ -148,6 +148,10 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
 
     fun pauseCountDown(){
        _countDownTimer?.cancel()
+    }
+
+    fun continueCountDown(){
+        startCountDown(remainingGameTime)
     }
 
     fun startCountDown(gameTime: Long){

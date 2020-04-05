@@ -146,21 +146,24 @@ class DashboardActivity : BaseActivity() {
     fun onShowStatsHistoryClicked() {
         dashboardViewModel?.busyMessage = "Fetching stats"
         dashboardViewModel?.isBusy.value = true
+        dashboardViewModel.pauseCountDown()
+        var context = this
 
        ioScope.launch {
            var statsHistory = dashboardViewModel?.getGameStats()
-           var context = this
 
            uiScope.launch {
                dashboardViewModel?.isBusy.value = false
 
                var statsHistoryFragment = StatsHistoryFragment.newInstance(statsHistory)
-               statsHistoryFragment.isCancelable = false
-               showDialogFragment("Stats history", R.layout.fragment_stats_history, statsHistoryFragment, this.coroutineContext as BaseActivity)
+statsHistoryFragment.isCancelable = true
+               showDialogFragment("Stats history", R.layout.fragment_stats_history, statsHistoryFragment, context)
            }
         }
+    }
 
-
+    fun onStatsClose() {
+        dashboardViewModel.continueCountDown()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

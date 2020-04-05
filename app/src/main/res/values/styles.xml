@@ -41,7 +41,7 @@
         <item name="android:textSize">@dimen/small_text</item>
         <item name="android:gravity">center</item>
     </style>
-    <style name="smallDarkTextView" parent="smallTextView">
+    <style name="SmallDarkTextView" parent="smallTextView">
         <item name="android:textColor">@color/darkText</item>
     </style>
     <style name="smallRedTextView" parent="smallTextView">
