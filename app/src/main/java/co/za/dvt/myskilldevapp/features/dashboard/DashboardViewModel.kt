@@ -21,9 +21,9 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
     var busyMessage: String = ""
 
     private var viewModelJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private val ioScope = CoroutineScope(Dispatchers.IO + viewModelJob)
-    private var gameStats: MutableLiveData<GameStats?> = MutableLiveData()
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    private var gameStats: GameStats = GameStats()
     private var fullGameTime: Long = 0
     private var remainingGameTime: Long = 0
 
@@ -48,7 +48,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
     get() = _rolledNumber
 
     private val _isBusy: MutableLiveData<Boolean> = MutableLiveData()
-    val isBusy: LiveData<Boolean>
+    val isBusy: MutableLiveData<Boolean>
     get() = _isBusy
 
     private val _luckyNumberError: MutableLiveData<String> = MutableLiveData()
@@ -79,6 +79,17 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
         startGame()
     }
 
+    fun startGame(){
+        gameStats.startTime = getYearMonthDayAndTime()
+        resetGame()
+    }
+
+    fun initGame() {
+        fullGameTime = 60000
+        remainingGameTime = fullGameTime
+        // _winCount.value = 0
+    }
+
     fun startNewRound() {
         busyMessage = app.getString(R.string.start_round_message)
         _isBusy.value = true
@@ -94,7 +105,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
 
             val round = dashboardRepository.fetchLuckyNumber(payload)
 
-            CoroutineScope(Dispatchers.Main).launch {
+           uiScope.launch {
 
                 _isBusy.value = false
 
@@ -187,58 +198,31 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
         }
     }
 
-    fun startGame(){
-        gameStats.value?.startTime = getYearMonthDayAndTime()
-        resetGame()
-    }
-
     fun resetGame(){
         initGame()
         startNewRound()
     }
 
-    fun initGame() {
-        fullGameTime = 60000
-        remainingGameTime = fullGameTime
-       // _winCount.value = 0
+    fun recordGameStats(jackpotPrice: String) {
+        gameStats.jackpotPrice = jackpotPrice
+        gameStats.player = app.getString(R.string.test_player)
+        gameStats.tries = tries
+        gameStats.endTime = getYearMonthDayAndTime()
+
+        ioScope.launch {
+            dashboardRepository.addStatsToDB(gameStats)
+        }
     }
 
-    fun recordGameStats(jackpotPrice: String) {
-        gameStats.value?.jackpotPrice = jackpotPrice
-        gameStats.value?.player = app.getString(R.string.test_player)
-        gameStats.value?.tries = tries
-        gameStats.value?.endTime = getYearMonthDayAndTime()
+    suspend fun getGameStats(): List<GameStats>? {
+       return withContext(Dispatchers.IO){
+            dashboardRepository.getAllStatsFromDB()
+        }
     }
 
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
-
-        uiScope.launch {
-            dashboardRepository.clear()
-            gameStats.value = null
-        }
-    }
-
-    fun initStats(){
-        uiScope.launch {
-            gameStats.value = dashboardRepository.getCurrentStatsFromDB()
-        }
-    }
-
-    fun startTrackingGameStats(){
-        ioScope.launch {
-            var currentStats = GameStats()
-
-            currentStats.gameId = 0
-            currentStats.player = ""
-            currentStats.tries = 0
-            currentStats.jackpotPrice = ""
-            uiScope.launch {
-                //update on ui scope
-                gameStats.value = dashboardRepository.getCurrentStatsFromDB()
-            }
-        }
     }
 
 }

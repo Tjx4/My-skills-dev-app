@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/small_padding"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/lighterBackground">
+
+    <TextView
+        android:id="@+id/tvGameStartTime"
+        style="@style/MediumDarkTextView"
+        tools:text="Start time"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/tvGameTries"
+        style="@style/MediumDarkTextView"
+        tools:text="Tries"
+        android:layout_weight="1"
+        android:background="@color/lightBackground"/>
+
+    <TextView
+        android:id="@+id/tvGameJackpotPrice"
+        style="@style/MediumDarkTextView"
+        tools:text="Jackpot price"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/tvGameEndTime"
+        style="@style/MediumDarkTextView"
+        tools:text="End time"
+        android:layout_weight="1"
+        android:background="@color/lightBackground"/>
+
+</LinearLayout>

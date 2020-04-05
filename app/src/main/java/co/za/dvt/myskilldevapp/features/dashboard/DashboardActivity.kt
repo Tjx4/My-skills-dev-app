@@ -15,10 +15,12 @@ import co.za.dvt.myskilldevapp.extensions.blinkView
 import co.za.dvt.myskilldevapp.extensions.rotateView
 import co.za.dvt.myskilldevapp.features.activities.BaseActivity
 import co.za.dvt.myskilldevapp.features.dashboard.fragments.CarPrizesFragment
+import co.za.dvt.myskilldevapp.features.dashboard.fragments.StatsHistoryFragment
 import co.za.dvt.myskilldevapp.features.database.MyGameDatabase
 import co.za.dvt.myskilldevapp.helpers.*
 import co.za.dvt.myskilldevapp.models.CarModel
 import kotlinx.android.synthetic.main.activity_dashboard.*
+import kotlinx.coroutines.*
 
 class DashboardActivity : BaseActivity() {
     private lateinit var binding: ActivityDashboardBinding
@@ -138,10 +140,33 @@ class DashboardActivity : BaseActivity() {
         showSuccessAlert(this, getString(R.string.game_completed), getString(R.string.jackport_price_message, selectedPrice), getString(R.string.finish_game), ::finish)
     }
 
+    private val ioScope = CoroutineScope(Dispatchers.IO + Job())
+    private val uiScope = CoroutineScope(Dispatchers.Main + Job())
+
+    fun onShowStatsHistoryClicked() {
+        dashboardViewModel?.busyMessage = "Fetching stats"
+        dashboardViewModel?.isBusy.value = true
+
+       ioScope.launch {
+           var statsHistory = dashboardViewModel?.getGameStats()
+           var context = this
+
+           uiScope.launch {
+               dashboardViewModel?.isBusy.value = false
+
+               var statsHistoryFragment = StatsHistoryFragment.newInstance(statsHistory)
+               statsHistoryFragment.isCancelable = false
+               showDialogFragment("Stats history", R.layout.fragment_stats_history, statsHistoryFragment, this.coroutineContext as BaseActivity)
+           }
+        }
+
+
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_help -> showShortToast("Help", this)
-            R.id.action_history -> showShortToast("History", this)
+            R.id.action_history -> onShowStatsHistoryClicked()
         }
 
         return super.onOptionsItemSelected(item)

@@ -7,4 +7,6 @@
     <color name="darkText">#111</color>
     <color name="redText">#ff0000</color>
     <color name="darkBackground">#000</color>
+    <color name="lightBackground">#EEE</color>
+    <color name="lighterBackground">#FFF</color>
 </resources>

@@ -1,9 +1,12 @@
 package co.za.dvt.myskilldevapp.features.database.tables
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @Entity(tableName = "game_stats_table")
 data class GameStats (
     @PrimaryKey(autoGenerate = true)
@@ -19,4 +22,4 @@ data class GameStats (
     var startTime:String? = null,
     @ColumnInfo(name = "end_time")
     var endTime:String? = null
-)
+): Parcelable
