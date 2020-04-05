@@ -30,7 +30,7 @@ class DashboardUnitTest {
 
     @Before
     fun setUp() {
-        dashboardViewModel = DashboardViewModel(repository, database, application)
+        dashboardViewModel = DashboardViewModel(repository, application)
     }
 
     @Test
@@ -47,7 +47,6 @@ class DashboardUnitTest {
         var testLuckyNumber = 1
 
         // when
-        dashboardViewModel.setLuckyNumber(testLuckyNumber)
         val actualResult = dashboardViewModel?.currentLuckyNumber?.value != 0 &&  dashboardViewModel?.currentLuckyNumber?.value!! < 7
         val expectedResult = true
 
