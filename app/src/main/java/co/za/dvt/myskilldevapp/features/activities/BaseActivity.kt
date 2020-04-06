@@ -13,5 +13,6 @@ abstract class BaseActivity : AppCompatActivity(), ActivityTransitions {
         super.onCreate(savedInstanceState)
         initTransitions(this)
         isNewActivity = true
+        supportActionBar?.elevation = 0f
     }
 }
