@@ -39,8 +39,7 @@ class MyGameDatabaseTests{
     @Test
     @Throws(Exception::class)
     fun insertAndGetGameStats(){
-        var gameStats =
-            GameStats()
+        var gameStats = GameStats()
         gameStats.gameId = 404594
 
         gameStatsDAO.insert(gameStats)

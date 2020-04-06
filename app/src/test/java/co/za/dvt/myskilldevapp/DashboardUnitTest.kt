@@ -41,7 +41,7 @@ class DashboardUnitTest {
     }
 
     @Test
-    fun `test fetch start New Round`() = runBlocking  {
+    fun `test fetch lucky number`() = runBlocking  {
         val token = "dfd9d0d0j99je9999e9999e9j9"
         val user = "test_player"
         val payload = HashMap<String, String>()
