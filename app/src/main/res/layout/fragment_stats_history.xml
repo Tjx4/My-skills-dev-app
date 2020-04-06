@@ -1,80 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".features.dashboard.fragments.StatsHistoryFragment">
-
-    <RelativeLayout
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".features.dashboard.fragments.StatsHistoryFragment"
         android:background="#FFF">
 
-    <TextView
-        android:id="@+id/tvHeading"
-        style="@style/MediumPlusTextView"
-        android:layout_marginTop="@dimen/medium__margin"
-        android:layout_marginBottom="@dimen/medium__margin"
-        tools:text="Game history" />
-
-    <LinearLayout
-        android:id="@+id/llHeadingContaine"
+    <RelativeLayout
+        android:id="@+id/rlParent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lightBackground"
-        android:orientation="horizontal"
-        android:padding="@dimen/small_padding"
-        android:layout_below="@+id/tvHeading"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true">
+        android:layout_gravity="center">
 
         <TextView
-            android:id="@+id/tvGameStartTime"
-            style="@style/SmallDarkTextView"
-            android:layout_weight="1"
-            android:text="Start time"
-            android:textStyle="bold"/>
+            android:id="@+id/tvHeading"
+            style="@style/MediumPlusTextView"
+            android:layout_marginTop="@dimen/medium__margin"
+            android:layout_marginBottom="@dimen/medium__margin"
+            tools:text="Game history" />
+
+        <LinearLayout
+            android:id="@+id/llHeadingContaine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/lightBackground"
+            android:orientation="horizontal"
+            android:padding="@dimen/small_padding"
+            android:layout_below="@+id/tvHeading"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true">
+
+            <TextView
+                android:id="@+id/tvGameStartTime"
+                style="@style/SmallDarkTextView"
+                android:layout_weight="1"
+                android:text="Start time"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tvGameTries"
+                style="@style/SmallDarkTextView"
+                android:layout_weight="1"
+                android:text="Tries"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tvGameJackpotPrice"
+                style="@style/SmallDarkTextView"
+                android:layout_weight="1"
+                android:text="Jackpot price"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tvGameEndTime"
+                style="@style/SmallDarkTextView"
+                android:layout_weight="1"
+                android:text="End time"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvStats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/llHeadingContaine" />
 
         <TextView
-            android:id="@+id/tvGameTries"
-            style="@style/SmallDarkTextView"
-            android:layout_weight="1"
-            android:text="Tries"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/tvGameJackpotPrice"
-            style="@style/SmallDarkTextView"
-            android:layout_weight="1"
-            android:text="Jackpot price"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/tvGameEndTime"
-            style="@style/SmallDarkTextView"
-            android:layout_weight="1"
-            android:text="End time"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvStats"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/llHeadingContaine" />
-
-    <TextView
-        android:id="@+id/tvNoStats"
-        android:layout_below="@+id/llHeadingContaine"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/large__margin"
-        android:gravity="center"
-        android:text="@string/no_stats_available"
-        android:visibility="gone"/>
+            android:id="@+id/tvNoStats"
+            android:layout_below="@+id/llHeadingContaine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/large__margin"
+            android:gravity="center"
+            android:text="@string/no_stats_available"
+            android:visibility="gone"/>
 
     </RelativeLayout>
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avlLoading"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:indicatorName="BallScaleRippleIndicator"
+        app:indicatorColor="@color/darkText"/>
 
 </FrameLayout>

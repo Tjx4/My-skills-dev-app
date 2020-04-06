@@ -20,14 +20,10 @@ import co.za.dvt.myskilldevapp.features.database.MyGameDatabase
 import co.za.dvt.myskilldevapp.helpers.*
 import co.za.dvt.myskilldevapp.models.CarModel
 import kotlinx.android.synthetic.main.activity_dashboard.*
-import kotlinx.coroutines.*
 
 class DashboardActivity : BaseActivity() {
     private lateinit var binding: ActivityDashboardBinding
     lateinit var dashboardViewModel: DashboardViewModel
-    private val job =  Job()
-    private val ioScope = CoroutineScope(Dispatchers.IO + job)
-    private val uiScope = CoroutineScope(Dispatchers.Main + job)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -143,30 +139,14 @@ class DashboardActivity : BaseActivity() {
 
     fun onShowStatsHistoryClicked() {
         dashboardViewModel?.busyMessage = getString(R.string.fetch_stats)
-        dashboardViewModel?.isBusy.value = true
         dashboardViewModel.pauseCountDown()
-        var context = this
-
-       ioScope.launch {
-           var statsHistory = dashboardViewModel?.getGameStats()
-
-           uiScope.launch {
-               dashboardViewModel?.isBusy.value = false
-
-               var statsHistoryFragment = StatsHistoryFragment.newInstance(statsHistory)
-               statsHistoryFragment.isCancelable = true
-               showDialogFragment(getString(R.string.stats_history), R.layout.fragment_stats_history, statsHistoryFragment, context)
-           }
-        }
+        var statsHistoryFragment = StatsHistoryFragment.newInstance()
+        statsHistoryFragment.isCancelable = true
+        showDialogFragment(getString(R.string.stats_history), R.layout.fragment_stats_history, statsHistoryFragment, this)
     }
 
     fun onStatsClose() {
         dashboardViewModel.continueCountDown()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        job.cancel()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
