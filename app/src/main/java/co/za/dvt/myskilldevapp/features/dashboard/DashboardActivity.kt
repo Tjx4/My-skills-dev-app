@@ -79,7 +79,7 @@ class DashboardActivity : BaseActivity() {
     }
 
     private fun onRollComplete() {
-        dashboardViewModel.onRollCompleted()
+        dashboardViewModel.onRollCompleted((1..6).random())
         btnDice.isEnabled = true
     }
 

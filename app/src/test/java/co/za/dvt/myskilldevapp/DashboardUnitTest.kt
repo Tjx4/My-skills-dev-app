@@ -48,10 +48,9 @@ class DashboardUnitTest {
         payload[USER] = user
 
        whenever(repository.fetchLuckyNumber(token, payload)).thenReturn(RoundModel(user,2))
-       dashboardViewModel?.getLuckNumber(token, payload)
+       val actual =  dashboardViewModel?.getLuckNumber(token, payload)?.luckyNumber
+       val expected = RoundModel(user,2).luckyNumber
 
-       val actual =  dashboardViewModel?.currentLuckyNumber.value ?: 0
-       val expected =  2
        assertEquals(actual, expected)
     }
 
@@ -66,9 +65,8 @@ class DashboardUnitTest {
             cars.add(car)
 
             whenever(repository.fetchAvailableCars()).thenReturn(cars)
-            dashboardViewModel?.getJackportPrices()
+            val actual = dashboardViewModel?.getJackportPrices()
 
-            val actual = dashboardViewModel.availableCars.value ?: ArrayList()
             val expected = cars
             assertEquals(actual, expected)
         }
@@ -77,9 +75,9 @@ class DashboardUnitTest {
     @Test
     fun `test if roll complete increments tries`() {
         dashboardViewModel.currentLuckyNumber.value = 6
-        dashboardViewModel.rolledNumber.value = 6
+        val rolledNumber = 6
 
-        dashboardViewModel?.onRollCompleted()
+        dashboardViewModel?.onRollCompleted(rolledNumber)
 
         val actualTries = dashboardViewModel.tries
         val expectedTries = 1
@@ -90,11 +88,11 @@ class DashboardUnitTest {
     @Test
     fun `test if roll complete increments if win`() {
         dashboardViewModel.currentLuckyNumber.value = 6
-        dashboardViewModel.rolledNumber.value = 6
+        val rolledNumber = 6
 
-        dashboardViewModel?.onRollCompleted()
+        dashboardViewModel?.onRollCompleted(rolledNumber)
 
-        val actualWins= dashboardViewModel.winCount.value
+        val actualWins = dashboardViewModel.winCount.value
         val expectedWins = 1
         assertEquals(actualWins, expectedWins)
     }

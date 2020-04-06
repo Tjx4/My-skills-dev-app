@@ -176,8 +176,8 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
         _countDownTimer?.start()
     }
 
-    fun onRollCompleted() {
-        _rolledNumber.value  = (1..6).random()
+    fun onRollCompleted(rolledNumber: Int) {
+        _rolledNumber.value  = rolledNumber
         _activityMessage.value  =  app.getString(R.string.rolled_message, _rolledNumber.value)
 
         //Todo: finish
