@@ -2,6 +2,7 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorLuckNumberBanner">#800000</color>
     <color name="colorAccent">#800000</color>
     <color name="lightText">#DDD</color>
     <color name="darkText">#111</color>

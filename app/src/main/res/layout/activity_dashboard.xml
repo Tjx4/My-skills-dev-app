@@ -55,7 +55,7 @@
 
             <TextView
                 android:id="@+id/tvCountDownTime"
-                style="@style/SmallDarkTextView"
+                style="@style/SmallLightTextView"
                 android:layout_width="wrap_content"
                 android:text="@{dashboardViewModel.timeLeft}"
                 tools:text="0:00"
@@ -68,7 +68,7 @@
             android:id="@+id/rlLuckyNumberContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/colorLuckNumberBanner"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -82,7 +82,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/medium__margin"
                     android:textStyle="bold"
-                android:text="Lucky number   --------->" />
+                android:text="Lucky number ........" />
 
             <TextView
                 android:id="@+id/tvLuckyNumber"

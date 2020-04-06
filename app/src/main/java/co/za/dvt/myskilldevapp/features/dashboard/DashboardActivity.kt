@@ -142,7 +142,7 @@ class DashboardActivity : BaseActivity() {
     }
 
     fun onShowStatsHistoryClicked() {
-        dashboardViewModel?.busyMessage = "Fetching stats"
+        dashboardViewModel?.busyMessage = getString(R.string.fetch_stats)
         dashboardViewModel?.isBusy.value = true
         dashboardViewModel.pauseCountDown()
         var context = this
@@ -155,7 +155,7 @@ class DashboardActivity : BaseActivity() {
 
                var statsHistoryFragment = StatsHistoryFragment.newInstance(statsHistory)
                statsHistoryFragment.isCancelable = true
-               showDialogFragment("Stats history", R.layout.fragment_stats_history, statsHistoryFragment, context)
+               showDialogFragment(getString(R.string.stats_history), R.layout.fragment_stats_history, statsHistoryFragment, context)
            }
         }
     }
