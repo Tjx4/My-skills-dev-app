@@ -1,0 +1,24 @@
+Index: app/src/main/java/co/za/dvt/myskilldevapp/helpers/RetrofitHelper.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package co.za.dvt.myskilldevapp.helpers\n\nimport co.za.dvt.myskilldevapp.constants.GET_AVAILABLE_CARS\nimport co.za.dvt.myskilldevapp.constants.GET_LUCKY_NUMBER\nimport co.za.dvt.myskilldevapp.models.CarModel\nimport co.za.dvt.myskilldevapp.models.RoundModel\nimport retrofit2.http.GET\nimport retrofit2.http.Header\nimport retrofit2.http.QueryMap\n\ninterface RetrofitHelper {\n    @GET(GET_LUCKY_NUMBER)\n    suspend fun getLuckyNumner(@Header(\"authorization\") token: String, @QueryMap params: Map<String, String>): RoundModel?\n\n    @GET(GET_AVAILABLE_CARS)\n    suspend fun getAvailableCars(): List<CarModel>?\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/co/za/dvt/myskilldevapp/helpers/RetrofitHelper.kt	(date 1586153608000)
++++ app/src/main/java/co/za/dvt/myskilldevapp/helpers/RetrofitHelper.kt	(date 1586153639000)
+@@ -10,8 +10,12 @@
+ 
+ interface RetrofitHelper {
+     @GET(GET_LUCKY_NUMBER)
+-    suspend fun getLuckyNumner(@Header("authorization") token: String, @QueryMap params: Map<String, String>): RoundModel?
++    suspend fun getLuckyNumner(@Header("authorization")token: String, @QueryMap params: Map<String, String>): RoundModel?
+ 
++
++    @GET(GET_LUCKY_NUMBER)
++    suspend fun getLuckyNumnere(@Header("authorization")token: String, @QueryMap params: Map<String, String>): RoundModel?
++
+     @GET(GET_AVAILABLE_CARS)
+     suspend fun getAvailableCars(): List<CarModel>?
+ }
+\ No newline at end of file

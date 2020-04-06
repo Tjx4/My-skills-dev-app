@@ -10,7 +10,6 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-
     <style name="xlargeTextView" parent="BaseTextView">
         <item name="android:textSize">@dimen/xlarge_text</item>
         <item name="android:gravity">center</item>
@@ -51,9 +50,8 @@
         <item name="android:gravity">center</item>
     </style>
     <style name="XsmallDarkTextView" parent="xsmallTextView">
-    <item name="android:textColor">@color/darkText</item>
+        <item name="android:textColor">@color/darkText</item>
     </style>
-
     <style name="MySkillsButton">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
