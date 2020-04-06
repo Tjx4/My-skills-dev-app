@@ -111,7 +111,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
             uiScope.launch {
                 _isBusy.value = false
 
-                if(round != null && round.luckyNumber.toString().isValidLuckyNumber()) {
+                if(round != null) {
                     _activityMessage.value = app.getString(R.string.try_your_luck_roll_dice)
                     _currentLuckyNumber.value = round.luckyNumber
                     continueCountDown()

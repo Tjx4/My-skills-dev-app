@@ -6,6 +6,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 class RoundModel (
-    @SerializedName("attempt") var user: String? = null,
+    @SerializedName("user") var user: String? = null,
     @SerializedName("luckyNumber") var luckyNumber: Int = 0
 ): Parcelable
