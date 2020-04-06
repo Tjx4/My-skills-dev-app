@@ -17,8 +17,7 @@
         android:id="@+id/tvGameTries"
         style="@style/XsmallDarkTextView"
         tools:text="Tries"
-        android:layout_weight="1"
-        android:background="@color/lightBackground"/>
+        android:layout_weight="1"/>
 
     <TextView
         android:id="@+id/tvGameJackpotPrice"
@@ -30,7 +29,6 @@
         android:id="@+id/tvGameEndTime"
         style="@style/XsmallDarkTextView"
         tools:text="End time"
-        android:layout_weight="1"
-        android:background="@color/lightBackground"/>
+        android:layout_weight="1"/>
 
 </LinearLayout>
