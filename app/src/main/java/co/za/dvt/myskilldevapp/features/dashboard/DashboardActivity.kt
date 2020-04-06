@@ -42,6 +42,8 @@ class DashboardActivity : BaseActivity() {
         binding.dashboardViewModel = dashboardViewModel
         binding.lifecycleOwner = this
 
+        supportActionBar?.elevation = 0f
+
         addObservers()
     }
 

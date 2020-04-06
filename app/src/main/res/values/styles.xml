@@ -19,6 +19,9 @@
         <item name="android:textSize">@dimen/large_text</item>
         <item name="android:gravity">center</item>
     </style>
+    <style name="largeBlueTextView" parent="largeTextView">
+        <item name="android:textColor">@color/blueText</item>
+    </style>
 
     <style name="MediumPlusTextView" parent="BaseTextView">
         <item name="android:textSize">@dimen/medium_plus_text</item>
@@ -42,8 +45,14 @@
     <style name="SmallDarkTextView" parent="smallTextView">
         <item name="android:textColor">@color/darkText</item>
     </style>
+    <style name="SmallLightTextView" parent="smallTextView">
+        <item name="android:textColor">@color/lightText</item>
+    </style>
     <style name="smallRedTextView" parent="smallTextView">
         <item name="android:textColor">@color/redText</item>
+    </style>
+    <style name="smallBlueTextView" parent="smallTextView">
+        <item name="android:textColor">@color/blueText</item>
     </style>
     <style name="xsmallTextView" parent="BaseTextView">
         <item name="android:textSize">@dimen/xsmall_text</item>
