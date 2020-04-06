@@ -10,7 +10,6 @@ import co.za.dvt.myskilldevapp.models.CarModel
 import co.za.dvt.myskilldevapp.models.RoundModel
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
-import io.reactivex.Flowable
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
@@ -51,34 +50,33 @@ class DashboardUnitTest {
 
        whenever(repository.fetchLuckyNumber(token, payload)).thenReturn(RoundModel(user,2))
        dashboardViewModel?.startNewRound()
-       val actual =  dashboardViewModel?.currentLuckyNumber.value
-       val expected =  RoundModel(user,2)
 
+       val actual =  dashboardViewModel?.currentLuckyNumber.value ?: 0
+       val expected =  2
        assertEquals(actual, expected)
-       verify(repository).fetchLuckyNumber(token, payload)
     }
 
     @Test
-    fun `test fetch jackport car prices`() = runBlocking  {
-        val car = CarModel()
-        car.brand = "Test brand"
-        car.model = "Test model"
+    fun `test fetch jackport car prices`()   {
+        runBlocking {
+            val car = CarModel()
+            car.brand = "Test brand"
+            car.model = "Test model"
 
-        val cars = ArrayList<CarModel>()
-        cars.add(car)
+            val cars = ArrayList<CarModel>()
+            cars.add(car)
 
-        whenever(repository.fetchAvailableCars()).thenReturn(cars)
-        dashboardViewModel?.fetchCarPrices()
+            whenever(repository.fetchAvailableCars()).thenReturn(cars)
+            dashboardViewModel?.fetchCarPrices()
 
-        val actual = dashboardViewModel.availableCars.value
-        val expected = cars
-        assertEquals(actual, expected)
-
-        verify(repository).fetchAvailableCars()
+            val actual = dashboardViewModel.availableCars.value ?: ArrayList()
+            val expected = cars
+            assertEquals(actual, expected)
+        }
     }
 
     @Test
-    fun `test roll complete`() {
+    fun `test if roll complete increments tries`() {
         dashboardViewModel.currentLuckyNumber.value = 6
         dashboardViewModel.rolledNumber.value = 6
 
@@ -86,12 +84,20 @@ class DashboardUnitTest {
 
         val actualTries = dashboardViewModel.tries
         val expectedTries = 1
-        val actualWins= dashboardViewModel.winCount.value
-        val expectedWins = 1
 
         assertEquals(actualTries, expectedTries)
-        assertEquals(actualWins, expectedWins)
+    }
 
+    @Test
+    fun `test if roll complete increments if win`() {
+        dashboardViewModel.currentLuckyNumber.value = 6
+        dashboardViewModel.rolledNumber.value = 6
+
+        dashboardViewModel?.onRollCompleted()
+
+        val actualWins= dashboardViewModel.winCount.value
+        val expectedWins = 1
+        assertEquals(actualWins, expectedWins)
     }
 
 }

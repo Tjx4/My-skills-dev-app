@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.constants.USER
-import co.za.dvt.myskilldevapp.extensions.isValidLuckyNumber
 import co.za.dvt.myskilldevapp.features.database.tables.GameStats
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
 import co.za.dvt.myskilldevapp.helpers.getYearMonthDayAndTime
@@ -92,7 +91,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
     }
 
     fun startNewRound() {
-        busyMessage = app.getString(R.string.start_round_message)
+        busyMessage = app?.getString(R.string.start_round_message) ?: ""
         _isBusy.value = true
 
         _round.value.let {
@@ -124,7 +123,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
     }
 
     fun fetchCarPrices() {
-        busyMessage = app.getString(R.string.fetching_prices)
+        busyMessage = app?.getString(R.string.fetching_prices) ?: ""
         _isBusy.value = true
 
         ioScope.launch {
