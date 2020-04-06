@@ -26,34 +26,35 @@
         android:orientation="horizontal"
         android:padding="@dimen/small_padding"
         android:layout_below="@+id/tvHeading"
-        android:layout_alignParentLeft="true">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true">
 
         <TextView
             android:id="@+id/tvGameStartTime"
             style="@style/SmallDarkTextView"
             android:layout_weight="1"
-            tools:text="Start time"
+            android:text="Start time"
             android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tvGameTries"
             style="@style/SmallDarkTextView"
             android:layout_weight="1"
-            tools:text="Tries"
+            android:text="Tries"
             android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tvGameJackpotPrice"
             style="@style/SmallDarkTextView"
             android:layout_weight="1"
-            tools:text="Jackpot price"
-            android:textStyle="bold" />
+            android:text="Jackpot price"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tvGameEndTime"
             style="@style/SmallDarkTextView"
             android:layout_weight="1"
-            tools:text="End time"
+            android:text="End time"
             android:textStyle="bold" />
 
     </LinearLayout>
