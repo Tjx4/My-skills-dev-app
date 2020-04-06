@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.adapters.StatsAdapter
-import co.za.dvt.myskilldevapp.constants.CARS
 import co.za.dvt.myskilldevapp.constants.STATS
 import co.za.dvt.myskilldevapp.constants.TITLE
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardActivity
@@ -21,6 +20,7 @@ import co.za.dvt.myskilldevapp.features.fragments.BaseDialogFragment
 class StatsHistoryFragment : BaseDialogFragment(), StatsAdapter.ItemClickListener {
     private var dashboardActivity: DashboardActivity? = null
     private var titleTv: TextView? = null
+    private var noStatsTv: TextView? = null
     private var statsRv: RecyclerView? = null
     private var stats: List<GameStats>? = null
 
@@ -34,7 +34,13 @@ class StatsHistoryFragment : BaseDialogFragment(), StatsAdapter.ItemClickListene
         titleTv = parentView.findViewById(R.id.tvHeading)
         titleTv?.text = arguments?.getString(TITLE)
 
-        stats = arguments?.getParcelableArrayList(STATS) ?: return
+        stats = arguments?.getParcelableArrayList(STATS)
+
+        if(stats.isNullOrEmpty()){
+            noStatsTv = parentView.findViewById(R.id.tvNoStats)
+            noStatsTv?.visibility = View.VISIBLE
+            return
+        }
 
         val statsAdapterAdapter = StatsAdapter(dashboardActivity as Context, stats as java.util.ArrayList<GameStats>)
         statsAdapterAdapter.setClickListener(this)
@@ -49,9 +55,7 @@ class StatsHistoryFragment : BaseDialogFragment(), StatsAdapter.ItemClickListene
         dashboardActivity = context as DashboardActivity
     }
 
-    override fun onItemClick(view: View, position: Int) {
-
-    }
+    override fun onItemClick(view: View, position: Int) {}
 
     override fun onDismiss(dialog: DialogInterface?) {
         super.onDismiss(dialog)

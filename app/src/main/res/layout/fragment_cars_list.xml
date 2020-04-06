@@ -24,6 +24,16 @@
             android:layout_height="200dp"
             android:layout_below="@+id/tvHeading"/>
 
+        <TextView
+            android:id="@+id/tvNoJackportPrices"
+            android:layout_below="@+id/tvHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/large__margin"
+            android:gravity="center"
+            android:text="@string/no_stats_available"
+            android:visibility="gone"/>
+
     </RelativeLayout>
 
 </FrameLayout>

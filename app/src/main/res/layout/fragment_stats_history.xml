@@ -12,11 +12,11 @@
         android:background="#FFF">
 
     <TextView
-            android:id="@+id/tvHeading"
-            style="@style/MediumPlusTextView"
-            android:layout_marginTop="@dimen/medium__margin"
-            android:layout_marginBottom="@dimen/medium__margin"
-            tools:text="Game history" />
+        android:id="@+id/tvHeading"
+        style="@style/MediumPlusTextView"
+        android:layout_marginTop="@dimen/medium__margin"
+        android:layout_marginBottom="@dimen/medium__margin"
+        tools:text="Game history" />
 
     <LinearLayout
         android:id="@+id/llHeadingContaine"
@@ -64,6 +64,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/llHeadingContaine" />
+
+    <TextView
+        android:id="@+id/tvNoStats"
+        android:layout_below="@+id/llHeadingContaine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/large__margin"
+        android:gravity="center"
+        android:text="@string/no_stats_available"
+        android:visibility="gone"/>
 
     </RelativeLayout>
 

@@ -19,6 +19,7 @@ import co.za.dvt.myskilldevapp.models.CarModel
 class CarPrizesFragment : BaseDialogFragment(), CarPrizesAdapter.ItemClickListener {
     private var dashboardActivity: DashboardActivity? = null
     private var titleTv: TextView? = null
+    private var noJackportPricesTv: TextView? = null
     private var carsRv: RecyclerView? = null
     private var cars: List<CarModel>? = null
 
@@ -32,7 +33,13 @@ class CarPrizesFragment : BaseDialogFragment(), CarPrizesAdapter.ItemClickListen
         titleTv = parentView.findViewById(R.id.tvHeading)
         titleTv?.text = arguments?.getString(TITLE)
 
-        cars = arguments?.getParcelableArrayList(CARS) ?: return
+        cars = arguments?.getParcelableArrayList(CARS)
+
+        if(cars.isNullOrEmpty()){
+            noJackportPricesTv = parentView.findViewById(R.id.tvNoJackportPrices)
+            noJackportPricesTv?.visibility = View.VISIBLE
+            return
+        }
 
         val carPrizesAdapter = CarPrizesAdapter(dashboardActivity as Context, cars as java.util.ArrayList<CarModel>)
         carPrizesAdapter.setClickListener(this)
