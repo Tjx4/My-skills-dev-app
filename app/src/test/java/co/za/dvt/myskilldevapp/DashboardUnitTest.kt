@@ -2,9 +2,13 @@ package co.za.dvt.myskilldevapp
 
 import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import co.za.dvt.myskilldevapp.constants.USER
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardRepository
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardViewModel
 import co.za.dvt.myskilldevapp.features.database.GameStatsDAO
+import co.za.dvt.myskilldevapp.models.RoundModel
+import com.nhaarman.mockitokotlin2.whenever
+import io.reactivex.Flowable
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -12,6 +16,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
+import java.util.HashMap
 
 @RunWith(MockitoJUnitRunner::class)
 class DashboardUnitTest {
@@ -30,19 +35,25 @@ class DashboardUnitTest {
 
     @Before
     fun setUp() {
+        repository.database = database
         dashboardViewModel = DashboardViewModel(repository, application)
     }
 
     @Test
-    fun fetch_lucky_number() {
+    fun `test fetch start New Round`() {
+        val token = "dfd9d0d0j99je9999e9999e9j9"
+        val user = "test_player"
+        val payload = HashMap<String, String>()
+        payload[USER] = user
 
-       // val actual = dashboardViewModel?.fetchLuckyNumber()
+        whenever(repository.fetchLuckyNumber(token, payload)).thenReturn(RoundModel(user,2))
+       val actual = dashboardViewModel?.startNewRound()
 
        //  assert()
     }
 
     @Test
-    fun luckyNumber_set_correctly() {
+    fun `test fetch jackport prices`() {
         // given
         var testLuckyNumber = 1
 

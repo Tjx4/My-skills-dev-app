@@ -25,6 +25,8 @@ import kotlinx.coroutines.*
 class DashboardActivity : BaseActivity() {
     private lateinit var binding: ActivityDashboardBinding
     lateinit var dashboardViewModel: DashboardViewModel
+    private val ioScope = CoroutineScope(Dispatchers.IO + Job())
+    private val uiScope = CoroutineScope(Dispatchers.Main + Job())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -139,9 +141,6 @@ class DashboardActivity : BaseActivity() {
         dashboardViewModel?.recordGameStats(selectedPrice)
         showSuccessAlert(this, getString(R.string.game_completed), getString(R.string.jackport_price_message, selectedPrice), getString(R.string.finish_game), ::finish)
     }
-
-    private val ioScope = CoroutineScope(Dispatchers.IO + Job())
-    private val uiScope = CoroutineScope(Dispatchers.Main + Job())
 
     fun onShowStatsHistoryClicked() {
         dashboardViewModel?.busyMessage = "Fetching stats"

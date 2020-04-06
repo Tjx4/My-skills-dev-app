@@ -36,7 +36,6 @@
     <style name="MediumLightTextView" parent="MediumTextView">
         <item name="android:textColor">@color/lightText</item>
     </style>
-
     <style name="smallTextView" parent="BaseTextView">
         <item name="android:textSize">@dimen/small_text</item>
         <item name="android:gravity">center</item>
@@ -46,6 +45,13 @@
     </style>
     <style name="smallRedTextView" parent="smallTextView">
         <item name="android:textColor">@color/redText</item>
+    </style>
+    <style name="xsmallTextView" parent="BaseTextView">
+        <item name="android:textSize">@dimen/xsmall_text</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="XsmallDarkTextView" parent="xsmallTextView">
+    <item name="android:textColor">@color/darkText</item>
     </style>
 
     <style name="MySkillsButton">

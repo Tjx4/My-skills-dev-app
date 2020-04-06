@@ -5,7 +5,8 @@ import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.R
-import co.za.dvt.myskilldevapp.constants.ATMT
+import co.za.dvt.myskilldevapp.constants.USER
+import co.za.dvt.myskilldevapp.extensions.isValidLuckyNumber
 import co.za.dvt.myskilldevapp.features.database.tables.GameStats
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
 import co.za.dvt.myskilldevapp.helpers.getYearMonthDayAndTime
@@ -87,7 +88,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
     fun initGame() {
         fullGameTime = 60000
         remainingGameTime = fullGameTime
-        // _winCount.value = 0
+// _winCount.value = 0
     }
 
     fun startNewRound() {
@@ -100,17 +101,17 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
         }
 
         ioScope.launch {
+            val token = "dfd9d0d0j99je9999e9999e9j9"
+
             val payload = HashMap<String, String>()
-            payload[ATMT] = "0"  //Todo remove
+            payload[USER] = app.getString(R.string.test_player)
 
-            val round = dashboardRepository.fetchLuckyNumber(payload)
+            val round = dashboardRepository.fetchLuckyNumber(token, payload)
 
-           uiScope.launch {
-
+            uiScope.launch {
                 _isBusy.value = false
 
-                //Todo: Test lucky number validity // && round.luckyNumber.toString().isValidLuckyNumber()
-                if(round != null) {
+                if(round != null && round.luckyNumber.toString().isValidLuckyNumber()) {
                     _activityMessage.value = app.getString(R.string.try_your_luck_roll_dice)
                     _currentLuckyNumber.value = round.luckyNumber
                     continueCountDown()
@@ -118,7 +119,6 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
                 else{
                     _luckyNumberError.value = app.getString(R.string.lucky_number_error_message)
                 }
-
             }
         }
     }

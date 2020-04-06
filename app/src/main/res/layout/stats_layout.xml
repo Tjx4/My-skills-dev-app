@@ -9,26 +9,26 @@
 
     <TextView
         android:id="@+id/tvGameStartTime"
-        style="@style/SmallDarkTextView"
+        style="@style/XsmallDarkTextView"
         tools:text="Start time"
         android:layout_weight="1"/>
 
     <TextView
         android:id="@+id/tvGameTries"
-        style="@style/SmallDarkTextView"
+        style="@style/XsmallDarkTextView"
         tools:text="Tries"
         android:layout_weight="1"
         android:background="@color/lightBackground"/>
 
     <TextView
         android:id="@+id/tvGameJackpotPrice"
-        style="@style/SmallDarkTextView"
+        style="@style/XsmallDarkTextView"
         tools:text="Jackpot price"
         android:layout_weight="1"/>
 
     <TextView
         android:id="@+id/tvGameEndTime"
-        style="@style/SmallDarkTextView"
+        style="@style/XsmallDarkTextView"
         tools:text="End time"
         android:layout_weight="1"
         android:background="@color/lightBackground"/>
