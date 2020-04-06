@@ -3,12 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_help"
-        android:icon="@drawable/ic_help_light"
-        android:title="@string/help"
-        app:showAsAction="always"/>
-
-    <item
         android:id="@+id/action_history"
         android:icon="@drawable/ic_history_light"
         android:title="@string/history"

@@ -25,8 +25,9 @@ import kotlinx.coroutines.*
 class DashboardActivity : BaseActivity() {
     private lateinit var binding: ActivityDashboardBinding
     lateinit var dashboardViewModel: DashboardViewModel
-    private val ioScope = CoroutineScope(Dispatchers.IO + Job())
-    private val uiScope = CoroutineScope(Dispatchers.Main + Job())
+    private val job =  Job()
+    private val ioScope = CoroutineScope(Dispatchers.IO + job)
+    private val uiScope = CoroutineScope(Dispatchers.Main + job)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,23 +46,13 @@ class DashboardActivity : BaseActivity() {
     }
 
     private fun addObservers() {
-        dashboardViewModel.winCount.observe(this, Observer { onRoundWin(it) })
+        dashboardViewModel.winCount.observe(this, Observer { onWinRound(it) })
         dashboardViewModel.luckyNumberError.observe(this, Observer { onGetLuckyNumberError(it) })
         dashboardViewModel.carsError.observe(this, Observer { onGetCarsError(it) })
         dashboardViewModel.isBusy.observe(this, Observer { toggleIsBusy(it) })
         dashboardViewModel.rolledNumber.observe(this, Observer { showRolledDiceNumber(it) })
         dashboardViewModel.isTimeFinished.observe(this, Observer { onTimeFinished(it) })
         dashboardViewModel.availableCars.observe(this, Observer { showPrices(it) })
-    }
-
-    private fun removeObservers() {
-        dashboardViewModel.winCount.removeObservers(this)
-        dashboardViewModel.luckyNumberError.removeObservers(this)
-        dashboardViewModel.carsError.removeObservers(this)
-        dashboardViewModel.isBusy.removeObservers(this)
-        dashboardViewModel.rolledNumber.removeObservers(this)
-        dashboardViewModel.isTimeFinished.removeObservers(this)
-        dashboardViewModel.availableCars.removeObservers(this)
     }
 
     fun onRollButtonClicked(view: View) {
@@ -102,7 +93,6 @@ class DashboardActivity : BaseActivity() {
 
     private fun onResetGameClicked() {
         dashboardViewModel.resetGame()
-        addObservers()
     }
 
     private fun showPrices(availableCars: List<CarModel>) {
@@ -112,7 +102,8 @@ class DashboardActivity : BaseActivity() {
         showDialogFragment(getString(R.string.prices_heading), R.layout.fragment_cars_list, carPricesFragment, this)
     }
 
-    private fun onRoundWin(winCount: Int) {
+    private fun onWinRound(winCount: Int) {
+        if(winCount < 1) return
         dashboardViewModel.pauseCountDown()
 
         when(winCount){
@@ -163,7 +154,7 @@ class DashboardActivity : BaseActivity() {
                dashboardViewModel?.isBusy.value = false
 
                var statsHistoryFragment = StatsHistoryFragment.newInstance(statsHistory)
-statsHistoryFragment.isCancelable = true
+               statsHistoryFragment.isCancelable = true
                showDialogFragment("Stats history", R.layout.fragment_stats_history, statsHistoryFragment, context)
            }
         }
@@ -173,9 +164,13 @@ statsHistoryFragment.isCancelable = true
         dashboardViewModel.continueCountDown()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_help -> showShortToast("Help", this)
             R.id.action_history -> onShowStatsHistoryClicked()
         }
 
@@ -186,41 +181,6 @@ statsHistoryFragment.isCancelable = true
         menuInflater.inflate(R.menu.dashboard_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
-
-/*
-    override fun onMenuItemClicked(view: View) {
-        super.onMenuItemClicked(view)
-    }
-
-     override fun handleSlideMenuItemClicked(item: MenuItem): Boolean {
-        val itemId = item.itemId
-
-        when (itemId) {
-            R.id.action_stylist_finder -> {
-                goToActivityWithNoPayload(ClientDashboard::class.java, TRAIL_TO)
-                finish()
-            }
-            R.id.action_payment -> {
-                showShortMiddleToast("action_payment", this)
-            }
-            R.id.action_history -> {
-                showShortTopToast("action_history", this)
-            }
-            R.id.action_sell_product -> {
-                goToActivityWithNoPayload(StoreActivity::class.java, SLIDE_IN_ACTIVITY)
-            }
-            R.id.action_profile -> {
-            }
-            R.id.action_sign_out -> {
-                goToActivityWithNoPayload(LoginActivity::class.java, FADE_IN_ACTIVITY)
-                finish()
-            }
-        }
-
-        return super.handleSlideMenuItemClicked(item)
-    }
-
-*/
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {

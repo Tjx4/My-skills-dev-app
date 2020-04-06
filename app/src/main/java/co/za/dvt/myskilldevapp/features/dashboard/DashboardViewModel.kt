@@ -87,7 +87,8 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
     private fun initGame() {
         fullGameTime = 60000
         remainingGameTime = fullGameTime
-// _winCount.value = 0
+        _round.value = 0
+        _winCount.value = 0
     }
 
     fun startNewRound() {
@@ -180,7 +181,6 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
         _rolledNumber.value  = rolledNumber
         _activityMessage.value  =  app.getString(R.string.rolled_message, _rolledNumber.value)
 
-        //Todo: finish
         val win = _currentLuckyNumber.value == _rolledNumber.value
 
         if(win){
