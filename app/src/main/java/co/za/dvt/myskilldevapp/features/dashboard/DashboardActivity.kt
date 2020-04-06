@@ -88,7 +88,7 @@ class DashboardActivity : BaseActivity() {
 
     private fun onTimeFinished(timeFinished: Boolean) {
         clCParent.visibility = View.INVISIBLE
-        showCancellableErrorAlert(this, getString(R.string.error), getString(R.string.out_of_time_message), getString(R.string.try_again), getString(R.string.end_game), ::onResetGameClicked, ::finish)
+        showCancellableErrorAlert(this, getString(R.string.time_out), getString(R.string.out_of_time_message), getString(R.string.try_again), getString(R.string.end_game), ::onResetGameClicked, ::finish)
     }
 
     private fun onResetGameClicked() {

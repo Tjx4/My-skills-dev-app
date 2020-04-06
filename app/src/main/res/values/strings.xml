@@ -34,4 +34,5 @@
     <string name="no_stats_available">No stats available</string>
     <string name="fetch_stats">Fetching stats</string>
     <string name="stats_history">Stats history</string>
+    <string name="time_out">Time out</string>
 </resources>
