@@ -84,7 +84,15 @@ class DashboardActivity : BaseActivity() {
     }
 
     private fun showRolledDiceNumber(rolledNumber: Int) {
-        imgDice.setImageResource(dashboardViewModel.getRolledNumberDiceResource(rolledNumber))
+        val di = when(rolledNumber){
+            1 -> R.drawable.ic_di_1
+            2 -> R.drawable.ic_di_2
+            3 -> R.drawable.ic_di_3
+            4 -> R.drawable.ic_di_4
+            5 -> R.drawable.ic_di_5
+            else -> R.drawable.ic_di_6
+        }
+        imgDice.setImageResource(di)
     }
 
     private fun onTimeFinished(timeFinished: Boolean) {

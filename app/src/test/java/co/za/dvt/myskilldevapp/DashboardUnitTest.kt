@@ -6,9 +6,12 @@ import co.za.dvt.myskilldevapp.constants.USER
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardRepository
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardViewModel
 import co.za.dvt.myskilldevapp.features.database.GameStatsDAO
+import co.za.dvt.myskilldevapp.models.CarModel
 import co.za.dvt.myskilldevapp.models.RoundModel
+import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Flowable
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -40,29 +43,55 @@ class DashboardUnitTest {
     }
 
     @Test
-    fun `test fetch start New Round`() {
+    fun `test fetch start New Round`() = runBlocking  {
         val token = "dfd9d0d0j99je9999e9999e9j9"
         val user = "test_player"
         val payload = HashMap<String, String>()
         payload[USER] = user
 
-        whenever(repository.fetchLuckyNumber(token, payload)).thenReturn(RoundModel(user,2))
-       val actual = dashboardViewModel?.startNewRound()
+       whenever(repository.fetchLuckyNumber(token, payload)).thenReturn(RoundModel(user,2))
+       dashboardViewModel?.startNewRound()
+       val actual =  dashboardViewModel?.currentLuckyNumber.value
+       val expected =  RoundModel(user,2)
 
-       //  assert()
+       assertEquals(actual, expected)
+       verify(repository).fetchLuckyNumber(token, payload)
     }
 
     @Test
-    fun `test fetch jackport prices`() {
-        // given
-        var testLuckyNumber = 1
+    fun `test fetch jackport car prices`() = runBlocking  {
+        val car = CarModel()
+        car.brand = "Test brand"
+        car.model = "Test model"
 
-        // when
-        val actualResult = dashboardViewModel?.currentLuckyNumber?.value != 0 &&  dashboardViewModel?.currentLuckyNumber?.value!! < 7
-        val expectedResult = true
+        val cars = ArrayList<CarModel>()
+        cars.add(car)
 
-        // then
-        assertEquals(expectedResult, actualResult)
+        whenever(repository.fetchAvailableCars()).thenReturn(cars)
+        dashboardViewModel?.fetchCarPrices()
+
+        val actual = dashboardViewModel.availableCars.value
+        val expected = cars
+        assertEquals(actual, expected)
+
+        verify(repository).fetchAvailableCars()
+    }
+
+    @Test
+    fun `test roll complete`() {
+        dashboardViewModel.currentLuckyNumber.value = 6
+        dashboardViewModel.rolledNumber.value = 6
+
+        dashboardViewModel?.onRollCompleted()
+
+        val actualTries = dashboardViewModel.tries
+        val expectedTries = 1
+        val actualWins= dashboardViewModel.winCount.value
+        val expectedWins = 1
+
+        assertEquals(actualTries, expectedTries)
+        assertEquals(actualWins, expectedWins)
+
     }
 
 }

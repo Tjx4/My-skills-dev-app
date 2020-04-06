@@ -41,11 +41,11 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
     get() = _activityMessage
 
     private val _currentLuckyNumber: MutableLiveData<Int> = MutableLiveData()
-    val currentLuckyNumber: LiveData<Int>
+    val currentLuckyNumber: MutableLiveData<Int>
     get() = _currentLuckyNumber
 
     private val _rolledNumber: MutableLiveData<Int> = MutableLiveData()
-    val rolledNumber: LiveData<Int>
+    val rolledNumber: MutableLiveData<Int>
     get() = _rolledNumber
 
     private val _isBusy: MutableLiveData<Boolean> = MutableLiveData()
@@ -80,12 +80,12 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
         startGame()
     }
 
-    fun startGame(){
+    private fun startGame(){
         gameStats.startTime = getYearMonthDayAndTime()
         resetGame()
     }
 
-    fun initGame() {
+    private fun initGame() {
         fullGameTime = 60000
         remainingGameTime = fullGameTime
 // _winCount.value = 0
@@ -189,17 +189,6 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
         }
 
         ++tries
-    }
-
-  fun getRolledNumberDiceResource(rolledNumber: Int): Int {
-        return when(rolledNumber){
-            1 -> R.drawable.ic_di_1
-            2 -> R.drawable.ic_di_2
-            3 -> R.drawable.ic_di_3
-            4 -> R.drawable.ic_di_4
-            5 -> R.drawable.ic_di_5
-            else -> R.drawable.ic_di_6
-        }
     }
 
     fun resetGame(){
