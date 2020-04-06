@@ -25,7 +25,8 @@
         android:background="@color/lightBackground"
         android:orientation="horizontal"
         android:padding="@dimen/small_padding"
-        android:layout_below="@+id/tvHeading">
+        android:layout_below="@+id/tvHeading"
+        android:layout_alignParentLeft="true">
 
         <TextView
             android:id="@+id/tvGameStartTime"

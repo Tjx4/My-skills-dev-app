@@ -4,15 +4,13 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.Window
+import android.view.*
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.constants.LAYOUT
+
 
 abstract class BaseDialogFragment : DialogFragment() {
     protected var clickedView: View? = null
