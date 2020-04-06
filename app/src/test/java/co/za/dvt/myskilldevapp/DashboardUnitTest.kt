@@ -8,7 +8,6 @@ import co.za.dvt.myskilldevapp.features.dashboard.DashboardViewModel
 import co.za.dvt.myskilldevapp.features.database.GameStatsDAO
 import co.za.dvt.myskilldevapp.models.CarModel
 import co.za.dvt.myskilldevapp.models.RoundModel
-import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
@@ -49,7 +48,7 @@ class DashboardUnitTest {
         payload[USER] = user
 
        whenever(repository.fetchLuckyNumber(token, payload)).thenReturn(RoundModel(user,2))
-       dashboardViewModel?.startNewRound()
+       dashboardViewModel?.getLuckNumber(token, payload)
 
        val actual =  dashboardViewModel?.currentLuckyNumber.value ?: 0
        val expected =  2
@@ -67,7 +66,7 @@ class DashboardUnitTest {
             cars.add(car)
 
             whenever(repository.fetchAvailableCars()).thenReturn(cars)
-            dashboardViewModel?.fetchCarPrices()
+            dashboardViewModel?.getJackportPrices()
 
             val actual = dashboardViewModel.availableCars.value ?: ArrayList()
             val expected = cars

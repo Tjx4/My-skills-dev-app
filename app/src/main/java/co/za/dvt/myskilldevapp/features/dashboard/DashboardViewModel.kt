@@ -105,7 +105,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
             val payload = HashMap<String, String>()
             payload[USER] = app.getString(R.string.test_player)
 
-            val round = dashboardRepository.fetchLuckyNumber(token, payload)
+            val round = getLuckNumber(token, payload)
 
             uiScope.launch {
                 _isBusy.value = false
@@ -122,13 +122,15 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
         }
     }
 
-    fun fetchCarPrices() {
+    suspend fun getLuckNumber(token: String, payload: HashMap<String, String>) = dashboardRepository.fetchLuckyNumber(token, payload)
+
+    fun fetchAndSetJackportPrices() {
         busyMessage = app?.getString(R.string.fetching_prices) ?: ""
         _isBusy.value = true
 
         ioScope.launch {
 
-            val cars = dashboardRepository.fetchAvailableCars()
+            val cars = getJackportPrices()
 
             CoroutineScope(Dispatchers.Main).launch {
 
@@ -140,10 +142,11 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
                 else{
                     _carsError.value = app.getString(R.string.cars_error_message)
                 }
-
             }
         }
     }
+
+    suspend fun getJackportPrices() = dashboardRepository.fetchAvailableCars()
 
     fun pauseCountDown(){
        _countDownTimer?.cancel()

@@ -122,7 +122,7 @@ class DashboardActivity : BaseActivity() {
     }
 
     private fun onViewPricesClicked() {
-        dashboardViewModel.fetchCarPrices()
+        dashboardViewModel.fetchAndSetJackportPrices()
     }
 
     private fun onGetLuckyNumberError(errorMessage: String) {
@@ -132,7 +132,7 @@ class DashboardActivity : BaseActivity() {
 
     private fun onGetCarsError(errorMessage: String) {
         clCParent.visibility = View.INVISIBLE
-        showCancellableErrorAlert(this, getString(R.string.error), errorMessage, getString(R.string.try_again), getString(R.string.close_app), { dashboardViewModel.fetchCarPrices()}, ::finish)
+        showCancellableErrorAlert(this, getString(R.string.error), errorMessage, getString(R.string.try_again), getString(R.string.close_app), { dashboardViewModel.fetchAndSetJackportPrices()}, ::finish)
     }
 
     private fun toggleIsBusy(isBusy: Boolean) {

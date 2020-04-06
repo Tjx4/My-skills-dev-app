@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import co.za.dvt.myskilldevapp.features.database.tables.GameStats
 
-@Database(entities = [GameStats::class], version = 1, exportSchema = false)
+@Database(entities = [GameStats::class], version = 2, exportSchema = false)
 abstract class MyGameDatabase : RoomDatabase() {
     abstract val gameStatsDAO: GameStatsDAO
 
