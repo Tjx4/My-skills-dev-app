@@ -12,16 +12,18 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".features.students.StudentsActivity"></activity>
+        <activity android:name=".features.houses.HousesActivity" />
         <activity
                 android:name=".features.splashscreen.SplashActivity"
                 android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-                android:name=".features.dashboard.DashboardActivity"/>
+        <activity android:name=".features.dashboard.DashboardActivity" />
     </application>
 
 </manifest>

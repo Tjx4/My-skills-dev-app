@@ -14,7 +14,7 @@ import kotlinx.coroutines.*
 import java.util.HashMap
 import java.util.concurrent.TimeUnit
 
-class DashboardViewModel(private val dashboardRepository: DashboardRepository, application: Application) : BaseVieModel(application) {
+class DashboardViewModel(val dashboardRepository: DashboardRepository, application: Application) : BaseVieModel(application) {
 
     var tries: Int = 0
     var maxRounds: Int = 2
