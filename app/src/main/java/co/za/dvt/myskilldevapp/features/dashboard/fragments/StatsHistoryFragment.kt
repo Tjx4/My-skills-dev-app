@@ -73,7 +73,7 @@ class StatsHistoryFragment : BaseDialogFragment(), StatsAdapter.ItemClickListene
         }
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         dashboardActivity = context as DashboardActivity
     }
@@ -90,8 +90,8 @@ class StatsHistoryFragment : BaseDialogFragment(), StatsAdapter.ItemClickListene
 
     override fun onItemClick(view: View, position: Int) {}
 
-    override fun onDismiss(dialog: DialogInterface?) {
-        super.onDismiss(dialog)
+
+    override fun onDismiss(dialog: DialogInterface) {
         dashboardActivity?.onStatsClose()
     }
 

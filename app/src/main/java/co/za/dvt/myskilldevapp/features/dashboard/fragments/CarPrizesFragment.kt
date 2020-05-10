@@ -49,7 +49,7 @@ class CarPrizesFragment : BaseDialogFragment(), CarPrizesAdapter.ItemClickListen
         carsRv?.adapter = carPrizesAdapter
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         dashboardActivity = context as DashboardActivity
     }

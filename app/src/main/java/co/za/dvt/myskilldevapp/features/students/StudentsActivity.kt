@@ -2,6 +2,7 @@ package co.za.dvt.myskilldevapp.features.students
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import co.za.dvt.myskilldevapp.R
@@ -22,5 +23,9 @@ class StudentsActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_students)
         binding.studentsViewModel = studentsViewModel
         binding.lifecycleOwner = this
+    }
+
+    fun onGetStudentbuttonClicked(view: View){
+        studentsViewModel.getAndShowStudents()
     }
 }
