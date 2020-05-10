@@ -12,6 +12,10 @@ fun AppCompatActivity.goToActivityWithNoPayload(activity: Class<*>, transitionAn
     goToActivity(activity, transitionAnimation, null)
 }
 
+fun AppCompatActivity.goToActivityWithPayload(activity: Class<*>, payload: Bundle, transitionAnimation: Transition) {
+    goToActivity(activity, transitionAnimation, payload)
+}
+
 private fun AppCompatActivity.goToActivity(activity: Class<*>, transitionAnimation: Transition, payload: Bundle?) {
     val intent = Intent(this, activity)
 

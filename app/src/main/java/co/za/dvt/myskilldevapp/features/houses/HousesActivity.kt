@@ -10,7 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.adapters.CarPrizesAdapter
 import co.za.dvt.myskilldevapp.adapters.HousesAdapter
+import co.za.dvt.myskilldevapp.constants.HOUSE
 import co.za.dvt.myskilldevapp.databinding.ActivityHousesBinding
+import co.za.dvt.myskilldevapp.extensions.FADE_IN_ACTIVITY
+import co.za.dvt.myskilldevapp.extensions.SLIDE_IN_ACTIVITY
+import co.za.dvt.myskilldevapp.extensions.goToActivityWithNoPayload
+import co.za.dvt.myskilldevapp.extensions.goToActivityWithPayload
 import co.za.dvt.myskilldevapp.features.activities.BaseActivity
 import co.za.dvt.myskilldevapp.helpers.hideCurrentLoadingDialog
 import co.za.dvt.myskilldevapp.helpers.showLoadingDialog
@@ -39,6 +44,8 @@ class HousesActivity : BaseActivity(), HousesAdapter.HouseClickListener {
 
         housesViewModel.isBusy.observe(this, Observer { isBusy(it) })
         housesViewModel.houses.observe(this, Observer { onHousesSet(it) })
+
+        housesViewModel.getAndShowHouses()
     }
 
     private fun isBusy(isBusy: Boolean){
@@ -55,11 +62,11 @@ class HousesActivity : BaseActivity(), HousesAdapter.HouseClickListener {
         rvHouses?.adapter = housesAdapter
     }
 
-    fun onGetHousesbuttonClicked(view: View){
-        housesViewModel.getAndShowHouses()
-    }
-
     override fun onHouseClick(view: View, position: Int) {
-        showShortToast("${housesViewModel.houses?.value?.get(position)?.name}", this)
+        val selectedHouse = housesViewModel.houses?.value?.get(position)
+
+        var payload = Bundle()
+        payload.putParcelable(HOUSE, selectedHouse)
+        goToActivityWithPayload(HouseActivity::class.java, payload, SLIDE_IN_ACTIVITY)
     }
 }

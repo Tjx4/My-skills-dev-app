@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".features.houses.HouseActivity"
+        android:background="@color/lightBackground"
+        android:padding="@dimen/small_padding">
+
+    <androidx.cardview.widget.CardView
+            android:layout_margin="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#EEE">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp">
+
+            <TextView
+                    android:id="@+id/txtHouseMascot"
+                    style="@style/MediumDarkTextView"
+                    tools:text="Mascot"
+                    android:gravity="left"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toLeftOf="parent"/>
+
+            <TextView
+                    android:id="@+id/txtHeadOfHouse"
+                    style="@style/MediumDarkTextView"
+                    tools:text="Head of house"
+                    android:gravity="left"
+                    app:layout_constraintTop_toBottomOf="@+id/txtHouseMascot"
+                    app:layout_constraintRight_toLeftOf="parent"/>
+
+            <TextView
+                    android:id="@+id/txtHouseFounder"
+                    style="@style/MediumDarkTextView"
+                    tools:text="Founder"
+                    android:gravity="left"
+                    app:layout_constraintTop_toBottomOf="@+id/txtHeadOfHouse"
+                    app:layout_constraintRight_toLeftOf="parent"/>
+
+            <TextView
+                    android:id="@+id/txtHouseGhostr"
+                    style="@style/MediumDarkTextView"
+                    tools:text="House ghost"
+                    android:gravity="left"
+                    app:layout_constraintTop_toBottomOf="@+id/txtHouseFounder"
+                    app:layout_constraintRight_toLeftOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>
+

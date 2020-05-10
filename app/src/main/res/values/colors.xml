@@ -10,5 +10,5 @@
     <color name="blueText">#0088cc</color>
     <color name="darkBackground">#000</color>
     <color name="lightBackground">#EEE</color>
-    <color name="lighterBackground">#FFF</color>
+    <color name="lightestBackground">#FFF</color>
 </resources>

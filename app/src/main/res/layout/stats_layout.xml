@@ -5,7 +5,7 @@
     android:orientation="horizontal"
     android:padding="@dimen/small_padding"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/lighterBackground">
+    android:background="@color/lightestBackground">
 
     <TextView
         android:id="@+id/tvGameStartTime"

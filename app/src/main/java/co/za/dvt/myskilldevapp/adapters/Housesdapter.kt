@@ -24,13 +24,11 @@ class HousesAdapter(context: Context, private val houses: List<House?>?) : Recyc
         val house = houses?.get(position)
 
         holder.houseNameTv.text = house?.name
-        holder.houseFounderTv.text = house?.founder
     }
 
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
-        internal var houseNameTv: TextView = itemView.findViewById(R.id.txtHouseName)
-        internal var houseFounderTv: TextView = itemView.findViewById(R.id.txtHouseFounder)
+        internal var houseNameTv: TextView = itemView.findViewById(R.id.txtHouseMascot)
 
         init {
             itemView.setOnClickListener(this)

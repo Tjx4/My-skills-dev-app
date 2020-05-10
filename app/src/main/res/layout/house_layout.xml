@@ -4,7 +4,9 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="0dp">
+    android:paddingTop="@dimen/xsmall_padding"
+    android:paddingHorizontal="@dimen/xsmall_padding"
+    android:background="@color/lightBackground">
 
     <androidx.cardview.widget.CardView
             android:layout_margin="2dp"
@@ -18,19 +20,11 @@
             android:padding="15dp">
 
             <TextView
-                android:id="@+id/txtHouseName"
+                android:id="@+id/txtHouseMascot"
                 style="@style/largeDarkTextView"
                 tools:text="House name"
                 android:gravity="left"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toLeftOf="parent"/>
-
-            <TextView
-                android:id="@+id/txtHouseFounder"
-                style="@style/MediumDarkTextView"
-                tools:text="House founder"
-                android:gravity="left"
-                app:layout_constraintTop_toBottomOf="@+id/txtHouseName"
                 app:layout_constraintRight_toLeftOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

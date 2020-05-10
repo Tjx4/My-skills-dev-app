@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Dice game</string>
+    <string name="app_name">Spell track</string>
     <string name="numeric_formater">%d</string>
     <string name="error">Error</string>
     <string name="game_completed">Game completed</string>
@@ -36,4 +36,5 @@
     <string name="stats_history">Stats history</string>
     <string name="time_out">Time out</string>
     <string name="houses">Houses</string>
+    <string name="house">House</string>
 </resources>

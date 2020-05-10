@@ -12,8 +12,15 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".features.students.StudentsActivity"></activity>
+
         <activity android:name=".features.houses.HousesActivity" />
+        <activity android:name=".features.houses.HouseActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".features.houses.HousesActivity" />
+        </activity>
+
+        <activity android:name=".features.students.StudentsActivity" />
         <activity
                 android:name=".features.splashscreen.SplashActivity"
                 android:theme="@style/SplashTheme">
