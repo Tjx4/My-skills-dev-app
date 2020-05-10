@@ -19,6 +19,9 @@
         <item name="android:textSize">@dimen/large_text</item>
         <item name="android:gravity">center</item>
     </style>
+    <style name="largeDarkTextView" parent="largeTextView">
+        <item name="android:textColor">@color/darkText</item>
+    </style>
     <style name="largeBlueTextView" parent="largeTextView">
         <item name="android:textColor">@color/blueText</item>
     </style>
