@@ -11,7 +11,6 @@ import co.za.dvt.myskilldevapp.models.House
 
 class HousesAdapter(context: Context, private val houses: List<House?>?) : RecyclerView.Adapter<HousesAdapter.ViewHolder>() {
 
-    //private val housesActivity: HousesActivity = context as HousesActivity
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
     private var itemClickListener: HouseClickListener? = null
 

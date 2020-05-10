@@ -2,7 +2,6 @@ package co.za.dvt.myskilldevapp.helpers
 
 import co.za.dvt.myskilldevapp.constants.*
 import co.za.dvt.myskilldevapp.models.*
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query
@@ -25,7 +24,7 @@ interface RetrofitHelper {
     suspend fun getHouses(@Query("key") api_key: String?): List<House>?
 
     @GET(GET_STUDENTS)
-    suspend fun getStudents(@Query("key") api_key: String?): List<Student>?
+    suspend fun getStudents(@Query("key") api_key: String?): List<Character>?
 
     @GET(GET_SPELLS)
     suspend fun getSpells(@Query("key") api_key: String?): List<Spell>?

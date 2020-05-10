@@ -9,7 +9,6 @@
     android:background="@color/lightBackground">
 
     <androidx.cardview.widget.CardView
-            android:layout_margin="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#EEE">
@@ -17,7 +16,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="15dp">
+            android:padding="@dimen/small_padding">
 
             <TextView
                 android:id="@+id/txtHouseMascot"

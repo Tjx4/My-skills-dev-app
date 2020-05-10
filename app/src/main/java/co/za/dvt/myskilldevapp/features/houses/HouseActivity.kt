@@ -1,11 +1,14 @@
 package co.za.dvt.myskilldevapp.features.houses
 
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
 import co.za.dvt.myskilldevapp.R
+import co.za.dvt.myskilldevapp.adapters.CharactersAdapter
 import co.za.dvt.myskilldevapp.constants.HOUSE
 import co.za.dvt.myskilldevapp.constants.PAYLOAD_KEY
 import co.za.dvt.myskilldevapp.features.activities.BaseChildActivity
 import co.za.dvt.myskilldevapp.models.House
+import co.za.dvt.myskilldevapp.models.Character
 import kotlinx.android.synthetic.main.activity_house.*
 
 class HouseActivity : BaseChildActivity() {
@@ -19,5 +22,12 @@ class HouseActivity : BaseChildActivity() {
         txtHouseMascot.text = "Mascot: ${house?.mascot}"
         txtHeadOfHouse.text = "Head of house: ${house?.headOfHouse}"
         txtHouseFounder.text = "Founder: ${house?.founder}"
+    }
+
+    fun showMembers(members: List<Character?>){
+        rvMembers?.layoutManager = LinearLayoutManager(this)
+        val charactersAdapter = CharactersAdapter(this, R.layout.character_layout, members)
+        //charactersAdapter.setClickListener(this)
+        rvMembers?.adapter = charactersAdapter
     }
 }

@@ -5,7 +5,7 @@
     <data>
         <variable
                 name="studentsViewModel"
-                type="co.za.dvt.myskilldevapp.features.students.StudentsViewModel"/>
+                type="co.za.dvt.myskilldevapp.features.characters.StudentsViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,17 +13,15 @@
             android:layout_height="match_parent"
             tools:context=".features.houses.HousesActivity">
 
-
-        <Button
-                style="@style/MySkillsButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Get students"
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCharacters"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="80dp"
-                android:onClick="onGetStudentbuttonClicked"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="?android:attr/selectableItemBackground"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -21,8 +21,7 @@ class HousesViewModel(val housesRepository: HousesRepository, application: Appli
         _isBusy.value = true
 
         ioScope.launch {
-            var apiKey = cacheHelper.apiKey
-            val houses = housesRepository.getHouses(apiKey)
+            val houses = housesRepository.getHouses(cacheHelper.apiKey)
 
             uiScope.launch {
 

@@ -17,6 +17,7 @@ import co.za.dvt.myskilldevapp.extensions.SLIDE_IN_ACTIVITY
 import co.za.dvt.myskilldevapp.extensions.goToActivityWithNoPayload
 import co.za.dvt.myskilldevapp.extensions.goToActivityWithPayload
 import co.za.dvt.myskilldevapp.features.activities.BaseActivity
+import co.za.dvt.myskilldevapp.features.activities.BaseChildActivity
 import co.za.dvt.myskilldevapp.helpers.hideCurrentLoadingDialog
 import co.za.dvt.myskilldevapp.helpers.showLoadingDialog
 import co.za.dvt.myskilldevapp.helpers.showShortToast
@@ -24,7 +25,7 @@ import co.za.dvt.myskilldevapp.models.House
 import kotlinx.android.synthetic.main.activity_houses.*
 import java.util.ArrayList
 
-class HousesActivity : BaseActivity(), HousesAdapter.HouseClickListener {
+class HousesActivity : BaseChildActivity(), HousesAdapter.HouseClickListener {
     private lateinit var binding: ActivityHousesBinding
     private lateinit var housesViewModel: HousesViewModel
     

@@ -1,4 +1,4 @@
-package co.za.dvt.myskilldevapp.features.students
+package co.za.dvt.myskilldevapp.features.characters
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
