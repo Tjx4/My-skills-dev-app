@@ -20,9 +20,6 @@ class DashboardViewModel(val dashboardRepository: DashboardRepository, applicati
     var maxRounds: Int = 2
     var busyMessage: String = ""
 
-    private var viewModelJob = Job()
-    private val ioScope = CoroutineScope(Dispatchers.IO + viewModelJob)
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private var gameStats: GameStats = GameStats()
     private var fullGameTime: Long = 0
     private var remainingGameTime: Long = 0
