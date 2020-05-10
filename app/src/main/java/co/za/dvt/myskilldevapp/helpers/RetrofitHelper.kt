@@ -19,7 +19,7 @@ interface RetrofitHelper {
 
 
 
-    // $2a$10$1JEnmtEF417yBaFZcr51qukRjaKv8d5toEG5DKP/IUZWIVwfsaF7y
+
 
     @GET(GET_HOUSES)
     suspend fun getHouses(@Query("api_key") api_key: String?): List<House>?
