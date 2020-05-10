@@ -1,6 +1,7 @@
 package co.za.dvt.myskilldevapp.features.houses
 
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import co.za.dvt.myskilldevapp.R
@@ -23,5 +24,9 @@ class HousesActivity : BaseActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_houses)
         binding.housesViewModel = housesViewModel
         binding.lifecycleOwner = this
+    }
+
+    fun onGetHousesbuttonClicked(view: View){
+        housesViewModel.getAndShowHouses()
     }
 }

@@ -22,13 +22,13 @@ interface RetrofitHelper {
 
 
     @GET(GET_HOUSES)
-    suspend fun getHouses(@Query("api_key") api_key: String?): List<House>?
+    suspend fun getHouses(@Query("key") api_key: String?): List<House>?
 
     @GET(GET_STUDENTS)
-    suspend fun getStudents(@Query("api_key") api_key: String?): List<Student>?
+    suspend fun getStudents(@Query("key") api_key: String?): List<Student>?
 
     @GET(GET_SPELLS)
-    suspend fun getSpells(@Query("api_key") api_key: String?): List<Spell>?
+    suspend fun getSpells(@Query("key") api_key: String?): List<Spell>?
 
 
 }
