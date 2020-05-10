@@ -22,10 +22,22 @@
             <TextView
                 android:id="@+id/txtHouseMascot"
                 style="@style/largeDarkTextView"
+                android:layout_width="0dp"
                 tools:text="House name"
                 android:gravity="left"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toLeftOf="parent"/>
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/imgChev"/>
+
+            <ImageView
+                android:id="@+id/imgChev"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_chev_right"
+                android:scaleType="fitCenter"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
