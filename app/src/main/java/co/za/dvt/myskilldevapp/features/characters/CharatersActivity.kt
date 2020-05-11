@@ -2,6 +2,7 @@ package co.za.dvt.myskilldevapp.features.characters
 
 import android.os.Bundle
 import android.view.View
+import android.view.animation.Animation
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -9,10 +10,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.adapters.CharactersAdapter
 import co.za.dvt.myskilldevapp.constants.CHARACTER
+import co.za.dvt.myskilldevapp.constants.HOUSE
 import co.za.dvt.myskilldevapp.databinding.ActivityCharactersBinding
 import co.za.dvt.myskilldevapp.extensions.SLIDE_IN_ACTIVITY
+import co.za.dvt.myskilldevapp.extensions.blinkView
 import co.za.dvt.myskilldevapp.extensions.goToActivityWithPayload
 import co.za.dvt.myskilldevapp.features.activities.BaseChildActivity
+import co.za.dvt.myskilldevapp.features.houses.view.ViewHouseActivity
 import co.za.dvt.myskilldevapp.helpers.hideCurrentLoadingDialog
 import co.za.dvt.myskilldevapp.helpers.showLoadingDialog
 import co.za.dvt.myskilldevapp.models.Character
@@ -57,11 +61,13 @@ class CharatersActivity : BaseChildActivity(), CharactersAdapter.CharacterClickL
     }
 
     override fun onCharacterClick(view: View, position: Int) {
-        val selectedCharacter = charactersViewModel.characters?.value?.get(position)
+        view.blinkView(0.5f, 1.0f, 400, 2, Animation.ABSOLUTE, 0, {
+            val selectedCharacter = charactersViewModel.characters?.value?.get(position)
 
-        var payload = Bundle()
-        payload.putParcelable(CHARACTER, selectedCharacter)
-        goToActivityWithPayload(CharacterActivity::class.java, payload, SLIDE_IN_ACTIVITY)
+            var payload = Bundle()
+            payload.putParcelable(CHARACTER, selectedCharacter)
+            goToActivityWithPayload(CharacterActivity::class.java, payload, SLIDE_IN_ACTIVITY)
+        }, {})
     }
 
 }

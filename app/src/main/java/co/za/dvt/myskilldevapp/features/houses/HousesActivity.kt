@@ -60,12 +60,12 @@ class HousesActivity : BaseChildActivity(), HousesAdapter.HouseClickListener {
     }
 
     override fun onHouseClick(view: View, position: Int) {
-        view.blinkView(0.5f, 1.0f, 700, 2, Animation.ABSOLUTE, 0, {}, {
+        view.blinkView(0.5f, 1.0f, 400, 2, Animation.ABSOLUTE, 0, {
             val selectedHouse = housesViewModel.houses?.value?.get(position)
 
             var payload = Bundle()
             payload.putParcelable(HOUSE, selectedHouse)
             goToActivityWithPayload(ViewHouseActivity::class.java, payload, SLIDE_IN_ACTIVITY)
-        })
+        }, {})
     }
 }

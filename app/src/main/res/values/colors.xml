@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#702c2e</color>
     <color name="colorLuckNumberBanner">#800000</color>
     <color name="colorAccent">#d9a236</color>
+    <color name="featureNameBackground">#E9EEEEEE</color>
     <color name="lightText">#DDD</color>
     <color name="darkText">#111</color>
     <color name="redText">#ff0000</color>

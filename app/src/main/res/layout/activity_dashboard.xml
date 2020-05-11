@@ -15,28 +15,14 @@
         tools:context=".features.dashboard.DashboardActivity"
         android:background="@color/lightBackground">
 
-        <Button
-                style="@style/DashButtons"
-                android:id="@+id/btnViewCharacters"
-                android:text="@string/view_characters"
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvFeatures"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:onClick="onViewCharactersButtonClicked"/>
-
-        <Button
-                style="@style/DashButtons"
-                android:id="@+id/btnViewHouses"
-                android:text="@string/view_houses"
-                app:layout_constraintTop_toBottomOf="@+id/btnViewCharacters"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:onClick="onViewHousesButtonClicked"/>
-
-        <Button
-                style="@style/DashButtons"
-                android:text="@string/view_spells"
-                app:layout_constraintTop_toBottomOf="@+id/btnViewHouses"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:onClick="onViewSpellsButtonClicked"/>
+                android:padding="@dimen/small_padding"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

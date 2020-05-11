@@ -7,25 +7,24 @@ import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import co.za.dvt.myskilldevapp.R
+import co.za.dvt.myskilldevapp.adapters.FeaturesAdapter
+import co.za.dvt.myskilldevapp.constants.SPELL
 import co.za.dvt.myskilldevapp.databinding.ActivityDashboardBinding
-import co.za.dvt.myskilldevapp.extensions.FADE_IN_ACTIVITY
-import co.za.dvt.myskilldevapp.extensions.blinkView
-import co.za.dvt.myskilldevapp.extensions.goToActivityWithNoPayload
+import co.za.dvt.myskilldevapp.enums.AppFeatures
+import co.za.dvt.myskilldevapp.extensions.*
 import co.za.dvt.myskilldevapp.features.activities.BaseActivity
 import co.za.dvt.myskilldevapp.features.characters.CharatersActivity
-import co.za.dvt.myskilldevapp.features.dashboard.fragments.CarPrizesFragment
-import co.za.dvt.myskilldevapp.features.dashboard.fragments.StatsHistoryFragment
 import co.za.dvt.myskilldevapp.features.database.MyGameDatabase
 import co.za.dvt.myskilldevapp.features.houses.HousesActivity
+import co.za.dvt.myskilldevapp.features.spells.SpellActivity
 import co.za.dvt.myskilldevapp.features.spells.SpellsActivity
-import co.za.dvt.myskilldevapp.helpers.*
-import co.za.dvt.myskilldevapp.models.CarModel
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
-class DashboardActivity : BaseActivity() {
+class DashboardActivity : BaseActivity(),  FeaturesAdapter.FeatureClickListener{
     private lateinit var binding: ActivityDashboardBinding
     lateinit var dashboardViewModel: DashboardViewModel
 
@@ -43,20 +42,24 @@ class DashboardActivity : BaseActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard)
         binding.dashboardViewModel = dashboardViewModel
         binding.lifecycleOwner = this
+
+
+        var features = AppFeatures.values()
+        rvFeatures?.layoutManager = GridLayoutManager(this, 2)
+        val featuresAdapter =  FeaturesAdapter(this, features)
+        featuresAdapter.setClickListener(this)
+        rvFeatures?.adapter = featuresAdapter
     }
 
-    fun onViewCharactersButtonClicked(view: View){
-        goToActivityWithNoPayload(CharatersActivity::class.java, FADE_IN_ACTIVITY)
+    override fun onFeatureClick(view: View, position: Int) {
+        view.blinkView(0.5f, 1.0f, 400, 2, Animation.ABSOLUTE, 0, {
+            when(AppFeatures.values()[position]){
+                AppFeatures.Characters -> goToActivityWithNoPayload(CharatersActivity::class.java, FADE_IN_ACTIVITY)
+                AppFeatures.Houses -> goToActivityWithNoPayload(HousesActivity::class.java, FADE_IN_ACTIVITY)
+                AppFeatures.Spells -> goToActivityWithNoPayload(SpellsActivity::class.java, FADE_IN_ACTIVITY)
+            }
+        }, {})
     }
-
-    fun onViewHousesButtonClicked(view: View){
-        goToActivityWithNoPayload(HousesActivity::class.java, FADE_IN_ACTIVITY)
-    }
-
-    fun onViewSpellsButtonClicked(view: View){
-        goToActivityWithNoPayload(SpellsActivity::class.java, FADE_IN_ACTIVITY)
-    }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -79,4 +82,5 @@ class DashboardActivity : BaseActivity() {
 
         return true
     }
+
 }
