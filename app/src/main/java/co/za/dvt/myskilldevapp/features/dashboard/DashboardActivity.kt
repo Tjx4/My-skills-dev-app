@@ -14,7 +14,6 @@ import co.za.dvt.myskilldevapp.databinding.ActivityDashboardBinding
 import co.za.dvt.myskilldevapp.extensions.FADE_IN_ACTIVITY
 import co.za.dvt.myskilldevapp.extensions.blinkView
 import co.za.dvt.myskilldevapp.extensions.goToActivityWithNoPayload
-import co.za.dvt.myskilldevapp.extensions.rotateView
 import co.za.dvt.myskilldevapp.features.activities.BaseActivity
 import co.za.dvt.myskilldevapp.features.characters.CharatersActivity
 import co.za.dvt.myskilldevapp.features.dashboard.fragments.CarPrizesFragment
@@ -32,6 +31,8 @@ class DashboardActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        supportActionBar?.setIcon(R.mipmap.ic_launcher_round)
 
         var dataSource = MyGameDatabase.getInstance(application).gameStatsDAO
         var repository = DashboardRepository(dataSource)

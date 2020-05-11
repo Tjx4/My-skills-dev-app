@@ -2,6 +2,7 @@ package co.za.dvt.myskilldevapp.features.houses
 
 import android.os.Bundle
 import android.view.View
+import android.view.animation.Animation
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -11,6 +12,7 @@ import co.za.dvt.myskilldevapp.adapters.HousesAdapter
 import co.za.dvt.myskilldevapp.constants.HOUSE
 import co.za.dvt.myskilldevapp.databinding.ActivityHousesBinding
 import co.za.dvt.myskilldevapp.extensions.SLIDE_IN_ACTIVITY
+import co.za.dvt.myskilldevapp.extensions.blinkView
 import co.za.dvt.myskilldevapp.extensions.goToActivityWithPayload
 import co.za.dvt.myskilldevapp.features.activities.BaseChildActivity
 import co.za.dvt.myskilldevapp.features.houses.view.ViewHouseActivity
@@ -58,10 +60,12 @@ class HousesActivity : BaseChildActivity(), HousesAdapter.HouseClickListener {
     }
 
     override fun onHouseClick(view: View, position: Int) {
-        val selectedHouse = housesViewModel.houses?.value?.get(position)
+        view.blinkView(0.5f, 1.0f, 700, 2, Animation.ABSOLUTE, 0, {}, {
+            val selectedHouse = housesViewModel.houses?.value?.get(position)
 
-        var payload = Bundle()
-        payload.putParcelable(HOUSE, selectedHouse)
-        goToActivityWithPayload(ViewHouseActivity::class.java, payload, SLIDE_IN_ACTIVITY)
+            var payload = Bundle()
+            payload.putParcelable(HOUSE, selectedHouse)
+            goToActivityWithPayload(ViewHouseActivity::class.java, payload, SLIDE_IN_ACTIVITY)
+        })
     }
 }
