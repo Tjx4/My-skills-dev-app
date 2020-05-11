@@ -38,4 +38,8 @@
     <string name="houses">Houses</string>
     <string name="house">House</string>
     <string name="characters">Characters</string>
+    <string name="view_spells">View spells</string>
+    <string name="view_houses">View houses</string>
+    <string name="view_characters">View characters</string>
+    <string name="spells">Spells</string>
 </resources>

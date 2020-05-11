@@ -18,17 +18,25 @@
         <Button
                 style="@style/DashButtons"
                 android:id="@+id/btnViewCharacters"
-                android:text="View characters"
+                android:text="@string/view_characters"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:onClick="onViewCharactersButtonClicked"/>
 
         <Button
                 style="@style/DashButtons"
-                android:text="View houses"
+                android:id="@+id/btnViewHouses"
+                android:text="@string/view_houses"
                 app:layout_constraintTop_toBottomOf="@+id/btnViewCharacters"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:onClick="onViewHousesButtonClicked"/>
+
+        <Button
+                style="@style/DashButtons"
+                android:text="@string/view_spells"
+                app:layout_constraintTop_toBottomOf="@+id/btnViewHouses"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:onClick="onViewSpellsButtonClicked"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

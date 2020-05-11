@@ -5,7 +5,7 @@ import co.za.dvt.myskilldevapp.helpers.RetrofitHelper
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-abstract class BaseRepositories {
+abstract class BaseRepository {
 
     protected var retrofitHelper: RetrofitHelper
 

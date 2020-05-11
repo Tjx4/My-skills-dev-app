@@ -12,7 +12,18 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-
+        <activity
+                android:name=".features.spells.SpellActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".features.spells.SpellsActivity" />
+        </activity>
+        <activity
+                android:name=".features.spells.SpellsActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".features.dashboard.DashboardActivity" />
+        </activity>
         <activity android:name=".features.houses.HousesActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
@@ -23,20 +34,16 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".features.houses.HousesActivity" />
         </activity>
-        <activity
-                android:name=".features.characters.CharatersActivity">
+        <activity android:name=".features.characters.CharatersActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".features.dashboard.DashboardActivity" />
         </activity>
-
-        <activity
-                android:name=".features.characters.CharacterActivity">
+        <activity android:name=".features.characters.CharacterActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".features.characters.CharatersActivity" />
         </activity>
-
         <activity
                 android:name=".features.splashscreen.SplashActivity"
                 android:theme="@style/SplashTheme">

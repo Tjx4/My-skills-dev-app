@@ -21,6 +21,7 @@ import co.za.dvt.myskilldevapp.features.dashboard.fragments.CarPrizesFragment
 import co.za.dvt.myskilldevapp.features.dashboard.fragments.StatsHistoryFragment
 import co.za.dvt.myskilldevapp.features.database.MyGameDatabase
 import co.za.dvt.myskilldevapp.features.houses.HousesActivity
+import co.za.dvt.myskilldevapp.features.spells.SpellsActivity
 import co.za.dvt.myskilldevapp.helpers.*
 import co.za.dvt.myskilldevapp.models.CarModel
 import kotlinx.android.synthetic.main.activity_dashboard.*
@@ -49,6 +50,10 @@ class DashboardActivity : BaseActivity() {
 
     fun onViewHousesButtonClicked(view: View){
         goToActivityWithNoPayload(HousesActivity::class.java, FADE_IN_ACTIVITY)
+    }
+
+    fun onViewSpellsButtonClicked(view: View){
+        goToActivityWithNoPayload(SpellsActivity::class.java, FADE_IN_ACTIVITY)
     }
 
 
