@@ -137,18 +137,39 @@
                 android:text="Members"
                 android:layout_marginVertical="@dimen/small_margin"/>
 
-        <androidx.cardview.widget.CardView
+        <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/xsmall_margin">
+                android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvMembers"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_margin="@dimen/xsmall_margin"
                     android:background="?android:attr/selectableItemBackground"/>
 
-        </androidx.cardview.widget.CardView>
+                <LinearLayout
+                    android:id="@+id/llMemberLoader"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <com.wang.avi.AVLoadingIndicatorView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:indicatorName="BallScaleRippleIndicator"
+                        app:indicatorColor="@color/darkText"/>
+
+                <TextView
+                        style="@style/MediumDarkTextView"
+                        android:text="Loading members"/>
+
+                </LinearLayout>
+
+
+        </FrameLayout>
 
     </LinearLayout>
 

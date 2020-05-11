@@ -20,12 +20,12 @@
 
             <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/imgSpellIcon"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/ic_spell_dark"
                     android:padding="@dimen/xsmall_margin"
                     android:scaleType="fitCenter"
-                    app:riv_corner_radius="25dp"
+                    app:riv_corner_radius="20dp"
                     android:background="@drawable/icon_background"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -46,7 +46,7 @@
 
             <ImageView
                     android:id="@+id/imgChev"
-                    android:layout_width="50dp"
+                    android:layout_width="40dp"
                     android:layout_height="0dp"
                     android:src="@drawable/ic_chev_right"
                     android:scaleType="fitCenter"
