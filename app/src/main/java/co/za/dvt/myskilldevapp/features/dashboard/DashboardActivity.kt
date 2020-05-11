@@ -11,9 +11,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.databinding.ActivityDashboardBinding
+import co.za.dvt.myskilldevapp.extensions.FADE_IN_ACTIVITY
 import co.za.dvt.myskilldevapp.extensions.blinkView
+import co.za.dvt.myskilldevapp.extensions.goToActivityWithNoPayload
 import co.za.dvt.myskilldevapp.extensions.rotateView
 import co.za.dvt.myskilldevapp.features.activities.BaseActivity
+import co.za.dvt.myskilldevapp.features.characters.CharatersActivity
 import co.za.dvt.myskilldevapp.features.dashboard.fragments.CarPrizesFragment
 import co.za.dvt.myskilldevapp.features.dashboard.fragments.StatsHistoryFragment
 import co.za.dvt.myskilldevapp.features.database.MyGameDatabase
@@ -39,6 +42,9 @@ class DashboardActivity : BaseActivity() {
         binding.lifecycleOwner = this
 
         addObservers()
+
+
+goToActivityWithNoPayload(CharatersActivity::class.java, FADE_IN_ACTIVITY)
     }
 
     private fun addObservers() {

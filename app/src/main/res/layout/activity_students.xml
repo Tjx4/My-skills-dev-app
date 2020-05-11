@@ -5,7 +5,7 @@
     <data>
         <variable
                 name="studentsViewModel"
-                type="co.za.dvt.myskilldevapp.features.characters.StudentsViewModel"/>
+                type="co.za.dvt.myskilldevapp.features.characters.CharatersViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

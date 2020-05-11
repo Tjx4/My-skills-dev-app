@@ -7,6 +7,7 @@ const val GET_AVAILABLE_CARS = "api/cars.php"
 
 const val PAYLOAD_KEY = "payload"
 const val HOUSE = "house_key"
+const val CHARACTER = "character_ket"
 
 
 

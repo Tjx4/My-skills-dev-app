@@ -27,7 +27,7 @@ class CharactersAdapter(context: Context,  private val layout: Int, private val 
 
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
-        internal var characterNameTv: TextView = itemView.findViewById(R.id.tvCharacterName)
+        internal var characterNameTv: TextView = itemView.findViewById(R.id.tvCharacterHouse)
 
         init {
             itemView.setOnClickListener(this)

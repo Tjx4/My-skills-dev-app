@@ -8,36 +8,41 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.adapters.CharactersAdapter
+import co.za.dvt.myskilldevapp.constants.CHARACTER
+import co.za.dvt.myskilldevapp.constants.HOUSE
+import co.za.dvt.myskilldevapp.constants.PAYLOAD_KEY
 import co.za.dvt.myskilldevapp.databinding.ActivityStudentsBinding
+import co.za.dvt.myskilldevapp.extensions.SLIDE_IN_ACTIVITY
+import co.za.dvt.myskilldevapp.extensions.goToActivityWithPayload
 import co.za.dvt.myskilldevapp.features.activities.BaseChildActivity
 import co.za.dvt.myskilldevapp.helpers.hideCurrentLoadingDialog
 import co.za.dvt.myskilldevapp.helpers.showLoadingDialog
 import co.za.dvt.myskilldevapp.models.Character
-import kotlinx.android.synthetic.main.activity_houses.*
+import co.za.dvt.myskilldevapp.models.House
 import kotlinx.android.synthetic.main.activity_students.*
 
-class StudentsActivity : BaseChildActivity(), CharactersAdapter.CharacterClickListener {
+class CharatersActivity : BaseChildActivity(), CharactersAdapter.CharacterClickListener {
     private lateinit var binding: ActivityStudentsBinding
-    private lateinit var studentsViewModel: StudentsViewModel
+    private lateinit var charactersViewModel: CharatersViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         supportActionBar?.title = getString(R.string.characters)
 
-        var studentsRepository = StudentsRepository()
+        var studentsRepository = CharatersRepository()
         var application = requireNotNull(this).application
-        var viewModelFactory = StudentsViewModelFactory(studentsRepository, application)
+        var viewModelFactory = CharatersViewModelFactory(studentsRepository, application)
 
-        studentsViewModel = ViewModelProviders.of(this, viewModelFactory).get(StudentsViewModel::class.java)
+        charactersViewModel = ViewModelProviders.of(this, viewModelFactory).get(CharatersViewModel::class.java)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_students)
-        binding.studentsViewModel = studentsViewModel
+        binding.studentsViewModel = charactersViewModel
         binding.lifecycleOwner = this
 
-        studentsViewModel.isBusy.observe(this, Observer { isBusy(it) })
-        studentsViewModel.students.observe(this, Observer { onCharactersSet(it) })
+        charactersViewModel.isBusy.observe(this, Observer { isBusy(it) })
+        charactersViewModel.characters.observe(this, Observer { onCharactersSet(it) })
 
-        studentsViewModel.getAndShowStudents()
+        charactersViewModel.getAndShowStudents()
     }
 
     private fun isBusy(isBusy: Boolean){
@@ -55,7 +60,11 @@ class StudentsActivity : BaseChildActivity(), CharactersAdapter.CharacterClickLi
     }
 
     override fun onCharacterClick(view: View, position: Int) {
+        val selectedCharacter = charactersViewModel.characters?.value?.get(position)
 
+        var payload = Bundle()
+        payload.putParcelable(CHARACTER, selectedCharacter)
+        goToActivityWithPayload(CharacterActivity::class.java, payload, SLIDE_IN_ACTIVITY)
     }
 
 }

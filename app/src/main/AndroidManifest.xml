@@ -13,25 +13,30 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
 
-        <activity
-                android:name=".features.houses.HousesActivity">
+        <activity android:name=".features.houses.HousesActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".features.dashboard.DashboardActivity" />
         </activity>
-        <activity
-                android:name=".features.houses.HouseActivity">
+        <activity android:name=".features.houses.HouseActivity">
             <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".features.houses.HousesActivity" />
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".features.houses.HousesActivity" />
+        </activity>
+        <activity
+                android:name=".features.characters.CharatersActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".features.dashboard.DashboardActivity" />
         </activity>
 
         <activity
-                android:name=".features.characters.StudentsActivity" >
+                android:name=".features.characters.CharacterActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value=".features.dashboard.DashboardActivity" />
+                    android:value=".features.characters.CharatersActivity" />
         </activity>
+
         <activity
                 android:name=".features.splashscreen.SplashActivity"
                 android:theme="@style/SplashTheme">

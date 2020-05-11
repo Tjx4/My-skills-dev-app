@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingTop="@dimen/xsmall_padding"
+    android:paddingHorizontal="@dimen/xsmall_padding"
+    android:background="@color/lightBackground"
+    tools:context=".features.characters.CharacterActivity">
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#EEE">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/small_padding">
+
+            <TextView
+                    android:id="@+id/tvCharacterHouse"
+                    style="@style/MediumDarkTextView"
+                    tools:text="Character name"
+                    android:gravity="left"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/imgChev"/>
+
+            <TextView
+                    android:id="@+id/tvCharacterRole"
+                    style="@style/MediumDarkTextView"
+                    tools:text="Character role"
+                    android:gravity="left"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCharacterHouse"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/imgChev"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>
