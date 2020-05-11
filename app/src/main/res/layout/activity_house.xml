@@ -15,41 +15,111 @@
             android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/small_padding">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/small_padding">
 
             <TextView
-                    android:id="@+id/txtHouseMascot"
                     style="@style/MediumDarkTextView"
-                    tools:text="Mascot"
-                    android:gravity="left"
+                    android:id="@+id/title1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/xsmall_margin"
+                    android:gravity="center"
+                    android:text="Mascot"
+                    android:textStyle="bold"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toLeftOf="parent"/>
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/divider1"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
             <TextView
-                    android:id="@+id/txtHeadOfHouse"
+                    style="@style/SmallDarkTextView"
+                    android:id="@+id/txtHouseMascot"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    tools:text="Streak"
+                    android:layout_marginHorizontal="@dimen/xsmall_margin"
+                    app:layout_constraintTop_toBottomOf="@+id/title1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/divider1"/>
+
+            <View
+                    android:id="@+id/divider1"
+                    android:layout_width="1dp"
+                    android:layout_height="55dp"
+                    android:layout_marginVertical="@dimen/small_margin"
+                    android:layout_marginHorizontal="@dimen/xsmall_margin"
+                    android:background="#ccc"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/title1"
+                    app:layout_constraintRight_toLeftOf="@+id/title2"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
                     style="@style/MediumDarkTextView"
-                    tools:text="Head of house"
-                    android:gravity="left"
-                    app:layout_constraintTop_toBottomOf="@+id/txtHouseMascot"
-                    app:layout_constraintRight_toLeftOf="parent"/>
+                    android:id="@+id/title2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/xsmall_margin"
+                    android:gravity="center"
+                    android:text="Founder"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/divider1"
+                    app:layout_constraintRight_toLeftOf="@+id/divider2"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
             <TextView
+                    style="@style/SmallDarkTextView"
                     android:id="@+id/txtHouseFounder"
-                    style="@style/MediumDarkTextView"
-                    tools:text="Founder"
-                    android:gravity="left"
-                    app:layout_constraintTop_toBottomOf="@+id/txtHeadOfHouse"
-                    app:layout_constraintRight_toLeftOf="parent"/>
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    tools:text="Name"
+                    android:layout_marginHorizontal="@dimen/xsmall_margin"
+                    app:layout_constraintTop_toBottomOf="@+id/title2"
+                    app:layout_constraintLeft_toRightOf="@+id/divider1"
+                    app:layout_constraintRight_toLeftOf="@+id/divider2"/>
+
+            <View
+                    android:id="@+id/divider2"
+                    android:layout_width="1dp"
+                    android:layout_height="55dp"
+                    android:layout_marginVertical="@dimen/small_margin"
+                    android:layout_marginHorizontal="@dimen/xsmall_margin"
+                    android:background="#ccc"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/title2"
+                    app:layout_constraintRight_toLeftOf="@+id/title3"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
             <TextView
-                    android:id="@+id/txtHouseGhostr"
                     style="@style/MediumDarkTextView"
-                    tools:text="House ghost"
-                    android:gravity="left"
-                    app:layout_constraintTop_toBottomOf="@+id/txtHouseFounder"
-                    app:layout_constraintRight_toLeftOf="parent"/>
+                    android:id="@+id/title3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/xsmall_margin"
+                    android:text="Ghost"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/divider2"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                    style="@style/SmallDarkTextView"
+                    android:id="@+id/txtHouseGhost"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    tools:text="Name"
+                    android:gravity="center"
+                    android:layout_marginHorizontal="@dimen/xsmall_margin"
+                    app:layout_constraintTop_toBottomOf="@+id/title3"
+                    app:layout_constraintLeft_toRightOf="@+id/divider2"
+                    app:layout_constraintRight_toRightOf="parent"/>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

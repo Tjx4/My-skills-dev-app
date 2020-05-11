@@ -19,9 +19,10 @@ class HouseActivity : BaseChildActivity() {
 
         val house = intent.getBundleExtra(PAYLOAD_KEY)?.getParcelable<House>(HOUSE)
         supportActionBar?.title = house?.name
-        txtHouseMascot.text = "Mascot: ${house?.mascot}"
-        txtHeadOfHouse.text = "Head of house: ${house?.headOfHouse}"
-        txtHouseFounder.text = "Founder: ${house?.founder}"
+        txtHouseMascot.text = house?.mascot
+        //txtHeadOfHouse.text = house?.headOfHouse
+        txtHouseFounder.text = house?.founder
+        txtHouseGhost.text = house?.houseGhost
     }
 
     fun showMembers(members: List<Character?>){
