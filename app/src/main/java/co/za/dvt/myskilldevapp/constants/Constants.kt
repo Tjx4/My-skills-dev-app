@@ -1,6 +1,6 @@
 package co.za.dvt.myskilldevapp.constants
 
-const val HOST = "https://www.potterapi.com/v1/"
+const val HOST = "https://www.potterapi.com/"
 const val GET_LUCKY_NUMBER = "api/luckyNumber.php"
 const val GET_AVAILABLE_CARS = "api/cars.php"
 
@@ -22,10 +22,10 @@ const val STATS = "stats"
 
 
 
-const val GET_HOUSES = "houses"
-const val GET_HOUSE = "houses/:house_id"
+const val GET_HOUSES = "v1/houses"
+const val GET_HOUSE = "v1/houses/:house_id"
 
-const val GET_STUDENTS = "characters"
-const val GET_STUDENT = "characters/:character_id"
+const val GET_STUDENTS = "v1/characters"
+const val GET_STUDENT = "v1/characters/:character_id"
 
-const val GET_SPELLS = "spells"
+const val GET_SPELLS = "v1/spells"

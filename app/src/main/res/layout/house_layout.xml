@@ -18,15 +18,31 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/small_padding">
 
-            <TextView
-                android:id="@+id/txtHouseMascot"
-                style="@style/largeDarkTextView"
-                android:layout_width="0dp"
-                tools:text="House name"
-                android:gravity="left"
-                app:layout_constraintTop_toTopOf="parent"
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imgHouseIcon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_house_dark"
+                android:padding="@dimen/xsmall_margin"
+                android:scaleType="fitCenter"
+                app:riv_corner_radius="25dp"
+                android:background="@drawable/round_button_background"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/imgChev"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                    android:id="@+id/txtHouseMascot"
+                    style="@style/largeDarkTextView"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="left"
+                    android:paddingHorizontal="@dimen/small_padding"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintLeft_toRightOf="@id/imgHouseIcon"
+                    app:layout_constraintRight_toLeftOf="@+id/imgChev"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="House name" />
 
             <ImageView
                 android:id="@+id/imgChev"

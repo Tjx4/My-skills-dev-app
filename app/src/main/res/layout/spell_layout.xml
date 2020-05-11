@@ -18,15 +18,31 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/small_padding">
 
+            <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/imgSpellIcon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_spell_dark"
+                    android:padding="@dimen/xsmall_margin"
+                    android:scaleType="fitCenter"
+                    app:riv_corner_radius="25dp"
+                    android:background="@drawable/round_button_background"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
             <TextView
                     android:id="@+id/txtSpellName"
-                    style="@style/MediumDarkTextView"
+                    style="@style/largeDarkTextView"
                     android:layout_width="0dp"
-                    tools:text="Spell"
+                    android:layout_marginTop="8dp"
                     android:gravity="left"
+                    android:paddingHorizontal="@dimen/small_padding"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintLeft_toRightOf="@id/imgSpellIcon"
+                    app:layout_constraintRight_toLeftOf="@+id/imgChev"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toLeftOf="@+id/imgChev"/>
+                    tools:text="Spell" />
 
             <ImageView
                     android:id="@+id/imgChev"

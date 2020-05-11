@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimary">#873437</color>
+    <color name="colorPrimaryDark">#702c2e</color>
     <color name="colorLuckNumberBanner">#800000</color>
     <color name="colorAccent">#d9a236</color>
     <color name="lightText">#DDD</color>

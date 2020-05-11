@@ -18,14 +18,41 @@ android:background="@color/lightBackground">
             android:layout_height="wrap_content"
             android:padding="@dimen/small_padding">
 
+        <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imgCharacterIcon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_character_dark"
+                android:padding="@dimen/xsmall_margin"
+                android:scaleType="fitCenter"
+                app:riv_corner_radius="25dp"
+                android:background="@drawable/round_button_background"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
         <TextView
                 android:id="@+id/tvCharacterHouse"
-                style="@style/MediumDarkTextView"
+                style="@style/largeDarkTextView"
+                android:layout_width="0dp"
+                android:layout_marginTop="8dp"
                 tools:text="Character name"
                 android:gravity="left"
+                android:paddingHorizontal="@dimen/small_padding"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toRightOf="@id/imgCharacterIcon"
+                app:layout_constraintRight_toLeftOf="@+id/imgChev"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+                android:id="@+id/imgChev"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_chev_right"
+                android:scaleType="fitCenter"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/imgChev"/>
+                app:layout_constraintBottom_toBottomOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
