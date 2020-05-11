@@ -12,135 +12,23 @@
         android:id="@+id/clCParent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".features.dashboard.DashboardActivity">
-
-        <RelativeLayout
-            android:id="@+id/rlBanner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:paddingVertical="@dimen/small_padding"
-            android:paddingHorizontal="@dimen/medium_padding"
-            app:layout_constraintHorizontal_bias="0.4"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
-
-            <TextView
-                android:id="@+id/tvRoundLabel"
-                style="@style/SmallLightTextView"
-                android:layout_width="wrap_content"
-                android:text="Round : "
-                android:textStyle="bold"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"/>
-
-            <TextView
-                android:id="@+id/tvRound"
-                style="@style/SmallLightTextView"
-                android:layout_width="wrap_content"
-                android:text="@{@string/numeric_formater(dashboardViewModel.round)}"
-                tools:text="0"
-                android:layout_toRightOf="@+id/tvRoundLabel"
-                android:layout_centerVertical="true"/>
-
-            <TextView
-                style="@style/SmallLightTextView"
-                android:layout_width="wrap_content"
-                android:text="Time : "
-                android:textStyle="bold"
-                android:layout_toLeftOf="@+id/tvCountDownTime"
-                android:layout_centerVertical="true"/>
-
-            <TextView
-                android:id="@+id/tvCountDownTime"
-                style="@style/SmallLightTextView"
-                android:layout_width="wrap_content"
-                android:text="@{dashboardViewModel.timeLeft}"
-                tools:text="0:00"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rlLuckyNumberContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorLuckNumberBanner"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rlBanner"
-            app:layout_constraintVertical_bias="0.0">
-
-            <TextView
-                android:id="@+id/tvLuckyNumberDescription"
-                style="@style/MediumLightTextView"
-                android:layout_width="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/medium__margin"
-                    android:textStyle="bold"
-                android:text="Lucky number ........" />
-
-            <TextView
-                android:id="@+id/tvLuckyNumber"
-                style="@style/largeBlueTextView"
-                android:layout_width="wrap_content"
-                android:layout_toRightOf="@+id/tvLuckyNumberDescription"
-                android:layout_marginLeft="@dimen/small_margin"
-                android:text="@{@string/numeric_formater(dashboardViewModel.currentLuckyNumber)}"
-                tools:text="0" />
-
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/tvMessage"
-            style="@style/MediumLightTextView"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginRight="8dp"
-            android:gravity="start"
-            android:text="@{dashboardViewModel.activityMessage}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rlLuckyNumberContainer"
-            app:layout_constraintVertical_bias="0.146"
-            tools:text="Try your luck... roll the dice and you might win" />
-
-        <ImageView
-            android:id="@+id/imgDice"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginRight="8dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_di_1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvMessage"
-            tools:srcCompat="@drawable/ic_di_1" />
+        tools:context=".features.dashboard.DashboardActivity"
+        android:background="@color/lightBackground">
 
         <Button
-            android:id="@+id/btnDice"
-            style="@style/MySkillsButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="32dp"
-            android:onClick="onRollButtonClicked"
-            android:text="@string/roll"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgDice"
-            app:layout_constraintVertical_bias="1.0" />
+                style="@style/DashButtons"
+                android:id="@+id/btnViewCharacters"
+                android:text="View characters"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:onClick="onViewCharactersButtonClicked"/>
+
+        <Button
+                style="@style/DashButtons"
+                android:text="View houses"
+                app:layout_constraintTop_toBottomOf="@+id/btnViewCharacters"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:onClick="onViewHousesButtonClicked"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

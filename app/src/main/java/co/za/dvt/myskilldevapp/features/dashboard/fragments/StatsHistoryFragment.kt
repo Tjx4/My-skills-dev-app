@@ -51,7 +51,6 @@ class StatsHistoryFragment : BaseDialogFragment(), StatsAdapter.ItemClickListene
         showLoading()
 
         ioScope.launch {
-            stats = dashboardActivity?.dashboardViewModel?.getGameStats()
 
             uiScope.launch {
 
@@ -92,7 +91,6 @@ class StatsHistoryFragment : BaseDialogFragment(), StatsAdapter.ItemClickListene
 
 
     override fun onDismiss(dialog: DialogInterface) {
-        dashboardActivity?.onStatsClose()
     }
 
     companion object {

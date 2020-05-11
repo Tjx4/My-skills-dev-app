@@ -80,4 +80,14 @@
         <item name="android:background">@drawable/splash_background</item>
     </style>
 
+    <style name="DashButtons">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/xsmall_margin</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_marginLeft">@dimen/xsmall_margin</item>
+        <item name="android:layout_marginRight">@dimen/xsmall_margin</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
 </resources>
