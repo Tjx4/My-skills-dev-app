@@ -29,7 +29,7 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".features.dashboard.DashboardActivity" />
         </activity>
-        <activity android:name=".features.houses.HouseActivity">
+        <activity android:name=".features.houses.view.ViewHouseActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".features.houses.HousesActivity" />

@@ -24,7 +24,7 @@ class CharatersViewModel(val charatersRepository: CharatersRepository, applicati
         _isBusy.value = true
 
         ioScope.launch {
-            val students = charatersRepository.getStudents(cacheHelper.apiKey)
+            val students = charatersRepository.getCharacters(cacheHelper.apiKey)
 
             uiScope.launch {
 

@@ -8,13 +8,11 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.adapters.SpellsAdapter
-import co.za.dvt.myskilldevapp.constants.HOUSE
 import co.za.dvt.myskilldevapp.constants.SPELL
 import co.za.dvt.myskilldevapp.databinding.ActivitySpellsBinding
 import co.za.dvt.myskilldevapp.extensions.SLIDE_IN_ACTIVITY
 import co.za.dvt.myskilldevapp.extensions.goToActivityWithPayload
 import co.za.dvt.myskilldevapp.features.activities.BaseChildActivity
-import co.za.dvt.myskilldevapp.features.houses.HouseActivity
 import co.za.dvt.myskilldevapp.helpers.hideCurrentLoadingDialog
 import co.za.dvt.myskilldevapp.helpers.showLoadingDialog
 import co.za.dvt.myskilldevapp.models.Spell
