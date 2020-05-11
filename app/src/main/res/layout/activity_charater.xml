@@ -37,6 +37,15 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@+id/imgChev"/>
 
+            <TextView
+                    android:id="@+id/tvSchool"
+                    style="@style/MediumDarkTextView"
+                    tools:text="School"
+                    android:gravity="left"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCharacterRole"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/imgChev"/>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -10,6 +10,7 @@ data class Character(
     @SerializedName("name") var name: String? = null,
     @SerializedName("role") var role: String? = null,
     @SerializedName("house") var house: String? = null,
+    @SerializedName("school") var school: String? = null,
     @SerializedName("__v") var v: Int? = 0,
     @SerializedName("ministryOfMagic") var ministryOfMagic: Boolean = false,
     @SerializedName("orderOfThePhoenix") var orderOfThePhoenix: Boolean = false,
