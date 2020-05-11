@@ -46,6 +46,24 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@+id/imgChev"/>
 
+            <TextView
+                    android:id="@+id/tvSpecies"
+                    style="@style/MediumDarkTextView"
+                    tools:text="Species"
+                    android:gravity="left"
+                    app:layout_constraintTop_toBottomOf="@+id/tvSchool"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/imgChev"/>
+
+            <TextView
+                    android:id="@+id/tvBloodStatus"
+                    style="@style/MediumDarkTextView"
+                    tools:text="bloodStatus"
+                    android:gravity="left"
+                    app:layout_constraintTop_toBottomOf="@+id/tvSpecies"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/imgChev"/>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

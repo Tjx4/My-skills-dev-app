@@ -17,6 +17,9 @@ class CharatersViewModel(val charatersRepository: CharatersRepository, applicati
     val characters: LiveData<List<Character?>?>
         get() = _characters
 
+    //  house	 = Gryffindor     Ravenclaw     Slytherin     Hufflepuff
+    //  bloodStatus	= pure-blood    half-blood    muggle-born     unknown
+
     fun getAndShowStudents(){
         _isBusy.value = true
 

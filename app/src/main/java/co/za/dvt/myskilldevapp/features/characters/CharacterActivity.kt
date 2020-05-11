@@ -18,6 +18,8 @@ class CharacterActivity : BaseChildActivity() {
         supportActionBar?.title = character?.name
         tvCharacterHouse.text = "House: ${character?.house}"
         tvCharacterRole.text = "Role: ${character?.role}"
-        tvSchool.text = "Role: ${character?.school}"
+        tvSchool.text = "School:  ${character?.school}"
+        tvSpecies.text = "species:  ${character?.species}"
+        tvBloodStatus.text = "bloodStatus:  ${character?.bloodStatus}"
     }
 }
