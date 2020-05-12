@@ -3,6 +3,7 @@ package co.za.dvt.myskilldevapp.features.spells
 import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
+import android.widget.FrameLayout
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -62,7 +63,7 @@ class SpellsActivity : BaseChildActivity(), SpellsAdapter.SpellClickListener {
     }
 
     override fun onSpellClick(view: View, position: Int) {
-        view.blinkView(0.5f, 1.0f, 400, 2, Animation.ABSOLUTE, 0, {
+        (view as FrameLayout).getChildAt(0).blinkView(0.5f, 1.0f, 400, 2, Animation.ABSOLUTE, 0, {
             val selectedSpell = spellsViewModel.spells?.value?.get(position)
 
             var payload = Bundle()

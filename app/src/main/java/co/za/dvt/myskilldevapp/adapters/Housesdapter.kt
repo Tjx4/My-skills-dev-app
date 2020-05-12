@@ -15,7 +15,7 @@ class HousesAdapter(context: Context, private val houses: List<House?>?) : Recyc
     private var itemClickListener: HouseClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = layoutInflater.inflate(R.layout.house_layout, parent, false)
+        val view = layoutInflater.inflate(R.layout.house_view, parent, false)
         return ViewHolder(view)
     }
 

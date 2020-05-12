@@ -22,7 +22,7 @@ class StatsAdapter(context: Context, private val stats: List<GameStats>) : Recyc
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = layoutInflater.inflate(R.layout.stats_layout, parent, false)
+        val view = layoutInflater.inflate(R.layout.stats_view, parent, false)
         return ViewHolder(view)
     }
 

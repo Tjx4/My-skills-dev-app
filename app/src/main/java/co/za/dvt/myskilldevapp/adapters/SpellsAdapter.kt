@@ -15,7 +15,7 @@ class SpellsAdapter(context: Context, private val spells: List<Spell?>?) : Recyc
     private var itemClickListener: SpellClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = layoutInflater.inflate(R.layout.spell_layout, parent, false)
+        val view = layoutInflater.inflate(R.layout.spell_view, parent, false)
         return ViewHolder(view)
     }
 
