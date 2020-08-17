@@ -57,7 +57,7 @@ class CarPrizesFragment : BaseDialogFragment(), CarPrizesAdapter.ItemClickListen
     override fun onItemClick(view: View, position: Int) {
         var selectedCar = cars?.get(position) ?: return
         var selectedPrice = "${selectedCar?.brand} ${selectedCar?.model}"
-        dashboardActivity?.onPriceItemClick(selectedPrice)
+        //dashboardActivity?.onPriceItemClick(selectedPrice)
         dismiss()
     }
 

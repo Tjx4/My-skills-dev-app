@@ -92,7 +92,7 @@ class StatsHistoryFragment : BaseDialogFragment(), StatsAdapter.ItemClickListene
 
     override fun onDismiss(dialog: DialogInterface?) {
         super.onDismiss(dialog)
-        dashboardActivity?.onStatsClose()
+       // dashboardActivity?.onStatsClose()
     }
 
     companion object {
