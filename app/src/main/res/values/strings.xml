@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Dice game</string>
+    <string name="app_name">Platinum Access</string>
     <string name="numeric_formater">%d</string>
     <string name="error">Error</string>
     <string name="game_completed">Game completed</string>

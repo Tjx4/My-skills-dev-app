@@ -77,6 +77,17 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository, a
 
     init {
         startGame()
+
+        var myLam : (Int) -> Unit =  { i ->
+            print(i * 90)
+        }
+
+        lam(30, myLam)
+    }
+
+    fun lam(age: Int, lamd: (Int) -> Unit){
+        var lev = age * 100
+        lamd(lev)
     }
 
     private fun startGame(){
