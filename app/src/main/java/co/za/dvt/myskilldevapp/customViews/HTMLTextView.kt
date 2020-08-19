@@ -16,4 +16,18 @@ class HTMLTextView(context: Context?) : AppCompatTextView(context) {
         }
     }
 
+    override fun onTextChanged(
+        text: CharSequence?,
+        start: Int,
+        lengthBefore: Int,
+        lengthAfter: Int
+    ) {
+        super.onTextChanged(text, start, lengthBefore, lengthAfter)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            this.text = Html.fromHtml(text.toString(), Html.FROM_HTML_MODE_COMPACT);
+        } else {
+            this.text = Html.fromHtml(text.toString());
+        }
+    }
 }
