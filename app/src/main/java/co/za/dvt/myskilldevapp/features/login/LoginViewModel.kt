@@ -35,7 +35,7 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
     var currentUserMessage: MutableLiveData<String> = MutableLiveData()
 
     init {
-        testMessage.value = "Enter your details to access your account"
+        testMessage.value = "To access your account, please enter your details "
 
         ioScope.launch {
             var lastUser = loginRepository.getLastUser()

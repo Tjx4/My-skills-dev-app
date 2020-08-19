@@ -83,7 +83,7 @@ class LoginActivity : BaseActivity()  {
     private fun showPreviousUserList() {
         var usersFragment = UsersFragment.newInstance()
         usersFragment.isCancelable = true
-        showDialogFragment(getString(R.string.stats_history), R.layout.fragment_users, usersFragment, this)
+        showDialogFragment(getString(R.string.select_user), R.layout.fragment_users, usersFragment, this)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

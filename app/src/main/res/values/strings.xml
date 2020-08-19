@@ -35,4 +35,5 @@
     <string name="fetch_stats">Fetching stats</string>
     <string name="stats_history">Stats history</string>
     <string name="time_out">Time out</string>
+    <string name="select_user">Select user</string>
 </resources>
