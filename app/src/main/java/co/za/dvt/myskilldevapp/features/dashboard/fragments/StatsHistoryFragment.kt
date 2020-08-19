@@ -51,7 +51,7 @@ class StatsHistoryFragment : BaseDialogFragment(), StatsAdapter.ItemClickListene
         showLoading()
 
         ioScope.launch {
-            stats = dashboardActivity?.dashboardViewModel?.getGameStats()
+            stats = dashboardActivity?.dashboardViewModel?.getUserInfo()
 
             uiScope.launch {
 
