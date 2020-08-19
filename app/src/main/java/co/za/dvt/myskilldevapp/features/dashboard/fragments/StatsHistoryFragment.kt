@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.za.dvt.myskilldevapp.R
-import co.za.dvt.myskilldevapp.adapters.StatsAdapter
+import co.za.dvt.myskilldevapp.adapters.UsersAdapter
 import co.za.dvt.myskilldevapp.constants.TITLE
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardActivity
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
@@ -22,7 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class StatsHistoryFragment : BaseDialogFragment(), StatsAdapter.ItemClickListener {
+class StatsHistoryFragment : BaseDialogFragment(), UsersAdapter.ItemClickListener {
     private var dashboardActivity: DashboardActivity? = null
     private var parentRl: RelativeLayout? = null
     private var avlProgressBarLoading: AVLoadingIndicatorView? = null
@@ -63,7 +63,7 @@ class StatsHistoryFragment : BaseDialogFragment(), StatsAdapter.ItemClickListene
                     return@launch
                 }
 
-                val statsAdapterAdapter = StatsAdapter(dashboardActivity as Context, stats as java.util.ArrayList<UsersTable>)
+                val statsAdapterAdapter = UsersAdapter(dashboardActivity as Context, stats as java.util.ArrayList<UsersTable>)
                 statsAdapterAdapter.setClickListener(statsAdapter)
 
                 statsRv = parentView.findViewById(R.id.rvStats)

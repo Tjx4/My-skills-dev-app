@@ -10,7 +10,7 @@ import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardActivity
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 
-class StatsAdapter(context: Context, private val stats: List<UsersTable>) : RecyclerView.Adapter<StatsAdapter.ViewHolder>() {
+class UsersAdapter(context: Context, private val users: List<UsersTable>) : RecyclerView.Adapter<UsersAdapter.ViewHolder>() {
 
     private val dashboardActivity: DashboardActivity
     private val layoutInflater: LayoutInflater
@@ -27,11 +27,8 @@ class StatsAdapter(context: Context, private val stats: List<UsersTable>) : Recy
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val stat = stats[position]
-        holder.gameStartTimeTv.text = stat.startTime
-        holder.gameTriesTv.text = stat.tries.toString()
-        holder.gameJackpotPriceTv.text = stat.jackpotPrice
-        holder.gameEndTimeTv.text = stat.endTime
+        val user = users[position]
+        holder.gameStartTimeTv.text = user.name
     }
 
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
@@ -56,7 +53,7 @@ class StatsAdapter(context: Context, private val stats: List<UsersTable>) : Recy
     }
 
     internal fun getItem(id: Int): UsersTable? {
-        return stats[id]
+        return users[id]
     }
 
     fun setClickListener(itemClickListener: ItemClickListener) {
@@ -68,6 +65,6 @@ class StatsAdapter(context: Context, private val stats: List<UsersTable>) : Recy
     }
 
     override fun getItemCount(): Int {
-        return stats.size
+        return users.size
     }
 }
