@@ -18,10 +18,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.databinding.ActivityLoginBinding
-import co.za.dvt.myskilldevapp.extensions.FADE_IN_ACTIVITY
-import co.za.dvt.myskilldevapp.extensions.TRAIL_TO
-import co.za.dvt.myskilldevapp.extensions.blinkView
-import co.za.dvt.myskilldevapp.extensions.goToActivityWithNoPayload
+import co.za.dvt.myskilldevapp.extensions.*
 import co.za.dvt.myskilldevapp.features.activities.BaseActivity
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 import co.za.dvt.myskilldevapp.features.login.fragments.UsersFragment
@@ -84,7 +81,7 @@ class LoginActivity : BaseActivity()  {
     fun onRegisterClicked(view: View){
         view.blinkView(0.5f, 1.0f, 200, 2, Animation.ABSOLUTE, 0, {
             showShortToast("onRegisterClicked", this)
-            goToActivityWithNoPayload(RegistrationActivity::class.java, TRAIL_TO)
+            goToActivityWithNoPayload(RegistrationActivity::class.java, SLIDE_IN_ACTIVITY)
             finish()
         }, {})
     }
