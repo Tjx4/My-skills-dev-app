@@ -8,9 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardActivity
-import co.za.dvt.myskilldevapp.features.database.tables.GameStats
+import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 
-class StatsAdapter(context: Context, private val stats: List<GameStats>) : RecyclerView.Adapter<StatsAdapter.ViewHolder>() {
+class StatsAdapter(context: Context, private val stats: List<UsersTable>) : RecyclerView.Adapter<StatsAdapter.ViewHolder>() {
 
     private val dashboardActivity: DashboardActivity
     private val layoutInflater: LayoutInflater
@@ -55,7 +55,7 @@ class StatsAdapter(context: Context, private val stats: List<GameStats>) : Recyc
         }
     }
 
-    internal fun getItem(id: Int): GameStats? {
+    internal fun getItem(id: Int): UsersTable? {
         return stats[id]
     }
 

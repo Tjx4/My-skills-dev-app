@@ -5,7 +5,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import co.za.dvt.myskilldevapp.constants.USER
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardRepository
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardViewModel
-import co.za.dvt.myskilldevapp.features.database.GameStatsDAO
+import co.za.dvt.myskilldevapp.features.database.PADAO
 import co.za.dvt.myskilldevapp.models.CarModel
 import co.za.dvt.myskilldevapp.models.RoundModel
 import com.nhaarman.mockitokotlin2.whenever
@@ -27,7 +27,7 @@ class DashboardUnitTest {
     @Mock
     lateinit var repository: DashboardRepository
     @Mock
-    lateinit var database: GameStatsDAO
+    lateinit var database: PADAO
     @Mock
     lateinit var application: Application
 

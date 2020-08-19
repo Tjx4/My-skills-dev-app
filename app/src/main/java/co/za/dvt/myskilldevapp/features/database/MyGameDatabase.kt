@@ -4,11 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import co.za.dvt.myskilldevapp.features.database.tables.GameStats
+import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 
-@Database(entities = [GameStats::class], version = 2, exportSchema = false)
+@Database(entities = [UsersTable::class], version = 1, exportSchema = false)
 abstract class MyGameDatabase : RoomDatabase() {
-    abstract val gameStatsDAO: GameStatsDAO
+    abstract val PADAO: PADAO
 
     companion object{
         @Volatile

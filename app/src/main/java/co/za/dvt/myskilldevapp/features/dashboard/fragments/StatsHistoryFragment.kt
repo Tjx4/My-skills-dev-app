@@ -14,7 +14,7 @@ import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.adapters.StatsAdapter
 import co.za.dvt.myskilldevapp.constants.TITLE
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardActivity
-import co.za.dvt.myskilldevapp.features.database.tables.GameStats
+import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 import co.za.dvt.myskilldevapp.features.fragments.BaseDialogFragment
 import com.wang.avi.AVLoadingIndicatorView
 import kotlinx.coroutines.CoroutineScope
@@ -29,7 +29,7 @@ class StatsHistoryFragment : BaseDialogFragment(), StatsAdapter.ItemClickListene
     private var titleTv: TextView? = null
     private var noStatsTv: TextView? = null
     private var statsRv: RecyclerView? = null
-    private var stats: List<GameStats>? = null
+    private var stats: List<UsersTable>? = null
     private val job =  Job()
     private val ioScope = CoroutineScope(Dispatchers.IO + job)
     private val uiScope = CoroutineScope(Dispatchers.Main + job)
@@ -63,7 +63,7 @@ class StatsHistoryFragment : BaseDialogFragment(), StatsAdapter.ItemClickListene
                     return@launch
                 }
 
-                val statsAdapterAdapter = StatsAdapter(dashboardActivity as Context, stats as java.util.ArrayList<GameStats>)
+                val statsAdapterAdapter = StatsAdapter(dashboardActivity as Context, stats as java.util.ArrayList<UsersTable>)
                 statsAdapterAdapter.setClickListener(statsAdapter)
 
                 statsRv = parentView.findViewById(R.id.rvStats)

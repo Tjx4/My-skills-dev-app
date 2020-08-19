@@ -15,11 +15,12 @@
         tools:context=".features.dashboard.DashboardActivity">
 
         <TextView
-                android:id="@+id/textView"
+                android:id="@+id/txtTest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Please click the test button"
+                android:text="@{dashboardViewModel.testMessage}"
                 android:textColor="#fff"
+                android:layout_marginBottom="50dp"
                 app:layout_constraintBottom_toTopOf="@+id/btnTest"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />

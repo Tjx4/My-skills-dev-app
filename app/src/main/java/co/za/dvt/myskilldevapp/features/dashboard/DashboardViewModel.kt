@@ -4,17 +4,15 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.features.database.MyGameDatabase
-import co.za.dvt.myskilldevapp.features.database.tables.GameStats
+import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
 import co.za.dvt.myskilldevapp.helpers.getYearMonthDayAndTime
 import co.za.dvt.myskilldevapp.models.CarModel
 import kotlinx.coroutines.*
 
 class DashboardViewModel(application: Application) : BaseVieModel(application) {
-    var dataSource = MyGameDatabase.getInstance(application).gameStatsDAO
-    private val dashboardRepository: DashboardRepository = DashboardRepository(dataSource)
 
-    private var gameStats: GameStats = GameStats()
+    private val dashboardRepository: DashboardRepository = DashboardRepository(application)
 
     private val _showLoading: MutableLiveData<Boolean> = MutableLiveData()
     val showLoading: MutableLiveData<Boolean>
@@ -25,12 +23,14 @@ class DashboardViewModel(application: Application) : BaseVieModel(application) {
         get() = _showContent
 
     var busyMessage: String = ""
+    var testMessage: MutableLiveData<String> = MutableLiveData()
 
     private val _availableCars: MutableLiveData<List<CarModel>> = MutableLiveData()
     val availableCars: MutableLiveData<List<CarModel>>
     get() = _availableCars
 
     init {
+        testMessage.value = "Please click the test button "
         _availableCars.value = ArrayList<CarModel>()
     }
 
@@ -41,27 +41,25 @@ class DashboardViewModel(application: Application) : BaseVieModel(application) {
            delay(3000)
 
             uiScope.launch {
-
-
+                testMessage.value  = "Cycle done, restarting in 3secs.."
                 _showContent.value = true
             }
-        }
 
+            delay(3000)
+
+            uiScope.launch {
+                testMessage.value  = "Start cycle"
+            }
+
+        }
 
     }
 
     fun recordGameStats(jackpotPrice: String) {
-        gameStats.jackpotPrice = jackpotPrice
-        gameStats.player = app.getString(R.string.test_player)
-        gameStats.tries = 0
-        gameStats.endTime = getYearMonthDayAndTime()
 
-        ioScope.launch {
-            dashboardRepository.addStatsToDB(gameStats)
-        }
     }
 
-    suspend fun getUserInfo(): List<GameStats>? {
+    suspend fun getUserInfo(): List<UsersTable>? {
        return withContext(Dispatchers.IO){
             dashboardRepository.getAllStatsFromDB()
         }

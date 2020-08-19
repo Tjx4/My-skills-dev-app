@@ -3,8 +3,8 @@ package co.za.dvt.myskilldevapp
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
-import co.za.dvt.myskilldevapp.features.database.tables.GameStats
-import co.za.dvt.myskilldevapp.features.database.GameStatsDAO
+import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
+import co.za.dvt.myskilldevapp.features.database.PADAO
 import co.za.dvt.myskilldevapp.features.database.MyGameDatabase
 import junit.framework.Assert.assertEquals
 import org.junit.After
@@ -16,7 +16,7 @@ import java.io.IOException
 @RunWith(AndroidJUnit4::class)
 class MyGameDatabaseTests{
 
-    private lateinit var gameStatsDAO: GameStatsDAO
+    private lateinit var PADAO: PADAO
     private lateinit var myGameDatabase: MyGameDatabase
 
     @Before
@@ -27,7 +27,7 @@ class MyGameDatabaseTests{
                                 .allowMainThreadQueries()
                                 .build()
 
-        gameStatsDAO = myGameDatabase.gameStatsDAO
+        PADAO = myGameDatabase.PADAO
     }
 
     @After
@@ -39,11 +39,11 @@ class MyGameDatabaseTests{
     @Test
     @Throws(Exception::class)
     fun insertAndGetGameStats(){
-        var gameStats = GameStats()
+        var gameStats = UsersTable()
         gameStats.gameId = 404594
 
-        gameStatsDAO.insert(gameStats)
-        val currentGameStats = gameStatsDAO.get(gameStats.gameId)
+        PADAO.insert(gameStats)
+        val currentGameStats = PADAO.get(gameStats.gameId)
 
         assertEquals(currentGameStats.gameId, gameStats.gameId)
     }
