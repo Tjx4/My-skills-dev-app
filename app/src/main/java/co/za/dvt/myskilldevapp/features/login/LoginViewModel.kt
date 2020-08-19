@@ -22,6 +22,10 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
     val showContent: MutableLiveData<Boolean>
         get() = _showContent
 
+    private val _previousUsers: MutableLiveData<List<UsersTable>> = MutableLiveData()
+    val previousUsers: MutableLiveData<List<UsersTable>>
+        get() = _previousUsers
+
     var busyMessage: String = "Signing in, please wait.."
     var testMessage: MutableLiveData<String> = MutableLiveData()
 
@@ -45,6 +49,18 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
             }
         }
 
+    }
+
+    fun showPreviousUsers(){
+        ioScope.launch {
+            var allUsers = loginRepository.getAllUsers()
+
+            uiScope.launch {
+                if(allUsers != null){
+                    _previousUsers.value = allUsers
+                }
+            }
+        }
     }
 
     fun testFetchSomethingFromAPI(){

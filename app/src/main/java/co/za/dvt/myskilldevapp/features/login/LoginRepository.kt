@@ -8,6 +8,7 @@ import co.za.dvt.myskilldevapp.features.repositories.BaseRepositories
 open class LoginRepository(var application: Application) : BaseRepositories() {
     var database = PADatabase.getInstance(application).PADAO
 
+    fun getAllUsers() = database.getAllUsers()
     fun getLastUser() = database.getFirstUser()
     fun getUserFromDb(id: Int) = database.get(id.toLong())
     fun addUserToDb(usersTable: UsersTable) = database.insert(usersTable)

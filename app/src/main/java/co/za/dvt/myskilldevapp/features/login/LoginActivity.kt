@@ -15,6 +15,7 @@ import co.za.dvt.myskilldevapp.databinding.ActivityLoginBinding
 import co.za.dvt.myskilldevapp.features.activities.BaseActivity
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardViewModel
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardViewModelFactory
+import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 import co.za.dvt.myskilldevapp.helpers.hideCurrentLoadingDialog
 import co.za.dvt.myskilldevapp.helpers.showLoadingDialog
 import co.za.dvt.myskilldevapp.helpers.showShortToast
@@ -48,6 +49,7 @@ class LoginActivity : BaseActivity()  {
         loginViewModel.showLoading.observe(this, Observer { toggleShow(it) })
         loginViewModel.showContent.observe(this, Observer { toggleShowContent(it) })
         loginViewModel.showPreloadedUser.observe(this, Observer { toggleShowPreloadedUser(it) })
+        loginViewModel.previousUsers.observe(this, Observer { toggleShowUsersList(it) })
     }
 
     public fun onTestButtonClicked(view: View){
@@ -62,6 +64,11 @@ class LoginActivity : BaseActivity()  {
     private fun toggleShowContent(showContent: Boolean) {
         hideCurrentLoadingDialog(this)
         clCParent.visibility = View.VISIBLE
+    }
+
+    private fun toggleShowUsersList(previousUsers: List<UsersTable>) {
+        // _previousUsers
+
     }
 
     private fun toggleShowPreloadedUser(showPreloadedUser: Boolean) {
@@ -79,7 +86,8 @@ class LoginActivity : BaseActivity()  {
     }
 
     private fun showPreviousUserList() {
-        showShortToast("showPreviousUserList", this)
+        // showShortToast("showPreviousUserList", this)
+        loginViewModel.showPreviousUsers()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
