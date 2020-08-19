@@ -1,4 +1,4 @@
-package co.za.dvt.myskilldevapp.features.dashboard.fragments
+package co.za.dvt.myskilldevapp.features.login.fragments
 
 import android.content.Context
 import android.content.DialogInterface
@@ -16,21 +16,20 @@ import co.za.dvt.myskilldevapp.constants.TITLE
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardActivity
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 import co.za.dvt.myskilldevapp.features.fragments.BaseDialogFragment
-import co.za.dvt.myskilldevapp.features.login.fragments.UsersFragment
 import com.wang.avi.AVLoadingIndicatorView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class StatsHistoryFragment : BaseDialogFragment(), UsersAdapter.ItemClickListener {
+class UsersFragment : BaseDialogFragment(), UsersAdapter.ItemClickListener {
     private var dashboardActivity: DashboardActivity? = null
     private var parentRl: RelativeLayout? = null
     private var avlProgressBarLoading: AVLoadingIndicatorView? = null
     private var titleTv: TextView? = null
-    private var noStatsTv: TextView? = null
-    private var statsRv: RecyclerView? = null
-    private var stats: List<UsersTable>? = null
+    private var noUsersTv: TextView? = null
+    private var usersRv: RecyclerView? = null
+    private var users: List<UsersTable>? = null
     private val job =  Job()
     private val ioScope = CoroutineScope(Dispatchers.IO + job)
     private val uiScope = CoroutineScope(Dispatchers.Main + job)
@@ -52,24 +51,24 @@ class StatsHistoryFragment : BaseDialogFragment(), UsersAdapter.ItemClickListene
         showLoading()
 
         ioScope.launch {
-            stats = dashboardActivity?.dashboardViewModel?.getUserInfo()
+            users = dashboardActivity?.dashboardViewModel?.getUserInfo()
 
             uiScope.launch {
 
                 hideLoading()
 
-                if(stats.isNullOrEmpty()){
-                    noStatsTv = parentView.findViewById(R.id.tvNoStats)
-                    noStatsTv?.visibility = View.VISIBLE
+                if(users.isNullOrEmpty()){
+                    noUsersTv = parentView.findViewById(R.id.tvNoStats)
+                    noUsersTv?.visibility = View.VISIBLE
                     return@launch
                 }
 
-                val statsAdapterAdapter = UsersAdapter(dashboardActivity as Context, stats as java.util.ArrayList<UsersTable>)
+                val statsAdapterAdapter = UsersAdapter(dashboardActivity as Context, users as java.util.ArrayList<UsersTable>)
                 statsAdapterAdapter.setClickListener(statsAdapter)
 
-                statsRv = parentView.findViewById(R.id.rvUsers)
-                statsRv?.layoutManager = LinearLayoutManager(dashboardActivity)
-                statsRv?.adapter = statsAdapterAdapter
+                usersRv = parentView.findViewById(R.id.rvUsers)
+                usersRv?.layoutManager = LinearLayoutManager(dashboardActivity)
+                usersRv?.adapter = statsAdapterAdapter
             }
         }
     }
