@@ -20,6 +20,7 @@ import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.databinding.ActivityLoginBinding
 import co.za.dvt.myskilldevapp.extensions.*
 import co.za.dvt.myskilldevapp.features.activities.BaseActivity
+import co.za.dvt.myskilldevapp.features.activities.BaseParentActivity
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 import co.za.dvt.myskilldevapp.features.login.fragments.UsersFragment
 import co.za.dvt.myskilldevapp.features.registration.RegistrationActivity
@@ -30,7 +31,7 @@ import co.za.dvt.myskilldevapp.helpers.showShortToast
 import kotlinx.android.synthetic.main.activity_dashboard.clCParent
 import kotlinx.android.synthetic.main.activity_login.*
 
-class LoginActivity : BaseActivity()  {
+class LoginActivity : BaseParentActivity()  {
 
     private lateinit var binding: ActivityLoginBinding
     lateinit var loginViewModel: LoginViewModel
@@ -80,8 +81,7 @@ class LoginActivity : BaseActivity()  {
 
     fun onRegisterClicked(view: View){
         view.blinkView(0.5f, 1.0f, 200, 2, Animation.ABSOLUTE, 0, {
-            showShortToast("onRegisterClicked", this)
-            goToActivityWithNoPayload(RegistrationActivity::class.java, SLIDE_IN_ACTIVITY)
+            goToActivityWithNoPayload(RegistrationActivity::class.java, TRAIL_TO)
             finish()
         }, {})
     }

@@ -6,8 +6,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.databinding.ActivityRegistrationBinding
+import co.za.dvt.myskilldevapp.features.activities.BaseParentActivity
 
-class RegistrationActivity : AppCompatActivity() {
+class RegistrationActivity : BaseParentActivity() {
 
     private lateinit var binding: ActivityRegistrationBinding
     private lateinit var registrationViewModel: RegistrationViewModel
