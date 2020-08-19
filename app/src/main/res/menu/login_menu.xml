@@ -3,10 +3,22 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-            android:id="@+id/action_manual_login"
+            android:id="@+id/action_about"
             android:icon="@drawable/ic_pa_light"
-            android:title="manual sign in"
+            android:title="About"
             app:showAsAction="always"/>
+
+    <item
+            android:id="@+id/action_manual_login"
+            android:icon="@drawable/ic_manula_light"
+            android:title="Manual sign in"
+            app:showAsAction="never"/>
+
+    <item
+            android:id="@+id/action_select_user"
+            android:icon="@drawable/ic_select_user_light"
+            android:title="Select user"
+            app:showAsAction="never"/>
 
 </menu>
 

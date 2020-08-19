@@ -17,6 +17,7 @@ import co.za.dvt.myskilldevapp.features.dashboard.DashboardViewModel
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardViewModelFactory
 import co.za.dvt.myskilldevapp.helpers.hideCurrentLoadingDialog
 import co.za.dvt.myskilldevapp.helpers.showLoadingDialog
+import co.za.dvt.myskilldevapp.helpers.showShortToast
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.activity_dashboard.clCParent
 import kotlinx.android.synthetic.main.activity_login.*
@@ -40,6 +41,7 @@ class LoginActivity : BaseActivity()  {
         addObservers()
 
         supportActionBar?.title = "Sign in"
+        supportActionBar?.setIcon(R.drawable.ic_pa_light)
     }
 
     private fun addObservers() {
@@ -63,8 +65,7 @@ class LoginActivity : BaseActivity()  {
     }
 
     private fun toggleShowPreloadedUser(showPreloadedUser: Boolean) {
-        txtUsername.visibility = View.GONE
-        llUsername.visibility = View.VISIBLE
+        showSelectedUserLogin()
     }
 
     private fun showManualLogin() {
@@ -72,16 +73,26 @@ class LoginActivity : BaseActivity()  {
         llUsername.visibility = View.GONE
     }
 
+    private fun showSelectedUserLogin() {
+        txtUsername.visibility = View.GONE
+        llUsername.visibility = View.VISIBLE
+    }
+
+    private fun showPreviousUserList() {
+        showShortToast("showPreviousUserList", this)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_manual_login -> showManualLogin()
+            R.id.action_select_user -> showPreviousUserList()
         }
 
         return super.onOptionsItemSelected(item)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.dashboard_menu, menu)
+        menuInflater.inflate(R.menu.login_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 

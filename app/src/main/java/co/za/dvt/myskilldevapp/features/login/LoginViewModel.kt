@@ -40,6 +40,7 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
                 if(lastUser != null){
                     showPreloadedUser.value = true
                     currentUserMessage.value = "Hi ${lastUser.name}"
+                    username.value = lastUser.name
                 }
             }
         }
