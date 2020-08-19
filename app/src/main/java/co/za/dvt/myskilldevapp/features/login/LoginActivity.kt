@@ -1,16 +1,25 @@
 package co.za.dvt.myskilldevapp.features.login
 
+import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.Html
+import android.text.SpannableStringBuilder
+import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.animation.Animation
+import androidx.core.text.HtmlCompat
+import androidx.core.text.toHtml
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.databinding.ActivityLoginBinding
 import co.za.dvt.myskilldevapp.extensions.FADE_IN_ACTIVITY
+import co.za.dvt.myskilldevapp.extensions.blinkView
 import co.za.dvt.myskilldevapp.extensions.goToActivityWithNoPayload
 import co.za.dvt.myskilldevapp.features.activities.BaseActivity
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
@@ -18,6 +27,7 @@ import co.za.dvt.myskilldevapp.features.login.fragments.UsersFragment
 import co.za.dvt.myskilldevapp.helpers.hideCurrentLoadingDialog
 import co.za.dvt.myskilldevapp.helpers.showDialogFragment
 import co.za.dvt.myskilldevapp.helpers.showLoadingDialog
+import co.za.dvt.myskilldevapp.helpers.showShortToast
 import kotlinx.android.synthetic.main.activity_dashboard.clCParent
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -50,10 +60,31 @@ class LoginActivity : BaseActivity()  {
         loginViewModel.showContent.observe(this, Observer { toggleShowContent(it) })
         loginViewModel.showPreloadedUser.observe(this, Observer { toggleShowPreloadedUser(it) })
         loginViewModel.previousUsers.observe(this, Observer { toggleShowUsersList(it) })
+
+        //Todo: Find out how to do custom control
+           txtSignUp.text = HtmlCompat.fromHtml(txtSignUp.text.toString(), 0)
+           txtForgotYourUsername.text = HtmlCompat.fromHtml(txtForgotYourUsername.text.toString(), 0)
+        //Todo: fix -----------------------------------
     }
 
-    public fun onTestButtonClicked(view: View){
+    fun onTestButtonClicked(view: View){
         loginViewModel.testFetchSomethingFromAPI()
+    }
+
+    fun onForgotPassUserClicked(view: View){
+        view.blinkView(0.5f, 1.0f, 200, 2, Animation.ABSOLUTE, 0, {
+            showShortToast("onForgotPassUserClicked", this)
+            // goToActivityWithNoPayload(LoginActivity::class.java, FADE_IN_ACTIVITY)
+            // finish()
+        }, {})
+    }
+
+    fun onRegisterClicked(view: View){
+        view.blinkView(0.5f, 1.0f, 200, 2, Animation.ABSOLUTE, 0, {
+            showShortToast("onRegisterClicked", this)
+            // goToActivityWithNoPayload(LoginActivity::class.java, FADE_IN_ACTIVITY)
+            // finish()
+        }, {})
     }
 
     private fun toggleShow(isBusy: Boolean) {
@@ -75,6 +106,7 @@ class LoginActivity : BaseActivity()  {
     }
 
     private fun showManualLogin() {
+        loginViewModel.setManualMode()
         txtUsername.visibility = View.VISIBLE
     }
 
@@ -90,12 +122,9 @@ class LoginActivity : BaseActivity()  {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.action_help -> { showShortToast("Help...", this) }
             R.id.action_manual_login -> showManualLogin()
             R.id.action_select_user -> showPreviousUserList()
-            R.id.action_register -> {
-                goToActivityWithNoPayload(LoginActivity::class.java, FADE_IN_ACTIVITY)
-                finish()
-            }
         }
 
         return super.onOptionsItemSelected(item)

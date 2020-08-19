@@ -37,5 +37,6 @@
     <string name="time_out">Time out</string>
     <string name="select_user">Select user</string>
     <string name="signup_text"><![CDATA[Not yet a Host <b>Sign Up Here</b>]]></string>
-    <string name="forgot_password_text">Forgot your Username/Password?</string>
+    <string name="forgot_password_text"><![CDATA[Forgot your <b>Username/Password</b>]]></string>
+    <string name="login_welcome_message">Please enter your details to signIn</string>
 </resources>

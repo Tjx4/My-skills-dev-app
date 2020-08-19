@@ -3,7 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-            android:id="@+id/action_about"
+            android:id="@+id/action_help"
             android:icon="@drawable/ic_pa_light"
             android:title="About"
             app:showAsAction="always"/>
@@ -20,11 +20,6 @@
             android:title="Select user"
             app:showAsAction="never"/>
 
-    <item
-            android:id="@+id/action_register"
-            android:icon="@drawable/ic_select_register_light"
-            android:title="Register"
-            app:showAsAction="never"/>
 
 </menu>
 

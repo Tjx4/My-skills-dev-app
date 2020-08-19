@@ -34,7 +34,7 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
     var currentUserMessage: MutableLiveData<String> = MutableLiveData()
 
     init {
-        currentUserMessage.value = "Please enter your details to signIn"
+        setManualMode()
         checkAndPresetUser()
     }
 
@@ -48,6 +48,10 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
                 }
             }
         }
+    }
+
+    fun setManualMode() {
+        currentUserMessage.value = "Please enter your details to signIn"
     }
 
     fun preSetUser(lastUser: UsersTable) {
@@ -82,9 +86,10 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
             usersTable.picUrl = "http//"
 
             // Todo: Move to after succesfull signin
-           // loginRepository.addUserToDb(usersTable)
+            // loginRepository.addUserToDb(usersTable)
 
             uiScope.launch {
+                currentUserMessage.value = "${usersTable.name} you are logged in"
                 _showContent.value = true
                 password.value = ""
             }
