@@ -49,17 +49,15 @@ class LoginActivity : BaseParentActivity()  {
 
         addObservers()
 
-        supportActionBar?.title = "HOST LOGIN"
+        supportActionBar?.title = " HOST LOGIN"
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        // supportActionBar?.setDefaultDisplayHomeAsUpEnabled(true)
-        // supportActionBar?.setIcon(R.drawable.ic_pa_light)
+        supportActionBar?.setIcon(R.drawable.ic_login_light)
     }
 
     private fun addObservers() {
         loginViewModel.showLoading.observe(this, Observer { toggleShow(it) })
         loginViewModel.showContent.observe(this, Observer { toggleShowContent(it) })
         loginViewModel.showPreloadedUser.observe(this, Observer { toggleShowPreloadedUser(it) })
-        loginViewModel.previousUsers.observe(this, Observer { toggleShowUsersList(it) })
 
         //Todo: Find out how to do custom control
            txtSignUp.text = HtmlCompat.fromHtml(txtSignUp.text.toString(), 0)
@@ -96,10 +94,6 @@ class LoginActivity : BaseParentActivity()  {
         clCParent.visibility = View.VISIBLE
     }
 
-    private fun toggleShowUsersList(previousUsers: List<UsersTable>) {
-        // Todo: Remove or use if users not loaded from frament
-    }
-
     private fun toggleShowPreloadedUser(showPreloadedUser: Boolean) {
         showSelectedUserLogin()
     }
@@ -125,7 +119,6 @@ class LoginActivity : BaseParentActivity()  {
             R.id.action_manual_login -> showManualLogin()
             R.id.action_select_user -> showPreviousUserList()
         }
-
         return super.onOptionsItemSelected(item)
     }
 
@@ -139,7 +132,6 @@ class LoginActivity : BaseParentActivity()  {
             moveTaskToBack(true)
             return super.onKeyDown(keyCode, event)
         }
-
         return true
     }
 

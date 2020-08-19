@@ -26,8 +26,9 @@ class RegistrationActivity : BaseParentActivity() {
 
         addObservers()
 
-        supportActionBar?.title = "CREATE ACCOUNT"
+        supportActionBar?.title = " CREATE ACCOUNT"
         supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setIcon(R.drawable.ic_select_register_light)
     }
 
     private fun addObservers() {
