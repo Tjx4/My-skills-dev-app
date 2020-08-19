@@ -11,6 +11,7 @@
     <color name="blueText">#0088cc</color>
     <color name="splashBackground">#0d132b</color>
     <color name="darkBackground">#000</color>
-    <color name="lightBackground">#EEE</color>
-    <color name="lighterBackground">#FFF</color>
+    <color name="lightBackground">#DDD</color>
+    <color name="lighterBackground">#EEE</color>
+    <color name="lightestBackground">#FFF</color>
 </resources>

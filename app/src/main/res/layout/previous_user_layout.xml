@@ -4,19 +4,20 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="@dimen/small_padding"
+    android:layout_marginBottom="2dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/lighterBackground">
 
     <TextView
         android:id="@+id/tvUserName"
-        style="@style/SmallDarkTextView"
+        style="@style/MediumDarkTextView"
         android:gravity="left"
         tools:text="User"
         android:layout_weight="1"/>
 
     <TextView
         android:id="@+id/tvGameEndTime"
-        style="@style/XsmallDarkTextView"
+        style="@style/SmallDarkTextView"
         tools:text="User type"
         android:layout_weight="1"/>
 
