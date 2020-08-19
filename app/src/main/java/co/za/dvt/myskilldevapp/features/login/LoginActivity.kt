@@ -19,11 +19,13 @@ import androidx.lifecycle.ViewModelProviders
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.databinding.ActivityLoginBinding
 import co.za.dvt.myskilldevapp.extensions.FADE_IN_ACTIVITY
+import co.za.dvt.myskilldevapp.extensions.TRAIL_TO
 import co.za.dvt.myskilldevapp.extensions.blinkView
 import co.za.dvt.myskilldevapp.extensions.goToActivityWithNoPayload
 import co.za.dvt.myskilldevapp.features.activities.BaseActivity
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 import co.za.dvt.myskilldevapp.features.login.fragments.UsersFragment
+import co.za.dvt.myskilldevapp.features.registration.RegistrationActivity
 import co.za.dvt.myskilldevapp.helpers.hideCurrentLoadingDialog
 import co.za.dvt.myskilldevapp.helpers.showDialogFragment
 import co.za.dvt.myskilldevapp.helpers.showLoadingDialog
@@ -49,7 +51,7 @@ class LoginActivity : BaseActivity()  {
 
         addObservers()
 
-        supportActionBar?.title = "LOGIN"
+        supportActionBar?.title = "HOST LOGIN"
         supportActionBar?.setDisplayShowHomeEnabled(true)
         // supportActionBar?.setDefaultDisplayHomeAsUpEnabled(true)
         // supportActionBar?.setIcon(R.drawable.ic_pa_light)
@@ -82,8 +84,8 @@ class LoginActivity : BaseActivity()  {
     fun onRegisterClicked(view: View){
         view.blinkView(0.5f, 1.0f, 200, 2, Animation.ABSOLUTE, 0, {
             showShortToast("onRegisterClicked", this)
-            // goToActivityWithNoPayload(LoginActivity::class.java, FADE_IN_ACTIVITY)
-            // finish()
+            goToActivityWithNoPayload(RegistrationActivity::class.java, TRAIL_TO)
+            finish()
         }, {})
     }
 

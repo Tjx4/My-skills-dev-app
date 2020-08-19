@@ -8,6 +8,13 @@ import co.za.dvt.myskilldevapp.constants.ACTIVITY_TRANSITION
 import co.za.dvt.myskilldevapp.constants.PAYLOAD_KEY
 import co.za.dvt.myskilldevapp.models.Transition
 
+val SLIDE_IN_ACTIVITY = getTransitionAnimation(R.anim.slide_right, R.anim.no_transition)
+val SLIDE_OUT_ACTIVITY =  getTransitionAnimation(R.anim.no_transition, R.anim.slide_left)
+val FADE_IN_ACTIVITY = getTransitionAnimation(R.anim.fade_in, R.anim.no_transition)
+val FADE_OUT_ACTIVITY = getTransitionAnimation(R.anim.no_transition, R.anim.fade_out)
+val TRAIL_TO = getTransitionAnimation(R.anim.trail_out, R.anim.trail_in)
+val TRAIL_FROM = getTransitionAnimation(R.anim.trail_in2, R.anim.trail_out2)
+
 fun AppCompatActivity.goToActivityWithNoPayload(activity: Class<*>, transitionAnimation: Transition) {
     goToActivity(activity, transitionAnimation, null)
 }
@@ -28,8 +35,3 @@ private fun getTransitionAnimation(inAnimation: Int, outAnimation: Int): Transit
     transitionProvider.outAnimation = outAnimation
     return transitionProvider
 }
-
-val SLIDE_IN_ACTIVITY = getTransitionAnimation(R.anim.slide_right, R.anim.no_transition)
-val SLIDE_OUT_ACTIVITY =  getTransitionAnimation(R.anim.no_transition, R.anim.slide_left)
-val FADE_IN_ACTIVITY = getTransitionAnimation(R.anim.fade_in, R.anim.no_transition)
-val FADE_OUT_ACTIVITY = getTransitionAnimation(R.anim.no_transition, R.anim.fade_out)
