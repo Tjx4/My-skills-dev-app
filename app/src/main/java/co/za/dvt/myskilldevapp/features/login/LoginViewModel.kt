@@ -20,6 +20,10 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
     var busyMessage: String = "Signing in, please wait.."
     var testMessage: MutableLiveData<String> = MutableLiveData()
 
+
+    var username: MutableLiveData<String> = MutableLiveData()
+    var password: MutableLiveData<String> = MutableLiveData()
+
     init {
         testMessage.value = "Click test button"
     }
@@ -47,7 +51,7 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
 
             delay(1000)
             uiScope.launch {
-                testMessage.value  = "Start cycle"
+                testMessage.value  = "username: ${username.value} / Password: ${password.value}"
             }
 
         }

@@ -2,11 +2,8 @@ package co.za.dvt.myskilldevapp.features.dashboard
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import co.za.dvt.myskilldevapp.R
-import co.za.dvt.myskilldevapp.features.database.MyGameDatabase
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
-import co.za.dvt.myskilldevapp.helpers.getYearMonthDayAndTime
 import co.za.dvt.myskilldevapp.models.CarModel
 import kotlinx.coroutines.*
 

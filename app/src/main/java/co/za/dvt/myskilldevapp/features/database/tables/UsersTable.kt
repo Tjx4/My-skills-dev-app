@@ -19,6 +19,9 @@ data class UsersTable (
     @ColumnInfo(name = "surname")
     var surname:String? = null,
 
+    @ColumnInfo(name = "picUrl")
+    var picUrl:String? = null,
+
     @ColumnInfo(name = "userType")
     var userType:Int = 0
 ): Parcelable

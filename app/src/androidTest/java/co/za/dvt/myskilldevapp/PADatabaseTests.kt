@@ -5,7 +5,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 import co.za.dvt.myskilldevapp.features.database.PADAO
-import co.za.dvt.myskilldevapp.features.database.MyGameDatabase
+import co.za.dvt.myskilldevapp.features.database.PADatabase
 import junit.framework.Assert.assertEquals
 import org.junit.After
 import org.junit.Before
@@ -14,26 +14,26 @@ import org.junit.runner.RunWith
 import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
-class MyGameDatabaseTests{
+class PADatabaseTests{
 
     private lateinit var PADAO: PADAO
-    private lateinit var myGameDatabase: MyGameDatabase
+    private lateinit var PADatabase: PADatabase
 
     @Before
     fun createDB(){
         var context = InstrumentationRegistry.getInstrumentation().targetContext
 
-        myGameDatabase = Room.inMemoryDatabaseBuilder(context, MyGameDatabase::class.java)
+        PADatabase = Room.inMemoryDatabaseBuilder(context, PADatabase::class.java)
                                 .allowMainThreadQueries()
                                 .build()
 
-        PADAO = myGameDatabase.PADAO
+        PADAO = PADatabase.PADAO
     }
 
     @After
     @Throws(IOException::class)
     fun closeDB(){
-        myGameDatabase.close()
+        PADatabase.close()
     }
 
     @Test

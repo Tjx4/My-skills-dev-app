@@ -7,19 +7,19 @@ import androidx.room.RoomDatabase
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 
 @Database(entities = [UsersTable::class], version = 1, exportSchema = false)
-abstract class MyGameDatabase : RoomDatabase() {
+abstract class PADatabase : RoomDatabase() {
     abstract val PADAO: PADAO
 
     companion object{
         @Volatile
-        private var INSTANCE: MyGameDatabase? = null
+        private var INSTANCE: PADatabase? = null
 
-        fun getInstance(context: Context): MyGameDatabase{
+        fun getInstance(context: Context): PADatabase{
             synchronized(this){
                 var instance = INSTANCE
 
                 if(instance == null){
-                    instance = Room.databaseBuilder(context.applicationContext, MyGameDatabase::class.java, "game_stats_database")
+                    instance = Room.databaseBuilder(context.applicationContext, PADatabase::class.java, "pa_database")
                                     .fallbackToDestructiveMigration()
                                     .build()
                     INSTANCE = instance
