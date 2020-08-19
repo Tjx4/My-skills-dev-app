@@ -78,13 +78,13 @@ class LoginActivity : BaseParentActivity()  {
     }
 
     fun onForgotPassUserClicked(view: View){
-        view.blinkView(0.5f, 1.0f, 100, 2, Animation.ABSOLUTE, 0, {
+        view.blinkView(0.6f, 1.0f, 100, 2, Animation.ABSOLUTE, 0, {
             goToActivityWithNoPayload(ForgotPasswordActivity::class.java, SLIDE_IN_ACTIVITY)
         }, {})
     }
 
     fun onRegisterClicked(view: View){
-        view.blinkView(0.5f, 1.0f, 100, 2, Animation.ABSOLUTE, 0, {
+        view.blinkView(0.6f, 1.0f, 100, 2, Animation.ABSOLUTE, 0, {
             goToActivityWithNoPayload(RegistrationActivity::class.java, TRAIL_TO)
             finish()
         }, {})
