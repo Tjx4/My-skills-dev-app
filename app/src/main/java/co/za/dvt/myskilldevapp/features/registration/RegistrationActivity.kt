@@ -1,6 +1,5 @@
 package co.za.dvt.myskilldevapp.features.registration
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders

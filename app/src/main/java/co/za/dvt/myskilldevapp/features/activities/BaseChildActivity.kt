@@ -37,11 +37,9 @@ abstract class BaseChildActivity : BaseActivity() {
             }
         }
 
-        //SLIDE_OUT_ACTIVITY
-        //overridePendingTransition(SLIDE_OUT_ACTIVITY.inAnimation, SLIDE_OUT_ACTIVITY.outAnimation)
+        overridePendingTransition(SLIDE_OUT_ACTIVITY.inAnimation, SLIDE_OUT_ACTIVITY.outAnimation)
         return super.onOptionsItemSelected(item)
     }
-
 
     override fun onBackPressed() {
         super.onBackPressed()

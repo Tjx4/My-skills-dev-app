@@ -51,12 +51,12 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
     }
 
     fun setManualMode() {
-        currentUserMessage.value = "Please enter your details to signIn"
+        currentUserMessage.value = "Please enter your details to continue"
     }
 
     fun preSetUser(lastUser: UsersTable) {
         showPreloadedUser.value = true
-        currentUserMessage.value = "<b>Hi ${lastUser.name}</b>, please enter your details to signIn"
+        currentUserMessage.value = "<b>Hi ${lastUser.name}</b>, please enter your details to continue"
         username.value = lastUser.name
     }
 

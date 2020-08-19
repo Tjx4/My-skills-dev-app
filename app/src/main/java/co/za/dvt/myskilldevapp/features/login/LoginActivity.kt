@@ -22,6 +22,7 @@ import co.za.dvt.myskilldevapp.extensions.*
 import co.za.dvt.myskilldevapp.features.activities.BaseActivity
 import co.za.dvt.myskilldevapp.features.activities.BaseParentActivity
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
+import co.za.dvt.myskilldevapp.features.forgotPassword.ForgotPasswordActivity
 import co.za.dvt.myskilldevapp.features.login.fragments.UsersFragment
 import co.za.dvt.myskilldevapp.features.registration.RegistrationActivity
 import co.za.dvt.myskilldevapp.helpers.hideCurrentLoadingDialog
@@ -70,15 +71,13 @@ class LoginActivity : BaseParentActivity()  {
     }
 
     fun onForgotPassUserClicked(view: View){
-        view.blinkView(0.5f, 1.0f, 200, 2, Animation.ABSOLUTE, 0, {
-            showShortToast("onForgotPassUserClicked", this)
-            // goToActivityWithNoPayload(LoginActivity::class.java, FADE_IN_ACTIVITY)
-            // finish()
+        view.blinkView(0.5f, 1.0f, 100, 2, Animation.ABSOLUTE, 0, {
+            goToActivityWithNoPayload(ForgotPasswordActivity::class.java, SLIDE_IN_ACTIVITY)
         }, {})
     }
 
     fun onRegisterClicked(view: View){
-        view.blinkView(0.5f, 1.0f, 200, 2, Animation.ABSOLUTE, 0, {
+        view.blinkView(0.5f, 1.0f, 100, 2, Animation.ABSOLUTE, 0, {
             goToActivityWithNoPayload(RegistrationActivity::class.java, TRAIL_TO)
             finish()
         }, {})
