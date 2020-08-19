@@ -92,6 +92,7 @@ class UsersFragment : BaseDialogFragment(), UsersAdapter.ItemClickListener {
     override fun onItemClick(view: View, position: Int) {
         var user = users?.get(position)
         if(user != null) loginActivity?.loginViewModel?.preSetUser(user)
+        dismiss()
     }
 
     override fun onDismiss(dialog: DialogInterface?) {
