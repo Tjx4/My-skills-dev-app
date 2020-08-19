@@ -17,11 +17,11 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
     val showContent: MutableLiveData<Boolean>
         get() = _showContent
 
-    var busyMessage: String = "busyMessage"
+    var busyMessage: String = "Signing in, please wait.."
     var testMessage: MutableLiveData<String> = MutableLiveData()
 
     init {
-
+        testMessage.value = "Click test button"
     }
 
     fun testFetchSomethingFromAPI(){
@@ -35,8 +35,17 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
                 _showContent.value = true
             }
 
-            delay(3000)
+            delay(1000)
+            uiScope.launch {
+                testMessage.value  = "Cycle done, restarting in 2secs.."
+            }
 
+            delay(1000)
+            uiScope.launch {
+                testMessage.value  = "Cycle done, restarting in 1secs.."
+            }
+
+            delay(1000)
             uiScope.launch {
                 testMessage.value  = "Start cycle"
             }
