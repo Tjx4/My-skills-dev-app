@@ -21,6 +21,7 @@ import co.za.dvt.myskilldevapp.databinding.ActivityLoginBinding
 import co.za.dvt.myskilldevapp.extensions.*
 import co.za.dvt.myskilldevapp.features.activities.BaseActivity
 import co.za.dvt.myskilldevapp.features.activities.BaseParentActivity
+import co.za.dvt.myskilldevapp.features.dashboard.DashboardActivity
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 import co.za.dvt.myskilldevapp.features.forgotPassword.ForgotPasswordActivity
 import co.za.dvt.myskilldevapp.features.login.fragments.UsersFragment
@@ -59,11 +60,17 @@ class LoginActivity : BaseParentActivity()  {
         loginViewModel.showLoading.observe(this, Observer { toggleShow(it) })
         loginViewModel.showContent.observe(this, Observer { toggleShowContent(it) })
         loginViewModel.showPreloadedUser.observe(this, Observer { toggleShowPreloadedUser(it) })
+        loginViewModel.isLoginSuccessful.observe(this, Observer { isLoginSuccessful(it) })
 
         //Todo: Find out how to do custom control
            txtSignUp.text = HtmlCompat.fromHtml(txtSignUp.text.toString(), 0)
            txtForgotYourUsername.text = HtmlCompat.fromHtml(txtForgotYourUsername.text.toString(), 0)
         //Todo: fix -----------------------------------
+    }
+
+    fun isLoginSuccessful(loginSuccessful: Boolean){
+        goToActivityWithNoPayload(DashboardActivity::class.java, FADE_IN_ACTIVITY)
+        finish()
     }
 
     fun onTestButtonClicked(view: View){

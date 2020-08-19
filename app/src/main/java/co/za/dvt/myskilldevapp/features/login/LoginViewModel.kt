@@ -10,6 +10,10 @@ import kotlinx.coroutines.launch
 class LoginViewModel(application: Application) : BaseVieModel(application) {
     private val loginRepository: LoginRepository = LoginRepository(application)
 
+    private val _isLoginSuccessful: MutableLiveData<Boolean> = MutableLiveData()
+    val isLoginSuccessful: MutableLiveData<Boolean>
+        get() = _isLoginSuccessful
+
     private val _showPreloadedUser: MutableLiveData<Boolean> = MutableLiveData()
     val showPreloadedUser: MutableLiveData<Boolean>
         get() = _showPreloadedUser
@@ -92,6 +96,8 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
                 currentUserMessage.value = "${usersTable.name} you are logged in"
                 _showContent.value = true
                 password.value = ""
+
+                isLoginSuccessful.value = true
             }
 
         }
