@@ -30,6 +30,7 @@ class DashboardActivity : BaseActivity() {
 
         var dataSource = MyGameDatabase.getInstance(application).gameStatsDAO
         var repository = DashboardRepository(dataSource)
+
         var application = requireNotNull(this).application
         var viewModelFactory = DashboardViewModelFactory(repository, application)
 
@@ -38,11 +39,20 @@ class DashboardActivity : BaseActivity() {
         binding.dashboardViewModel = dashboardViewModel
         binding.lifecycleOwner = this
 
+        var ab = supportActionBar
+        ab?.title = "Hi Tshepo"
+
         addObservers()
     }
 
     private fun addObservers() {
         dashboardViewModel.isBusy.observe(this, Observer { toggleIsBusy(it) })
+        dashboardViewModel.availableCars.observe(this, Observer { observeAvailableCars(it) })
+    }
+
+    private fun observeAvailableCars(car: List<CarModel>) {
+
+
     }
 
     private fun toggleIsBusy(isBusy: Boolean) {
