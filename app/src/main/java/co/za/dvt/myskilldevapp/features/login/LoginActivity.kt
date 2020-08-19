@@ -10,6 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.databinding.ActivityLoginBinding
+import co.za.dvt.myskilldevapp.extensions.FADE_IN_ACTIVITY
+import co.za.dvt.myskilldevapp.extensions.goToActivityWithNoPayload
 import co.za.dvt.myskilldevapp.features.activities.BaseActivity
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 import co.za.dvt.myskilldevapp.features.login.fragments.UsersFragment
@@ -37,8 +39,10 @@ class LoginActivity : BaseActivity()  {
 
         addObservers()
 
-        supportActionBar?.title = "Sign in"
-        supportActionBar?.setIcon(R.drawable.ic_pa_light)
+        supportActionBar?.title = "LOGIN"
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        // supportActionBar?.setDefaultDisplayHomeAsUpEnabled(true)
+        // supportActionBar?.setIcon(R.drawable.ic_pa_light)
     }
 
     private fun addObservers() {
@@ -72,12 +76,10 @@ class LoginActivity : BaseActivity()  {
 
     private fun showManualLogin() {
         txtUsername.visibility = View.VISIBLE
-        llUsername.visibility = View.GONE
     }
 
     private fun showSelectedUserLogin() {
         txtUsername.visibility = View.GONE
-        llUsername.visibility = View.VISIBLE
     }
 
     private fun showPreviousUserList() {
@@ -90,6 +92,10 @@ class LoginActivity : BaseActivity()  {
         when (item.itemId) {
             R.id.action_manual_login -> showManualLogin()
             R.id.action_select_user -> showPreviousUserList()
+            R.id.action_register -> {
+                goToActivityWithNoPayload(LoginActivity::class.java, FADE_IN_ACTIVITY)
+                finish()
+            }
         }
 
         return super.onOptionsItemSelected(item)

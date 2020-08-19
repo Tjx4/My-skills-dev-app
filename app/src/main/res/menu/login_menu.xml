@@ -20,6 +20,12 @@
             android:title="Select user"
             app:showAsAction="never"/>
 
+    <item
+            android:id="@+id/action_register"
+            android:icon="@drawable/ic_select_register_light"
+            android:title="Register"
+            app:showAsAction="never"/>
+
 </menu>
 
 

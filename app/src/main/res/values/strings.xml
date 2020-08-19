@@ -36,4 +36,6 @@
     <string name="stats_history">Stats history</string>
     <string name="time_out">Time out</string>
     <string name="select_user">Select user</string>
+    <string name="signup_text"><![CDATA[Not yet a Host <b>Sign Up Here</b>]]></string>
+    <string name="forgot_password_text">Forgot your Username/Password?</string>
 </resources>

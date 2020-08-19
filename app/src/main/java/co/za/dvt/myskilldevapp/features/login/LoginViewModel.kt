@@ -27,7 +27,6 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
         get() = _previousUsers
 
     var busyMessage: String = "Signing in, please wait.."
-    var testMessage: MutableLiveData<String> = MutableLiveData()
 
     var username: MutableLiveData<String> = MutableLiveData()
     var password: MutableLiveData<String> = MutableLiveData()
@@ -35,26 +34,27 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
     var currentUserMessage: MutableLiveData<String> = MutableLiveData()
 
     init {
-        testMessage.value = "To access your account, please enter your details "
+        currentUserMessage.value = "Please enter your details to signIn"
+        checkAndPresetUser()
+    }
 
+    private fun checkAndPresetUser() {
         ioScope.launch {
             var lastUser = loginRepository.getLastUser()
 
             uiScope.launch {
-                if(lastUser != null){
+                if (lastUser != null) {
                     preSetUser(lastUser)
                 }
             }
         }
-
     }
 
     fun preSetUser(lastUser: UsersTable) {
         showPreloadedUser.value = true
-        currentUserMessage.value = "Hi ${lastUser.name}"
+        currentUserMessage.value = "<b>Hi ${lastUser.name}</b>, please enter your details to signIn"
         username.value = lastUser.name
     }
-
 
     suspend fun getUsers() = loginRepository.getAllUsers()
 
@@ -76,33 +76,17 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
         ioScope.launch {
             delay(3000)
 
-            uiScope.launch {
-                testMessage.value  = "Cycle done, restarting in 3secs.."
-                _showContent.value = true
-            }
-
-            delay(1000)
-            uiScope.launch {
-                testMessage.value  = "Cycle done, restarting in 2secs.."
-            }
-
-            delay(1000)
-            uiScope.launch {
-                testMessage.value  = "Cycle done, restarting in 1secs.."
-            }
-
-            delay(1000)
-
             var usersTable = UsersTable()
             usersTable.name = username.value
             usersTable.surname = password.value
             usersTable.picUrl = "http//"
-            loginRepository.addUserToDb(usersTable)
+
+            // Todo: Move to after succesfull signin
+           // loginRepository.addUserToDb(usersTable)
 
             uiScope.launch {
-                testMessage.value = "username: ${username.value} / Password: ${password.value}"
+                _showContent.value = true
                 password.value = ""
-
             }
 
         }
