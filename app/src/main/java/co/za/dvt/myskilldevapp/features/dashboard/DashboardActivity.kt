@@ -48,8 +48,8 @@ class DashboardActivity : BaseActivity() {
     }
 
     private fun toggleShow(isBusy: Boolean) {
-        showLoadingDialog(dashboardViewModel.busyMessage, this)
         clCParent.visibility = View.INVISIBLE
+        showLoadingDialog(dashboardViewModel.busyMessage, this)
     }
 
     private fun toggleShowContent(showContent: Boolean) {

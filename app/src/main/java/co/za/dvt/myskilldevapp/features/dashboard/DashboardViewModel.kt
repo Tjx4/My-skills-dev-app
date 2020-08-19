@@ -38,7 +38,7 @@ class DashboardViewModel(application: Application) : BaseVieModel(application) {
         _showLoading.value = true
 
         ioScope.launch {
-           delay(2000)
+           delay(3000)
 
             uiScope.launch {
 
