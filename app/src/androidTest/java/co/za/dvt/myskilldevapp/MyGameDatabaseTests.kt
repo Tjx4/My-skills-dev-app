@@ -40,12 +40,12 @@ class MyGameDatabaseTests{
     @Throws(Exception::class)
     fun insertAndGetGameStats(){
         var gameStats = UsersTable()
-        gameStats.gameId = 404594
+        gameStats.id = 404594
 
         PADAO.insert(gameStats)
-        val currentGameStats = PADAO.get(gameStats.gameId)
+        val currentGameStats = PADAO.get(gameStats.id)
 
-        assertEquals(currentGameStats.gameId, gameStats.gameId)
+        assertEquals(currentGameStats.id, gameStats.id)
     }
 
 }
