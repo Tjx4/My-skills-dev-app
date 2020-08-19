@@ -2,12 +2,17 @@ package co.za.dvt.myskilldevapp.features.login
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
+import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class LoginViewModel(application: Application) : BaseVieModel(application) {
     private val loginRepository: LoginRepository = LoginRepository(application)
+
+    private val _showPreloadedUser: MutableLiveData<Boolean> = MutableLiveData()
+    val showPreloadedUser: MutableLiveData<Boolean>
+        get() = _showPreloadedUser
 
     private val _showLoading: MutableLiveData<Boolean> = MutableLiveData()
     val showLoading: MutableLiveData<Boolean>
@@ -20,12 +25,25 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
     var busyMessage: String = "Signing in, please wait.."
     var testMessage: MutableLiveData<String> = MutableLiveData()
 
-
     var username: MutableLiveData<String> = MutableLiveData()
     var password: MutableLiveData<String> = MutableLiveData()
 
+    var currentUserMessage: MutableLiveData<String> = MutableLiveData()
+
     init {
-        testMessage.value = "Click test button"
+        testMessage.value = "Enter your details to access your account"
+
+        ioScope.launch {
+            var lastUser = loginRepository.getLastUser()
+
+            uiScope.launch {
+                if(lastUser != null){
+                    showPreloadedUser.value = true
+                    currentUserMessage.value = "Hi ${lastUser.name}"
+                }
+            }
+        }
+
     }
 
     fun testFetchSomethingFromAPI(){
@@ -50,12 +68,22 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
             }
 
             delay(1000)
+
+            var usersTable = UsersTable()
+            usersTable.name = username.value
+            usersTable.surname = password.value
+            usersTable.picUrl = "http//"
+            loginRepository.addUserToDb(usersTable)
+
             uiScope.launch {
-                testMessage.value  = "username: ${username.value} / Password: ${password.value}"
+                testMessage.value = "username: ${username.value} / Password: ${password.value}"
+                password.value = ""
+
             }
 
         }
 
     }
+
 
 }

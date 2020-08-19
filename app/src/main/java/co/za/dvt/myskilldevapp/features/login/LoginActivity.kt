@@ -18,6 +18,8 @@ import co.za.dvt.myskilldevapp.features.dashboard.DashboardViewModelFactory
 import co.za.dvt.myskilldevapp.helpers.hideCurrentLoadingDialog
 import co.za.dvt.myskilldevapp.helpers.showLoadingDialog
 import kotlinx.android.synthetic.main.activity_dashboard.*
+import kotlinx.android.synthetic.main.activity_dashboard.clCParent
+import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity()  {
 
@@ -43,6 +45,7 @@ class LoginActivity : BaseActivity()  {
     private fun addObservers() {
         loginViewModel.showLoading.observe(this, Observer { toggleShow(it) })
         loginViewModel.showContent.observe(this, Observer { toggleShowContent(it) })
+        loginViewModel.showPreloadedUser.observe(this, Observer { toggleShowPreloadedUser(it) })
     }
 
     public fun onTestButtonClicked(view: View){
@@ -59,10 +62,19 @@ class LoginActivity : BaseActivity()  {
         clCParent.visibility = View.VISIBLE
     }
 
+    private fun toggleShowPreloadedUser(showPreloadedUser: Boolean) {
+        txtUsername.visibility = View.GONE
+        llUsername.visibility = View.VISIBLE
+    }
+
+    private fun showManualLogin() {
+        txtUsername.visibility = View.VISIBLE
+        llUsername.visibility = View.GONE
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            // R.id.action_history -> onShowStatsHistoryClicked()
+            R.id.action_manual_login -> showManualLogin()
         }
 
         return super.onOptionsItemSelected(item)

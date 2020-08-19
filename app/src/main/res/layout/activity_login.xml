@@ -27,40 +27,66 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                 android:layout_marginTop="@dimen/large__margin"
                 app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-                android:id="@+id/txtUsername"
+        <LinearLayout
+                android:id="@+id/llUsernameContainer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:background="#fff"
-                android:padding="@dimen/small_padding"
-                android:hint="Enter username"
-                android:text="@={loginViewModel.username}"
+                android:orientation="vertical"
                 app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
                 app:layout_constraintRight_toRightOf="@+id/btnSignIn"
                 android:layout_marginTop="@dimen/medium__margin"
-                app:layout_constraintTop_toBottomOf="@+id/txtTest" />
+                app:layout_constraintTop_toBottomOf="@+id/txtTest">
+
+            <EditText
+                    android:id="@+id/txtUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:background="#fff"
+                    android:padding="@dimen/small_padding"
+                    android:hint="Enter username"
+                    android:text="@={loginViewModel.username}"
+                    android:layout_marginBottom="@dimen/large__margin" />
+
+            <LinearLayout
+                    android:id="@+id/llUsername"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/small_margin" >
+
+                <TextView
+                        android:id="@+id/txtCurrentUser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Hi User"
+                        android:text="@{loginViewModel.currentUserMessage}"
+                        android:textColor="#fff"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
 
         <EditText
                 android:id="@+id/txtPassword"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="textPassword"
                 android:background="#fff"
                 android:padding="@dimen/small_padding"
                 android:hint="Enter password"
                 android:text="@={loginViewModel.password}"
                 app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
                 app:layout_constraintRight_toRightOf="@+id/btnSignIn"
-                android:layout_marginTop="@dimen/large__margin"
-                app:layout_constraintTop_toBottomOf="@+id/txtUsername" />
+                app:layout_constraintTop_toBottomOf="@+id/llUsernameContainer" />
 
         <Button
                 android:id="@+id/btnSignIn"
                 android:layout_width="300dp"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 android:onClick="onTestButtonClicked"
                 android:text="Sign in"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -68,7 +94,6 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginTop="@dimen/large__margin"
                 app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
