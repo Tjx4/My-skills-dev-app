@@ -42,16 +42,23 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
 
             uiScope.launch {
                 if(lastUser != null){
-                    showPreloadedUser.value = true
-                    currentUserMessage.value = "Hi ${lastUser.name}"
-                    username.value = lastUser.name
+                    preSetUser(lastUser)
                 }
             }
         }
 
     }
 
-    fun showPreviousUsers(){
+    fun preSetUser(lastUser: UsersTable) {
+        showPreloadedUser.value = true
+        currentUserMessage.value = "Hi ${lastUser.name}"
+        username.value = lastUser.name
+    }
+
+
+    suspend fun getUsers() = loginRepository.getAllUsers()
+
+    fun getPreviousUsers(){
         ioScope.launch {
             var allUsers = loginRepository.getAllUsers()
 

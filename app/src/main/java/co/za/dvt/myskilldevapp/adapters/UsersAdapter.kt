@@ -7,42 +7,31 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import co.za.dvt.myskilldevapp.R
-import co.za.dvt.myskilldevapp.features.dashboard.DashboardActivity
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
+import co.za.dvt.myskilldevapp.features.login.LoginActivity
 
 class UsersAdapter(context: Context, private val users: List<UsersTable>) : RecyclerView.Adapter<UsersAdapter.ViewHolder>() {
 
-    private val dashboardActivity: DashboardActivity
-    private val layoutInflater: LayoutInflater
+    private val loginActivity: LoginActivity = context as LoginActivity
+    private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
     private var itemClickListener: ItemClickListener? = null
 
-    init {
-        layoutInflater = LayoutInflater.from(context)
-        dashboardActivity = context as DashboardActivity
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = layoutInflater.inflate(R.layout.stats_layout, parent, false)
+        val view = layoutInflater.inflate(R.layout.previous_user_layout, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user = users[position]
-        holder.gameStartTimeTv.text = user.name
+        holder.nameTv.text = user.name
     }
 
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
-        internal var gameStartTimeTv: TextView
-        internal var gameTriesTv: TextView
-        internal var gameJackpotPriceTv: TextView
-        internal var gameEndTimeTv: TextView
+        internal var nameTv: TextView
 
         init {
-            gameStartTimeTv = itemView.findViewById(R.id.tvGameStartTime)
-            gameTriesTv = itemView.findViewById(R.id.tvGameTries)
-            gameJackpotPriceTv = itemView.findViewById(R.id.tvGameJackpotPrice)
-            gameEndTimeTv = itemView.findViewById(R.id.tvGameEndTime)
+            nameTv = itemView.findViewById(R.id.tvUserName)
             itemView.setOnClickListener(this)
         }
 

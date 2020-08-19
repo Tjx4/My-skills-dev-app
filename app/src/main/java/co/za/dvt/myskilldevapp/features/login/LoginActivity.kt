@@ -1,6 +1,5 @@
 package co.za.dvt.myskilldevapp.features.login
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.Menu
@@ -10,16 +9,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import co.za.dvt.myskilldevapp.R
-import co.za.dvt.myskilldevapp.databinding.ActivityDashboardBinding
 import co.za.dvt.myskilldevapp.databinding.ActivityLoginBinding
 import co.za.dvt.myskilldevapp.features.activities.BaseActivity
-import co.za.dvt.myskilldevapp.features.dashboard.DashboardViewModel
-import co.za.dvt.myskilldevapp.features.dashboard.DashboardViewModelFactory
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
+import co.za.dvt.myskilldevapp.features.login.fragments.UsersFragment
 import co.za.dvt.myskilldevapp.helpers.hideCurrentLoadingDialog
+import co.za.dvt.myskilldevapp.helpers.showDialogFragment
 import co.za.dvt.myskilldevapp.helpers.showLoadingDialog
-import co.za.dvt.myskilldevapp.helpers.showShortToast
-import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.activity_dashboard.clCParent
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -67,8 +63,7 @@ class LoginActivity : BaseActivity()  {
     }
 
     private fun toggleShowUsersList(previousUsers: List<UsersTable>) {
-        // _previousUsers
-
+        // Todo: Remove or use if users not loaded from frament
     }
 
     private fun toggleShowPreloadedUser(showPreloadedUser: Boolean) {
@@ -86,8 +81,9 @@ class LoginActivity : BaseActivity()  {
     }
 
     private fun showPreviousUserList() {
-        // showShortToast("showPreviousUserList", this)
-        loginViewModel.showPreviousUsers()
+        var usersFragment = UsersFragment.newInstance()
+        usersFragment.isCancelable = true
+        showDialogFragment(getString(R.string.stats_history), R.layout.fragment_users, usersFragment, this)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -18,9 +18,10 @@
             style="@style/MediumPlusTextView"
             android:layout_marginTop="@dimen/medium__margin"
             android:layout_marginBottom="@dimen/medium__margin"
-            tools:text="Game history" />
+            tools:text="Select user" />
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/llHeadingContaine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,7 +33,7 @@
             android:layout_alignParentRight="true">
 
             <TextView
-                android:id="@+id/tvGameStartTime"
+                android:id="@+id/tvUserName"
                 style="@style/SmallDarkTextView"
                 android:layout_weight="1"
                 android:text="Start time"

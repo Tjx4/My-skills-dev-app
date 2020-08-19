@@ -8,27 +8,16 @@
     android:background="@color/lighterBackground">
 
     <TextView
-        android:id="@+id/tvGameStartTime"
-        style="@style/XsmallDarkTextView"
-        tools:text="Start time"
-        android:layout_weight="1"/>
-
-    <TextView
-        android:id="@+id/tvGameTries"
-        style="@style/XsmallDarkTextView"
-        tools:text="Tries"
-        android:layout_weight="1"/>
-
-    <TextView
-        android:id="@+id/tvGameJackpotPrice"
-        style="@style/XsmallDarkTextView"
-        tools:text="Jackpot price"
+        android:id="@+id/tvUserName"
+        style="@style/SmallDarkTextView"
+        android:gravity="left"
+        tools:text="User"
         android:layout_weight="1"/>
 
     <TextView
         android:id="@+id/tvGameEndTime"
         style="@style/XsmallDarkTextView"
-        tools:text="End time"
+        tools:text="User type"
         android:layout_weight="1"/>
 
 </LinearLayout>

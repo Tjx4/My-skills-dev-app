@@ -16,6 +16,7 @@ import co.za.dvt.myskilldevapp.constants.TITLE
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardActivity
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 import co.za.dvt.myskilldevapp.features.fragments.BaseDialogFragment
+import co.za.dvt.myskilldevapp.features.login.LoginActivity
 import com.wang.avi.AVLoadingIndicatorView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +24,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class UsersFragment : BaseDialogFragment(), UsersAdapter.ItemClickListener {
-    private var dashboardActivity: DashboardActivity? = null
+    private var loginActivity: LoginActivity? = null
     private var parentRl: RelativeLayout? = null
     private var avlProgressBarLoading: AVLoadingIndicatorView? = null
     private var titleTv: TextView? = null
@@ -51,7 +52,7 @@ class UsersFragment : BaseDialogFragment(), UsersAdapter.ItemClickListener {
         showLoading()
 
         ioScope.launch {
-            users = dashboardActivity?.dashboardViewModel?.getUserInfo()
+            users = loginActivity?.loginViewModel?.getUsers()
 
             uiScope.launch {
 
@@ -63,11 +64,11 @@ class UsersFragment : BaseDialogFragment(), UsersAdapter.ItemClickListener {
                     return@launch
                 }
 
-                val statsAdapterAdapter = UsersAdapter(dashboardActivity as Context, users as java.util.ArrayList<UsersTable>)
+                val statsAdapterAdapter = UsersAdapter(loginActivity as Context, users as java.util.ArrayList<UsersTable>)
                 statsAdapterAdapter.setClickListener(statsAdapter)
 
                 usersRv = parentView.findViewById(R.id.rvUsers)
-                usersRv?.layoutManager = LinearLayoutManager(dashboardActivity)
+                usersRv?.layoutManager = LinearLayoutManager(loginActivity)
                 usersRv?.adapter = statsAdapterAdapter
             }
         }
@@ -75,7 +76,7 @@ class UsersFragment : BaseDialogFragment(), UsersAdapter.ItemClickListener {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        dashboardActivity = context as DashboardActivity
+        loginActivity = context as LoginActivity
     }
 
     fun showLoading() {
@@ -88,7 +89,10 @@ class UsersFragment : BaseDialogFragment(), UsersAdapter.ItemClickListener {
         avlProgressBarLoading?.visibility = View.INVISIBLE
     }
 
-    override fun onItemClick(view: View, position: Int) {}
+    override fun onItemClick(view: View, position: Int) {
+        var user = users?.get(position)
+        if(user != null) loginActivity?.loginViewModel?.preSetUser(user)
+    }
 
     override fun onDismiss(dialog: DialogInterface?) {
         super.onDismiss(dialog)
@@ -97,9 +101,9 @@ class UsersFragment : BaseDialogFragment(), UsersAdapter.ItemClickListener {
 
     companion object {
         fun newInstance(): BaseDialogFragment {
-            val statsHistoryFragment = UsersFragment()
-            statsHistoryFragment.arguments = Bundle()
-            return statsHistoryFragment
+            val usersFragment = UsersFragment()
+            usersFragment.arguments = Bundle()
+            return usersFragment
         }
     }
 }
