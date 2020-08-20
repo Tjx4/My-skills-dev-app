@@ -9,11 +9,124 @@
                 type="co.za.dvt.myskilldevapp.features.registration.RegistrationViewModel"/>
     </data>
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/main_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="features.registration.RegistrationActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appbar"
+                android:layout_margin="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:elevation="0dp">
+
+            <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/pagerToolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/slide_toolbar_height"
+                    app:title="Title 2"
+                    android:background="@color/colorPrimary"
+                    app:titleTextColor="@color/lightText"
+                    app:layout_scrollFlags="scroll|enterAlways"/>
+
+            <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tbStages"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/colorPrimary"
+                    app:tabTextColor="@color/lighterBackground"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:tabIndicatorColor="@color/blueText"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            <RelativeLayout
+                    android:visibility="visible"
+                    android:id="@+id/detailsBar"
+                    android:layout_margin="0dp"
+                    android:background="@color/colorPrimary"
+                    android:padding="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:id="@+id/txtStageDescription"
+                        style="@style/MediumLightTextView"
+                        android:textStyle="bold"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:gravity="center"
+                        android:layout_toLeftOf="@+id/txtStageDescription2"
+                        android:text="Description"/>
+
+                <TextView
+                        android:id="@+id/txtStageDescription2"
+                        style="@style/MediumLightTextView"
+                        android:textStyle="bold"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_width="wrap_content"
+                        android:text=""/>
+
+            </RelativeLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vpRegistrationSteps"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:padding="0dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+        <LinearLayout
+                android:id="@+id/trackBar"
+                android:layout_gravity="end|bottom"
+                android:orientation="horizontal"
+                android:layout_margin="0dp"
+                android:padding="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+
+            <Button
+                    android:id="@+id/btnRegPrev"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#333"
+                    android:textColor="@color/lightText"
+                    android:text="Back"
+                    android:onClick="onPrevButtonClicked"
+                    android:layout_weight="1"/>
+
+            <Button
+                    android:id="@+id/btnRegNext"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#333"
+                    android:textColor="@color/lightText"
+                    android:text="Next"
+                    android:onClick="onNextButtonClicked"
+                    android:layout_weight="1"/>
+
+        </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+<!--
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clCParent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".features.login.LoginActivity"
+            android:padding="@dimen/small_padding"
             android:animateLayoutChanges="true">
 
         <com.google.android.material.tabs.TabLayout
@@ -40,4 +153,6 @@
                 android:onClick="onNextButtonClicked"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+-->
+
 </layout>

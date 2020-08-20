@@ -17,7 +17,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".features.login.LoginActivity" />
         </activity>
-        <activity android:name=".features.registration.RegistrationActivity" />
+        <activity android:name=".features.registration.RegistrationActivity"
+                android:theme="@style/NoActionBarTheme" />
         <activity android:name=".features.login.LoginActivity" />
         <activity
                 android:name=".features.splashscreen.SplashActivity"

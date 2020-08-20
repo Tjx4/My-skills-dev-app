@@ -23,12 +23,13 @@ class RegistrationStep1Fragment : BaseFragment() {
     }
 
     companion object {
-        fun newInstance(title: String): BaseFragment {
+        fun newInstance(title: String, description: String): BaseFragment {
             val registrationStep1Fragment = RegistrationStep1Fragment()
             var payload = Bundle()
             //payload.putString(TITLE, title)
             registrationStep1Fragment.arguments = payload
             registrationStep1Fragment.title = title
+            registrationStep1Fragment.description = description
             return registrationStep1Fragment
         }
     }
