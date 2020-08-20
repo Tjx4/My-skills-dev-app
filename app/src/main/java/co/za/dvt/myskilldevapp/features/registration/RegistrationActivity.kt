@@ -1,6 +1,5 @@
 package co.za.dvt.myskilldevapp.features.registration
 
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
@@ -9,14 +8,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager2.widget.ViewPager2
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.adapters.RegistrationViewpagerAdapter
-import co.za.dvt.myskilldevapp.animations.DepthPageTransformer
-import co.za.dvt.myskilldevapp.animations.ZoomOutPageTransformer
 import co.za.dvt.myskilldevapp.databinding.ActivityRegistrationBinding
-import co.za.dvt.myskilldevapp.extensions.TRAIL_TO
 import co.za.dvt.myskilldevapp.extensions.blinkView
-import co.za.dvt.myskilldevapp.extensions.goToActivityWithNoPayload
 import co.za.dvt.myskilldevapp.features.activities.BaseParentActivity
-import co.za.dvt.myskilldevapp.features.base.BaseFragment
+import co.za.dvt.myskilldevapp.features.base.BaseRegistrationFragment
 import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationStep1Fragment
 import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationStep2Fragment
 import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationStep3Fragment
@@ -51,7 +46,7 @@ class RegistrationActivity : BaseParentActivity() {
     }
 
     private fun initPager() {
-        var fragments = listOf<BaseFragment>(
+        var fragments = listOf<BaseRegistrationFragment>(
             RegistrationStep1Fragment.newInstance("Step 1", "Please choose a user type"),
             RegistrationStep2Fragment.newInstance("Step 2", "Please enter your basic details"),
             RegistrationStep3Fragment.newInstance("Step 3", "Finalize your details")
