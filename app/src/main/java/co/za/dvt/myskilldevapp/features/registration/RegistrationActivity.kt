@@ -19,6 +19,7 @@ import co.za.dvt.myskilldevapp.features.activities.BaseParentActivity
 import co.za.dvt.myskilldevapp.features.base.BaseFragment
 import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationStep1Fragment
 import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationStep2Fragment
+import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationStep3Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_registration.*
 
@@ -52,17 +53,23 @@ class RegistrationActivity : BaseParentActivity() {
     private fun initPager() {
         var fragments = listOf<BaseFragment>(
             RegistrationStep1Fragment.newInstance("Step 1", "Please choose a user type"),
-            RegistrationStep2Fragment.newInstance("Step 2", "Please enter your basic details")
+            RegistrationStep2Fragment.newInstance("Step 2", "Please enter your basic details"),
+            RegistrationStep3Fragment.newInstance("Step 3", "Finalize your details")
         )
 
         var regVpAdapter = RegistrationViewpagerAdapter(fragments, this)
         vpRegistrationSteps.adapter  = regVpAdapter
         //vpRegistrationSteps.orientation = ViewPager2.ORIENTATION_VERTICAL
-        vpRegistrationSteps.setPageTransformer(ZoomOutPageTransformer())
+        //vpRegistrationSteps.setPageTransformer(ZoomOutPageTransformer())
+        vpRegistrationSteps.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                txtStageDescription.text = fragments[position].description
+            }
+        })
 
         TabLayoutMediator(tbStages, vpRegistrationSteps) {  tab, position ->
             tab.text = fragments[position].title
-            txtStageDescription.text = fragments[position].description
         }.attach()
     }
 
