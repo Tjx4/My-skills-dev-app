@@ -12,7 +12,7 @@ import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.databinding.ActivityDashboardBinding
 import co.za.dvt.myskilldevapp.features.activities.BaseActivity
 import co.za.dvt.myskilldevapp.helpers.*
-import co.za.dvt.myskilldevapp.models.CarModel
+import co.za.dvt.myskilldevapp.models.HostModel
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
 class DashboardActivity : BaseActivity() {
@@ -57,7 +57,7 @@ class DashboardActivity : BaseActivity() {
         clCParent.visibility = View.VISIBLE
     }
 
-    private fun observeAvailableCars(car: List<CarModel>) {
+    private fun observeAvailableCars(host: List<HostModel>) {
 
     }
 

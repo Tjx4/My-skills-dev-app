@@ -85,6 +85,7 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
         <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/trackBar"
                 android:layout_gravity="end|bottom"
                 android:orientation="horizontal"
@@ -120,40 +121,5 @@
         </LinearLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-<!--
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clCParent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".features.login.LoginActivity"
-            android:padding="@dimen/small_padding"
-            android:animateLayoutChanges="true">
-
-        <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tbStages"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                app:tabTextColor="@color/lighterBackground"
-                app:tabIndicatorColor="@color/blueText"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-        <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/vpRegistrationSteps"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintTop_toBottomOf="@+id/tbStages"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Next"
-                android:layout_margin="@dimen/small_margin"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:onClick="onNextButtonClicked"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
--->
 
 </layout>

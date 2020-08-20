@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class RoundModel (
-    @SerializedName("user") var user: String? = null,
-    @SerializedName("luckyNumber") var luckyNumber: Int = 0
+open class UserModel (
+    @SerializedName("id") open var id: Int = 0,
+    @SerializedName("name") open var name: String? = null
 ): Parcelable

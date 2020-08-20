@@ -18,7 +18,7 @@ class RegistrationStep2Fragment : BaseRegistrationFragment() {
     override fun setMenuVisibility(menuVisible: Boolean) {
         super.setMenuVisibility(menuVisible)
         if (menuVisible) {
-            showShortToast("RegistrationStep2Fragment", registrationActivity!!)
+
         }
     }
 

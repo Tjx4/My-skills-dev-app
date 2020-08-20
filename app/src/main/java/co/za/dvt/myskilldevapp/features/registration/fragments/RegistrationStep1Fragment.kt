@@ -11,9 +11,8 @@ import co.za.dvt.myskilldevapp.adapters.UserTypeAdapter
 import co.za.dvt.myskilldevapp.enums.UserTypes
 import co.za.dvt.myskilldevapp.features.base.BaseRegistrationFragment
 import co.za.dvt.myskilldevapp.helpers.showShortToast
-import kotlinx.android.synthetic.main.fragment_registration_step1.*
 
-class RegistrationStep1Fragment : BaseRegistrationFragment(), UserTypeAdapter.ItemClickListener {
+class RegistrationStep1Fragment : BaseRegistrationFragment(), UserTypeAdapter.UserTypeClickListener {
 
     var userTypesRv: RecyclerView? = null
 
@@ -31,12 +30,13 @@ class RegistrationStep1Fragment : BaseRegistrationFragment(), UserTypeAdapter.It
     override fun setMenuVisibility(menuVisible: Boolean) {
         super.setMenuVisibility(menuVisible)
         if (menuVisible) {
-            showShortToast("RegistrationStep1Fragment", registrationActivity!!)
+
         }
     }
 
     fun initViews(parentView: View) {
         var userTypeAdapter = UserTypeAdapter(registrationActivity!!)
+        userTypeAdapter.setClickListener(this)
 
         userTypesRv = parentView.findViewById(R.id.rvUserTypes)
         userTypesRv?.adapter = userTypeAdapter
@@ -60,6 +60,7 @@ class RegistrationStep1Fragment : BaseRegistrationFragment(), UserTypeAdapter.It
     }
 
     override fun onItemClick(view: View, position: Int) {
-
+        val userType = UserTypes.values()[position]
+        registrationActivity?.registrationViewModel?.setUserType(userType)
     }
 }

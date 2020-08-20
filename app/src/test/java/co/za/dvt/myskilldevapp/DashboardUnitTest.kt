@@ -6,8 +6,8 @@ import co.za.dvt.myskilldevapp.constants.USER
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardRepository
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardViewModel
 import co.za.dvt.myskilldevapp.features.database.PADAO
-import co.za.dvt.myskilldevapp.models.CarModel
-import co.za.dvt.myskilldevapp.models.RoundModel
+import co.za.dvt.myskilldevapp.models.HostModel
+import co.za.dvt.myskilldevapp.models.UserModel
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
@@ -47,9 +47,9 @@ class DashboardUnitTest {
         val payload = HashMap<String, String>()
         payload[USER] = user
 
-       whenever(repository.fetchLuckyNumber(token, payload)).thenReturn(RoundModel(user,2))
+       whenever(repository.fetchLuckyNumber(token, payload)).thenReturn(UserModel(user,2))
        val actual =  dashboardViewModel?.getLuckNumber(token, payload)?.luckyNumber
-       val expected = RoundModel(user,2).luckyNumber
+       val expected = UserModel(user,2).luckyNumber
 
        assertEquals(actual, expected)
     }
@@ -57,11 +57,11 @@ class DashboardUnitTest {
     @Test
     fun `test fetch jackport car prices`()   {
         runBlocking {
-            val car = CarModel()
+            val car = HostModel()
             car.brand = "Test brand"
             car.model = "Test model"
 
-            val cars = ArrayList<CarModel>()
+            val cars = ArrayList<HostModel>()
             cars.add(car)
 
             whenever(repository.fetchAvailableCars()).thenReturn(cars)

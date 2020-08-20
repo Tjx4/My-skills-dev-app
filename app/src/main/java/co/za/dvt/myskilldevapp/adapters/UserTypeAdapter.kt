@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import co.za.dvt.myskilldevapp.R
@@ -14,7 +14,7 @@ class UserTypeAdapter(context: Context) : RecyclerView.Adapter<UserTypeAdapter.V
 
     private val userTypes = UserTypes.values()
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
-    private var itemClickListener: ItemClickListener? = null
+    private var userTypeClickListener: UserTypeClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = layoutInflater.inflate(R.layout.user_type_layout, parent, false)
@@ -30,17 +30,16 @@ class UserTypeAdapter(context: Context) : RecyclerView.Adapter<UserTypeAdapter.V
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         internal var nameTv: TextView
-        internal var iconImgB: ImageButton
+        internal var iconImgB: ImageView
 
         init {
             nameTv = itemView.findViewById(R.id.tvUserType)
-            iconImgB = itemView.findViewById(R.id.imgbUserType)
+            iconImgB = itemView.findViewById(R.id.imgUserType)
             itemView.setOnClickListener(this)
         }
 
         override fun onClick(view: View) {
-            if (itemClickListener != null)
-                itemClickListener!!.onItemClick(view, adapterPosition)
+            userTypeClickListener?.onItemClick(view, adapterPosition)
         }
     }
 
@@ -48,11 +47,11 @@ class UserTypeAdapter(context: Context) : RecyclerView.Adapter<UserTypeAdapter.V
         return userTypes[id]
     }
 
-    fun setClickListener(itemClickListener: ItemClickListener) {
-        this.itemClickListener = itemClickListener
+    fun setClickListener(userTypeClickListener: UserTypeClickListener) {
+        this.userTypeClickListener = userTypeClickListener
     }
 
-    interface ItemClickListener {
+    interface UserTypeClickListener {
         fun onItemClick(view: View, position: Int)
     }
 

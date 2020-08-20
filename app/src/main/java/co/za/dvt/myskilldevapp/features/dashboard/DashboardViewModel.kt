@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
-import co.za.dvt.myskilldevapp.models.CarModel
+import co.za.dvt.myskilldevapp.models.HostModel
 import kotlinx.coroutines.*
 
 class DashboardViewModel(application: Application) : BaseVieModel(application) {
@@ -22,13 +22,13 @@ class DashboardViewModel(application: Application) : BaseVieModel(application) {
     var busyMessage: String = ""
     var testMessage: MutableLiveData<String> = MutableLiveData()
 
-    private val _availableCars: MutableLiveData<List<CarModel>> = MutableLiveData()
-    val availableCars: MutableLiveData<List<CarModel>>
+    private val _availableCars: MutableLiveData<List<HostModel>> = MutableLiveData()
+    val availableCars: MutableLiveData<List<HostModel>>
     get() = _availableCars
 
     init {
         testMessage.value = "Please click the test button "
-        _availableCars.value = ArrayList<CarModel>()
+        _availableCars.value = ArrayList<HostModel>()
     }
 
     fun testFetchSomethingFromAPI(){
