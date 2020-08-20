@@ -14,43 +14,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/small_padding"
-            android:background="@color/darkBackground"
             android:animateLayoutChanges="true">
 
-        <TextView
-                android:id="@+id/txtTest"
-                style="@style/largeBlueTextView"
-                android:layout_width="match_parent"
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvUserTypes"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Step 1"
-                android:gravity="top"
-                android:textColor="#fff"
-                android:height="200dp"
-                android:background="@color/redText"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-        <TextView
-                android:id="@+id/txtTest2"
-                style="@style/largeBlueTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Step 1"
-                android:gravity="top"
-                android:textColor="#fff"
-                android:height="200dp"
-                android:background="@color/blueText"
-                app:layout_constraintTop_toBottomOf="@+id/txtTest" />
-
-        <TextView
-                style="@style/largeBlueTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Step 1"
-                android:gravity="top"
-                android:textColor="#fff"
-                android:height="600dp"
-                android:background="@color/colorPrimary"
-                app:layout_constraintTop_toBottomOf="@+id/txtTest2" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

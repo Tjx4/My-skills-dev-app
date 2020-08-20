@@ -4,20 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import co.za.dvt.myskilldevapp.R
+import co.za.dvt.myskilldevapp.adapters.UserTypeAdapter
+import co.za.dvt.myskilldevapp.enums.UserTypes
 import co.za.dvt.myskilldevapp.features.base.BaseRegistrationFragment
 import co.za.dvt.myskilldevapp.helpers.showShortToast
+import kotlinx.android.synthetic.main.fragment_registration_step1.*
 
-class RegistrationStep1Fragment : BaseRegistrationFragment() {
+class RegistrationStep1Fragment : BaseRegistrationFragment(), UserTypeAdapter.ItemClickListener {
+
+    var userTypesRv: RecyclerView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        return inflater.inflate(R.layout.fragment_registration_step1, container, false)
+        var parentView = inflater.inflate(R.layout.fragment_registration_step1, container, false)
+        initViews(parentView)
+        return parentView
     }
 
     //Todo: Fix bug not trigering when navigating programatically
@@ -26,6 +33,18 @@ class RegistrationStep1Fragment : BaseRegistrationFragment() {
         if (menuVisible) {
             showShortToast("RegistrationStep1Fragment", registrationActivity!!)
         }
+    }
+
+    fun initViews(parentView: View) {
+        var userTypeAdapter = UserTypeAdapter(registrationActivity!!)
+
+        userTypesRv = parentView.findViewById(R.id.rvUserTypes)
+        userTypesRv?.adapter = userTypeAdapter
+
+        val gridLayoutManager = GridLayoutManager(registrationActivity, 2)
+        gridLayoutManager.initialPrefetchItemCount = UserTypes.values().size
+        userTypesRv?.onFlingListener = null
+        userTypesRv?.layoutManager = gridLayoutManager
     }
 
     companion object {
@@ -38,5 +57,9 @@ class RegistrationStep1Fragment : BaseRegistrationFragment() {
             registrationStep1Fragment.description = description
             return registrationStep1Fragment
         }
+    }
+
+    override fun onItemClick(view: View, position: Int) {
+
     }
 }
