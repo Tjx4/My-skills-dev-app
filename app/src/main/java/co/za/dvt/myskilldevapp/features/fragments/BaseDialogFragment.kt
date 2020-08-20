@@ -17,9 +17,9 @@ abstract class BaseDialogFragment : DialogFragment() {
     protected var activity: AppCompatActivity? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.window!!.attributes.windowAnimations = R.style.DialogTheme
+        dialog?.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog?.window!!.attributes.windowAnimations = R.style.DialogTheme
 
         val layout = arguments!!.getInt(LAYOUT)
         return inflater.inflate(layout, container, false)
@@ -38,7 +38,7 @@ abstract class BaseDialogFragment : DialogFragment() {
 
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         activity = context as AppCompatActivity?
     }
@@ -50,7 +50,7 @@ abstract class BaseDialogFragment : DialogFragment() {
     }
 
     protected fun onFragmentViewClickedEvent(view: View) {
-        dialog.dismiss()
+        dialog?.dismiss()
     }
 
 }

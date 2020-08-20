@@ -74,7 +74,7 @@ class UsersFragment : BaseDialogFragment(), UsersAdapter.ItemClickListener {
         }
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         loginActivity = context as LoginActivity
     }
@@ -95,7 +95,7 @@ class UsersFragment : BaseDialogFragment(), UsersAdapter.ItemClickListener {
         dismiss()
     }
 
-    override fun onDismiss(dialog: DialogInterface?) {
+    override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
        // dashboardActivity?.onStatsClose()
     }

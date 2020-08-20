@@ -16,9 +16,9 @@ class LoadingSpinnerFragment : BaseDialogFragment() {
     private var loader: AVLoadingIndicatorView? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        dialog.setCancelable(false)
-        dialog.setCanceledOnTouchOutside(false)
-        dialog.window?.setDimAmount(1f)
+        dialog?.setCancelable(false)
+        dialog?.setCanceledOnTouchOutside(false)
+        dialog?.window?.setDimAmount(1f)
 
         val parentView = super.onCreateView(inflater, container, savedInstanceState)
         loader = parentView?.findViewById(R.id.progressBarLoading)
