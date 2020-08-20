@@ -55,7 +55,7 @@ class RegistrationActivity : BaseParentActivity() {
         var regVpAdapter = RegistrationViewpagerAdapter(fragments, this)
         vpRegistrationSteps.adapter  = regVpAdapter
         //vpRegistrationSteps.orientation = ViewPager2.ORIENTATION_VERTICAL
-        //vpRegistrationSteps.setPageTransformer(ZoomOutPageTransformer())
+        vpRegistrationSteps.setPageTransformer(ZoomOutPageTransformer())
 
         TabLayoutMediator(tbStages, vpRegistrationSteps) {  tab, position ->
             tab.text = fragments[position].title
