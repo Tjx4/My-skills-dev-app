@@ -6,26 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import co.za.dvt.myskilldevapp.R
+import co.za.dvt.myskilldevapp.databinding.FragmentRegistrationPersonalDetailsBinding
 import co.za.dvt.myskilldevapp.features.base.BaseRegistrationFragment
 
 class RegistrationPersonalDetailsFragment : BaseRegistrationFragment() {
-    //private lateinit var binding: FragmentRegistrationPersonalDetailsBinding
+    private lateinit var binding: FragmentRegistrationPersonalDetailsBinding
     private var signInBtn: Button? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val parentView = inflater.inflate(R.layout.fragment_registration_personal_details, container, false)
+        //val parentView = inflater.inflate(R.layout.fragment_registration_personal_details, container, false)
+        binding = FragmentRegistrationPersonalDetailsBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+        binding.registerName = registrationActivity?.registrationViewModel?.name?.value
+        val parentView = binding.root
+
         initViews(parentView)
         return parentView
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //binding = DataBindingUtil.inflate(inflater, R.layout.fragment_registration_step2, container, false)
-
-        //binding = DataBindingUtil.setContentView(registrationActivity as Activity, R.layout.fragment_registration_personal_details)
-        //binding.lifecycleOwner = this
-        //binding.registerName = registrationActivity?.registrationViewModel?.name?.value
-        //val parentView = binding.root
     }
 
     override fun setMenuVisibility(menuVisible: Boolean) {
