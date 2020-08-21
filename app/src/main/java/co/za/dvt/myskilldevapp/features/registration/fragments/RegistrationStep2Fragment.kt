@@ -1,12 +1,10 @@
 package co.za.dvt.myskilldevapp.features.registration.fragments
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.databinding.DataBindingUtil
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.databinding.FragmentRegistrationStep2Binding
 import co.za.dvt.myskilldevapp.features.base.BaseRegistrationFragment
