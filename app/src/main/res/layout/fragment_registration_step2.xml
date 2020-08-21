@@ -103,7 +103,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/llGenderContainer" />
 
         <EditText
-                android:id="@+id/txtEmail"
+                android:id="@+id/txtRegisterEmail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -130,7 +130,7 @@
                 app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
                 app:layout_constraintRight_toRightOf="@+id/btnSignIn"
                 android:layout_marginTop="@dimen/medium__margin"
-                app:layout_constraintTop_toBottomOf="@+id/txtEmail"/>
+                app:layout_constraintTop_toBottomOf="@+id/txtRegisterEmail"/>
 
         <TextView
                 style="@style/SmallLightTextView"
