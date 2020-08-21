@@ -5,13 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.RadioGroup
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.databinding.FragmentRegistrationStep2Binding
+import co.za.dvt.myskilldevapp.enums.Gender
 import co.za.dvt.myskilldevapp.features.base.BaseRegistrationFragment
 
 class RegistrationPersonalDetailsFragment : BaseRegistrationFragment() {
     lateinit var binding: FragmentRegistrationStep2Binding
     private var signInBtn: Button? = null
+    private var genderContainerRg: RadioGroup? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentRegistrationStep2Binding.inflate(inflater, container, false)
@@ -38,6 +41,19 @@ class RegistrationPersonalDetailsFragment : BaseRegistrationFragment() {
     }
 
     fun initViews(parentView: View){
+        genderContainerRg = parentView.findViewById(R.id.rgGenderContainer)
+        genderContainerRg?.setOnCheckedChangeListener(
+            RadioGroup.OnCheckedChangeListener { group, checkedId ->
+                when (checkedId) {
+                    R.id.rdoFemale -> {
+                        registrationActivity?.registrationViewModel?.setGender(Gender.Female)
+                    }
+                    R.id.rdoMale -> {
+                        registrationActivity?.registrationViewModel?.setGender(Gender.Female)
+                    }
+                }
+            })
+
         signInBtn = parentView.findViewById(R.id.btnSignIn)
         signInBtn?.setOnClickListener {
             registrationActivity?.moveToFinalStep()

@@ -6,6 +6,15 @@
         <variable
                 name="fullNames"
                 type="String"/>
+        <variable
+                name="registerGender"
+                type="String"/>
+        <variable
+                name="registerEmail"
+                type="String"/>
+        <variable
+                name="registerMobileNumber"
+                type="String"/>
     </data>
 
     <FrameLayout
@@ -24,25 +33,13 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/large__margin">
 
-<TextView
-        style="@style/MediumLightTextView"
-        android:id="@+id/txtRegisterName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Name: Tshepo Baloyi"
-        android:text="@{fullNames}"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-                <!--
                 <TextView
                         style="@style/MediumLightTextView"
                         android:id="@+id/txtRegisterName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tools:text="Name: Tshepo Baloyi"
-                        android:text="@{registrationViewModel.fullNames}"
+                        android:text="@{fullNames}"
                         app:layout_constraintLeft_toLeftOf="@+id/btnRegister"
                         app:layout_constraintRight_toRightOf="@+id/btnRegister"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -54,7 +51,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/medium__margin"
                         tools:text="Gender: female"
-                        android:text="@={registrationViewModel.gender.sex}"
+                        android:text="@={registerGender}"
                         app:layout_constraintLeft_toLeftOf="@+id/btnRegister"
                         app:layout_constraintRight_toRightOf="@+id/btnRegister"
                         app:layout_constraintTop_toBottomOf="@+id/txtRegisterName" />
@@ -66,7 +63,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/medium__margin"
                         tools:text="Email: rr@gg.com"
-                        android:text="@={registrationViewModel.email}"
+                        android:text="@={registerEmail}"
                         app:layout_constraintLeft_toLeftOf="@+id/btnRegister"
                         app:layout_constraintRight_toRightOf="@+id/btnRegister"
                         app:layout_constraintTop_toBottomOf="@+id/txtRegisterGender" />
@@ -78,7 +75,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/medium__margin"
                         tools:text="Mobile: 082 9999 999"
-                        android:text="@={registrationViewModel.mobileNumber}"
+                        android:text="@={registerMobileNumber}"
                         app:layout_constraintLeft_toLeftOf="@+id/btnRegister"
                         app:layout_constraintRight_toRightOf="@+id/btnRegister"
                         app:layout_constraintTop_toBottomOf="@+id/txtRegisterEmail" />
@@ -91,8 +88,6 @@
                         app:layout_constraintRight_toRightOf="parent"
                         android:layout_marginTop="@dimen/large__margin"
                         app:layout_constraintTop_toBottomOf="@+id/txtRegisterMobileNumber" />
-
-                -->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

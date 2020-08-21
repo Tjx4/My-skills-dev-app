@@ -13,7 +13,11 @@ class RegistrationFinalizeFragment : BaseRegistrationFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentRegistrationFinalizeBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
-        binding.fullNames = registrationActivity?.registrationViewModel?.name?.value
+        binding.fullNames = registrationActivity?.registrationViewModel?.fullNames?.value
+        binding.registerGender = registrationActivity?.registrationViewModel?.gender?.value?.sex
+        binding.registerEmail = registrationActivity?.registrationViewModel?.email?.value
+        var mobile = registrationActivity?.registrationViewModel?.mobileNumber?.value?.toString()
+        binding.registerMobileNumber = mobile?: ""
         val parentView = binding.root
         initViews(parentView)
         return parentView

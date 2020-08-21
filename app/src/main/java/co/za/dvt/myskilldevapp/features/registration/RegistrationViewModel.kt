@@ -59,6 +59,10 @@ class RegistrationViewModel(application: Application) : BaseVieModel(application
     }
 
     fun setNames(){
-        _fullNames.value = "$_name $_surname"
+        _fullNames.value = "${_name.value} ${_surname.value}"
+    }
+
+    fun setGender(gender: Gender){
+        _gender.value = gender
     }
 }
