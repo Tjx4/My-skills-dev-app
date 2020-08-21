@@ -21,10 +21,8 @@ class RegistrationPersonalDetailsFragment : BaseRegistrationFragment() {
         binding.lifecycleOwner = this
         binding.registerName = registrationActivity?.registrationViewModel?.name?.value
         binding.registerSurname= registrationActivity?.registrationViewModel?.surname?.value
-//Gender
         binding.registerEmail = registrationActivity?.registrationViewModel?.email?.value
-        var mobile = registrationActivity?.registrationViewModel?.mobileNumber?.value?.toString()
-        binding.registerMobileNumber = mobile?: ""
+        binding.registerMobileNumber = registrationActivity?.registrationViewModel?.mobileNumber?.value?.toString()?: ""
         binding.registerPassword = registrationActivity?.registrationViewModel?.password?.value
         binding.registerConfirmPassword = registrationActivity?.registrationViewModel?.confirmPassword?.value
         val parentView = binding.root
@@ -57,6 +55,10 @@ class RegistrationPersonalDetailsFragment : BaseRegistrationFragment() {
         signInBtn = parentView.findViewById(R.id.btnSignIn)
         signInBtn?.setOnClickListener {
             registrationActivity?.moveToFinalStep()
+
+registrationActivity?.registrationViewModel?.name?.value
+registrationActivity?.registrationViewModel?.surname?.value
+registrationActivity?.registrationViewModel?.email?.value
         }
     }
 

@@ -88,6 +88,10 @@ class RegistrationActivity : BaseParentActivity() {
 
     fun moveToFinalStep(){
         vpRegistrationSteps.setCurrentItem(2, true)
+
+registrationViewModel?.name?.value
+registrationViewModel?.surname?.value
+registrationViewModel?.email?.value
     }
 
     fun onNextButtonClicked(view: View){

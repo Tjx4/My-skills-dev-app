@@ -60,6 +60,7 @@ class RegistrationViewModel(application: Application) : BaseVieModel(application
 
     fun setNames(){
         _fullNames.value = "${_name.value} ${_surname.value}"
+        _email.value = "test@email.com"
     }
 
     fun setGender(gender: Gender){

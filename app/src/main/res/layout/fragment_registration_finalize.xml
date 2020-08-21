@@ -4,95 +4,89 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-                name="fullNames"
-                type="String"/>
+            name="fullNames"
+            type="String"/>
         <variable
-                name="registerGender"
-                type="String"/>
+            name="registerGender"
+            type="String"/>
         <variable
-                name="registerEmail"
-                type="String"/>
+            name="registerEmail"
+            type="String"/>
         <variable
-                name="registerMobileNumber"
-                type="String"/>
+            name="registerMobileNumber"
+            type="String"/>
     </data>
 
-    <FrameLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".features.registration.fragments.RegistrationFinalizeFragment"
         android:animateLayoutChanges="true">
 
-        <androidx.core.widget.NestedScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clCParent"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:padding="@dimen/large__margin">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clCParent"
-                    android:layout_width="match_parent"
+            <TextView
+                    style="@style/MediumLightTextView"
+                    android:id="@+id/txtRegisterName"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/large__margin">
+                    tools:text="Name: Tshepo Baloyi"
+                    android:text="@{fullNames}"
+                    app:layout_constraintLeft_toLeftOf="@+id/btnRegister"
+                    app:layout_constraintRight_toRightOf="@+id/btnRegister"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                        style="@style/MediumLightTextView"
-                        android:id="@+id/txtRegisterName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="Name: Tshepo Baloyi"
-                        android:text="@{fullNames}"
-                        app:layout_constraintLeft_toLeftOf="@+id/btnRegister"
-                        app:layout_constraintRight_toRightOf="@+id/btnRegister"
-                        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                    style="@style/MediumLightTextView"
+                    android:id="@+id/txtRegisterGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium__margin"
+                    tools:text="Gender: female"
+                    android:text="@={registerGender}"
+                    app:layout_constraintLeft_toLeftOf="@+id/btnRegister"
+                    app:layout_constraintRight_toRightOf="@+id/btnRegister"
+                    app:layout_constraintTop_toBottomOf="@+id/txtRegisterName" />
 
-                <TextView
-                        style="@style/MediumLightTextView"
-                        android:id="@+id/txtRegisterGender"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/medium__margin"
-                        tools:text="Gender: female"
-                        android:text="@={registerGender}"
-                        app:layout_constraintLeft_toLeftOf="@+id/btnRegister"
-                        app:layout_constraintRight_toRightOf="@+id/btnRegister"
-                        app:layout_constraintTop_toBottomOf="@+id/txtRegisterName" />
+            <TextView
+                    style="@style/MediumLightTextView"
+                    android:id="@+id/txtRegisterEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium__margin"
+                    tools:text="Email: rr@gg.com"
+                    android:text="@={registerEmail}"
+                    app:layout_constraintLeft_toLeftOf="@+id/btnRegister"
+                    app:layout_constraintRight_toRightOf="@+id/btnRegister"
+                    app:layout_constraintTop_toBottomOf="@+id/txtRegisterGender" />
 
-                <TextView
-                        style="@style/MediumLightTextView"
-                        android:id="@+id/txtRegisterEmail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/medium__margin"
-                        tools:text="Email: rr@gg.com"
-                        android:text="@={registerEmail}"
-                        app:layout_constraintLeft_toLeftOf="@+id/btnRegister"
-                        app:layout_constraintRight_toRightOf="@+id/btnRegister"
-                        app:layout_constraintTop_toBottomOf="@+id/txtRegisterGender" />
+            <TextView
+                    style="@style/MediumLightTextView"
+                    android:id="@+id/txtRegisterMobileNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium__margin"
+                    tools:text="Mobile: 082 9999 999"
+                    android:text="@={registerMobileNumber}"
+                    app:layout_constraintLeft_toLeftOf="@+id/btnRegister"
+                    app:layout_constraintRight_toRightOf="@+id/btnRegister"
+                    app:layout_constraintTop_toBottomOf="@+id/txtRegisterEmail" />
 
-                <TextView
-                        style="@style/MediumLightTextView"
-                        android:id="@+id/txtRegisterMobileNumber"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/medium__margin"
-                        tools:text="Mobile: 082 9999 999"
-                        android:text="@={registerMobileNumber}"
-                        app:layout_constraintLeft_toLeftOf="@+id/btnRegister"
-                        app:layout_constraintRight_toRightOf="@+id/btnRegister"
-                        app:layout_constraintTop_toBottomOf="@+id/txtRegisterEmail" />
+            <Button
+                    style="@style/MyPAButton"
+                    android:id="@+id/btnRegister"
+                    android:text="Register"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginTop="@dimen/large__margin"
+                    app:layout_constraintTop_toBottomOf="@+id/txtRegisterMobileNumber" />
 
-                <Button
-                        style="@style/MyPAButton"
-                        android:id="@+id/btnRegister"
-                        android:text="Register"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        android:layout_marginTop="@dimen/large__margin"
-                        app:layout_constraintTop_toBottomOf="@+id/txtRegisterMobileNumber" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.core.widget.NestedScrollView>
-
-    </FrameLayout>
+     </androidx.core.widget.NestedScrollView>
 
 </layout>

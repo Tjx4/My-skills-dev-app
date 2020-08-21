@@ -27,6 +27,10 @@ class RegistrationFinalizeFragment : BaseRegistrationFragment() {
         super.setMenuVisibility(menuVisible)
         if (menuVisible) {
             registrationActivity?.registrationViewModel?.setNames()
+
+registrationActivity?.registrationViewModel?.name?.value
+registrationActivity?.registrationViewModel?.surname?.value
+registrationActivity?.registrationViewModel?.email?.value
         }
     }
 
