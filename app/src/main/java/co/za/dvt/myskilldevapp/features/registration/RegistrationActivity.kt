@@ -2,6 +2,8 @@ package co.za.dvt.myskilldevapp.features.registration
 
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
 import androidx.databinding.DataBindingUtil
@@ -13,12 +15,17 @@ import co.za.dvt.myskilldevapp.adapters.RegistrationViewpagerAdapter
 import co.za.dvt.myskilldevapp.adapters.UserTypeAdapter
 import co.za.dvt.myskilldevapp.databinding.ActivityRegistrationBinding
 import co.za.dvt.myskilldevapp.enums.UserTypes
+import co.za.dvt.myskilldevapp.extensions.TRAIL_FROM
+import co.za.dvt.myskilldevapp.extensions.TRAIL_TO
 import co.za.dvt.myskilldevapp.extensions.blinkView
+import co.za.dvt.myskilldevapp.extensions.goToActivityWithNoPayload
 import co.za.dvt.myskilldevapp.features.activities.BaseParentActivity
 import co.za.dvt.myskilldevapp.features.base.BaseRegistrationFragment
+import co.za.dvt.myskilldevapp.features.login.LoginActivity
 import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationStep1Fragment
 import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationStep2Fragment
 import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationStep3Fragment
+import co.za.dvt.myskilldevapp.helpers.showShortToast
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_registration.*
 
@@ -106,6 +113,18 @@ class RegistrationActivity : BaseParentActivity() {
         //vpRegistrationSteps.fakeDragBy(dragAmount.toFloat())
         val nextPosition = vpRegistrationSteps.currentItem + 1
         vpRegistrationSteps.setCurrentItem(nextPosition, true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_login ->  goToActivityWithNoPayload(LoginActivity::class.java, TRAIL_FROM)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.registration_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {

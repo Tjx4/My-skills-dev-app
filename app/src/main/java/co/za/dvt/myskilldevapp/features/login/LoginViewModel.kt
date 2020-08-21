@@ -60,7 +60,7 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
 
     fun preSetUser(lastUser: UsersTable) {
         showPreloadedUser.value = true
-        currentUserMessage.value = "<b>Hi ${lastUser.name}</b>, please enter your details to continue"
+        currentUserMessage.value = "<b>Hi ${lastUser.name}</b>, please enter your password to continue"
         username.value = lastUser.name
     }
 

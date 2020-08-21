@@ -14,7 +14,7 @@
         android:id="@+id/clCParent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/medium_padding">
+        android:padding="@dimen/large__margin">
 
         <TextView
                 style="@style/SmallLightTextView"
