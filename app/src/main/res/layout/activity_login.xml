@@ -78,8 +78,8 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/medium__margin"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
+                app:layout_constraintRight_toRightOf="@+id/btnSignIn"
                 app:layout_constraintTop_toBottomOf="@+id/btnSignIn"
                 android:gravity="center">
 
@@ -92,9 +92,6 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                     android:text="@string/forgot_password_text"
                     android:textColor="@color/lightText"
                     android:paddingVertical="@dimen/small_padding"
-                    app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
-                    app:layout_constraintRight_toRightOf="@+id/btnSignIn"
-                    app:layout_constraintTop_toTopOf="parent"
                     android:onClick="onForgotPassUserClicked"/>
 
             <TextView
@@ -106,9 +103,6 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                     android:text="@string/signup_text"
                     android:textColor="@color/lightText"
                     android:paddingVertical="@dimen/small_padding"
-                    app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
-                    app:layout_constraintRight_toRightOf="@+id/btnSignIn"
-                    app:layout_constraintTop_toTopOf="parent"
                     android:onClick="onRegisterClicked"/>
 
         </LinearLayout>

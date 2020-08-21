@@ -27,7 +27,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_registration.*
 
 class RegistrationActivity : BaseParentActivity() {
-
     private lateinit var binding: ActivityRegistrationBinding
     lateinit var registrationViewModel: RegistrationViewModel
 
