@@ -1,21 +1,40 @@
 package co.za.dvt.myskilldevapp.features.registration.fragments
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.databinding.DataBindingUtil
 import co.za.dvt.myskilldevapp.R
+import co.za.dvt.myskilldevapp.databinding.FragmentRegistrationStep2Binding
 import co.za.dvt.myskilldevapp.features.base.BaseRegistrationFragment
 
 class RegistrationStep2Fragment : BaseRegistrationFragment() {
 
+    lateinit var binding: FragmentRegistrationStep2Binding
+
     private var signInBtn: Button? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var parentView = inflater.inflate(R.layout.fragment_registration_step2, container, false)
+        // var parentView = inflater.inflate(R.layout.fragment_registration_step2, container, false)
+        binding = FragmentRegistrationStep2Binding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+        binding.registerName = registrationActivity?.registrationViewModel?.name?.value
+        val parentView = binding.root
+
         initViews(parentView)
         return parentView
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        //binding = DataBindingUtil.inflate(inflater, R.layout.fragment_registration_step2, container, false)
+        //binding = DataBindingUtil.setContentView(registrationActivity as Activity, R.layout.fragment_registration_step2)
+        //binding.lifecycleOwner = this
+        //binding.registerName = registrationActivity?.registrationViewModel?.name?.value
+        //val parentView = binding.root
     }
 
     override fun setMenuVisibility(menuVisible: Boolean) {

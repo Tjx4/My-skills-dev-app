@@ -45,6 +45,7 @@
                 android:padding="@dimen/small_padding"
                 android:hint="Name"
                 android:text="@={registerName}"
+                android:textColor="@color/darkText"
                 app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
                 app:layout_constraintRight_toRightOf="@+id/btnSignIn"
                 android:layout_marginTop="@dimen/medium__margin"
