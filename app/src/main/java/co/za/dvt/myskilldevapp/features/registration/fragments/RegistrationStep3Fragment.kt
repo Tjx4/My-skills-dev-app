@@ -14,11 +14,10 @@ class RegistrationStep3Fragment : BaseRegistrationFragment() {
         return inflater.inflate(R.layout.fragment_registration_step3, container, false)
     }
 
-    //Todo: Fix bug not trigering when navigating programatically
     override fun setMenuVisibility(menuVisible: Boolean) {
         super.setMenuVisibility(menuVisible)
         if (menuVisible) {
-            showShortToast("RegistrationStep3Fragment", registrationActivity!!)
+
         }
     }
 

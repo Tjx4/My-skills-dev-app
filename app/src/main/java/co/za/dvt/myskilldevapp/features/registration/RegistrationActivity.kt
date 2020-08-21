@@ -56,6 +56,8 @@ class RegistrationActivity : BaseParentActivity() {
             RegistrationStep3Fragment.newInstance("Step 3", "Finalize your details")
         )
 
+        vpRegistrationSteps.isUserInputEnabled = false
+
         var regVpAdapter = RegistrationViewpagerAdapter(fragments, this)
         vpRegistrationSteps.adapter  = regVpAdapter
         //vpRegistrationSteps.orientation = ViewPager2.ORIENTATION_VERTICAL
@@ -74,6 +76,10 @@ class RegistrationActivity : BaseParentActivity() {
 
     private fun onUserTypeSet(userType: UserTypes){
         vpRegistrationSteps.setCurrentItem(1, true)
+    }
+
+    fun moveToFinalStep(){
+        vpRegistrationSteps.setCurrentItem(2, true)
     }
 
     fun onNextButtonClicked(view: View){

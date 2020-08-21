@@ -4,21 +4,31 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.features.base.BaseRegistrationFragment
-import co.za.dvt.myskilldevapp.helpers.showShortToast
 
 class RegistrationStep2Fragment : BaseRegistrationFragment() {
 
+    private var signInBtn: Button? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_registration_step2, container, false)
+        var parentView = inflater.inflate(R.layout.fragment_registration_step2, container, false)
+        initViews(parentView)
+        return parentView
     }
 
-    //Todo: Fix bug not trigering when navigating programatically
     override fun setMenuVisibility(menuVisible: Boolean) {
         super.setMenuVisibility(menuVisible)
         if (menuVisible) {
 
+        }
+    }
+
+    fun initViews(parentView: View){
+        signInBtn = parentView.findViewById(R.id.btnSignIn)
+        signInBtn?.setOnClickListener {
+            registrationActivity?.moveToFinalStep()
         }
     }
 
