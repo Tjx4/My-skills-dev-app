@@ -80,6 +80,7 @@
     <style name="LightEditText">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:ems">10</item>
+        <item name="android:textColorHint">@color/greyText</item>
         <item name="android:textColor">@color/darkText</item>
         <item name="android:background">@color/lightestBackground</item>
         <item name="android:padding">@dimen/small_padding</item>

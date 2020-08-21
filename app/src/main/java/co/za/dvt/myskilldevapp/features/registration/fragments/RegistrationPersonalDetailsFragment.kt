@@ -17,6 +17,13 @@ class RegistrationPersonalDetailsFragment : BaseRegistrationFragment() {
         binding = FragmentRegistrationStep2Binding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.registerName = registrationActivity?.registrationViewModel?.name?.value
+        binding.registerSurname= registrationActivity?.registrationViewModel?.surname?.value
+//Gender
+        binding.registerEmail = registrationActivity?.registrationViewModel?.email?.value
+        var mobile = registrationActivity?.registrationViewModel?.mobileNumber?.value?.toString()
+        binding.registerMobileNumber = mobile?: ""
+        binding.registerPassword = registrationActivity?.registrationViewModel?.password?.value
+        binding.registerConfirmPassword = registrationActivity?.registrationViewModel?.confirmPassword?.value
         val parentView = binding.root
 
         initViews(parentView)

@@ -52,7 +52,6 @@ class RegistrationViewModel(application: Application) : BaseVieModel(application
         get() = _confirmPassword
 
     init {
-        _name.value = "Tshepo"
     }
 
     fun setUserType(userType: UserTypes){
