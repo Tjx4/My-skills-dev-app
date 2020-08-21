@@ -10,7 +10,7 @@ import co.za.dvt.myskilldevapp.databinding.FragmentRegistrationPersonalDetailsBi
 import co.za.dvt.myskilldevapp.features.base.BaseRegistrationFragment
 
 class RegistrationPersonalDetailsFragment : BaseRegistrationFragment() {
-    private lateinit var binding: FragmentRegistrationPersonalDetailsBinding
+    lateinit var binding: FragmentRegistrationPersonalDetailsBinding
     private var signInBtn: Button? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
