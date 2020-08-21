@@ -1,190 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".features.registration.fragments.RegistrationStep2Fragment"
-    android:id="@+id/login_form"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/transparent"
-    android:animateLayoutChanges="true">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clCParent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+                name="registrationViewModel"
+                type="co.za.dvt.myskilldevapp.features.registration.RegistrationViewModel"/>
+    </data>
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/large__margin">
+        android:layout_height="match_parent"
+        tools:context=".features.registration.fragments.RegistrationStep2Fragment"
+        android:animateLayoutChanges="true">
 
-        <TextView
-                style="@style/SmallLightTextView"
-                android:id="@+id/txtPersonalHeading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/large__margin"
-                tools:text="Personal details"
-                android:text="Personal details"
-                app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
-                app:layout_constraintRight_toRightOf="@+id/btnSignIn"
-                app:layout_constraintTop_toTopOf="parent" />
+        <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <EditText
-                android:id="@+id/txtUsername"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:background="#fff"
-                android:padding="@dimen/small_padding"
-                android:hint="Name"
-                android:text="@={loginViewModel.username}"
-                app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
-                app:layout_constraintRight_toRightOf="@+id/btnSignIn"
-                android:layout_marginTop="@dimen/medium__margin"
-                app:layout_constraintTop_toBottomOf="@+id/txtPersonalHeading"/>
-
-        <EditText
-                android:id="@+id/txtSurname"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:background="#fff"
-                android:padding="@dimen/small_padding"
-                android:hint="Surname"
-                android:text="@={loginViewModel.username}"
-                app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
-                app:layout_constraintRight_toRightOf="@+id/btnSignIn"
-                android:layout_marginTop="@dimen/medium__margin"
-                app:layout_constraintTop_toBottomOf="@+id/txtUsername"/>
-
-        <RadioGroup
-            android:id="@+id/llGenderContainer"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
-            app:layout_constraintRight_toRightOf="@+id/btnSignIn"
-            android:layout_marginTop="@dimen/medium__margin"
-            app:layout_constraintTop_toBottomOf="@+id/txtSurname">
-
-            <RadioButton
-                    android:id="@+id/rdoMale"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginBottom="0dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="0dp"
-                    android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clCParent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/lightText"
-                    android:text="Male"/>
+                    android:padding="@dimen/large__margin">
 
-            <RadioButton
-                    android:id="@+id/rdoFemale"
-                    android:layout_marginLeft="30dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/lightText"
-                    android:text="Female"/>
+                <TextView
+                        style="@style/SmallLightTextView"
+                        android:id="@+id/txtPersonalHeading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/large__margin"
+                        tools:text="Personal details"
+                        android:text="Personal details"
+                        app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
+                        app:layout_constraintRight_toRightOf="@+id/btnSignIn"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-        </RadioGroup>
+                <EditText
+                        style="@style/LightEditText"
+                        android:id="@+id/txtUsername"
+                        android:layout_width="0dp"
+                        android:inputType="textPersonName"
+                        android:hint="Name"
+                        android:text="@={registrationViewModel.surname}"
+                        app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
+                        app:layout_constraintRight_toRightOf="@+id/btnSignIn"
+                        android:layout_marginTop="@dimen/medium__margin"
+                        app:layout_constraintTop_toBottomOf="@+id/txtPersonalHeading"/>
 
-        <TextView
-                style="@style/SmallLightTextView"
-                android:id="@+id/txtContactsHeading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/large__margin"
-                android:layout_marginBottom="@dimen/large__margin"
-                tools:text="Contact details"
-                android:text="Contact details"
-                app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
-                app:layout_constraintRight_toRightOf="@+id/btnSignIn"
-                app:layout_constraintTop_toBottomOf="@+id/llGenderContainer" />
+                <EditText
+                        style="@style/LightEditText"
+                        android:id="@+id/txtSurname"
+                        android:layout_width="0dp"
+                        android:inputType="textPersonName"
+                        android:hint="Surname"
+                        android:text="@={registrationViewModel.surname}"
+                        app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
+                        app:layout_constraintRight_toRightOf="@+id/btnSignIn"
+                        android:layout_marginTop="@dimen/medium__margin"
+                        app:layout_constraintTop_toBottomOf="@+id/txtUsername"/>
 
-        <EditText
-                android:id="@+id/txtRegisterEmail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:background="#fff"
-                android:padding="@dimen/small_padding"
-                android:hint="Email"
-                android:text="@={loginViewModel.username}"
-                app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
-                app:layout_constraintRight_toRightOf="@+id/btnSignIn"
-                android:layout_marginTop="@dimen/medium__margin"
-                app:layout_constraintTop_toBottomOf="@+id/txtContactsHeading"/>
+                <RadioGroup
+                        android:id="@+id/llGenderContainer"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
+                        app:layout_constraintRight_toRightOf="@+id/btnSignIn"
+                        android:layout_marginTop="@dimen/medium__margin"
+                        app:layout_constraintTop_toBottomOf="@+id/txtSurname">
 
-        <EditText
-                android:id="@+id/txtCell"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:background="#fff"
-                android:padding="@dimen/small_padding"
-                android:hint="Mobile number"
-                android:text="@={loginViewModel.username}"
-                app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
-                app:layout_constraintRight_toRightOf="@+id/btnSignIn"
-                android:layout_marginTop="@dimen/medium__margin"
-                app:layout_constraintTop_toBottomOf="@+id/txtRegisterEmail"/>
+                    <RadioButton
+                            android:id="@+id/rdoMale"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginBottom="0dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="0dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/lightText"
+                            android:text="Male"/>
 
-        <TextView
-                style="@style/SmallLightTextView"
-                android:id="@+id/txtSecurityHeading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/large__margin"
-                android:layout_marginBottom="@dimen/large__margin"
-                tools:text="Security"
-                android:text="Security"
-                app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
-                app:layout_constraintRight_toRightOf="@+id/btnSignIn"
-                app:layout_constraintTop_toBottomOf="@+id/txtCell" />
+                    <RadioButton
+                            android:id="@+id/rdoFemale"
+                            android:layout_marginLeft="30dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/lightText"
+                            android:text="Female"/>
 
-        <EditText
-                android:id="@+id/txtPassword"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPassword"
-                android:background="#fff"
-                android:padding="@dimen/small_padding"
-                android:hint="Password"
-                android:text="@={loginViewModel.password}"
-                android:layout_marginTop="@dimen/medium__margin"
-                app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
-                app:layout_constraintRight_toRightOf="@+id/btnSignIn"
-                app:layout_constraintTop_toBottomOf="@+id/txtSecurityHeading" />
+                </RadioGroup>
 
-        <EditText
-                android:id="@+id/txtConfirmPassword"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPassword"
-                android:background="#fff"
-                android:padding="@dimen/small_padding"
-                android:hint="Confirm Password"
-                android:text="@={loginViewModel.password}"
-                android:layout_marginTop="@dimen/medium__margin"
-                app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
-                app:layout_constraintRight_toRightOf="@+id/btnSignIn"
-                app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
+                <TextView
+                        style="@style/SmallLightTextView"
+                        android:id="@+id/txtContactsHeading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/large__margin"
+                        android:layout_marginBottom="@dimen/large__margin"
+                        tools:text="Contact details"
+                        android:text="Contact details"
+                        app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
+                        app:layout_constraintRight_toRightOf="@+id/btnSignIn"
+                        app:layout_constraintTop_toBottomOf="@+id/llGenderContainer" />
 
-        <Button
-                style="@style/MyPAButton"
-                android:id="@+id/btnSignIn"
-                android:text="Next"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginTop="@dimen/large__margin"
-                app:layout_constraintTop_toBottomOf="@+id/txtConfirmPassword" />
+                <EditText
+                        style="@style/LightEditText"
+                        android:id="@+id/txtRegisterEmail"
+                        android:layout_width="0dp"
+                        android:inputType="textEmailAddress"
+                        android:hint="Email"
+                        android:text="@={registrationViewModel.email}"
+                        app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
+                        app:layout_constraintRight_toRightOf="@+id/btnSignIn"
+                        android:layout_marginTop="@dimen/medium__margin"
+                        app:layout_constraintTop_toBottomOf="@+id/txtContactsHeading"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <EditText
+                        style="@style/LightEditText"
+                        android:id="@+id/txtCell"
+                        android:layout_width="0dp"
+                        android:inputType="number"
+                        android:hint="Mobile number"
+                        android:text="@={registrationViewModel.mobileNumber}"
+                        app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
+                        app:layout_constraintRight_toRightOf="@+id/btnSignIn"
+                        android:layout_marginTop="@dimen/medium__margin"
+                        app:layout_constraintTop_toBottomOf="@+id/txtRegisterEmail"/>
+
+                <TextView
+                        style="@style/SmallLightTextView"
+                        android:id="@+id/txtSecurityHeading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/large__margin"
+                        android:layout_marginBottom="@dimen/large__margin"
+                        tools:text="Security"
+                        android:text="Security"
+                        app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
+                        app:layout_constraintRight_toRightOf="@+id/btnSignIn"
+                        app:layout_constraintTop_toBottomOf="@+id/txtCell" />
+
+                <EditText
+                        style="@style/LightEditText"
+                        android:id="@+id/txtPassword"
+                        android:layout_width="0dp"
+                        android:inputType="textPassword"
+                        android:hint="Password"
+                        android:text="@={registrationViewModel.password}"
+                        android:layout_marginTop="@dimen/medium__margin"
+                        app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
+                        app:layout_constraintRight_toRightOf="@+id/btnSignIn"
+                        app:layout_constraintTop_toBottomOf="@+id/txtSecurityHeading" />
+
+                <EditText
+                        style="@style/LightEditText"
+                        android:id="@+id/txtConfirmPassword"
+                        android:layout_width="0dp"
+                        android:inputType="textPassword"
+                        android:hint="Confirm Password"
+                        android:text="@={registrationViewModel.confirmPassword}"
+                        android:layout_marginTop="@dimen/medium__margin"
+                        app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
+                        app:layout_constraintRight_toRightOf="@+id/btnSignIn"
+                        app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
+
+                <Button
+                        style="@style/MyPAButton"
+                        android:id="@+id/btnSignIn"
+                        android:text="Next"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:layout_marginTop="@dimen/large__margin"
+                        app:layout_constraintTop_toBottomOf="@+id/txtConfirmPassword" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</androidx.core.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
+
+    </FrameLayout>
+
+</layout>
+

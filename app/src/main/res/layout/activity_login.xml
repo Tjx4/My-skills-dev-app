@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-xmlns:app="http://schemas.android.com/apk/res-auto">
-<data>
-    <import type="android.text.Html"/>
-    <variable
-        name="loginViewModel"
-        type="co.za.dvt.myskilldevapp.features.login.LoginViewModel"/>
-</data>
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import
+            type="android.text.Html"/>
+        <variable
+            name="loginViewModel"
+            type="co.za.dvt.myskilldevapp.features.login.LoginViewModel"/>
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clCParent"
@@ -21,7 +22,6 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                 style="@style/MediumLightTextView"
                 android:id="@+id/txtHeading"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/large__margin"
                 android:layout_marginBottom="@dimen/large__margin"
                 tools:text="@string/login_welcome_message"
@@ -32,13 +32,10 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                 app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
+                style="@style/LightEditText"
                 android:id="@+id/txtUsername"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
                 android:inputType="textPersonName"
-                android:background="#fff"
-                android:padding="@dimen/small_padding"
                 android:hint="Enter username"
                 android:text="@={loginViewModel.username}"
                 app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
@@ -47,13 +44,10 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                 app:layout_constraintTop_toBottomOf="@+id/txtHeading"/>
 
         <EditText
+                style="@style/LightEditText"
                 android:id="@+id/txtPassword"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
                 android:inputType="textPassword"
-                android:background="#fff"
-                android:padding="@dimen/small_padding"
                 android:hint="Enter password"
                 android:text="@={loginViewModel.password}"
                 android:layout_marginTop="@dimen/medium__margin"

@@ -70,11 +70,26 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/lightText</item>
         <item name="android:background">@drawable/round_button_background</item>
-        <!--
-        android:background="@drawable/pa_button_background"
-        android:layout_width="match_parent"
-        android:layout_height="46dp"
-        -->
+    </style>
+    <style name="MyPAButton2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">46dp</item>
+        <item name="android:textColor">@color/lightText</item>
+        <item name="android:background">@drawable/pa_button_background</item>
+    </style>
+    <style name="LightEditText">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:ems">10</item>
+        <item name="android:textColor">@color/darkText</item>
+        <item name="android:background">@color/lightestBackground</item>
+        <item name="android:padding">@dimen/small_padding</item>
+    </style>
+    <style name="LightEditText2">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:ems">10</item>
+        <item name="android:textColor">@color/lightText</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:padding">@dimen/small_padding</item>
     </style>
     <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
     </style>

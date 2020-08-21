@@ -6,19 +6,25 @@ import android.view.View
 import android.view.ViewGroup
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.features.base.BaseRegistrationFragment
-import co.za.dvt.myskilldevapp.helpers.showShortToast
 
 class RegistrationStep3Fragment : BaseRegistrationFragment() {
+    //private lateinit var binding: FragmentRegistrationStep3Binding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_registration_step3, container, false)
+        val parentView = inflater.inflate(R.layout.fragment_registration_step3, container, false)
+        initViews(parentView)
+        return parentView
     }
 
     override fun setMenuVisibility(menuVisible: Boolean) {
         super.setMenuVisibility(menuVisible)
         if (menuVisible) {
-
+            registrationActivity?.registrationViewModel?.setNames()
         }
+    }
+
+     fun initViews(parentView: View) {
+
     }
 
     companion object {
