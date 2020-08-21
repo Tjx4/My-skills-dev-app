@@ -15,6 +15,10 @@ class RegistrationViewModel(application: Application) : BaseVieModel(application
     val userType: LiveData<UserTypes>
     get() = _userType
 
+    private var _userName: MutableLiveData<String> = MutableLiveData()
+    val userName: LiveData<String>
+    get() = _userName
+
     private var _name: MutableLiveData<String> = MutableLiveData()
     val name: LiveData<String>
     get() = _name
@@ -22,6 +26,10 @@ class RegistrationViewModel(application: Application) : BaseVieModel(application
     private var _surname: MutableLiveData<String> = MutableLiveData()
     val surname: LiveData<String>
     get() = _surname
+
+    private var _fullNames: MutableLiveData<String> = MutableLiveData()
+    open val fullNames: LiveData<String>
+    get() = _fullNames
 
     private var _gender: MutableLiveData<Gender> = MutableLiveData()
     val gender: LiveData<Gender>
@@ -49,5 +57,9 @@ class RegistrationViewModel(application: Application) : BaseVieModel(application
 
     fun setUserType(userType: UserTypes){
         _userType.value = userType
+    }
+
+    fun setNames(){
+        _fullNames.value = "$_name $_surname"
     }
 }
