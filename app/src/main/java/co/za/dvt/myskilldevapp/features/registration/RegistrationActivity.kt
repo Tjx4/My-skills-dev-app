@@ -21,7 +21,7 @@ import co.za.dvt.myskilldevapp.features.base.BaseRegistrationFragment
 import co.za.dvt.myskilldevapp.features.login.LoginActivity
 import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationStep1Fragment
 import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationFinalizeFragment
-import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationStep2Fragment
+import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationPersonalDetailsFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_registration.*
 
@@ -60,7 +60,7 @@ class RegistrationActivity : BaseParentActivity() {
     private fun initPager() {
         var fragments = listOf<BaseRegistrationFragment>(
             RegistrationStep1Fragment.newInstance("Step 1", "Please choose a user type"),
-            RegistrationStep2Fragment.newInstance("Step 2", "Please enter your personal information"),
+            RegistrationPersonalDetailsFragment.newInstance("Step 2", "Please enter your personal information"),
             RegistrationFinalizeFragment.newInstance("Step 3", "Please confirm your details")
         )
 

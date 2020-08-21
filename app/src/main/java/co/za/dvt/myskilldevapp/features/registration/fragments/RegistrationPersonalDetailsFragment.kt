@@ -9,7 +9,7 @@ import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.databinding.FragmentRegistrationStep2Binding
 import co.za.dvt.myskilldevapp.features.base.BaseRegistrationFragment
 
-class RegistrationStep2Fragment : BaseRegistrationFragment() {
+class RegistrationPersonalDetailsFragment : BaseRegistrationFragment() {
     lateinit var binding: FragmentRegistrationStep2Binding
     private var signInBtn: Button? = null
 
@@ -39,7 +39,7 @@ class RegistrationStep2Fragment : BaseRegistrationFragment() {
 
     companion object {
         fun newInstance(title: String, description: String): BaseRegistrationFragment {
-            val registrationStep2Fragment = RegistrationStep2Fragment()
+            val registrationStep2Fragment = RegistrationPersonalDetailsFragment()
             var payload = Bundle()
             //payload.putString(TITLE, title)
             registrationStep2Fragment.arguments = payload

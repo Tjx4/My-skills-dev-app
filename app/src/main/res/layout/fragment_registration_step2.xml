@@ -14,7 +14,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
-    tools:context=".features.registration.fragments.RegistrationStep2Fragment"
+    tools:context=".features.registration.fragments.RegistrationPersonalDetailsFragment"
     android:animateLayoutChanges="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
