@@ -3,45 +3,65 @@
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="android.text.Html"/>
         <variable
                 name="registerName"
                 type="String"/>
     </data>
 
     <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".features.registration.fragments.RegistrationPersonalDetailsFragment"
-        android:animateLayoutChanges="true">
+            android:id="@+id/login_form"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            tools:context=".features.registration.fragments.RegistrationPersonalDetailsFragment"
+            android:animateLayoutChanges="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clCParent"
-                    android:layout_width="match_parent"
+                android:id="@+id/clCParent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/large__margin">
+
+            <TextView
+                    style="@style/SmallLightTextView"
+                    android:id="@+id/txtPersonalHeading"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/large__margin">
+                    android:layout_marginBottom="@dimen/large__margin"
+                    tools:text="Personal details"
+                    android:text="Personal details"
+                    app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
+                    app:layout_constraintRight_toRightOf="@+id/btnSignIn"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <EditText
-                        style="@style/LightEditText"
-                        android:id="@+id/txtUsername"
-                        android:layout_width="0dp"
-                        android:inputType="textPersonName"
-                        android:hint="Name"
-                        android:text="@={registerName}"
-                        app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
-                        app:layout_constraintRight_toRightOf="@+id/btnSignIn"
-                        android:layout_marginTop="@dimen/medium__margin"
-                        app:layout_constraintTop_toTopOf="parent"/>
+            <EditText
+                    android:id="@+id/txtUsername"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:background="#fff"
+                    android:padding="@dimen/small_padding"
+                    android:hint="Name"
+                    android:text="@={registerName}"
+                    android:textColor="@color/darkText"
+                    app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
+                    app:layout_constraintRight_toRightOf="@+id/btnSignIn"
+                    android:layout_marginTop="@dimen/medium__margin"
+                    app:layout_constraintTop_toBottomOf="@+id/txtPersonalHeading"/>
 
-                <Button
-                        style="@style/MyPAButton"
-                        android:id="@+id/btnSignIn"
-                        android:text="Next"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        android:layout_marginTop="@dimen/large__margin"
-                        app:layout_constraintTop_toBottomOf="@+id/txtUsername" />
+            <Button
+                    style="@style/MyPAButton"
+                    android:id="@+id/btnSignIn"
+                    android:text="Next"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginTop="@dimen/large__margin"
+                    app:layout_constraintTop_toBottomOf="@+id/txtUsername" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.core.widget.NestedScrollView>
 
