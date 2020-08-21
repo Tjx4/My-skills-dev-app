@@ -12,13 +12,10 @@ import co.za.dvt.myskilldevapp.databinding.FragmentRegistrationStep2Binding
 import co.za.dvt.myskilldevapp.features.base.BaseRegistrationFragment
 
 class RegistrationStep2Fragment : BaseRegistrationFragment() {
-
     lateinit var binding: FragmentRegistrationStep2Binding
-
     private var signInBtn: Button? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // var parentView = inflater.inflate(R.layout.fragment_registration_step2, container, false)
         binding = FragmentRegistrationStep2Binding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.registerName = registrationActivity?.registrationViewModel?.name?.value
@@ -26,15 +23,6 @@ class RegistrationStep2Fragment : BaseRegistrationFragment() {
 
         initViews(parentView)
         return parentView
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //binding = DataBindingUtil.inflate(inflater, R.layout.fragment_registration_step2, container, false)
-        //binding = DataBindingUtil.setContentView(registrationActivity as Activity, R.layout.fragment_registration_step2)
-        //binding.lifecycleOwner = this
-        //binding.registerName = registrationActivity?.registrationViewModel?.name?.value
-        //val parentView = binding.root
     }
 
     override fun setMenuVisibility(menuVisible: Boolean) {
