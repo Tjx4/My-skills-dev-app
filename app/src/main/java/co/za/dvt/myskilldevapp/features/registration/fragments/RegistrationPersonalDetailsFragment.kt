@@ -20,7 +20,7 @@ class RegistrationPersonalDetailsFragment : BaseRegistrationFragment() {
         binding = FragmentRegistrationStep2Binding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.registerName = registrationActivity?.registrationViewModel?.name?.value
-        binding.registerSurname= registrationActivity?.registrationViewModel?.surname?.value
+        binding.registerSurname = registrationActivity?.registrationViewModel?.surname?.value
         binding.registerEmail = registrationActivity?.registrationViewModel?.email?.value
         binding.registerMobileNumber = registrationActivity?.registrationViewModel?.mobileNumber?.value?.toString()?: ""
         binding.registerPassword = registrationActivity?.registrationViewModel?.password?.value
