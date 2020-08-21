@@ -64,10 +64,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/txtRegisterEmail" />
 
         <Button
+            style="@style/MyPAButton"
             android:id="@+id/btnRegister"
-            android:background="@drawable/pa_button_background"
-            android:layout_width="match_parent"
-            android:layout_height="46dp"
             android:text="Register"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

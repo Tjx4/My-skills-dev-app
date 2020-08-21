@@ -62,12 +62,10 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                 app:layout_constraintTop_toBottomOf="@+id/txtUsername" />
 
         <Button
+                style="@style/MyPAButton"
                 android:id="@+id/btnSignIn"
-                android:background="@drawable/pa_button_background"
-                android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:onClick="onTestButtonClicked"
                 android:text="Sign in"
+                android:onClick="onTestButtonClicked"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginTop="@dimen/medium__margin"

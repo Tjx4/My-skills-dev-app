@@ -121,7 +121,6 @@ class LoginActivity : BaseParentActivity()  {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_help -> { showShortToast("Help...", this) }
             R.id.action_manual_login -> showManualLogin()
             R.id.action_select_user -> showPreviousUserList()
         }

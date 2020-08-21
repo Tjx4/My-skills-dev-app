@@ -65,11 +65,16 @@
     <style name="XsmallDarkTextView" parent="xsmallTextView">
         <item name="android:textColor">@color/darkText</item>
     </style>
-    <style name="MySkillsButton">
+    <style name="MyPAButton">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/lightText</item>
         <item name="android:background">@drawable/round_button_background</item>
+        <!--
+        android:background="@drawable/pa_button_background"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        -->
     </style>
     <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
     </style>
