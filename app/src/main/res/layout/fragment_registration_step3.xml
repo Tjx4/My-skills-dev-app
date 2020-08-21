@@ -17,7 +17,7 @@
             android:padding="@dimen/large__margin">
 
         <TextView
-                style="@style/SmallLightTextView"
+                style="@style/MediumLightTextView"
                 android:id="@+id/txtRegisterName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-                style="@style/SmallLightTextView"
+                style="@style/MediumLightTextView"
                 android:id="@+id/txtRegisterGender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/txtRegisterName" />
 
         <TextView
-                style="@style/SmallLightTextView"
+                style="@style/MediumLightTextView"
                 android:id="@+id/txtRegisterEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/txtRegisterGender" />
 
         <TextView
-                style="@style/SmallLightTextView"
+                style="@style/MediumLightTextView"
                 android:id="@+id/txtRegisterMobileNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -64,15 +64,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/txtRegisterEmail" />
 
         <Button
-                android:id="@+id/btnRegister"
-                android:background="@drawable/pa_button_background"
-                android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:text="Register"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginTop="@dimen/large__margin"
-                app:layout_constraintTop_toBottomOf="@+id/txtRegisterMobileNumber" />
+            android:id="@+id/btnRegister"
+            android:background="@drawable/pa_button_background"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:text="Register"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="@dimen/large__margin"
+            app:layout_constraintTop_toBottomOf="@+id/txtRegisterMobileNumber" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

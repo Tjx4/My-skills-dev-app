@@ -1,11 +1,10 @@
 package co.za.dvt.myskilldevapp.features.registration
 
+import android.os.Build
 import android.os.Bundle
-import android.view.KeyEvent
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.view.animation.Animation
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -47,6 +46,11 @@ class RegistrationActivity : BaseParentActivity() {
         pagerToolbar?.title = " CREATE ACCOUNT"
         pagerToolbar?.setLogo(R.drawable.ic_create_account_light)
         setSupportActionBar(pagerToolbar)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
+        }
+
     }
 
     private fun addObservers() {
@@ -56,8 +60,8 @@ class RegistrationActivity : BaseParentActivity() {
     private fun initPager() {
         var fragments = listOf<BaseRegistrationFragment>(
             RegistrationStep1Fragment.newInstance("Step 1", "Please choose a user type"),
-            RegistrationStep2Fragment.newInstance("Step 2", "Please enter your basic information"),
-            RegistrationStep3Fragment.newInstance("Step 3", "Finalize your details")
+            RegistrationStep2Fragment.newInstance("Step 2", "Please enter your personal information"),
+            RegistrationStep3Fragment.newInstance("Step 3", "Please confirm your details")
         )
 
         vpRegistrationSteps.isUserInputEnabled = false
