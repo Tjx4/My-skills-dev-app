@@ -12,11 +12,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager2.widget.ViewPager2
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.adapters.RegistrationViewpagerAdapter
-import co.za.dvt.myskilldevapp.adapters.UserTypeAdapter
 import co.za.dvt.myskilldevapp.databinding.ActivityRegistrationBinding
 import co.za.dvt.myskilldevapp.enums.UserTypes
 import co.za.dvt.myskilldevapp.extensions.TRAIL_FROM
-import co.za.dvt.myskilldevapp.extensions.TRAIL_TO
 import co.za.dvt.myskilldevapp.extensions.blinkView
 import co.za.dvt.myskilldevapp.extensions.goToActivityWithNoPayload
 import co.za.dvt.myskilldevapp.features.activities.BaseParentActivity
@@ -25,7 +23,6 @@ import co.za.dvt.myskilldevapp.features.login.LoginActivity
 import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationStep1Fragment
 import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationStep2Fragment
 import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationStep3Fragment
-import co.za.dvt.myskilldevapp.helpers.showShortToast
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_registration.*
 
@@ -49,7 +46,8 @@ class RegistrationActivity : BaseParentActivity() {
         initPager()
 
         pagerToolbar?.title = " CREATE ACCOUNT"
-        pagerToolbar?.setLogo(R.drawable.ic_select_register_light)
+        pagerToolbar?.setLogo(R.drawable.ic_create_account_light)
+        setSupportActionBar(pagerToolbar)
     }
 
     private fun addObservers() {

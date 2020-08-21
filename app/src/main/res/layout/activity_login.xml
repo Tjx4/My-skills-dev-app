@@ -26,6 +26,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                 android:layout_marginBottom="@dimen/large__margin"
                 tools:text="@string/login_welcome_message"
                 android:text="@{Html.fromHtml(loginViewModel.currentUserMessage)}"
+                android:gravity="left"
                 app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
                 app:layout_constraintRight_toRightOf="@+id/btnSignIn"
                 app:layout_constraintTop_toTopOf="parent" />
