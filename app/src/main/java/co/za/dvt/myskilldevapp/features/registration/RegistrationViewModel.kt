@@ -51,6 +51,10 @@ class RegistrationViewModel(application: Application) : BaseVieModel(application
     val confirmPassword: LiveData<String>
         get() = _confirmPassword
 
+    init {
+        _name.value = "Tshepo"
+    }
+
     fun setUserType(userType: UserTypes){
         _userType.value = userType
     }

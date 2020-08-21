@@ -45,7 +45,7 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    </layout>
+</layout>
     <!--
     <layout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"

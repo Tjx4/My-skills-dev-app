@@ -14,7 +14,6 @@ class RegistrationPersonalDetailsFragment : BaseRegistrationFragment() {
     private var signInBtn: Button? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        //val parentView = inflater.inflate(R.layout.fragment_registration_personal_details, container, false)
         binding = FragmentRegistrationPersonalDetailsBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.registerName = registrationActivity?.registrationViewModel?.name?.value
