@@ -5,8 +5,8 @@
     <data>
         <import type="android.text.Html"/>
         <variable
-                name="registrationViewModel"
-                type="co.za.dvt.myskilldevapp.features.registration.RegistrationViewModel"/>
+            name="registrationViewModel"
+            type="co.za.dvt.myskilldevapp.features.registration.RegistrationViewModel"/>
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

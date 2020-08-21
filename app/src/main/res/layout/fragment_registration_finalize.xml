@@ -4,14 +4,14 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-                name="registrationViewModel"
-                type="co.za.dvt.myskilldevapp.features.registration.RegistrationViewModel"/>
+                name="fullNames"
+                type="String"/>
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".features.registration.fragments.RegistrationStep3Fragment"
+        tools:context=".features.registration.fragments.RegistrationFinalizeFragment"
         android:animateLayoutChanges="true">
 
         <androidx.core.widget.NestedScrollView
@@ -24,6 +24,18 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/large__margin">
 
+<TextView
+        style="@style/MediumLightTextView"
+        android:id="@+id/txtRegisterName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Name: Tshepo Baloyi"
+        android:text="@{fullNames}"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+                <!--
                 <TextView
                         style="@style/MediumLightTextView"
                         android:id="@+id/txtRegisterName"
@@ -79,6 +91,8 @@
                         app:layout_constraintRight_toRightOf="parent"
                         android:layout_marginTop="@dimen/large__margin"
                         app:layout_constraintTop_toBottomOf="@+id/txtRegisterMobileNumber" />
+
+                -->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

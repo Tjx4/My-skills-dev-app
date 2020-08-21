@@ -28,7 +28,7 @@ class RegistrationViewModel(application: Application) : BaseVieModel(application
     get() = _surname
 
     private var _fullNames: MutableLiveData<String> = MutableLiveData()
-    val fullNames: LiveData<String>
+    open val fullNames: LiveData<String>
     get() = _fullNames
 
     private var _gender: MutableLiveData<Gender> = MutableLiveData()
