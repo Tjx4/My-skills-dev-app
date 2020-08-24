@@ -1,11 +1,14 @@
 package co.za.dvt.myskilldevapp.features.registration.fragments
 
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.RadioGroup
+import androidx.databinding.DataBindingUtil
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.databinding.FragmentRegistrationStep2Binding
 import co.za.dvt.myskilldevapp.enums.Gender
@@ -14,19 +17,18 @@ import co.za.dvt.myskilldevapp.features.base.BaseRegistrationFragment
 class RegistrationPersonalDetailsFragment : BaseRegistrationFragment() {
     lateinit var binding: FragmentRegistrationStep2Binding
     private var signInBtn: Button? = null
+
+    lateinit var parentView: View
+    private var registerNameTxt: EditText? = null
     private var genderContainerRg: RadioGroup? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentRegistrationStep2Binding.inflate(inflater, container, false)
+        //binding = FragmentRegistrationStep2Binding.inflate(inflater, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_registration_step2,container, false)
         binding.lifecycleOwner = this
-        binding.registerName = registrationActivity?.registrationViewModel?.name?.value
-        binding.registerSurname = registrationActivity?.registrationViewModel?.surname?.value
-        binding.registerEmail = registrationActivity?.registrationViewModel?.email?.value
-        binding.registerMobileNumber = registrationActivity?.registrationViewModel?.mobileNumber?.value?.toString()?: ""
-        binding.registerPassword = registrationActivity?.registrationViewModel?.password?.value
-        binding.registerConfirmPassword = registrationActivity?.registrationViewModel?.confirmPassword?.value
-        val parentView = binding.root
-
+        binding.registrationViewModel = registrationActivity?.registrationViewModel
+        binding.registerMobileNumber = binding.registrationViewModel?.mobileNumber?.value?.toString()?: ""
+        parentView = binding.root
         initViews(parentView)
         return parentView
     }
@@ -36,9 +38,18 @@ class RegistrationPersonalDetailsFragment : BaseRegistrationFragment() {
         if (menuVisible) {
 
         }
+        else{
+            hackIt()
+        }
+    }
+
+    fun hackIt(){
+        registerNameTxt = parentView.findViewById(R.id.txtRegisterName)
+        //registrationActivity?.registrationViewModel?.name?.value = registerNameTxt?.text.toString()
     }
 
     fun initViews(parentView: View){
+
         genderContainerRg = parentView.findViewById(R.id.rgGenderContainer)
         genderContainerRg?.setOnCheckedChangeListener(
             RadioGroup.OnCheckedChangeListener { group, checkedId ->
@@ -55,10 +66,6 @@ class RegistrationPersonalDetailsFragment : BaseRegistrationFragment() {
         signInBtn = parentView.findViewById(R.id.btnSignIn)
         signInBtn?.setOnClickListener {
             registrationActivity?.moveToFinalStep()
-
-registrationActivity?.registrationViewModel?.name?.value
-registrationActivity?.registrationViewModel?.surname?.value
-registrationActivity?.registrationViewModel?.email?.value
         }
     }
 

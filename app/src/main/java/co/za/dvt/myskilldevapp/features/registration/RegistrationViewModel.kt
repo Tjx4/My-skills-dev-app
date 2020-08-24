@@ -1,13 +1,16 @@
 package co.za.dvt.myskilldevapp.features.registration
 
 import android.app.Application
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
+import androidx.databinding.Observable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.enums.Gender
 import co.za.dvt.myskilldevapp.enums.UserTypes
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
 
-class RegistrationViewModel(application: Application) : BaseVieModel(application) {
+class RegistrationViewModel(application: Application) : BaseVieModel(application), Observable {
     // UserType = Personal/basic info = Varify info
     private val registrationRepository: RegistrationRepository = RegistrationRepository(application)
 
@@ -19,9 +22,11 @@ class RegistrationViewModel(application: Application) : BaseVieModel(application
     val userName: LiveData<String>
     get() = _userName
 
-    private var _name: MutableLiveData<String> = MutableLiveData()
-    val name: LiveData<String>
-    get() = _name
+    //private var _name: MutableLiveData<String> = MutableLiveData()
+    //val name: LiveData<String>
+    //get() = _name
+    @Bindable
+    var name: String = ""
 
     private var _surname: MutableLiveData<String> = MutableLiveData()
     val surname: LiveData<String>
@@ -52,6 +57,8 @@ class RegistrationViewModel(application: Application) : BaseVieModel(application
         get() = _confirmPassword
 
     init {
+        //name = "test name"
+        _email.value = "test@email.com"
     }
 
     fun setUserType(userType: UserTypes){
@@ -59,11 +66,18 @@ class RegistrationViewModel(application: Application) : BaseVieModel(application
     }
 
     fun setNames(){
-        _fullNames.value = "${_name.value} ${_surname.value}"
-        _email.value = "test@email.com"
+        _fullNames.value = "${name} ${_surname.value ?: ""}"
     }
 
     fun setGender(gender: Gender){
         _gender.value = gender
+    }
+
+    override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
+      var pp = callback.toString()
+    }
+
+    override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
+     //   TODO("Not yet implemented")
     }
 }

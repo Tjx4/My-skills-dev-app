@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/medium__margin"
                     tools:text="Gender: female"
-                    android:text="@={registerGender}"
+                    android:text="@{registerGender}"
                     app:layout_constraintLeft_toLeftOf="@+id/btnRegister"
                     app:layout_constraintRight_toRightOf="@+id/btnRegister"
                     app:layout_constraintTop_toBottomOf="@+id/txtRegisterName" />
@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/medium__margin"
                     tools:text="Email: rr@gg.com"
-                    android:text="@={registerEmail}"
+                    android:text="@{registerEmail}"
                     app:layout_constraintLeft_toLeftOf="@+id/btnRegister"
                     app:layout_constraintRight_toRightOf="@+id/btnRegister"
                     app:layout_constraintTop_toBottomOf="@+id/txtRegisterGender" />
@@ -71,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/medium__margin"
                     tools:text="Mobile: 082 9999 999"
-                    android:text="@={registerMobileNumber}"
+                    android:text="@{registerMobileNumber}"
                     app:layout_constraintLeft_toLeftOf="@+id/btnRegister"
                     app:layout_constraintRight_toRightOf="@+id/btnRegister"
                     app:layout_constraintTop_toBottomOf="@+id/txtRegisterEmail" />

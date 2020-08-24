@@ -5,23 +5,13 @@
     <data>
         <import
                 type="co.za.dvt.myskilldevapp.converters.DataBindingConverter" />
+
         <variable
-                name="registerName"
-                type="String"/>
-        <variable
-                name="registerSurname"
-                type="String"/>
-        <variable
-                name="registerEmail"
-                type="String"/>
+                name="registrationViewModel"
+                type="co.za.dvt.myskilldevapp.features.registration.RegistrationViewModel"/>
+
         <variable
                 name="registerMobileNumber"
-                type="String"/>
-        <variable
-                name="registerPassword"
-                type="String"/>
-        <variable
-                name="registerConfirmPassword"
                 type="String"/>
     </data>
 
@@ -55,7 +45,7 @@
                     android:layout_width="0dp"
                     android:inputType="textPersonName"
                     android:hint="Name"
-                    android:text="@={registerName}"
+                    android:text="@={registrationViewModel.name}"
                     app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
                     app:layout_constraintRight_toRightOf="@+id/btnSignIn"
                     android:layout_marginTop="@dimen/medium__margin"
@@ -67,7 +57,7 @@
                     android:layout_width="0dp"
                     android:inputType="textPersonName"
                     android:hint="Surname"
-                    android:text="@={registerSurname}"
+                    android:text="@{registrationViewModel.surname}"
                     app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
                     app:layout_constraintRight_toRightOf="@+id/btnSignIn"
                     android:layout_marginTop="@dimen/medium__margin"
@@ -123,23 +113,24 @@
                     android:layout_width="0dp"
                     android:inputType="textEmailAddress"
                     android:hint="Email"
-                    android:text="@={registerEmail}"
+                    android:text="@{registrationViewModel.email}"
                     app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
                     app:layout_constraintRight_toRightOf="@+id/btnSignIn"
                     android:layout_marginTop="@dimen/medium__margin"
                     app:layout_constraintTop_toBottomOf="@+id/txtContactsHeading"/>
 
             <EditText
-                    style="@style/LightEditText"
                     android:id="@+id/txtCell"
+                    style="@style/LightEditText"
                     android:layout_width="0dp"
-                    android:inputType="number"
+                    android:layout_marginTop="16dp"
                     android:hint="Mobile number"
+                    android:inputType="number"
                     android:text="@={registerMobileNumber}"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
                     app:layout_constraintRight_toRightOf="@+id/btnSignIn"
-                    android:layout_marginTop="@dimen/medium__margin"
-                    app:layout_constraintTop_toBottomOf="@+id/txtRegisterEmail"/>
+                    app:layout_constraintTop_toBottomOf="@+id/txtRegisterEmail" />
 
             <TextView
                     style="@style/SmallLightTextView"
@@ -160,7 +151,7 @@
                     android:layout_width="0dp"
                     android:inputType="textPassword"
                     android:hint="Password"
-                    android:text="@={registerPassword}"
+                    android:text="@{registrationViewModel.password}"
                     android:layout_marginTop="@dimen/medium__margin"
                     app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
                     app:layout_constraintRight_toRightOf="@+id/btnSignIn"
@@ -172,7 +163,7 @@
                     android:layout_width="0dp"
                     android:inputType="textPassword"
                     android:hint="Confirm Password"
-                    android:text="@={registerConfirmPassword}"
+                    android:text="@{registrationViewModel.confirmPassword}"
                     android:layout_marginTop="@dimen/medium__margin"
                     app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
                     app:layout_constraintRight_toRightOf="@+id/btnSignIn"

@@ -32,8 +32,13 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
 
     var busyMessage: String = "Signing in, please wait.."
 
+    private val _username: MutableLiveData<String> = MutableLiveData()
     var username: MutableLiveData<String> = MutableLiveData()
+    get() = _username
+
+    private var _password: MutableLiveData<String> = MutableLiveData()
     var password: MutableLiveData<String> = MutableLiveData()
+    get() = _password
 
     var currentUserMessage: MutableLiveData<String> = MutableLiveData()
 
@@ -85,8 +90,8 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
             delay(3000)
 
             var usersTable = UsersTable()
-            usersTable.name = username.value
-            usersTable.surname = password.value
+            usersTable.name = _username.value
+            usersTable.surname = _password.value
             usersTable.picUrl = "http//"
 
             // Todo: Move to after succesfull signin

@@ -55,6 +55,8 @@ class RegistrationActivity : BaseParentActivity() {
 
     private fun addObservers() {
         registrationViewModel.userType.observe(this, Observer { onUserTypeSet(it)})
+        registrationViewModel.surname.observe(this, Observer { onSurnameChanged(it)})
+        registrationViewModel.mobileNumber.observe(this, Observer { onMobileChanged(it)})
     }
 
     private fun initPager() {
@@ -86,19 +88,21 @@ class RegistrationActivity : BaseParentActivity() {
         vpRegistrationSteps.setCurrentItem(1, true)
     }
 
+    private fun onSurnameChanged(surname: String){
+        var sn = surname
+    }
+    private fun onMobileChanged(mobile: Int){
+        var sn = mobile
+    }
+
     fun moveToFinalStep(){
         vpRegistrationSteps.setCurrentItem(2, true)
-
-registrationViewModel?.name?.value
-registrationViewModel?.surname?.value
-registrationViewModel?.email?.value
     }
 
     fun onNextButtonClicked(view: View){
         view.blinkView(0.6f, 1.0f, 100, 2, Animation.ABSOLUTE, 0, {
             goToPreviouseStep()
         }, {})
-
     }
 
     fun onPrevButtonClicked(view: View){

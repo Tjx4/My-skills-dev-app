@@ -13,11 +13,6 @@ class RegistrationFinalizeFragment : BaseRegistrationFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentRegistrationFinalizeBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
-        binding.fullNames = registrationActivity?.registrationViewModel?.fullNames?.value
-        binding.registerGender = registrationActivity?.registrationViewModel?.gender?.value?.sex
-        binding.registerEmail = registrationActivity?.registrationViewModel?.email?.value
-        var mobile = registrationActivity?.registrationViewModel?.mobileNumber?.value?.toString()
-        binding.registerMobileNumber = mobile?: ""
         val parentView = binding.root
         initViews(parentView)
         return parentView
@@ -27,10 +22,12 @@ class RegistrationFinalizeFragment : BaseRegistrationFragment() {
         super.setMenuVisibility(menuVisible)
         if (menuVisible) {
             registrationActivity?.registrationViewModel?.setNames()
+            //Todo: Fix 2 way binding
+            binding.fullNames =  "Full name: ${registrationActivity?.registrationViewModel?.fullNames?.value ?: "Unspecified"}"
+            binding.registerGender =  "Gender: ${registrationActivity?.registrationViewModel?.gender?.value?.sex ?: "Unspecified"}"
+            binding.registerEmail = "Email: ${registrationActivity?.registrationViewModel?.email?.value ?: "Unspecified"}"
+            binding.registerMobileNumber = "Mobile: ${registrationActivity?.registrationViewModel?.mobileNumber?.value?.toString() ?: "Unspecified"}"
 
-registrationActivity?.registrationViewModel?.name?.value
-registrationActivity?.registrationViewModel?.surname?.value
-registrationActivity?.registrationViewModel?.email?.value
         }
     }
 
