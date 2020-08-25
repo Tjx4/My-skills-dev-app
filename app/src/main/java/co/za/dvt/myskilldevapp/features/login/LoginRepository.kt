@@ -10,7 +10,7 @@ open class LoginRepository(var application: Application) : BaseRepositories() {
 
     fun getAllCachedUsers() = database.getAllUsers()
     fun getLastCachedUser() = database.getFirstUser()
-    suspend fun loginUser(params: Map<String, String>) = retrofitHelper.loginMember(params)
+    suspend fun loginMember(params: Map<String, String>) = retrofitHelper.loginMember(params)
     //fun getUserFromDb(id: Int) = database.get(id.toLong())
     suspend fun addUserToDb(usersTable: UsersTable) = database.insert(usersTable)
 }

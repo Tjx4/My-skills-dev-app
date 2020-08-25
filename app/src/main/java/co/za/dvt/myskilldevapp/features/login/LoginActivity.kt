@@ -64,7 +64,7 @@ class LoginActivity : BaseParentActivity()  {
         finish()
     }
 
-    fun onTestButtonClicked(view: View){
+    fun onLoginButtonClicked(view: View){
         loginViewModel.signIn()
     }
 

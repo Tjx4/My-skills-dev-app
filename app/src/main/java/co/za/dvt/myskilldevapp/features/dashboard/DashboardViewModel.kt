@@ -56,12 +56,6 @@ class DashboardViewModel(application: Application) : BaseVieModel(application) {
 
     }
 
-    suspend fun getUserInfo(): List<UsersTable>? {
-       return withContext(Dispatchers.IO){
-            dashboardRepository.getAllStatsFromDB()
-        }
-    }
-
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()

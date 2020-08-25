@@ -7,6 +7,8 @@ import kotlinx.android.parcel.Parcelize
 class MemberModel (
     @SerializedName("id") override var id: Int = 0,
     @SerializedName("name") override var name: String? = null,
+    @SerializedName("surname") override var surname: String? = null,
+    @SerializedName("age") override var age: Int = 0,
 
-    @SerializedName("memberId") var memberId:String? = null
+    @SerializedName("memberBalance") var memberBalance:String? = null
 ) : UserModel()

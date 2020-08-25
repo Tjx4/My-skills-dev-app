@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
 import co.za.dvt.myskilldevapp.models.UserModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class LoginViewModel(application: Application) : BaseVieModel(application) {
@@ -88,25 +87,24 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
         _showLoading.value = true
 
         ioScope.launch {
-            var params = mapOf<String, String>() //<String, String>("username" to _username.value, "password" to _password.value)
+            var params = mutableMapOf<String, String>()
+            params["username"] = _username.value ?: ""
+            params["password"] = _password.value ?: ""
 
-            var login = loginRepository.loginUser(params)
+            var login = loginRepository.loginMember(params)
 
             uiScope.launch {
-
                 if(login.success){
-
+                    // currentUserMessage.value = "${usersTable.name} you are logged in"
+                    addUserToDb(login?.user)
+                    isLoginSuccessful.value = true
                 }
                 else{
 
                 }
 
-               // currentUserMessage.value = "${usersTable.name} you are logged in"
-                addUserToDb(login?.user)
                 _showContent.value = true
                 password.value = ""
-
-                isLoginSuccessful.value = true
             }
 
         }

@@ -59,7 +59,7 @@
                 style="@style/MyPAButton"
                 android:id="@+id/btnSignIn"
                 android:text="Sign in"
-                android:onClick="onTestButtonClicked"
+                android:onClick="onLoginButtonClicked"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginTop="@dimen/medium__margin"
