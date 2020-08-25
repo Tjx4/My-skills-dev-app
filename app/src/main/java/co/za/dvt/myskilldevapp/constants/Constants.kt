@@ -1,9 +1,12 @@
 package co.za.dvt.myskilldevapp.constants
 
-const val HOST = "http://appicsoftware.co.za/"
 const val PAYLOAD_KEY = "payload"
-const val GET_LUCKY_NUMBER = "api/luckyNumber.php"
-const val GET_AVAILABLE_CARS = "api/cars.php"
+
+//API
+const val HOST = "http://appicsoftware.co.za/" // Hosts.UAT.url
+
+const val LOGIN_MEMBER = "api/v1/members/login/"
+const val GET_ALL_MEMBERS = "api/v1/member/"
 
 const val TITLE = "tittle"
 const val USER = "user"

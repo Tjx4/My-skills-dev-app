@@ -49,7 +49,7 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
 
     private fun checkAndPresetUser() {
         ioScope.launch {
-            var lastUser = loginRepository.getLastUser()
+            var lastUser = loginRepository.getLastCachedUser()
 
             uiScope.launch {
                 if (lastUser != null) {
@@ -69,11 +69,11 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
         username.value = lastUser.name
     }
 
-    suspend fun getUsers() = loginRepository.getAllUsers()
+    suspend fun getUsers() = loginRepository.getAllCachedUsers()
 
     fun getPreviousUsers(){
         ioScope.launch {
-            var allUsers = loginRepository.getAllUsers()
+            var allUsers = loginRepository.getAllCachedUsers()
 
             uiScope.launch {
                 if(allUsers != null){
