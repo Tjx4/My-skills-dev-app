@@ -1,35 +1,26 @@
 package co.za.dvt.myskilldevapp.features.login
 
-import android.os.Build
 import android.os.Bundle
-import android.text.Editable
-import android.text.Html
-import android.text.SpannableStringBuilder
-import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
 import androidx.core.text.HtmlCompat
-import androidx.core.text.toHtml
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.databinding.ActivityLoginBinding
 import co.za.dvt.myskilldevapp.extensions.*
-import co.za.dvt.myskilldevapp.features.activities.BaseActivity
 import co.za.dvt.myskilldevapp.features.activities.BaseParentActivity
 import co.za.dvt.myskilldevapp.features.dashboard.DashboardActivity
-import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 import co.za.dvt.myskilldevapp.features.forgotPassword.ForgotPasswordActivity
 import co.za.dvt.myskilldevapp.features.login.fragments.UsersFragment
 import co.za.dvt.myskilldevapp.features.registration.RegistrationActivity
 import co.za.dvt.myskilldevapp.helpers.hideCurrentLoadingDialog
 import co.za.dvt.myskilldevapp.helpers.showDialogFragment
 import co.za.dvt.myskilldevapp.helpers.showLoadingDialog
-import co.za.dvt.myskilldevapp.helpers.showShortToast
 import kotlinx.android.synthetic.main.activity_dashboard.clCParent
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -74,7 +65,7 @@ class LoginActivity : BaseParentActivity()  {
     }
 
     fun onTestButtonClicked(view: View){
-        loginViewModel.testFetchSomethingFromAPI()
+        loginViewModel.signIn()
     }
 
     fun onForgotPassUserClicked(view: View){

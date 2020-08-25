@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
+import co.za.dvt.myskilldevapp.models.UserModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -83,22 +84,25 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
         }
     }
 
-    fun testFetchSomethingFromAPI(){
+    fun signIn(){
         _showLoading.value = true
 
         ioScope.launch {
-            delay(3000)
+            var params = mapOf<String, String>() //<String, String>("username" to _username.value, "password" to _password.value)
 
-            var usersTable = UsersTable()
-            usersTable.name = _username.value
-            usersTable.surname = _password.value
-            usersTable.picUrl = "http//"
-
-            // Todo: Move to after succesfull signin
-            // loginRepository.addUserToDb(usersTable)
+            var login = loginRepository.loginUser(params)
 
             uiScope.launch {
-                currentUserMessage.value = "${usersTable.name} you are logged in"
+
+                if(login.success){
+
+                }
+                else{
+
+                }
+
+               // currentUserMessage.value = "${usersTable.name} you are logged in"
+                addUserToDb(login?.user)
                 _showContent.value = true
                 password.value = ""
 
@@ -109,5 +113,12 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
 
     }
 
+    private suspend fun addUserToDb(userModel: UserModel) {
+        var usersTable = UsersTable()
+        usersTable.name = userModel.name
+        usersTable.surname = userModel.name
+        usersTable.picUrl = "http//"
+        loginRepository.addUserToDb(usersTable)
+    }
 
 }

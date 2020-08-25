@@ -11,7 +11,7 @@ import retrofit2.http.QueryMap
 
 interface RetrofitHelper {
     @POST(LOGIN_MEMBER)
-    suspend fun getLuckyNumner(@QueryMap params: Map<String, String>): LoginModel?
+    suspend fun loginMember(@QueryMap params: Map<String, String>): LoginModel
 
     @GET(GET_ALL_MEMBERS)
     suspend fun getAllUsers(@Header("authorization") token: String): List<UserModel>?

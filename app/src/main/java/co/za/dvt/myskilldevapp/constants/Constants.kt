@@ -3,8 +3,6 @@ package co.za.dvt.myskilldevapp.constants
 const val PAYLOAD_KEY = "payload"
 
 //API
-const val HOST = "http://appicsoftware.co.za/" // Hosts.UAT.url
-
 const val LOGIN_MEMBER = "api/v1/members/login/"
 const val GET_ALL_MEMBERS = "api/v1/member/"
 
