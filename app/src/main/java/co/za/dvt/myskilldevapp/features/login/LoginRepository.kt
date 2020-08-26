@@ -14,13 +14,13 @@ open class LoginRepository(var application: Application) : BaseRepositories() {
 
     suspend fun loginMember(params: Map<String, String>) : LoginModel?{
         try {
-            var res = retrofitHelper.loginMember(params["username"], params["password"])
-            return res
+            return retrofitHelper.loginMember(params)
         }
         catch (ex: Exception){
             return LoginModel(false, "$ex", null)
         }
     }
+
     //fun getUserFromDb(id: Int) = database.get(id.toLong())
     suspend fun addUserToDb(usersTable: UsersTable) = database.insert(usersTable)
 }

@@ -2,6 +2,7 @@ package co.za.dvt.myskilldevapp.features.login
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
+import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
 import co.za.dvt.myskilldevapp.models.UserModel
@@ -40,9 +41,17 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
     var password: MutableLiveData<String> = MutableLiveData()
     get() = _password
 
+    private var _errorMessage: MutableLiveData<String> = MutableLiveData()
+    var errorMessage: MutableLiveData<String> = MutableLiveData()
+    get() = _errorMessage
+
     var currentUserMessage: MutableLiveData<String> = MutableLiveData()
 
     init {
+
+        _username.value = "Tlb_1"
+        _password.value = "Tl@12345"
+
         setManualMode()
         checkAndPresetUser()
     }
@@ -95,12 +104,11 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
 
             uiScope.launch {
                 if(login!!.success){
-                    // currentUserMessage.value = "${usersTable.name} you are logged in"
                     addUserToDb(login?.user!!)
                     isLoginSuccessful.value = true
                 }
                 else{
-
+                    errorMessage.value = app.getString(R.string.login_error)
                 }
 
                 _showContent.value = true

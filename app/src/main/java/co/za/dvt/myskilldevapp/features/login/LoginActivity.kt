@@ -20,6 +20,7 @@ import co.za.dvt.myskilldevapp.features.login.fragments.UsersFragment
 import co.za.dvt.myskilldevapp.features.registration.RegistrationActivity
 import co.za.dvt.myskilldevapp.helpers.hideCurrentLoadingDialog
 import co.za.dvt.myskilldevapp.helpers.showDialogFragment
+import co.za.dvt.myskilldevapp.helpers.showErrorAlert
 import co.za.dvt.myskilldevapp.helpers.showLoadingDialog
 import kotlinx.android.synthetic.main.activity_dashboard.clCParent
 import kotlinx.android.synthetic.main.activity_login.*
@@ -52,11 +53,16 @@ class LoginActivity : BaseParentActivity()  {
         loginViewModel.showContent.observe(this, Observer { toggleShowContent(it) })
         loginViewModel.showPreloadedUser.observe(this, Observer { toggleShowPreloadedUser(it) })
         loginViewModel.isLoginSuccessful.observe(this, Observer { isLoginSuccessful(it) })
+        loginViewModel.errorMessage.observe(this, Observer { onErrorMessageSet(it) })
 
         //Todo: Find out how to do custom control
            txtSignUp.text = HtmlCompat.fromHtml(txtSignUp.text.toString(), 0)
            txtForgotYourUsername.text = HtmlCompat.fromHtml(txtForgotYourUsername.text.toString(), 0)
         //Todo: fix -----------------------------------
+    }
+
+    fun onErrorMessageSet(errorMessage: String) {
+        showErrorAlert(this, "Error", errorMessage)
     }
 
     fun isLoginSuccessful(loginSuccessful: Boolean){

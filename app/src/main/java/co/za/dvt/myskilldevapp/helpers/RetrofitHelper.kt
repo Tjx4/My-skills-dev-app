@@ -7,11 +7,9 @@ import co.za.dvt.myskilldevapp.models.UserModel
 import retrofit2.http.*
 
 interface RetrofitHelper {
-    //@POST(LOGIN_MEMBER)
-    //suspend fun loginMember(@QueryMap params: Map<String, String>): LoginModel
-
-    @GET(LOGIN_MEMBER)
-    suspend fun loginMember(@Path(value = "username", encoded = true)username: String?, @Path(value = "password", encoded = true)password: String?): LoginModel?
+    @FormUrlEncoded
+    @POST(LOGIN_MEMBER)
+    suspend fun loginMember(@FieldMap params: Map<String, String>): LoginModel?
 
     @GET(GET_ALL_MEMBERS)
     suspend fun getAllUsers(@Header("authorization") token: String): List<UserModel>?

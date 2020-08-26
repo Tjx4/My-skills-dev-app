@@ -39,4 +39,5 @@
     <string name="signup_text"><![CDATA[Not yet a Host <b>Sign Up Here</b>]]></string>
     <string name="forgot_password_text"><![CDATA[Forgot your <b>Username/Password</b>]]></string>
     <string name="login_welcome_message">Please enter your details to signIn</string>
+    <string name="login_error">Login fail, please check your details.</string>
 </resources>
