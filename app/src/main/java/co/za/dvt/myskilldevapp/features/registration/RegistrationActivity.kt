@@ -39,9 +39,7 @@ class RegistrationActivity : BaseParentActivity() {
         var application = requireNotNull(this).application
         var viewModelFactory = RegistrationViewModelFactory(application)
 
-        registrationViewModel = ViewModelProviders.of(this, viewModelFactory).get(
-            RegistrationViewModel::class.java
-        )
+        registrationViewModel = ViewModelProviders.of(this, viewModelFactory).get(RegistrationViewModel::class.java)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_registration)
         binding.registrationViewModel = registrationViewModel
         binding.lifecycleOwner = this

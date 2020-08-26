@@ -3,9 +3,6 @@
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import
-                type="co.za.dvt.myskilldevapp.converters.DataBindingConverter" />
-
         <variable
                 name="registrationViewModel"
                 type="co.za.dvt.myskilldevapp.features.registration.RegistrationViewModel"/>
