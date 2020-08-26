@@ -8,7 +8,6 @@ import co.za.dvt.myskilldevapp.models.HostModel
 import kotlinx.coroutines.*
 
 class DashboardViewModel(application: Application) : BaseVieModel(application) {
-
     private val dashboardRepository: DashboardRepository = DashboardRepository(application)
 
     private val _showLoading: MutableLiveData<Boolean> = MutableLiveData()
@@ -20,45 +19,10 @@ class DashboardViewModel(application: Application) : BaseVieModel(application) {
         get() = _showContent
 
     var busyMessage: String = ""
-    var testMessage: MutableLiveData<String> = MutableLiveData()
-
-    private val _availableCars: MutableLiveData<List<HostModel>> = MutableLiveData()
-    val availableCars: MutableLiveData<List<HostModel>>
-    get() = _availableCars
 
     init {
-        testMessage.value = "Please click the test button "
-        _availableCars.value = ArrayList<HostModel>()
     }
 
-    fun testFetchSomethingFromAPI(){
-        _showLoading.value = true
 
-        ioScope.launch {
-           delay(3000)
-
-            uiScope.launch {
-                testMessage.value  = "Cycle done, restarting in 3secs.."
-                _showContent.value = true
-            }
-
-            delay(3000)
-
-            uiScope.launch {
-                testMessage.value  = "Start cycle"
-            }
-
-        }
-
-    }
-
-    fun recordGameStats(jackpotPrice: String) {
-
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
 
 }

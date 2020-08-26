@@ -37,20 +37,17 @@ class DashboardActivity : BaseActivity() {
 
         addObservers()
 
-        var ab = supportActionBar
         var userName = intent.extras?.getBundle(PAYLOAD_KEY)?.getParcelable<UserModel>(USER)
+
+        var ab = supportActionBar
         ab?.title = "Hi ${userName?.name?:"user"}"
+
+        loadImageFromInternet(this,  userName?.picUrl!!, imgProf, R.drawable.ic_pa_light)
     }
 
     private fun addObservers() {
         dashboardViewModel.showLoading.observe(this, Observer { toggleShow(it) })
         dashboardViewModel.showContent.observe(this, Observer { toggleShowContent(it) })
-
-        // dashboardViewModel.availableCars.observe(this, Observer { observeAvailableCars(it) })
-    }
-
-    public fun onTestButtonClicked(view: View){
-        dashboardViewModel.testFetchSomethingFromAPI()
     }
 
     private fun toggleShow(isBusy: Boolean) {
