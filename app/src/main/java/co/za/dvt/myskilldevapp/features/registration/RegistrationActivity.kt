@@ -22,12 +22,14 @@ import co.za.dvt.myskilldevapp.features.login.LoginActivity
 import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationStep1Fragment
 import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationFinalizeFragment
 import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationPersonalDetailsFragment
+import co.za.dvt.myskilldevapp.helpers.showShortToast
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_registration.*
 
 class RegistrationActivity : BaseParentActivity() {
     private lateinit var binding: ActivityRegistrationBinding
     lateinit var registrationViewModel: RegistrationViewModel
+    lateinit var fragments: List<BaseRegistrationFragment>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +52,6 @@ class RegistrationActivity : BaseParentActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
         }
-
     }
 
     private fun addObservers() {
@@ -60,22 +61,29 @@ class RegistrationActivity : BaseParentActivity() {
     }
 
     private fun initPager() {
-        var fragments = listOf<BaseRegistrationFragment>(
-            RegistrationStep1Fragment.newInstance("Step 1", "Please choose a user type"),
-            RegistrationPersonalDetailsFragment.newInstance("Step 2", "Please enter your personal information"),
-            RegistrationFinalizeFragment.newInstance("Step 3", "Please confirm your details")
+        fragments = listOf<BaseRegistrationFragment>(
+            RegistrationStep1Fragment.newInstance("Step 1", "Please choose a user type", true),
+            RegistrationPersonalDetailsFragment.newInstance("Step 2", "Please enter your personal information", false),
+            RegistrationFinalizeFragment.newInstance("Step 3", "Please confirm your details", false)
         )
 
         vpRegistrationSteps.isUserInputEnabled = false
 
         var regVpAdapter = RegistrationViewpagerAdapter(fragments, this)
         vpRegistrationSteps.adapter  = regVpAdapter
-        //vpRegistrationSteps.orientation = ViewPager2.ORIENTATION_VERTICAL
-        //vpRegistrationSteps.setPageTransformer(ZoomOutPageTransformer())
+        var context = this
         vpRegistrationSteps.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
+//TOdo: Fix this logic
+if(!fragments[position].isEnabled){
+    goToPreviouseStep()
+    showShortToast("Please finish previous step first", context)
+    return
+}
+
                 super.onPageSelected(position)
                 txtStageDescription.text = fragments[position].description
+
             }
         })
 
@@ -117,9 +125,6 @@ class RegistrationActivity : BaseParentActivity() {
     }
 
     private fun goToNextStep() {
-        //vpRegistrationSteps.beginFakeDrag()
-        //var dragAmount = vpRegistrationSteps.width
-        //vpRegistrationSteps.fakeDragBy(dragAmount.toFloat())
         val nextPosition = vpRegistrationSteps.currentItem + 1
         vpRegistrationSteps.setCurrentItem(nextPosition, true)
     }

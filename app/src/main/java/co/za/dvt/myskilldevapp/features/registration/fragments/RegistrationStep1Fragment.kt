@@ -48,11 +48,12 @@ class RegistrationStep1Fragment : BaseRegistrationFragment(), UserTypeAdapter.Us
     }
 
     companion object {
-        fun newInstance(title: String, description: String): BaseRegistrationFragment {
+        fun newInstance(title: String, description: String, isEnabled: Boolean): BaseRegistrationFragment {
             val registrationStep1Fragment = RegistrationStep1Fragment()
             var payload = Bundle()
             //payload.putString(TITLE, title)
             registrationStep1Fragment.arguments = payload
+            registrationStep1Fragment.isEnabled = isEnabled
             registrationStep1Fragment.title = title
             registrationStep1Fragment.description = description
             return registrationStep1Fragment
@@ -62,5 +63,6 @@ class RegistrationStep1Fragment : BaseRegistrationFragment(), UserTypeAdapter.Us
     override fun onItemClick(view: View, position: Int) {
         val userType = UserTypes.values()[position]
         registrationActivity?.registrationViewModel?.setUserType(userType)
+        isEnabled = true
     }
 }

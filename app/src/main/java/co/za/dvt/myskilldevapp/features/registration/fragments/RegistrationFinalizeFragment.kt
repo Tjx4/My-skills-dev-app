@@ -36,12 +36,13 @@ class RegistrationFinalizeFragment : BaseRegistrationFragment() {
     }
 
     companion object {
-        fun newInstance(title: String, description: String): BaseRegistrationFragment {
+        fun newInstance(title: String, description: String, isEnabled: Boolean): BaseRegistrationFragment {
             val registrationStep3Fragment = RegistrationFinalizeFragment()
             var payload = Bundle()
             //payload.putString(TITLE, title)
             registrationStep3Fragment.arguments = payload
             registrationStep3Fragment.title = title
+            registrationStep3Fragment.isEnabled = isEnabled
             registrationStep3Fragment.description = description
             return registrationStep3Fragment
         }

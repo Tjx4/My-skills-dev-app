@@ -66,15 +66,17 @@ class RegistrationPersonalDetailsFragment : BaseRegistrationFragment() {
         signInBtn = parentView.findViewById(R.id.btnSignIn)
         signInBtn?.setOnClickListener {
             registrationActivity?.moveToFinalStep()
+            isEnabled = true
         }
     }
 
     companion object {
-        fun newInstance(title: String, description: String): BaseRegistrationFragment {
+        fun newInstance(title: String, description: String, isEnabled: Boolean): BaseRegistrationFragment {
             val registrationStep2Fragment = RegistrationPersonalDetailsFragment()
             var payload = Bundle()
             //payload.putString(TITLE, title)
             registrationStep2Fragment.arguments = payload
+            registrationStep2Fragment.isEnabled = isEnabled
             registrationStep2Fragment.title = title
             registrationStep2Fragment.description = description
             return registrationStep2Fragment

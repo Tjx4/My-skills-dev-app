@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import co.za.dvt.myskilldevapp.features.registration.RegistrationActivity
 
 abstract class BaseRegistrationFragment : Fragment()  {
+    var isEnabled: Boolean = false
     var title: String? = null
     var description: String? = null
+
     protected var registrationActivity: RegistrationActivity? = null
 
     override fun onAttach(context: Context) {
