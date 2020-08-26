@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.view.animation.Animation
+import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -19,12 +20,13 @@ import co.za.dvt.myskilldevapp.extensions.goToActivityWithNoPayload
 import co.za.dvt.myskilldevapp.features.activities.BaseParentActivity
 import co.za.dvt.myskilldevapp.features.base.BaseRegistrationFragment
 import co.za.dvt.myskilldevapp.features.login.LoginActivity
-import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationStep1Fragment
 import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationFinalizeFragment
 import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationPersonalDetailsFragment
+import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationStep1Fragment
 import co.za.dvt.myskilldevapp.helpers.showShortToast
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_registration.*
+
 
 class RegistrationActivity : BaseParentActivity() {
     private lateinit var binding: ActivityRegistrationBinding
@@ -37,7 +39,9 @@ class RegistrationActivity : BaseParentActivity() {
         var application = requireNotNull(this).application
         var viewModelFactory = RegistrationViewModelFactory(application)
 
-        registrationViewModel = ViewModelProviders.of(this, viewModelFactory).get(RegistrationViewModel::class.java)
+        registrationViewModel = ViewModelProviders.of(this, viewModelFactory).get(
+            RegistrationViewModel::class.java
+        )
         binding = DataBindingUtil.setContentView(this, R.layout.activity_registration)
         binding.registrationViewModel = registrationViewModel
         binding.lifecycleOwner = this
@@ -55,15 +59,19 @@ class RegistrationActivity : BaseParentActivity() {
     }
 
     private fun addObservers() {
-        registrationViewModel.userType.observe(this, Observer { onUserTypeSet(it)})
-        registrationViewModel.surname.observe(this, Observer { onSurnameChanged(it)})
-        registrationViewModel.mobileNumber.observe(this, Observer { onMobileChanged(it)})
+        registrationViewModel.userType.observe(this, Observer { onUserTypeSet(it) })
+        registrationViewModel.surname.observe(this, Observer { onSurnameChanged(it) })
+        registrationViewModel.mobileNumber.observe(this, Observer { onMobileChanged(it) })
     }
 
     private fun initPager() {
         fragments = listOf<BaseRegistrationFragment>(
             RegistrationStep1Fragment.newInstance("Step 1", "Please choose a user type", true),
-            RegistrationPersonalDetailsFragment.newInstance("Step 2", "Please enter your personal information", false),
+            RegistrationPersonalDetailsFragment.newInstance(
+                "Step 2",
+                "Please enter your personal information",
+                false
+            ),
             RegistrationFinalizeFragment.newInstance("Step 3", "Please confirm your details", false)
         )
 
@@ -72,24 +80,46 @@ class RegistrationActivity : BaseParentActivity() {
         var regVpAdapter = RegistrationViewpagerAdapter(fragments, this)
         vpRegistrationSteps.adapter  = regVpAdapter
         var context = this
-        vpRegistrationSteps.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        vpRegistrationSteps.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
 //TOdo: Fix this logic
-if(!fragments[position].isEnabled){
-    //goToPreviouseStep()
-    showShortToast("Please finish previous step first", context)
-    return
-}
+                if (!fragments[position].isEnabled) {
+                    //goToPreviouseStep()
+                    showShortToast("Please finish previous step first", context)
+                    return
+                }
 
                 super.onPageSelected(position)
                 txtStageDescription.text = fragments[position].description
 
+/*
+    var touchableList = tbStages?.touchables
+    var index = 0
+    touchableList?.forEach {
+    it.isEnabled = fragments[index].isEnabled
+    index++
+    }
+*/
+
             }
         })
 
-        TabLayoutMediator(tbStages, vpRegistrationSteps) {  tab, position ->
+        TabLayoutMediator(tbStages, vpRegistrationSteps) { tab, position ->
             tab.text = fragments[position].title
         }.attach()
+
+
+        /*
+        val tabStrip = tbStages.getChildAt(0) as LinearLayout
+        for (i in 0 until tabStrip.childCount) {
+            tabStrip.getChildAt(i).setOnTouchListener(object : View.OnTouchListener() {
+                fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                    return true
+                }
+            })
+        }
+        */
     }
 
     private fun onUserTypeSet(userType: UserTypes){
@@ -138,7 +168,7 @@ if(!fragments[position].isEnabled){
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_login ->  goToActivityWithNoPayload(LoginActivity::class.java, TRAIL_FROM)
+            R.id.action_login -> goToActivityWithNoPayload(LoginActivity::class.java, TRAIL_FROM)
         }
         return super.onOptionsItemSelected(item)
     }
