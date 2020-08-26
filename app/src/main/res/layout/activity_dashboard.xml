@@ -14,17 +14,74 @@
         android:layout_height="match_parent"
         tools:context=".features.dashboard.DashboardActivity">
 
-
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/imgProf"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:src="@drawable/ic_pa_light"
+                app:riv_corner_radius="50dp"
+                android:scaleType="centerCrop"
+                android:layout_marginTop="@dimen/medium__margin"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"/>
 
+        <androidx.cardview.widget.CardView
+                android:id="@+id/crv1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/lightBackground"
+                android:layout_margin="@dimen/medium__margin"
+                android:layout_marginTop="@dimen/medium__margin"
+                app:layout_constraintTop_toBottomOf="@+id/imgProf">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/medium_padding"
+                    app:layout_constraintTop_toBottomOf="@+id/imgProf">
+
+                <TextView
+                        style="@style/MediumDarkTextView"
+                        android:id="@+id/txtErrorMessagee"
+                        android:layout_width="wrap_content"
+                        tools:text="Points: 0"
+                        android:text="Points: 0"
+                        android:gravity="left"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+                android:id="@+id/crv2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/lightBackground"
+                android:layout_margin="@dimen/medium__margin"
+                android:layout_marginTop="@dimen/medium__margin"
+                app:layout_constraintTop_toBottomOf="@+id/crv1">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/medium_padding">
+
+                <TextView
+                        style="@style/MediumDarkTextView"
+                        android:id="@+id/txtErrorMessage"
+                        android:layout_width="wrap_content"
+                        tools:text="Stats: 0"
+                        android:text="Points: 0"
+                        android:gravity="left"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
