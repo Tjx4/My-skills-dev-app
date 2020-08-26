@@ -12,7 +12,7 @@ open class LoginRepository(var application: Application) : BaseRepositories() {
     fun getAllCachedUsers() = database.getAllUsers()
     fun getLastCachedUser() = database.getFirstUser()
 
-    suspend fun loginMember(params: Map<String, String>) : LoginModel{
+    suspend fun loginMember(params: Map<String, String>) : LoginModel?{
         try {
             var res = retrofitHelper.loginMember(params["username"], params["password"])
             return res

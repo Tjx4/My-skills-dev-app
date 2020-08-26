@@ -94,7 +94,7 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
             var login = loginRepository.loginMember(params)
 
             uiScope.launch {
-                if(login.success){
+                if(login!!.success){
                     // currentUserMessage.value = "${usersTable.name} you are logged in"
                     addUserToDb(login?.user!!)
                     isLoginSuccessful.value = true

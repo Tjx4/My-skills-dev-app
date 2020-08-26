@@ -11,7 +11,7 @@ interface RetrofitHelper {
     //suspend fun loginMember(@QueryMap params: Map<String, String>): LoginModel
 
     @GET(LOGIN_MEMBER)
-    suspend fun loginMember(@Path(value = "username", encoded = true)username: String?, @Path(value = "password", encoded = true)password: String?): LoginModel
+    suspend fun loginMember(@Path(value = "username", encoded = true)username: String?, @Path(value = "password", encoded = true)password: String?): LoginModel?
 
     @GET(GET_ALL_MEMBERS)
     suspend fun getAllUsers(@Header("authorization") token: String): List<UserModel>?
