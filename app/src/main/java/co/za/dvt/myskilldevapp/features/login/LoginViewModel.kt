@@ -11,9 +11,9 @@ import kotlinx.coroutines.launch
 class LoginViewModel(application: Application) : BaseVieModel(application) {
     private val loginRepository: LoginRepository = LoginRepository(application)
 
-    private val _isLoginSuccessful: MutableLiveData<Boolean> = MutableLiveData()
-    val isLoginSuccessful: MutableLiveData<Boolean>
-        get() = _isLoginSuccessful
+    private val _currentUser: MutableLiveData<UserModel> = MutableLiveData()
+    val currentUser: MutableLiveData<UserModel>
+        get() = _currentUser
 
     private val _showPreloadedUser: MutableLiveData<Boolean> = MutableLiveData()
     val showPreloadedUser: MutableLiveData<Boolean>
@@ -75,7 +75,7 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
     fun preSetUser(lastUser: UsersTable) {
         showPreloadedUser.value = true
         currentUserMessage.value = "<b>Hi ${lastUser.name}</b>, please enter your password to continue"
-        username.value = lastUser.name
+        username.value = lastUser.username
     }
 
     suspend fun getUsers() = loginRepository.getAllCachedUsers()
@@ -104,8 +104,7 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
 
             uiScope.launch {
                 if(login!!.success){
-                    addUserToDb(login?.user!!)
-                    isLoginSuccessful.value = true
+                    _currentUser.value = login.user
                 }
                 else{
                     errorMessage.value = app.getString(R.string.login_error)
@@ -115,15 +114,19 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
                 password.value = ""
             }
 
+            if(login!!.success){
+                addUserToDb(login?.user!!)
+            }
         }
 
     }
 
     private suspend fun addUserToDb(userModel: UserModel) {
         var usersTable = UsersTable()
+        usersTable.username = userModel.username
         usersTable.name = userModel.name
         usersTable.surname = userModel.name
-        usersTable.picUrl = "http//"
+        usersTable.picUrl = userModel.picUrl
         loginRepository.addUserToDb(usersTable)
     }
 

@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import co.za.dvt.myskilldevapp.R
+import co.za.dvt.myskilldevapp.constants.USER
 import co.za.dvt.myskilldevapp.databinding.ActivityLoginBinding
 import co.za.dvt.myskilldevapp.extensions.*
 import co.za.dvt.myskilldevapp.features.activities.BaseParentActivity
@@ -22,6 +23,7 @@ import co.za.dvt.myskilldevapp.helpers.hideCurrentLoadingDialog
 import co.za.dvt.myskilldevapp.helpers.showDialogFragment
 import co.za.dvt.myskilldevapp.helpers.showErrorAlert
 import co.za.dvt.myskilldevapp.helpers.showLoadingDialog
+import co.za.dvt.myskilldevapp.models.UserModel
 import kotlinx.android.synthetic.main.activity_dashboard.clCParent
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -52,7 +54,7 @@ class LoginActivity : BaseParentActivity()  {
         loginViewModel.showLoading.observe(this, Observer { toggleShow(it) })
         loginViewModel.showContent.observe(this, Observer { toggleShowContent(it) })
         loginViewModel.showPreloadedUser.observe(this, Observer { toggleShowPreloadedUser(it) })
-        loginViewModel.isLoginSuccessful.observe(this, Observer { isLoginSuccessful(it) })
+        loginViewModel.currentUser.observe(this, Observer { isUserSet(it) })
         loginViewModel.errorMessage.observe(this, Observer { onErrorMessageSet(it) })
 
         //Todo: Find out how to do custom control
@@ -65,8 +67,10 @@ class LoginActivity : BaseParentActivity()  {
         showErrorAlert(this, "Error", errorMessage)
     }
 
-    fun isLoginSuccessful(loginSuccessful: Boolean){
-        goToActivityWithNoPayload(DashboardActivity::class.java, FADE_IN_ACTIVITY)
+    fun isUserSet(user: UserModel){
+        var payload = Bundle()
+        payload.putParcelable(USER, user)
+        goToActivityWithPayload(DashboardActivity::class.java, payload, FADE_IN_ACTIVITY)
         finish()
     }
 

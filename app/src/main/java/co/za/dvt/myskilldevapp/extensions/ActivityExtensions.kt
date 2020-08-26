@@ -15,6 +15,10 @@ val FADE_OUT_ACTIVITY = getTransitionAnimation(R.anim.no_transition, R.anim.fade
 val TRAIL_TO = getTransitionAnimation(R.anim.trail_out, R.anim.trail_in)
 val TRAIL_FROM = getTransitionAnimation(R.anim.trail_in2, R.anim.trail_out2)
 
+fun AppCompatActivity.goToActivityWithPayload(activity: Class<*>, payload: Bundle, transitionAnimation: Transition) {
+    goToActivity(activity, transitionAnimation, payload)
+}
+
 fun AppCompatActivity.goToActivityWithNoPayload(activity: Class<*>, transitionAnimation: Transition) {
     goToActivity(activity, transitionAnimation, null)
 }

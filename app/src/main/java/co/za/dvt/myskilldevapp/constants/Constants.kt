@@ -1,11 +1,11 @@
 package co.za.dvt.myskilldevapp.constants
 
-const val PAYLOAD_KEY = "payload"
 
 //API
 const val LOGIN_MEMBER = "api/v1/members/login/"
 const val GET_ALL_MEMBERS = "api/v1/member/"
-
+//Intent keys
+const val PAYLOAD_KEY = "payload"
 const val TITLE = "tittle"
 const val USER = "user"
 const val LAYOUT = "layout"

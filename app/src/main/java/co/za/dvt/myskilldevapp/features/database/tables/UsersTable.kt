@@ -13,6 +13,9 @@ data class UsersTable (
     @ColumnInfo(name = "id")
     var id:Long = 0L,
 
+    @ColumnInfo(name = "username")
+    var username:String? = null,
+
     @ColumnInfo(name = "name")
     var name:String? = null,
 
