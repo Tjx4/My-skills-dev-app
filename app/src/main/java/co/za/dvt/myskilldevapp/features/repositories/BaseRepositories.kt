@@ -11,7 +11,7 @@ abstract class BaseRepositories {
 
     init {
         val builder = Retrofit.Builder()
-            .baseUrl(Hosts.LocalHost.url)
+            .baseUrl(Hosts.UAT.url)
             .addConverterFactory(GsonConverterFactory.create())
         val retrofit = builder.build()
 
