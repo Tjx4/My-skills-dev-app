@@ -13,9 +13,9 @@ open class LoginRepository(var application: Application) : BaseRepositories() {
     fun getLastCachedUser() = database.getFirstUser()
 
     suspend fun loginMember(params: Map<String, String>) : LoginModel{
-
         try {
-            return retrofitHelper.loginMember(params["username"], params["password"])
+            var res = retrofitHelper.loginMember(params["username"], params["password"])
+            return res
         }
         catch (ex: Exception){
             return LoginModel(false, "$ex", null)

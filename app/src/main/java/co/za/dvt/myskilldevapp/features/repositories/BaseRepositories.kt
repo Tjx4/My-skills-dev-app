@@ -6,7 +6,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 abstract class BaseRepositories {
-
     protected var retrofitHelper: RetrofitHelper
 
     init {
