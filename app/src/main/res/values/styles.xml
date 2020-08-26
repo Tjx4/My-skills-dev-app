@@ -42,6 +42,9 @@
     <style name="MediumLightTextView" parent="MediumTextView">
         <item name="android:textColor">@color/lightText</item>
     </style>
+    <style name="MediumRedTextView" parent="MediumTextView">
+        <item name="android:textColor">@color/redText</item>
+    </style>
     <style name="smallTextView" parent="BaseTextView">
         <item name="android:textSize">@dimen/small_text</item>
         <item name="android:gravity">center</item>

@@ -6,6 +6,7 @@ import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
 import co.za.dvt.myskilldevapp.models.UserModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class LoginViewModel(application: Application) : BaseVieModel(application) {
@@ -101,16 +102,19 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
 
             var login = loginRepository.loginMember(params)
 
+delay(1000)
+
             uiScope.launch {
+
+
                 if(login!!.success){
                     _currentUser.value = login.user
                 }
                 else{
+                    _showContent.value = true
+                    password.value = ""
                     errorMessage.value = app.getString(R.string.login_error)
                 }
-
-                _showContent.value = true
-                password.value = ""
             }
 
             if(login!!.success){

@@ -51,7 +51,7 @@ class LoginActivity : BaseParentActivity()  {
     }
 
     private fun addObservers() {
-        loginViewModel.showLoading.observe(this, Observer { toggleShow(it) })
+        loginViewModel.showLoading.observe(this, Observer { toggleShowLoading(it) })
         loginViewModel.showContent.observe(this, Observer { toggleShowContent(it) })
         loginViewModel.showPreloadedUser.observe(this, Observer { toggleShowPreloadedUser(it) })
         loginViewModel.currentUser.observe(this, Observer { isUserSet(it) })
@@ -63,11 +63,12 @@ class LoginActivity : BaseParentActivity()  {
         //Todo: fix -----------------------------------
     }
 
-    fun onErrorMessageSet(errorMessage: String) {
-        showErrorAlert(this, "Error", errorMessage)
+    private fun onErrorMessageSet(errorMessage: String) {
+        //showErrorAlert(this, "Error", errorMessage)
+        txtErrorMessage.visibility = View.VISIBLE
     }
 
-    fun isUserSet(user: UserModel){
+    private fun isUserSet(user: UserModel){
         var payload = Bundle()
         payload.putParcelable(USER, user)
         goToActivityWithPayload(DashboardActivity::class.java, payload, FADE_IN_ACTIVITY)
@@ -91,14 +92,12 @@ class LoginActivity : BaseParentActivity()  {
         }, {})
     }
 
-    private fun toggleShow(isBusy: Boolean) {
-        clCParent.visibility = View.INVISIBLE
+    private fun toggleShowLoading(isBusy: Boolean) {
         showLoadingDialog(loginViewModel.busyMessage, this)
     }
 
     private fun toggleShowContent(showContent: Boolean) {
         hideCurrentLoadingDialog(this)
-        clCParent.visibility = View.VISIBLE
     }
 
     private fun toggleShowPreloadedUser(showPreloadedUser: Boolean) {
