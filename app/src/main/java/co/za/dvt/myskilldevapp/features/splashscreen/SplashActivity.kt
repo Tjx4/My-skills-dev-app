@@ -16,10 +16,6 @@ class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
-        }
-
 //For demo purposes delayed transition
 Handler().postDelayed({
     goToActivityWithNoPayload(LoginActivity::class.java, FADE_IN_ACTIVITY)

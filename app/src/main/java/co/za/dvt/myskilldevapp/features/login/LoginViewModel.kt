@@ -48,10 +48,6 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
     var currentUserMessage: MutableLiveData<String> = MutableLiveData()
 
     init {
-
-        _username.value = "Tlb_1"
-        _password.value = "Tl@12345"
-
         setManualMode()
         checkAndPresetUser()
     }
@@ -63,6 +59,9 @@ class LoginViewModel(application: Application) : BaseVieModel(application) {
             uiScope.launch {
                 if (lastUser != null) {
                     preSetUser(lastUser)
+                }
+                else{
+
                 }
             }
         }
