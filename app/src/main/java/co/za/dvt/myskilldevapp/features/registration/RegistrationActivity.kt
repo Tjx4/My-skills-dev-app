@@ -76,7 +76,7 @@ class RegistrationActivity : BaseParentActivity() {
             override fun onPageSelected(position: Int) {
 //TOdo: Fix this logic
 if(!fragments[position].isEnabled){
-    goToPreviouseStep()
+    //goToPreviouseStep()
     showShortToast("Please finish previous step first", context)
     return
 }
@@ -101,6 +101,13 @@ if(!fragments[position].isEnabled){
     }
     private fun onMobileChanged(mobile: Int){
         var sn = mobile
+    }
+
+    fun enablePersonalDetailsStep() = enableStep(1)
+    fun enableFinalizeStep() = enableStep(2)
+
+    private fun enableStep(step: Int){
+        fragments[step].isEnabled = true
     }
 
     fun moveToFinalStep(){

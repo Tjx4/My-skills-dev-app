@@ -65,8 +65,8 @@ class RegistrationPersonalDetailsFragment : BaseRegistrationFragment() {
 
         signInBtn = parentView.findViewById(R.id.btnSignIn)
         signInBtn?.setOnClickListener {
+            registrationActivity?.enableFinalizeStep()
             registrationActivity?.moveToFinalStep()
-            isEnabled = true
         }
     }
 

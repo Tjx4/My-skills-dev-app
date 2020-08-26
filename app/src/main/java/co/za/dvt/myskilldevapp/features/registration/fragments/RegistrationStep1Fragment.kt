@@ -61,8 +61,8 @@ class RegistrationStep1Fragment : BaseRegistrationFragment(), UserTypeAdapter.Us
     }
 
     override fun onItemClick(view: View, position: Int) {
+        registrationActivity?.enablePersonalDetailsStep()
         val userType = UserTypes.values()[position]
         registrationActivity?.registrationViewModel?.setUserType(userType)
-        isEnabled = true
     }
 }
