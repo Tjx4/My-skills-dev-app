@@ -18,7 +18,7 @@ class SplashActivity : BaseActivity() {
 
 //For demo purposes delayed transition
 Handler().postDelayed({
-    goToActivityWithNoPayload(LoginActivity::class.java, FADE_IN_ACTIVITY)
+    goToActivityWithNoPayload(DashboardActivity::class.java, FADE_IN_ACTIVITY)
     finish()
 }, 1000)
     }

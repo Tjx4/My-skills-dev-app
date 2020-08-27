@@ -36,13 +36,6 @@ class DashboardActivity : BaseActivity() {
         binding.lifecycleOwner = this
 
         addObservers()
-
-        var userName = intent.extras?.getBundle(PAYLOAD_KEY)?.getParcelable<UserModel>(USER)
-
-        var ab = supportActionBar
-        ab?.title = "Hi ${userName?.name?:"user"}"
-
-        loadImageFromInternet(this,  userName?.picUrl!!, imgProf, R.drawable.ic_pa_light)
     }
 
     private fun addObservers() {

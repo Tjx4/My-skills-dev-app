@@ -29,7 +29,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".features.dashboard.DashboardActivity" />
+        <activity android:name=".features.dashboard.DashboardActivity"
+                android:theme="@style/NoActionBarTheme" />
     </application>
 
 </manifest>
