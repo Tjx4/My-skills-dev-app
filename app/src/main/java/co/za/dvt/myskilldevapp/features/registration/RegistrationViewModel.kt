@@ -6,13 +6,20 @@ import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.enums.Gender
 import co.za.dvt.myskilldevapp.enums.UserTypes
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class RegistrationViewModel(application: Application) : BaseVieModel(application), Observable {
     // UserType = Personal/basic info = Varify info
     private val registrationRepository: RegistrationRepository = RegistrationRepository(application)
+
+    private val _showLoading: MutableLiveData<Boolean> = MutableLiveData()
+    val showLoading: MutableLiveData<Boolean>
+        get() = _showLoading
 
     private var _userType: MutableLiveData<UserTypes> = MutableLiveData()
     val userType: LiveData<UserTypes>
@@ -56,6 +63,12 @@ class RegistrationViewModel(application: Application) : BaseVieModel(application
     val confirmPassword: LiveData<String>
         get() = _confirmPassword
 
+    private var _errorMessage: MutableLiveData<String> = MutableLiveData()
+    var errorMessage: MutableLiveData<String> = MutableLiveData()
+        get() = _errorMessage
+
+    var busyMessage: String = "Creating account, please wait.."
+
     init {
         name = "Boby"
         _surname.value = "Green"
@@ -76,6 +89,30 @@ class RegistrationViewModel(application: Application) : BaseVieModel(application
 
     fun setGender(gender: Gender){
         _gender.value = gender
+    }
+
+    fun registerUser() {
+        _showLoading.value = true
+
+        ioScope.launch {
+            var params = mutableMapOf<String, String>()
+            params["name"] = _surname.value ?: ""
+            params["password"] = _password.value ?: ""
+
+            var registration = registrationRepository.registerUer(params)
+
+delay(1000)
+
+            uiScope.launch {
+
+                if(registration!!.success){
+
+                }
+                else{
+                    errorMessage.value = app.getString(R.string.login_error)
+                }
+            }
+        }
     }
 
     override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {

@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.databinding.FragmentRegistrationFinalizeBinding
 import co.za.dvt.myskilldevapp.features.base.BaseRegistrationFragment
 
 class RegistrationFinalizeFragment : BaseRegistrationFragment() {
     private lateinit var binding: FragmentRegistrationFinalizeBinding
+    private lateinit var registerBtn: Button
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentRegistrationFinalizeBinding.inflate(inflater, container, false)
@@ -27,12 +30,14 @@ class RegistrationFinalizeFragment : BaseRegistrationFragment() {
             binding.registerGender =  "Gender: ${registrationActivity?.registrationViewModel?.gender?.value?.sex ?: "Unspecified"}"
             binding.registerEmail = "Email: ${registrationActivity?.registrationViewModel?.email?.value ?: "Unspecified"}"
             binding.registerMobileNumber = "Mobile: ${registrationActivity?.registrationViewModel?.mobileNumber?.value?.toString() ?: "Unspecified"}"
-
         }
     }
 
      fun initViews(parentView: View) {
-
+         registerBtn = parentView.findViewById(R.id.btnRegister)
+         registerBtn.setOnClickListener {
+             registrationActivity?.onRegisterButtonClicked(it)
+         }
     }
 
     companion object {

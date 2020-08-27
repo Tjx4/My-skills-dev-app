@@ -106,7 +106,6 @@ delay(1000)
 
             uiScope.launch {
 
-
                 if(login!!.success){
                     _currentUser.value = login.user
                 }

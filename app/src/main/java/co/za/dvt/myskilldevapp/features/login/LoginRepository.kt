@@ -17,7 +17,7 @@ open class LoginRepository(var application: Application) : BaseRepositories() {
             return retrofitHelper.loginMember(params)
         }
         catch (ex: Exception){
-            return LoginModel(false, "$ex", null)
+            return LoginModel(false, "$ex", "", null)
         }
     }
 

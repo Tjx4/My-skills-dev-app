@@ -23,8 +23,10 @@ import co.za.dvt.myskilldevapp.features.login.LoginActivity
 import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationFinalizeFragment
 import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationPersonalDetailsFragment
 import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationStep1Fragment
+import co.za.dvt.myskilldevapp.helpers.showLoadingDialog
 import co.za.dvt.myskilldevapp.helpers.showShortToast
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_registration.*
 
 
@@ -57,9 +59,11 @@ class RegistrationActivity : BaseParentActivity() {
     }
 
     private fun addObservers() {
-        registrationViewModel.userType.observe(this, Observer { onUserTypeSet(it) })
-        registrationViewModel.surname.observe(this, Observer { onSurnameChanged(it) })
-        registrationViewModel.mobileNumber.observe(this, Observer { onMobileChanged(it) })
+        registrationViewModel.showLoading.observe(this, Observer { toggleShowLoading(it) })
+        registrationViewModel.userType.observe(this, Observer { onUserTypeSet(it)})
+        registrationViewModel.surname.observe(this, Observer { onSurnameChanged(it)})
+        registrationViewModel.mobileNumber.observe(this, Observer { onMobileChanged(it)})
+        registrationViewModel.errorMessage.observe(this, Observer { onErrorMessageSet(it) })
     }
 
     private fun initPager() {
@@ -120,6 +124,11 @@ class RegistrationActivity : BaseParentActivity() {
         */
     }
 
+    private fun onErrorMessageSet(errorMessage: String) {
+        //showErrorAlert(this, "Error", errorMessage)
+        txtErrorMessage.visibility = View.VISIBLE
+    }
+
     private fun onUserTypeSet(userType: UserTypes){
         vpRegistrationSteps.setCurrentItem(1, true)
     }
@@ -131,8 +140,16 @@ class RegistrationActivity : BaseParentActivity() {
         var sn = mobile
     }
 
+    private fun toggleShowLoading(isBusy: Boolean) {
+        showLoadingDialog(registrationViewModel.busyMessage, this)
+    }
+
     fun enablePersonalDetailsStep() = enableStep(1)
     fun enableFinalizeStep() = enableStep(2)
+
+    fun onRegisterButtonClicked(view: View){
+        registrationViewModel.registerUser()
+    }
 
     private fun enableStep(step: Int){
         fragments[step].isEnabled = true
