@@ -12,7 +12,7 @@
         android:id="@+id/clCParent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-            android:background="@drawable/day_bg"
+            android:background="@drawable/cloudy_bg"
         tools:context=".features.dashboard.DashboardActivity">
 
         <com.makeramen.roundedimageview.RoundedImageView
