@@ -23,6 +23,7 @@ import co.za.dvt.myskilldevapp.features.registration.RegistrationActivity
 import co.za.dvt.myskilldevapp.helpers.hideCurrentLoadingDialog
 import co.za.dvt.myskilldevapp.helpers.showDialogFragment
 import co.za.dvt.myskilldevapp.helpers.showLoadingDialog
+import co.za.dvt.myskilldevapp.models.LoginModel
 import co.za.dvt.myskilldevapp.models.UserModel
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -52,6 +53,7 @@ class LoginActivity : BaseParentActivity()  {
 
     private fun addObservers() {
         loginViewModel.showLoading.observe(this, Observer { toggleShowLoading(it) })
+        loginViewModel.isValidDetails.observe(this, Observer { isValidSignInDetails(it) })
         loginViewModel.showContent.observe(this, Observer { toggleShowContent(it) })
         loginViewModel.showPreloadedUser.observe(this, Observer { toggleShowPreloadedUser(it) })
         loginViewModel.currentUser.observe(this, Observer { isUserSet(it) })
@@ -71,6 +73,10 @@ class LoginActivity : BaseParentActivity()  {
         clErrorContainer.blinkView(0.6f, 1.0f, 500, 2, Animation.ABSOLUTE, 0)
     }
 
+    private fun onSignIn(loginModel: LoginModel){
+        loginViewModel.onSigninCalled(loginModel)
+    }
+
     private fun isUserSet(user: UserModel){
         var payload = Bundle()
         payload.putParcelable(USER, user)
@@ -83,6 +89,10 @@ class LoginActivity : BaseParentActivity()  {
         val imm: InputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(txtPassword.windowToken, 0);
         loginViewModel.checkAndSignIn()
+    }
+
+    fun isValidSignInDetails(isValidDetails: Boolean){
+        loginViewModel.signIn().observe(this, Observer { onSignIn(it) })
     }
 
     fun onForgotPassUserClicked(view: View){
