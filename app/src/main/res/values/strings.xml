@@ -40,4 +40,5 @@
     <string name="forgot_password_text"><![CDATA[Forgot your <b>Username/Password</b>]]></string>
     <string name="login_welcome_message">Please enter your details to signIn</string>
     <string name="login_error">SignIn fail, please check your details.</string>
+    <string name="default_login_message">Please enter your details to continue</string>
 </resources>

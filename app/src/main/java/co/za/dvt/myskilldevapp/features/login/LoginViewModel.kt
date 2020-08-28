@@ -3,6 +3,7 @@ package co.za.dvt.myskilldevapp.features.login
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.R
+import co.za.dvt.myskilldevapp.extensions.isValidUsername
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
 import co.za.dvt.myskilldevapp.models.UserModel
@@ -68,7 +69,7 @@ class LoginViewModel(application: Application, private val loginRepository: Logi
     }
 
     fun setManualMode() {
-        currentUserMessage.value = "Please enter your details to continue"
+        currentUserMessage.value = app.getString(R.string.default_login_message)
     }
 
     fun preSetUser(lastUser: UsersTable) {
@@ -78,18 +79,6 @@ class LoginViewModel(application: Application, private val loginRepository: Logi
     }
 
     suspend fun getUsers() = loginRepository.getAllCachedUsers()
-
-    fun getPreviousUsers(){
-        ioScope.launch {
-            var allUsers = loginRepository.getAllCachedUsers()
-
-            uiScope.launch {
-                if(allUsers != null){
-                    _previousUsers.value = allUsers
-                }
-            }
-        }
-    }
 
     fun signIn(){
         _showLoading.value = true
@@ -122,13 +111,17 @@ delay(1000)
 
     }
 
-    private suspend fun addUserToDb(userModel: UserModel) {
+    suspend fun addUserToDb(userModel: UserModel) {
         var usersTable = UsersTable()
         usersTable.username = userModel.username
         usersTable.name = userModel.name
         usersTable.surname = userModel.name
         usersTable.picUrl = userModel.picUrl
         loginRepository.addUserToDb(usersTable)
+    }
+
+    fun validateUsername(username: String): Boolean {
+        return username.isValidUsername()
     }
 
 }
