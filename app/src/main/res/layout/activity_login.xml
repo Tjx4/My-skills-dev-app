@@ -9,114 +9,145 @@
             name="loginViewModel"
             type="co.za.dvt.myskilldevapp.features.login.LoginViewModel"/>
     </data>
-    <ScrollView
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clCParent"
+        <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context=".features.login.LoginActivity"
-                android:padding="@dimen/xlarge__margin"
-                android:animateLayoutChanges="true">
+                android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clCParent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:context=".features.login.LoginActivity"
+                    android:padding="@dimen/xlarge__margin"
+                    android:animateLayoutChanges="true">
+
+                <TextView
+                        style="@style/MediumLightTextView"
+                        android:id="@+id/txtHeading"
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="@dimen/large__margin"
+                        android:layout_marginBottom="@dimen/large__margin"
+                        tools:text="@string/login_welcome_message"
+                        android:text="@{Html.fromHtml(loginViewModel.currentUserMessage)}"
+                        android:gravity="left"
+                        app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
+                        app:layout_constraintRight_toRightOf="@+id/btnSignIn"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                        style="@style/LightEditText"
+                        android:id="@+id/txtUsername"
+                        android:layout_width="0dp"
+                        android:inputType="textPersonName"
+                        android:hint="Enter username"
+                        android:text="@={loginViewModel.username}"
+                        app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
+                        app:layout_constraintRight_toRightOf="@+id/btnSignIn"
+                        android:layout_marginTop="@dimen/medium__margin"
+                        app:layout_constraintTop_toBottomOf="@+id/txtHeading"/>
+
+                <EditText
+                        style="@style/LightEditText"
+                        android:id="@+id/txtPassword"
+                        android:layout_width="0dp"
+                        android:inputType="textPassword"
+                        android:hint="Enter password"
+                        android:text="@={loginViewModel.password}"
+                        android:layout_marginTop="@dimen/medium__margin"
+                        app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
+                        app:layout_constraintRight_toRightOf="@+id/btnSignIn"
+                        app:layout_constraintTop_toBottomOf="@+id/txtUsername" />
+
+                <Button
+                        style="@style/MyPAButton"
+                        android:id="@+id/btnSignIn"
+                        android:text="Sign in"
+                        android:onClick="onLoginButtonClicked"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtPassword"
+                        android:layout_marginTop="@dimen/medium__margin" />
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="0dp"
+                        android:layout_marginTop="@dimen/medium__margin"
+                        app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
+                        app:layout_constraintRight_toRightOf="@+id/btnSignIn"
+                        app:layout_constraintTop_toBottomOf="@+id/btnSignIn"
+                        android:gravity="center">
+
+                    <TextView
+                            style="@style/MediumLightTextView"
+                            android:id="@+id/txtForgotYourUsername"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="@string/forgot_password_text"
+                            android:text="@string/forgot_password_text"
+                            android:textColor="@color/lightText"
+                            android:paddingVertical="@dimen/small_padding"
+                            android:onClick="onForgotPassUserClicked"/>
+
+                    <TextView
+                            style="@style/MediumLightTextView"
+                            android:id="@+id/txtSignUp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="@string/signup_text"
+                            android:text="@string/signup_text"
+                            android:textColor="@color/lightText"
+                            android:paddingVertical="@dimen/small_padding"
+                            android:onClick="onRegisterClicked"/>
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clErrorContainer"
+                android:visibility="invisible"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="bottom"
+                android:paddingHorizontal="@dimen/small_padding"
+                android:background="@color/errorBackground">
+
+
+            <ImageView
+                    style="@style/MediumRedTextView"
+                    android:id="@+id/imgErroIcon"
+                    android:layout_width="40dp"
+                    tools:text="Error message"
+                    android:text="@{loginViewModel.errorMessage}"
+                    android:src="@drawable/ic_error_light"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
             <TextView
                     style="@style/MediumLightTextView"
-                    android:id="@+id/txtHeading"
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="@dimen/large__margin"
-                    android:layout_marginBottom="@dimen/large__margin"
-                    tools:text="@string/login_welcome_message"
-                    android:text="@{Html.fromHtml(loginViewModel.currentUserMessage)}"
-                    android:gravity="left"
-                    app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
-                    app:layout_constraintRight_toRightOf="@+id/btnSignIn"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                    style="@style/LightEditText"
-                    android:id="@+id/txtUsername"
-                    android:layout_width="0dp"
-                    android:inputType="textPersonName"
-                    android:hint="Enter username"
-                    android:text="@={loginViewModel.username}"
-                    app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
-                    app:layout_constraintRight_toRightOf="@+id/btnSignIn"
-                    android:layout_marginTop="@dimen/medium__margin"
-                    app:layout_constraintTop_toBottomOf="@+id/txtHeading"/>
-
-            <EditText
-                    style="@style/LightEditText"
-                    android:id="@+id/txtPassword"
-                    android:layout_width="0dp"
-                    android:inputType="textPassword"
-                    android:hint="Enter password"
-                    android:text="@={loginViewModel.password}"
-                    android:layout_marginTop="@dimen/medium__margin"
-                    app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
-                    app:layout_constraintRight_toRightOf="@+id/btnSignIn"
-                    app:layout_constraintTop_toBottomOf="@+id/txtUsername" />
-
-            <TextView
-                    android:visibility="gone"
-                    style="@style/MediumRedTextView"
                     android:id="@+id/txtErrorMessage"
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="@dimen/small_margin"
+                    android:layout_width="0dp"
                     tools:text="Error message"
                     android:text="@{loginViewModel.errorMessage}"
                     android:gravity="left"
-                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/imgErroIcon"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
-
-            <Button
-                    style="@style/MyPAButton"
-                    android:id="@+id/btnSignIn"
-                    android:text="Sign in"
-                    android:onClick="onLoginButtonClicked"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txtErrorMessage"
-                    android:layout_marginTop="@dimen/medium__margin" />
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="0dp"
-                    android:layout_marginTop="@dimen/medium__margin"
-                    app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
-                    app:layout_constraintRight_toRightOf="@+id/btnSignIn"
-                    app:layout_constraintTop_toBottomOf="@+id/btnSignIn"
-                    android:gravity="center">
-
-                <TextView
-                        style="@style/MediumLightTextView"
-                        android:id="@+id/txtForgotYourUsername"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="@string/forgot_password_text"
-                        android:text="@string/forgot_password_text"
-                        android:textColor="@color/lightText"
-                        android:paddingVertical="@dimen/small_padding"
-                        android:onClick="onForgotPassUserClicked"/>
-
-                <TextView
-                        style="@style/MediumLightTextView"
-                        android:id="@+id/txtSignUp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="@string/signup_text"
-                        android:text="@string/signup_text"
-                        android:textColor="@color/lightText"
-                        android:paddingVertical="@dimen/small_padding"
-                        android:onClick="onRegisterClicked"/>
-
-            </LinearLayout>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+
+    </FrameLayout>
+
 </layout>

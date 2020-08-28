@@ -9,6 +9,7 @@
     <color name="greyText">#aaa</color>
     <color name="darkText">#111</color>
     <color name="redText">#ff0000</color>
+    <color name="errorBackground">#ff00cc</color>
     <color name="blueText">#0088cc</color>
     <color name="splashBackground">#0d132b</color>
     <color name="darkBackground">#000</color>

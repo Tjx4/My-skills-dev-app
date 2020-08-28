@@ -5,7 +5,11 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import co.za.dvt.myskilldevapp.features.login.LoginRepository
 import co.za.dvt.myskilldevapp.features.login.LoginViewModel
 import co.za.dvt.myskilldevapp.features.database.USERSDAO
+import co.za.dvt.myskilldevapp.models.LoginModel
+import co.za.dvt.myskilldevapp.models.UserModel
+import com.nhaarman.mockitokotlin2.whenever
 import junit.framework.Assert.assertEquals
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -77,9 +81,14 @@ class LoginUnitTests {
     }
 
     @Test
-    fun `test login call`(){
+    fun `test login call`() = runBlocking {
+        var params = mutableMapOf<String, String>()
+        params["username"] =  "Tshepo"
+        params["password"] =  "Tl@123456"
 
-        // whenever(repository.login(username, password)).thenReturn(LoginModel(user,2))
-        //loginViewModel.signIn()
+        whenever(repository.loginMember(params)).thenReturn( LoginModel(true, "Test success message", "fdof0df0dfdf0kdf0difd0kfd", UserModel()) )
+        var login = loginViewModel.checkAndSignIn()
+
+        assert(loginViewModel.currentUser.value != null)
     }
 }

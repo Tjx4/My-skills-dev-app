@@ -81,7 +81,7 @@ class LoginViewModel(application: Application, private val loginRepository: Logi
 
     suspend fun getUsers() = loginRepository.getAllCachedUsers()
 
-    fun signIn(){
+    fun checkAndSignIn(){
         _showLoading.value = true
 
         ioScope.launch {
@@ -95,7 +95,7 @@ delay(1000)
 
             uiScope.launch {
 
-                if(login!!.success){
+                if(login != null && login.success){
                     _currentUser.value = login.user
                 }
                 else{

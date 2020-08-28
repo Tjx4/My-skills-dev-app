@@ -21,10 +21,8 @@ import co.za.dvt.myskilldevapp.features.login.fragments.UsersFragment
 import co.za.dvt.myskilldevapp.features.registration.RegistrationActivity
 import co.za.dvt.myskilldevapp.helpers.hideCurrentLoadingDialog
 import co.za.dvt.myskilldevapp.helpers.showDialogFragment
-import co.za.dvt.myskilldevapp.helpers.showErrorAlert
 import co.za.dvt.myskilldevapp.helpers.showLoadingDialog
 import co.za.dvt.myskilldevapp.models.UserModel
-import kotlinx.android.synthetic.main.activity_dashboard.clCParent
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseParentActivity()  {
@@ -64,8 +62,7 @@ class LoginActivity : BaseParentActivity()  {
     }
 
     private fun onErrorMessageSet(errorMessage: String) {
-        //showErrorAlert(this, "Error", errorMessage)
-        txtErrorMessage.visibility = View.VISIBLE
+        clErrorContainer.visibility = View.VISIBLE
     }
 
     private fun isUserSet(user: UserModel){
@@ -76,7 +73,7 @@ class LoginActivity : BaseParentActivity()  {
     }
 
     fun onLoginButtonClicked(view: View){
-        loginViewModel.signIn()
+        loginViewModel.checkAndSignIn()
     }
 
     fun onForgotPassUserClicked(view: View){
