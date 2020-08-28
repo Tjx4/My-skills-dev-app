@@ -9,7 +9,8 @@ class LoginViewModelFactory (private val application: Application) : ViewModelPr
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(LoginViewModel::class.java)){
-            return LoginViewModel(application) as T
+            val loginRepository = LoginRepository(application)
+            return LoginViewModel(application, loginRepository) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel Class")

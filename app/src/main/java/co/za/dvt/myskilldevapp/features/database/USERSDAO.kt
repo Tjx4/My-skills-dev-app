@@ -5,7 +5,7 @@ import androidx.room.*
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 
 @Dao
-interface PADAO {
+interface USERSDAO {
     @Insert
     fun insert(usersTable: UsersTable)
 
@@ -19,7 +19,7 @@ interface PADAO {
     fun get(key: Long): UsersTable?
 
     @Query("SELECT * FROM users ORDER BY id DESC LIMIT 1")
-    fun getFirstUser(): UsersTable?
+    fun getLastUser(): UsersTable?
 
     @Query("SELECT * FROM users ORDER BY id DESC")
     fun getAllUsersLiveData(): LiveData<List<UsersTable>>

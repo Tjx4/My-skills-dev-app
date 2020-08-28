@@ -2,10 +2,9 @@ package co.za.dvt.myskilldevapp
 
 import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import co.za.dvt.myskilldevapp.features.dashboard.DashboardRepository
-import co.za.dvt.myskilldevapp.features.dashboard.DashboardViewModel
+import co.za.dvt.myskilldevapp.features.login.LoginRepository
+import co.za.dvt.myskilldevapp.features.login.LoginViewModel
 import co.za.dvt.myskilldevapp.features.database.USERSDAO
-import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -14,12 +13,11 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class DashboardUnitTest {
-
-    lateinit var dashboardViewModel: DashboardViewModel
+class LoginUnitTests {
+    private lateinit var loginViewModel: LoginViewModel
 
     @Mock
-    lateinit var repository: DashboardRepository
+    lateinit var repository: LoginRepository
     @Mock
     lateinit var database: USERSDAO
     @Mock
@@ -31,18 +29,23 @@ class DashboardUnitTest {
     @Before
     fun setUp() {
         repository.database = database
-        dashboardViewModel = DashboardViewModel(application, repository)
+        loginViewModel = LoginViewModel(application, repository)
     }
 
     @Test
-    fun `test fetch lucky number`() = runBlocking  {
+    fun `test username validation`(){
 
     }
 
     @Test
-    fun `test fetch jackport car prices`()   {
+    fun `test password validation`(){
 
     }
 
+    @Test
+    fun `test login call`(){
 
+        // whenever(repository.login(username, password)).thenReturn(LoginModel(user,2))
+        //loginViewModel.signIn()
+    }
 }

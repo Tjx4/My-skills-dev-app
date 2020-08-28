@@ -9,7 +9,8 @@ class DashboardViewModelFactory(private val application: Application) : ViewMode
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(DashboardViewModel::class.java)){
-            return DashboardViewModel(application) as T
+            val dashboardRepository = DashboardRepository(application)
+            return DashboardViewModel(application, dashboardRepository) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel Class")

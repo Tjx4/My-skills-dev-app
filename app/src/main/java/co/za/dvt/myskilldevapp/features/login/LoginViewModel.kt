@@ -9,8 +9,7 @@ import co.za.dvt.myskilldevapp.models.UserModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class LoginViewModel(application: Application) : BaseVieModel(application) {
-    private val loginRepository: LoginRepository = LoginRepository(application)
+class LoginViewModel(application: Application, private val loginRepository: LoginRepository) : BaseVieModel(application) {
 
     private val _currentUser: MutableLiveData<UserModel> = MutableLiveData()
     val currentUser: MutableLiveData<UserModel>

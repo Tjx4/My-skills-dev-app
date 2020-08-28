@@ -4,7 +4,7 @@ import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
-import co.za.dvt.myskilldevapp.features.database.PADAO
+import co.za.dvt.myskilldevapp.features.database.USERSDAO
 import co.za.dvt.myskilldevapp.features.database.PADatabase
 import junit.framework.Assert.assertEquals
 import org.junit.After
@@ -15,9 +15,8 @@ import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
 class PADatabaseTests{
-
-    private lateinit var PADAO: PADAO
     private lateinit var PADatabase: PADatabase
+    private lateinit var USERSDAO: USERSDAO
 
     @Before
     fun createDB(){
@@ -27,7 +26,7 @@ class PADatabaseTests{
                                 .allowMainThreadQueries()
                                 .build()
 
-        PADAO = PADatabase.PADAO
+        USERSDAO = PADatabase.USERSDAO
     }
 
     @After
@@ -39,13 +38,13 @@ class PADatabaseTests{
     @Test
     @Throws(Exception::class)
     fun insertAndGetGameStats(){
-        var gameStats = UsersTable()
-        gameStats.id = 404594
+        var usersTable = UsersTable()
+        usersTable.id = 404594
 
-        PADAO.insert(gameStats)
-        val currentGameStats = PADAO.get(gameStats.id)
+        USERSDAO.insert(usersTable)
+        val currentUser = USERSDAO.get(usersTable.id)
 
-        assertEquals(currentGameStats.id, gameStats.id)
+        assertEquals(currentUser?.id, usersTable.id)
     }
 
 }

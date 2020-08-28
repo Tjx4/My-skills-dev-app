@@ -8,7 +8,7 @@ import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 
 @Database(entities = [UsersTable::class], version = 1, exportSchema = false)
 abstract class PADatabase : RoomDatabase() {
-    abstract val PADAO: PADAO
+    abstract val USERSDAO: USERSDAO
 
     companion object{
         @Volatile

@@ -7,10 +7,10 @@ import co.za.dvt.myskilldevapp.features.repositories.BaseRepositories
 import co.za.dvt.myskilldevapp.models.LoginModel
 
 open class LoginRepository(var application: Application) : BaseRepositories() {
-    var database = PADatabase.getInstance(application).PADAO
+    var database = PADatabase.getInstance(application).USERSDAO
 
     fun getAllCachedUsers() = database.getAllUsers()
-    fun getLastCachedUser() = database.getFirstUser()
+    fun getLastCachedUser() = database.getLastUser()
 
     suspend fun loginMember(params: Map<String, String>) : LoginModel?{
         try {
@@ -21,6 +21,5 @@ open class LoginRepository(var application: Application) : BaseRepositories() {
         }
     }
 
-    //fun getUserFromDb(id: Int) = database.get(id.toLong())
     suspend fun addUserToDb(usersTable: UsersTable) = database.insert(usersTable)
 }

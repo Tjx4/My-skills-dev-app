@@ -7,8 +7,7 @@ import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
 import co.za.dvt.myskilldevapp.models.HostModel
 import kotlinx.coroutines.*
 
-class DashboardViewModel(application: Application) : BaseVieModel(application) {
-    private val dashboardRepository: DashboardRepository = DashboardRepository(application)
+class DashboardViewModel(application: Application, val dashboardRepository: DashboardRepository) : BaseVieModel(application) {
 
     private val _showLoading: MutableLiveData<Boolean> = MutableLiveData()
     val showLoading: MutableLiveData<Boolean>
