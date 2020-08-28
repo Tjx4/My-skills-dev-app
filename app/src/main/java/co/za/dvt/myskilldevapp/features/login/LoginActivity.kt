@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
+import android.view.inputmethod.InputMethodManager
 import androidx.core.text.HtmlCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -24,6 +25,7 @@ import co.za.dvt.myskilldevapp.helpers.showDialogFragment
 import co.za.dvt.myskilldevapp.helpers.showLoadingDialog
 import co.za.dvt.myskilldevapp.models.UserModel
 import kotlinx.android.synthetic.main.activity_login.*
+
 
 class LoginActivity : BaseParentActivity()  {
 
@@ -57,12 +59,16 @@ class LoginActivity : BaseParentActivity()  {
 
         //Todo: Find out how to do custom control
            txtSignUp.text = HtmlCompat.fromHtml(txtSignUp.text.toString(), 0)
-           txtForgotYourUsername.text = HtmlCompat.fromHtml(txtForgotYourUsername.text.toString(), 0)
+           txtForgotYourUsername.text = HtmlCompat.fromHtml(
+               txtForgotYourUsername.text.toString(),
+               0
+           )
         //Todo: fix -----------------------------------
     }
 
     private fun onErrorMessageSet(errorMessage: String) {
         clErrorContainer.visibility = View.VISIBLE
+        clErrorContainer.blinkView(0.6f, 1.0f, 500, 2, Animation.ABSOLUTE, 0)
     }
 
     private fun isUserSet(user: UserModel){
@@ -73,6 +79,9 @@ class LoginActivity : BaseParentActivity()  {
     }
 
     fun onLoginButtonClicked(view: View){
+        //Todo: find better way to hide the keyboard
+        val imm: InputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(txtPassword.windowToken, 0);
         loginViewModel.checkAndSignIn()
     }
 
@@ -113,7 +122,12 @@ class LoginActivity : BaseParentActivity()  {
     private fun showPreviousUserList() {
         var usersFragment = UsersFragment.newInstance()
         usersFragment.isCancelable = true
-        showDialogFragment(getString(R.string.select_user), R.layout.fragment_users, usersFragment, this)
+        showDialogFragment(
+            getString(R.string.select_user),
+            R.layout.fragment_users,
+            usersFragment,
+            this
+        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

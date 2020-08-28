@@ -113,19 +113,19 @@
         </ScrollView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clErrorContainer"
-                android:visibility="invisible"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_gravity="bottom"
-                android:paddingHorizontal="@dimen/small_padding"
-                android:background="@color/errorBackground">
-
+            android:id="@+id/clErrorContainer"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom"
+            android:focusableInTouchMode="true"
+            android:paddingHorizontal="@dimen/small_padding"
+            android:background="@color/errorBackground">
 
             <ImageView
                     style="@style/MediumRedTextView"
                     android:id="@+id/imgErroIcon"
-                    android:layout_width="50dp"
+                    android:layout_width="55dp"
                     tools:text="Error message"
                     android:src="@drawable/ic_error_light"
                     app:layout_constraintLeft_toLeftOf="parent"
