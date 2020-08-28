@@ -13,9 +13,10 @@ open class LoginRepository(var application: Application) : BaseRepositories() {
     suspend fun getLastCachedUser() = database.getLastUser()
     suspend fun addUserToDb(usersTable: UsersTable) = database.insert(usersTable)
 
-    suspend fun loginMember(params: Map<String, String>) : LoginModel?{
+    suspend fun loginMember(params: Map<String, String>) : LoginModel{
+        // Todo fix
         try {
-            return retrofitHelper.loginMember(params)
+            return retrofitHelper.loginMember(params) ?: LoginModel(false, "", "", null)
         }
         catch (ex: Exception){
             return LoginModel(false, "$ex", "", null)

@@ -125,7 +125,7 @@
             <ImageView
                     style="@style/MediumRedTextView"
                     android:id="@+id/imgErroIcon"
-                    android:layout_width="45dp"
+                    android:layout_width="50dp"
                     tools:text="Error message"
                     android:src="@drawable/ic_error_light"
                     app:layout_constraintLeft_toLeftOf="parent"

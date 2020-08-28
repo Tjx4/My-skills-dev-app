@@ -41,7 +41,7 @@ class LoginUnitTests {
     fun `test if valid username is entered`(){
         var username = "NOT_null"
 
-        var actual = loginViewModel.validateUsername(username)
+        var actual = loginViewModel.checkIsValidUsername(username)
         var expected = true
 
         assertEquals(actual, expected)
@@ -52,7 +52,7 @@ class LoginUnitTests {
     fun `test if invalid username is entered`(){
         var username = ""
 
-        var actual = loginViewModel.validateUsername(username)
+        var actual = loginViewModel.checkIsValidUsername(username)
         var expected = false
 
         assertEquals(actual, expected)
@@ -62,7 +62,7 @@ class LoginUnitTests {
     fun `test if valid password is entered`(){
         var password = "Tl@12346"
 
-        var actual = loginViewModel.validatePassword(password)
+        var actual = loginViewModel.checkIsValidPassword(password)
         var expected = true
 
         assertEquals(actual, expected)
@@ -74,7 +74,7 @@ class LoginUnitTests {
     fun `test if invalid password is entered`(){
         var password = "TI@12346"
 
-        var actual = loginViewModel.validatePassword(password)
+        var actual = loginViewModel.checkIsValidPassword(password)
         var expected = false
 
         assertEquals(actual, expected)

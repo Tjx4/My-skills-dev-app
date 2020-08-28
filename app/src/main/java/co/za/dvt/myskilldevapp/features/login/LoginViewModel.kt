@@ -7,6 +7,7 @@ import co.za.dvt.myskilldevapp.extensions.isValidPassword
 import co.za.dvt.myskilldevapp.extensions.isValidUsername
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
+import co.za.dvt.myskilldevapp.models.LoginModel
 import co.za.dvt.myskilldevapp.models.UserModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -82,14 +83,23 @@ class LoginViewModel(application: Application, private val loginRepository: Logi
     suspend fun getUsers() = loginRepository.getAllCachedUsers()
 
     fun checkAndSignIn(){
+        var username = _username.value ?: ""
+        var password = _password.value ?: ""
+
+        if(!checkIsValidUsername(username)){
+            errorMessage.value = "Please enter a username or email"
+            return
+        }
+
+        if(!checkIsValidPassword(password)){
+            errorMessage.value = "Please enter a valid password"
+            return
+        }
+
         _showLoading.value = true
 
         ioScope.launch {
-            var params = mutableMapOf<String, String>()
-            params["username"] = _username.value ?: ""
-            params["password"] = _password.value ?: ""
-
-            var login = loginRepository.loginMember(params)
+            var login = signIn(username, password)
 
 delay(1000)
 
@@ -100,7 +110,7 @@ delay(1000)
                 }
                 else{
                     _showContent.value = true
-                    password.value = ""
+                    _password.value = ""
                     errorMessage.value = app.getString(R.string.login_error)
                 }
             }
@@ -112,6 +122,13 @@ delay(1000)
 
     }
 
+    suspend fun signIn(username: String, password: String) : LoginModel {
+        var params = mutableMapOf<String, String>()
+        params["username"] = username
+        params["password"] = password
+        return loginRepository.loginMember(params) 
+    }
+    
     suspend fun addUserToDb(userModel: UserModel) {
         var usersTable = UsersTable()
         usersTable.username = userModel.username
@@ -121,11 +138,11 @@ delay(1000)
         loginRepository.addUserToDb(usersTable)
     }
 
-    fun validateUsername(username: String): Boolean {
+    fun checkIsValidUsername(username: String): Boolean {
         return username.isValidUsername()
     }
 
-    fun validatePassword(password: String): Boolean {
+    fun checkIsValidPassword(password: String): Boolean {
         return password.isValidPassword()
     }
 
