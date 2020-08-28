@@ -127,7 +127,6 @@
                     android:id="@+id/imgErroIcon"
                     android:layout_width="40dp"
                     tools:text="Error message"
-                    android:text="@{loginViewModel.errorMessage}"
                     android:src="@drawable/ic_error_light"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
