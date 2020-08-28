@@ -115,11 +115,10 @@ delay(1000)
                 }
             }
 
-            if(login!!.success){
+            if(login.success){
                 addUserToDb(login?.user!!)
             }
         }
-
     }
 
     suspend fun signIn(username: String, password: String) : LoginModel {
