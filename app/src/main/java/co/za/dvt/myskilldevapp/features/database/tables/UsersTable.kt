@@ -22,6 +22,12 @@ data class UsersTable (
     @ColumnInfo(name = "surname")
     var surname:String? = null,
 
+    @ColumnInfo(name = "email")
+    var email:String? = null,
+
+    @ColumnInfo(name = "mobile")
+    var mobile:String? = null,
+
     @ColumnInfo(name = "picUrl")
     var picUrl:String? = null,
 

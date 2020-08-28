@@ -35,10 +35,6 @@ class LoginViewModel(application: Application, private val loginRepository: Logi
     val showContent: MutableLiveData<Boolean>
         get() = _showContent
 
-    private val _previousUsers: MutableLiveData<List<UsersTable>> = MutableLiveData()
-    val previousUsers: MutableLiveData<List<UsersTable>>
-        get() = _previousUsers
-
     var busyMessage: String = "Signing in, please wait.."
 
     private val _username: MutableLiveData<String> = MutableLiveData()
@@ -126,9 +122,22 @@ class LoginViewModel(application: Application, private val loginRepository: Logi
         if(login.success){
             _currentUser.value = login.user
 
+            var isUserSaved = false
+
             ioScope.launch {
-                addUserToDb(login?.user!!)
+                var previousUsers = getUsers()
+
+                previousUsers?.forEach {
+                    if (login.user?.email == it.email){
+                        isUserSaved = true
+                    }
+                }
+
+                if(!isUserSaved){
+                    addUserToDb(login?.user!!)
+                }
             }
+
         }
         else{
             _showContent.value = true
@@ -142,6 +151,8 @@ class LoginViewModel(application: Application, private val loginRepository: Logi
         usersTable.username = userModel.username
         usersTable.name = userModel.name
         usersTable.surname = userModel.name
+        usersTable.email = userModel.email
+        usersTable.mobile = userModel.mobile
         usersTable.picUrl = userModel.picUrl
         loginRepository.addUserToDb(usersTable)
     }
