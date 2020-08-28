@@ -42,6 +42,7 @@ class LoginUnitTests {
 
         assertEquals(actual, expected)
     }
+    // Indetail checks
 
     @Test
     fun `test if invalid username is entered`(){
@@ -54,8 +55,25 @@ class LoginUnitTests {
     }
 
     @Test
-    fun `test password validation`(){
+    fun `test if valid password is entered`(){
+        var password = "Tl@12346"
 
+        var actual = loginViewModel.validatePassword(password)
+        var expected = true
+
+        assertEquals(actual, expected)
+    }
+
+    // Indetail checks
+
+    @Test
+    fun `test if invalid password is entered`(){
+        var password = "TI@12346"
+
+        var actual = loginViewModel.validatePassword(password)
+        var expected = false
+
+        assertEquals(actual, expected)
     }
 
     @Test

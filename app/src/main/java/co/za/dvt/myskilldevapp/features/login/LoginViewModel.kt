@@ -3,6 +3,7 @@ package co.za.dvt.myskilldevapp.features.login
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.R
+import co.za.dvt.myskilldevapp.extensions.isValidPassword
 import co.za.dvt.myskilldevapp.extensions.isValidUsername
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
@@ -122,6 +123,10 @@ delay(1000)
 
     fun validateUsername(username: String): Boolean {
         return username.isValidUsername()
+    }
+
+    fun validatePassword(password: String): Boolean {
+        return password.isValidPassword()
     }
 
 }
