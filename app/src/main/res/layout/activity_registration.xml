@@ -10,10 +10,10 @@
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/main_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context="features.registration.RegistrationActivity">
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="features.registration.RegistrationActivity">
 
         <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appbar"
@@ -119,6 +119,40 @@
                     android:layout_weight="1"/>
 
         </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clErrorContainer"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:focusableInTouchMode="true"
+            android:paddingHorizontal="@dimen/small_padding"
+            android:background="@color/errorBackground"
+            android:layout_gravity="bottom">
+
+            <ImageView
+                    style="@style/MediumRedTextView"
+                    android:id="@+id/imgErroIcon"
+                    android:layout_width="55dp"
+                    tools:text="Error message"
+                    android:src="@drawable/ic_error_light"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                    style="@style/MediumLightTextView"
+                    android:id="@+id/txtErrorMessage"
+                    android:layout_width="0dp"
+                    tools:text="Error message"
+                    android:text="@{registrationViewModel.errorMessage}"
+                    android:gravity="left"
+                    app:layout_constraintLeft_toRightOf="@+id/imgErroIcon"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

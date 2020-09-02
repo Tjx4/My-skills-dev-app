@@ -46,7 +46,6 @@ class RegistrationPersonalDetailsFragment : BaseRegistrationFragment() {
     }
 
     fun initViews(parentView: View){
-
         genderContainerRg = parentView.findViewById(R.id.rgGenderContainer)
         genderContainerRg?.setOnCheckedChangeListener(
             RadioGroup.OnCheckedChangeListener { group, checkedId ->

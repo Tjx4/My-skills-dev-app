@@ -15,18 +15,17 @@ import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.adapters.RegistrationViewpagerAdapter
 import co.za.dvt.myskilldevapp.databinding.ActivityRegistrationBinding
 import co.za.dvt.myskilldevapp.enums.UserTypes
-import co.za.dvt.myskilldevapp.extensions.TRAIL_FROM
-import co.za.dvt.myskilldevapp.extensions.blinkView
-import co.za.dvt.myskilldevapp.extensions.goToActivityWithNoPayload
+import co.za.dvt.myskilldevapp.extensions.*
 import co.za.dvt.myskilldevapp.features.activities.BaseParentActivity
 import co.za.dvt.myskilldevapp.features.base.BaseRegistrationFragment
 import co.za.dvt.myskilldevapp.features.login.LoginActivity
 import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationFinalizeFragment
 import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationPersonalDetailsFragment
 import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationStep1Fragment
+import co.za.dvt.myskilldevapp.helpers.hideCurrentLoadingDialog
 import co.za.dvt.myskilldevapp.helpers.showLoadingDialog
+import co.za.dvt.myskilldevapp.helpers.showSuccessAlert
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_registration.*
 
 class RegistrationActivity : BaseParentActivity() {
@@ -43,6 +42,7 @@ class RegistrationActivity : BaseParentActivity() {
         registrationViewModel = ViewModelProviders.of(this, viewModelFactory).get(
             RegistrationViewModel::class.java
         )
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_registration)
         binding.registrationViewModel = registrationViewModel
         binding.lifecycleOwner = this
@@ -65,6 +65,7 @@ class RegistrationActivity : BaseParentActivity() {
         registrationViewModel.surname.observe(this, Observer { onSurnameChanged(it) })
         registrationViewModel.mobileNumber.observe(this, Observer { onMobileChanged(it) })
         registrationViewModel.errorMessage.observe(this, Observer { onErrorMessageSet(it) })
+        registrationViewModel.isRegistered.observe(this, Observer { onAccountCreated(it) })
     }
 
     private fun initPager() {
@@ -110,8 +111,17 @@ class RegistrationActivity : BaseParentActivity() {
         }.attach()
     }
 
+    private fun onAccountCreated(errorMessage: Boolean) {
+        showSuccessAlert(this, "Success", "Congratulations ${registrationViewModel.name.value} you are now a member", "SignIn") {
+            goToActivityWithNoPayload(LoginActivity::class.java, FADE_IN_ACTIVITY)
+            finish()
+        }
+    }
+
     private fun onErrorMessageSet(errorMessage: String) {
-        txtErrorMessage.visibility = View.VISIBLE
+        hideCurrentLoadingDialog(this)
+        clErrorContainer.visibility = View.VISIBLE
+        clErrorContainer.blinkView(0.6f, 1.0f, 500, 2, Animation.ABSOLUTE, 0)
     }
 
     private fun onUserTypeSet(userType: UserTypes){

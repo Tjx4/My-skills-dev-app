@@ -64,16 +64,20 @@ class RegistrationViewModel(application: Application) : BaseVieModel(application
     var errorMessage: MutableLiveData<String> = MutableLiveData()
         get() = _errorMessage
 
+    private val _isRegistered: MutableLiveData<Boolean> = MutableLiveData()
+    val isRegistered: MutableLiveData<Boolean>
+        get() = _isRegistered
+
     var busyMessage: String = "Creating account, please wait.."
 
     init {
         _name.value = "Boby"
         _surname.value = "Green"
         _email.value = "test@email.com"
-        _mobileNumber.value = "829954990"
+        _mobileNumber.value = "0829954990"
         _gender.value = Gender.Male
-        _password.value = "B@12345"
-        _confirmPassword.value = "B@12345"
+        _password.value = "Bl@12345"
+        _confirmPassword.value = "Bl@12345"
     }
 
     fun setUserType(userType: UserTypes){
@@ -91,37 +95,37 @@ class RegistrationViewModel(application: Application) : BaseVieModel(application
     fun checkAndRegisterUser() {
 /*
         if(!checkIsValidUsername(_username.value)){
-            errorMessage.value = "Please enter a username or email"
+            _errorMessage.value = "Please enter a username or email"
             return
         }
 */
         if(!checkIsValidName(_name.value)){
-            errorMessage.value = app.getString(R.string.name_validation)
+            _errorMessage.value = app.getString(R.string.name_validation)
             return
         }
 
         if(!checkIsValidSurname(_surname.value)){
-            errorMessage.value = "Please enter a username or email"
+            _errorMessage.value = "Please enter a valid surname"
             return
         }
 
         if(!checkIsValidEmail(_email.value)){
-            errorMessage.value = "Please enter a valid email"
+            _errorMessage.value = "Please enter a valid email"
             return
         }
 
         if(!checkIsValidMobile(_mobileNumber.value)){
-            errorMessage.value = "Please enter a username or email"
+            _errorMessage.value = "Please enter a valid mobile number"
             return
         }
 
         if(!checkIsValidPassword(_password.value)){
-            errorMessage.value = "Please enter a valid password"
+            _errorMessage.value = "Please enter a valid password"
             return
         }
 
         if(!checkIsPasswordsMatch(_password.value, _confirmPassword.value)){
-            errorMessage.value = "Please enter a valid password"
+            _errorMessage.value = "Please confirm your passwords"
             return
         }
 
@@ -136,10 +140,10 @@ delay(1000)
             uiScope.launch {
 
                 if(registration.success){
-
+                    _isRegistered.value = true
                 }
                 else{
-                    errorMessage.value = app.getString(R.string.login_error)
+                    _errorMessage.value = app.getString(R.string.login_error)
                 }
             }
         }
@@ -151,6 +155,7 @@ delay(1000)
         params["name"] = _name.value ?: ""
         params["surname"] = _surname.value ?: ""
         params["password"] = _password.value ?: ""
+        params["gender"] = "${_gender.value?.id ?: 0}"
 
         return registrationRepository.registerUser(params)
     }
