@@ -120,15 +120,13 @@ delay(1000)
         if(login.success){
             _currentUser.value = login.user
 
-            var isUserSaved = false
-
             ioScope.launch {
+                var isUserSaved = false
+
                 var previousUsers = getUsers()
 
                 previousUsers?.forEach {
-                    if (login.user?.email == it.email){
-                        isUserSaved = true
-                    }
+                    isUserSaved = login.user?.email == it.email
                 }
 
                 if(!isUserSaved){

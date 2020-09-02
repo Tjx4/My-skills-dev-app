@@ -6,6 +6,7 @@ import android.view.*
 import android.view.animation.Animation
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -41,7 +42,9 @@ class RegistrationActivity : BaseParentActivity() {
         var application = requireNotNull(this).application
         var viewModelFactory = RegistrationViewModelFactory(application)
 
-        registrationViewModel = ViewModelProviders.of(this, viewModelFactory).get(RegistrationViewModel::class.java)
+        registrationViewModel = ViewModelProviders.of(this, viewModelFactory).get(
+            RegistrationViewModel::class.java
+        )
         binding = DataBindingUtil.setContentView(this, R.layout.activity_registration)
         binding.registrationViewModel = registrationViewModel
         binding.lifecycleOwner = this
@@ -60,9 +63,9 @@ class RegistrationActivity : BaseParentActivity() {
 
     private fun addObservers() {
         registrationViewModel.showLoading.observe(this, Observer { toggleShowLoading(it) })
-        registrationViewModel.userType.observe(this, Observer { onUserTypeSet(it)})
-        registrationViewModel.surname.observe(this, Observer { onSurnameChanged(it)})
-        registrationViewModel.mobileNumber.observe(this, Observer { onMobileChanged(it)})
+        registrationViewModel.userType.observe(this, Observer { onUserTypeSet(it) })
+        registrationViewModel.surname.observe(this, Observer { onSurnameChanged(it) })
+        registrationViewModel.mobileNumber.observe(this, Observer { onMobileChanged(it) })
         registrationViewModel.errorMessage.observe(this, Observer { onErrorMessageSet(it) })
     }
 
@@ -86,25 +89,20 @@ class RegistrationActivity : BaseParentActivity() {
         vpRegistrationSteps.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-//TOdo: Fix this logic
-                if (position != lastPos && !fragments[position].isEnabled) {
-                    //goToPreviouseStep()
-                    showShortToast("Please finish previous step first", context)
-                    return
+
+                var touchableList = (tbStages.getChildAt(0) as LinearLayout).children
+                var index = 0
+                touchableList?.forEach {
+                    it.isEnabled = fragments[index].isEnabled
+                    index++
                 }
-//TOdo: Fix this logic
+
+                //TOdo: Show user that tab is not yet active
+               // showShortToast("Please finish previous step first", context)
+
 
                 super.onPageSelected(position)
                 txtStageDescription.text = fragments[position].description
-
-/*
-    var touchableList = tbStages?.touchables
-    var index = 0
-    touchableList?.forEach {
-    it.isEnabled = fragments[index].isEnabled
-    index++
-    }
-*/
 
                 lastPos = position
             }
@@ -164,7 +162,7 @@ class RegistrationActivity : BaseParentActivity() {
 
     fun onNextButtonClicked(view: View){
         view.blinkView(0.6f, 1.0f, 100, 2, Animation.ABSOLUTE, 0, {
-            goToPreviouseStep()
+            goToPreviousStep()
         }, {})
     }
 
@@ -174,7 +172,7 @@ class RegistrationActivity : BaseParentActivity() {
         }, {})
     }
 
-    private fun goToPreviouseStep() {
+    private fun goToPreviousStep() {
         val prevPosition = vpRegistrationSteps.currentItem - 1
         vpRegistrationSteps.setCurrentItem(prevPosition, true)
     }
@@ -202,7 +200,7 @@ class RegistrationActivity : BaseParentActivity() {
             return true
         }
         else{
-            goToPreviouseStep()
+            goToPreviousStep()
         }
         return false
     }

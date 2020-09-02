@@ -46,6 +46,9 @@ class LoginActivity : BaseParentActivity()  {
 
         addObservers()
 
+        txtSignUp.text = HtmlCompat.fromHtml(txtSignUp.text.toString(), 0)
+        txtForgotYourUsername.text = HtmlCompat.fromHtml(txtForgotYourUsername.text.toString(),0)
+
         supportActionBar?.title = " HOST LOGIN"
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setIcon(R.drawable.ic_login_light)
@@ -58,14 +61,6 @@ class LoginActivity : BaseParentActivity()  {
         loginViewModel.showPreloadedUser.observe(this, Observer { toggleShowPreloadedUser(it) })
         loginViewModel.currentUser.observe(this, Observer { isUserSet(it) })
         loginViewModel.errorMessage.observe(this, Observer { onErrorMessageSet(it) })
-
-        //Todo: Find out how to do custom control
-           txtSignUp.text = HtmlCompat.fromHtml(txtSignUp.text.toString(), 0)
-           txtForgotYourUsername.text = HtmlCompat.fromHtml(
-               txtForgotYourUsername.text.toString(),
-               0
-           )
-        //Todo: fix -----------------------------------
     }
 
     private fun onErrorMessageSet(errorMessage: String) {

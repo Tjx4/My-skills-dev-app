@@ -17,24 +17,36 @@ open class LoginRepository(var application: Application) : BaseRepositories() {
 
     suspend fun getAllCachedUsers() : List<UserModel>?{
        return try {
-          var users = arrayListOf<UserModel>()
-           var indx = 0
-          database.getAllUsers()?.forEach {
-              users.add(UserModel(it.id.toInt(), it.username, it.name, it.surname, it.email, it.mobile))
-              indx++
-          }
+           val cachedUsers = database.getAllUsers()
+           if(cachedUsers.isNullOrEmpty()){
+               null
+           }
+           else {
+               var users = arrayListOf<UserModel>()
+               var indx = 0
+               cachedUsers?.forEach {
+                   users.add(UserModel(it.id.toInt(), it.username, it.name, it.surname, it.email, it.mobile))
+                   indx++
+               }
+               users
+           }
 
-           return users
        }
        catch (e: Exception){
-           return null
+            null
        }
     }
 
     suspend fun getLastCachedUser() : UserModel?{
         return try{
             val userRow = database.getLastUser()
-            UserModel(userRow?.id?.toInt() ?: 0, userRow?.username, userRow?.name, userRow?.surname, userRow?.email, userRow?.mobile)
+            if(userRow != null){
+                UserModel(userRow?.id?.toInt() ?: 0, userRow?.username, userRow?.name, userRow?.surname, userRow?.email, userRow?.mobile)
+            }
+            else{
+                null
+            }
+
         }
         catch (e: Exception){
              null
