@@ -73,7 +73,7 @@ class LoginActivity : BaseParentActivity()  {
         clErrorContainer.blinkView(0.6f, 1.0f, 500, 2, Animation.ABSOLUTE, 0)
     }
 
-    private fun onSignIn(loginModel: LoginModel){
+    private fun onLoginResponse(loginModel: LoginModel){
         loginViewModel.onSigninCalled(loginModel)
     }
 
@@ -85,14 +85,13 @@ class LoginActivity : BaseParentActivity()  {
     }
 
     fun onLoginButtonClicked(view: View){
-        //Todo: find better way to hide the keyboard
         val imm: InputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(txtPassword.windowToken, 0);
         loginViewModel.checkAndSignIn()
     }
 
     fun isValidSignInDetails(isValidDetails: Boolean){
-        loginViewModel.signIn().observe(this, Observer { onSignIn(it) })
+        loginViewModel.signIn().observe(this, Observer { onLoginResponse(it) })
     }
 
     fun onForgotPassUserClicked(view: View){

@@ -82,15 +82,17 @@ class RegistrationActivity : BaseParentActivity() {
         var regVpAdapter = RegistrationViewpagerAdapter(fragments, this)
         vpRegistrationSteps.adapter  = regVpAdapter
         var context = this
+        var lastPos = 0
         vpRegistrationSteps.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
 //TOdo: Fix this logic
-                if (!fragments[position].isEnabled) {
+                if (position != lastPos && !fragments[position].isEnabled) {
                     //goToPreviouseStep()
                     showShortToast("Please finish previous step first", context)
                     return
                 }
+//TOdo: Fix this logic
 
                 super.onPageSelected(position)
                 txtStageDescription.text = fragments[position].description
@@ -104,6 +106,7 @@ class RegistrationActivity : BaseParentActivity() {
     }
 */
 
+                lastPos = position
             }
         })
 

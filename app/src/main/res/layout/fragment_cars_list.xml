@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".features.dashboard.fragments.CarPrizesFragment">
+    tools:context=".features.login.fragments.UsersFragment">
 
     <RelativeLayout
         android:background="#FFF"
@@ -12,6 +12,7 @@
         android:layout_gravity="center">
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tvHeading"
             style="@style/MediumPlusTextView"
             tools:text="Please select a price"

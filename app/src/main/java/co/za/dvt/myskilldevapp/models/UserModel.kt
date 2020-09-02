@@ -15,5 +15,5 @@ open class UserModel (
     @SerializedName("mobile") open var mobile: String? = null,
     @SerializedName("picUrl") open var picUrl: String? = null,
     @SerializedName("age") open var age: Int = 0
-   // @SerializedName("gender") open var gender: Gender? = null
+   // @SerializedName("gender") open var gender: Gender? = null // Create converter
 ): Parcelable

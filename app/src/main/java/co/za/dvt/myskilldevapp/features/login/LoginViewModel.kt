@@ -64,9 +64,6 @@ class LoginViewModel(application: Application, private val loginRepository: Logi
                 if (lastUser != null) {
                     preSetUser(lastUser)
                 }
-                else{
-
-                }
             }
         }
     }
@@ -75,10 +72,10 @@ class LoginViewModel(application: Application, private val loginRepository: Logi
         currentUserMessage.value = app.getString(R.string.default_login_message)
     }
 
-    fun preSetUser(lastUser: UsersTable) {
+    fun preSetUser(user: UserModel) {
         showPreloadedUser.value = true
-        currentUserMessage.value = "<b>Hi ${lastUser.name}</b>, please enter your password to continue"
-        username.value = lastUser.username
+        currentUserMessage.value = "<b>Hi ${user.name}</b>, please enter your password to continue"
+        username.value = user.username
     }
 
     suspend fun getUsers() = loginRepository.getAllCachedUsers()
@@ -99,9 +96,10 @@ class LoginViewModel(application: Application, private val loginRepository: Logi
 
         _showLoading.value = true
 
-// Todo: remove delay
         ioScope.launch {
-            delay(1000)
+
+// Todo: remove delay
+delay(1000)
 
             uiScope.launch {
                 _isValidDetails.value = true
@@ -146,15 +144,8 @@ class LoginViewModel(application: Application, private val loginRepository: Logi
         }
     }
     
-    suspend fun addUserToDb(userModel: UserModel) {
-        var usersTable = UsersTable()
-        usersTable.username = userModel.username
-        usersTable.name = userModel.name
-        usersTable.surname = userModel.name
-        usersTable.email = userModel.email
-        usersTable.mobile = userModel.mobile
-        usersTable.picUrl = userModel.picUrl
-        loginRepository.addUserToDb(usersTable)
+    suspend fun addUserToDb(user: UserModel) {
+        loginRepository.addUserToDb(user)
     }
 
     fun checkIsValidUsername(username: String): Boolean {
