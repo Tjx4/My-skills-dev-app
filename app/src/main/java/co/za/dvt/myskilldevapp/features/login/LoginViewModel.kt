@@ -86,7 +86,7 @@ class LoginViewModel(application: Application, private val loginRepository: Logi
             return
         }
 
-        if(!checkIsValidPassword(_username.value)){
+        if(!checkIsValidPassword(_password.value)){
             errorMessage.value = "Please enter a valid password"
             return
         }
