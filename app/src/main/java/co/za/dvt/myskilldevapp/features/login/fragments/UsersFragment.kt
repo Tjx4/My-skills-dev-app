@@ -69,8 +69,9 @@ class UsersFragment : BaseDialogFragment(), UsersAdapter.ItemClickListener {
                 }
 
                 titleTv?.text = arguments?.getString(TITLE)
+                titleTv?.visibility = View.VISIBLE
 
-                val statsAdapterAdapter = UsersAdapter(loginActivity as Context, users as java.util.ArrayList<UsersTable>)
+                val statsAdapterAdapter = UsersAdapter(loginActivity as Context, users as java.util.ArrayList<UserModel>)
                 statsAdapterAdapter.setClickListener(statsAdapter)
 
                 usersRv = parentView.findViewById(R.id.rvUsers)

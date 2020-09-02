@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
 import co.za.dvt.myskilldevapp.features.login.LoginActivity
+import co.za.dvt.myskilldevapp.models.UserModel
 
-class UsersAdapter(context: Context, private val users: List<UsersTable>) : RecyclerView.Adapter<UsersAdapter.ViewHolder>() {
+class UsersAdapter(context: Context, private val users: List<UserModel>) : RecyclerView.Adapter<UsersAdapter.ViewHolder>() {
 
     private val loginActivity: LoginActivity = context as LoginActivity
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
@@ -41,7 +42,7 @@ class UsersAdapter(context: Context, private val users: List<UsersTable>) : Recy
         }
     }
 
-    internal fun getItem(id: Int): UsersTable? {
+    internal fun getItem(id: Int): UserModel? {
         return users[id]
     }
 
