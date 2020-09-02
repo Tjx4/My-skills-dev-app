@@ -1,19 +1,18 @@
 package co.za.dvt.myskilldevapp.features.registration
 
 import android.app.Application
-import androidx.databinding.BaseObservable
-import androidx.databinding.Bindable
-import androidx.databinding.Observable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.enums.Gender
 import co.za.dvt.myskilldevapp.enums.UserTypes
+import co.za.dvt.myskilldevapp.extensions.*
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
+import co.za.dvt.myskilldevapp.models.RegistrationModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class RegistrationViewModel(application: Application) : BaseVieModel(application), Observable {
+class RegistrationViewModel(application: Application) : BaseVieModel(application) {
     // UserType = Personal/basic info = Varify info
     private val registrationRepository: RegistrationRepository = RegistrationRepository(application)
 
@@ -25,15 +24,13 @@ class RegistrationViewModel(application: Application) : BaseVieModel(application
     val userType: LiveData<UserTypes>
     get() = _userType
 
-    private var _userName: MutableLiveData<String> = MutableLiveData()
-    val userName: LiveData<String>
-    get() = _userName
+    private var _username: MutableLiveData<String> = MutableLiveData()
+    val username: LiveData<String>
+    get() = _username
 
-    //private var _name: MutableLiveData<String> = MutableLiveData()
-    //val name: LiveData<String>
-    //get() = _name
-    @Bindable
-    var name: String = ""
+    private var _name: MutableLiveData<String> = MutableLiveData()
+    val name: LiveData<String>
+    get() = _name
 
     private var _surname: MutableLiveData<String> = MutableLiveData()
     val surname: LiveData<String>
@@ -51,8 +48,8 @@ class RegistrationViewModel(application: Application) : BaseVieModel(application
     val email: LiveData<String>
         get() = _email
 
-    private var _mobileNumber: MutableLiveData<Int> = MutableLiveData()
-    val mobileNumber: LiveData<Int>
+    private var _mobileNumber: MutableLiveData<String> = MutableLiveData()
+    val mobileNumber: LiveData<String>
         get() = _mobileNumber
 
     private var _password: MutableLiveData<String> = MutableLiveData()
@@ -70,10 +67,10 @@ class RegistrationViewModel(application: Application) : BaseVieModel(application
     var busyMessage: String = "Creating account, please wait.."
 
     init {
-        name = "Boby"
+        _name.value = "Boby"
         _surname.value = "Green"
         _email.value = "test@email.com"
-        _mobileNumber.value = 829954990
+        _mobileNumber.value = "829954990"
         _gender.value = Gender.Male
         _password.value = "B@12345"
         _confirmPassword.value = "B@12345"
@@ -84,28 +81,61 @@ class RegistrationViewModel(application: Application) : BaseVieModel(application
     }
 
     fun setNames(){
-        _fullNames.value = "${name} ${_surname.value ?: ""}"
+        _fullNames.value = "${_name.value} ${_surname.value ?: ""}"
     }
 
     fun setGender(gender: Gender){
         _gender.value = gender
     }
 
-    fun registerUser() {
+    fun checkAndRegisterUser() {
+/*
+        if(!checkIsValidUsername(_username.value)){
+            errorMessage.value = "Please enter a username or email"
+            return
+        }
+*/
+        if(!checkIsValidName(_name.value)){
+            errorMessage.value = app.getString(R.string.name_validation)
+            return
+        }
+
+        if(!checkIsValidSurname(_surname.value)){
+            errorMessage.value = "Please enter a username or email"
+            return
+        }
+
+        if(!checkIsValidEmail(_email.value)){
+            errorMessage.value = "Please enter a valid email"
+            return
+        }
+
+        if(!checkIsValidMobile(_mobileNumber.value)){
+            errorMessage.value = "Please enter a username or email"
+            return
+        }
+
+        if(!checkIsValidPassword(_password.value)){
+            errorMessage.value = "Please enter a valid password"
+            return
+        }
+
+        if(!checkIsPasswordsMatch(_password.value, _confirmPassword.value)){
+            errorMessage.value = "Please enter a valid password"
+            return
+        }
+
         _showLoading.value = true
 
         ioScope.launch {
-            var params = mutableMapOf<String, String>()
-            params["name"] = _surname.value ?: ""
-            params["password"] = _password.value ?: ""
+            var registration = registerUser()
 
-            var registration = registrationRepository.registerUer(params)
-
+// Todo: remove delay
 delay(1000)
 
             uiScope.launch {
 
-                if(registration!!.success){
+                if(registration.success){
 
                 }
                 else{
@@ -115,11 +145,41 @@ delay(1000)
         }
     }
 
-    override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
-      var pp = callback.toString()
+    suspend fun registerUser() : RegistrationModel {
+        var params = mutableMapOf<String, String>()
+        params["username"] = _username.value ?: ""
+        params["name"] = _name.value ?: ""
+        params["surname"] = _surname.value ?: ""
+        params["password"] = _password.value ?: ""
+
+        return registrationRepository.registerUser(params)
     }
 
-    override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
-     //   TODO("Not yet implemented")
+    fun checkIsValidUsername(username: String?): Boolean {
+        return username?.isValidUsername() ?: false
+    }
+
+    fun checkIsValidName(name: String?): Boolean {
+        return name?.isValidName() ?: false
+    }
+
+    fun checkIsValidSurname(surname: String?): Boolean {
+        return surname?.isValidName() ?: false
+    }
+
+    fun checkIsValidEmail(email: String?): Boolean {
+        return email?.isValidEmail() ?: false
+    }
+
+    fun checkIsValidMobile(mobile: String?): Boolean {
+        return mobile?.isValidMobileNumber() ?: false
+    }
+
+    fun checkIsValidPassword(password: String?): Boolean {
+        return password?.isValidPassword() ?: false
+    }
+
+    fun checkIsPasswordsMatch(password: String?, confirmPassword: String?): Boolean {
+        return password?.isMatchPasswords(confirmPassword) ?: false
     }
 }

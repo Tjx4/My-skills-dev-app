@@ -8,12 +8,12 @@ import co.za.dvt.myskilldevapp.models.RegistrationModel
 class RegistrationRepository(var application: Application) : BaseRepositories() {
     var database = PADatabase.getInstance(application).USERSDAO
 
-    suspend fun registerUer(params: Map<String, String>) : RegistrationModel? {
-        try {
-            return retrofitHelper.registerMember(params)
+    suspend fun registerUser(params: Map<String, String>) : RegistrationModel {
+        return try {
+             retrofitHelper.registerMember(params) ?: RegistrationModel(false, "")
         }
         catch (ex: Exception){
-            return RegistrationModel(false, "$ex")
+             RegistrationModel(false, "$ex")
         }
     }
 }

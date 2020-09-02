@@ -25,11 +25,9 @@ import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationFinal
 import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationPersonalDetailsFragment
 import co.za.dvt.myskilldevapp.features.registration.fragments.RegistrationStep1Fragment
 import co.za.dvt.myskilldevapp.helpers.showLoadingDialog
-import co.za.dvt.myskilldevapp.helpers.showShortToast
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_registration.*
-
 
 class RegistrationActivity : BaseParentActivity() {
     private lateinit var binding: ActivityRegistrationBinding
@@ -100,7 +98,6 @@ class RegistrationActivity : BaseParentActivity() {
                 //TOdo: Show user that tab is not yet active
                // showShortToast("Please finish previous step first", context)
 
-
                 super.onPageSelected(position)
                 txtStageDescription.text = fragments[position].description
 
@@ -111,22 +108,9 @@ class RegistrationActivity : BaseParentActivity() {
         TabLayoutMediator(tbStages, vpRegistrationSteps) { tab, position ->
             tab.text = fragments[position].title
         }.attach()
-
-
-        /*
-        val tabStrip = tbStages.getChildAt(0) as LinearLayout
-        for (i in 0 until tabStrip.childCount) {
-            tabStrip.getChildAt(i).setOnTouchListener(object : View.OnTouchListener() {
-                fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                    return true
-                }
-            })
-        }
-        */
     }
 
     private fun onErrorMessageSet(errorMessage: String) {
-        //showErrorAlert(this, "Error", errorMessage)
         txtErrorMessage.visibility = View.VISIBLE
     }
 
@@ -134,10 +118,11 @@ class RegistrationActivity : BaseParentActivity() {
         vpRegistrationSteps.setCurrentItem(1, true)
     }
 
+    // Todo: Mock data binding if it comes to it
     private fun onSurnameChanged(surname: String){
         var sn = surname
     }
-    private fun onMobileChanged(mobile: Int){
+    private fun onMobileChanged(mobile: String){
         var sn = mobile
     }
 
@@ -149,7 +134,7 @@ class RegistrationActivity : BaseParentActivity() {
     fun enableFinalizeStep() = enableStep(2)
 
     fun onRegisterButtonClicked(view: View){
-        registrationViewModel.registerUser()
+        registrationViewModel.checkAndRegisterUser()
     }
 
     private fun enableStep(step: Int){

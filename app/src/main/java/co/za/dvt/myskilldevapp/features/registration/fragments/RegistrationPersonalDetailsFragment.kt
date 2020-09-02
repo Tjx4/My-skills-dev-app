@@ -1,7 +1,6 @@
 package co.za.dvt.myskilldevapp.features.registration.fragments
 
 import android.os.Bundle
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,11 +22,9 @@ class RegistrationPersonalDetailsFragment : BaseRegistrationFragment() {
     private var genderContainerRg: RadioGroup? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        //binding = FragmentRegistrationStep2Binding.inflate(inflater, container, false)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_registration_step2,container, false)
         binding.lifecycleOwner = this
         binding.registrationViewModel = registrationActivity?.registrationViewModel
-        binding.registerMobileNumber = binding.registrationViewModel?.mobileNumber?.value?.toString()?: ""
         parentView = binding.root
         initViews(parentView)
         return parentView

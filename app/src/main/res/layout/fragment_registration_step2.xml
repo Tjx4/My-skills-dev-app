@@ -6,10 +6,6 @@
         <variable
                 name="registrationViewModel"
                 type="co.za.dvt.myskilldevapp.features.registration.RegistrationViewModel"/>
-
-        <variable
-                name="registerMobileNumber"
-                type="String"/>
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -42,7 +38,7 @@
                     android:layout_width="0dp"
                     android:inputType="textPersonName"
                     android:hint="Name"
-                    android:text="@={registrationViewModel.name}"
+                    android:text="@{registrationViewModel.name}"
                     app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
                     app:layout_constraintRight_toRightOf="@+id/btnSignIn"
                     android:layout_marginTop="@dimen/medium__margin"
@@ -123,7 +119,7 @@
                     android:layout_marginTop="16dp"
                     android:hint="Mobile number"
                     android:inputType="number"
-                    android:text="@={registerMobileNumber}"
+                    android:text="@{registrationViewModel.mobileNumber}"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
                     app:layout_constraintRight_toRightOf="@+id/btnSignIn"

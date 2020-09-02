@@ -81,15 +81,12 @@ class LoginViewModel(application: Application, private val loginRepository: Logi
     suspend fun getUsers() = loginRepository.getAllCachedUsers()
 
     fun checkAndSignIn(){
-        var username = _username.value ?: ""
-        var password = _password.value ?: ""
-
-        if(!checkIsValidUsername(username)){
+        if(!checkIsValidUsername(_username.value)){
             errorMessage.value = "Please enter a username or email"
             return
         }
 
-        if(!checkIsValidPassword(password)){
+        if(!checkIsValidPassword(_username.value)){
             errorMessage.value = "Please enter a valid password"
             return
         }
@@ -146,12 +143,12 @@ delay(1000)
         loginRepository.addUserToDb(user)
     }
 
-    fun checkIsValidUsername(username: String): Boolean {
-        return username.isValidUsername()
+    fun checkIsValidUsername(username: String?): Boolean {
+        return username?.isValidUsername() ?: false
     }
 
-    fun checkIsValidPassword(password: String): Boolean {
-        return password.isValidPassword()
+    fun checkIsValidPassword(password: String?): Boolean {
+        return password?.isValidPassword() ?: false
     }
 
 }
