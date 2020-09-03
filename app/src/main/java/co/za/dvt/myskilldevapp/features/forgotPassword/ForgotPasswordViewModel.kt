@@ -9,15 +9,15 @@ import co.za.dvt.myskilldevapp.models.ResetModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class ForgotPasswordViewModel (application: Application, var forgotPasswordRepository: ForgotPasswordRepository) : BaseVieModel(application) {
+class ForgotPasswordViewModel(application: Application, var forgotPasswordRepository: ForgotPasswordRepository) : BaseVieModel(application) {
 
     private var _email: MutableLiveData<String> = MutableLiveData()
     val email: LiveData<String>
-        get() = _email
+    get() = _email
 
     private var _mobileNumber: MutableLiveData<String> = MutableLiveData()
     val mobileNumber: LiveData<String>
-        get() = _mobileNumber
+    get() = _mobileNumber
 
     private var _errorMessage: MutableLiveData<String> = MutableLiveData()
     var errorMessage: MutableLiveData<String> = MutableLiveData()
@@ -25,11 +25,11 @@ class ForgotPasswordViewModel (application: Application, var forgotPasswordRepos
 
     private var _password: MutableLiveData<String> = MutableLiveData()
     val password: LiveData<String>
-        get() = _password
+    get() = _password
 
     private var _otp: MutableLiveData<String> = MutableLiveData()
     val otp: LiveData<String>
-        get() = _otp
+    get() = _otp
 
     fun checkAndFetchOtp(){
 
@@ -57,7 +57,6 @@ class ForgotPasswordViewModel (application: Application, var forgotPasswordRepos
 
         return forgotPasswordRepository.getOtp(email, mobile)
     }
-
 
     suspend fun resetPassword() : ResetModel {
         var params = mutableMapOf<String, String>()

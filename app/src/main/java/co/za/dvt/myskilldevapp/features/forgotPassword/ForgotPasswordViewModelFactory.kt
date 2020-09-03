@@ -14,8 +14,8 @@ class ForgotPasswordViewModelFactory (private val application: Application) : Vi
         if(modelClass.isAssignableFrom(ForgotPasswordViewModel::class.java)){
             var database = PADatabase.getInstance(application)
             val retrofitHelper = API.retrofitHelper
-            val registrationRepository = RegistrationRepository(retrofitHelper)
-            return ForgotPasswordViewModel(application, registrationRepository) as T
+            val rorgotPasswordRepository = ForgotPasswordRepository(retrofitHelper)
+            return ForgotPasswordViewModel(application, rorgotPasswordRepository) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel Class")
