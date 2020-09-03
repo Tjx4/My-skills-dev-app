@@ -62,8 +62,6 @@ class RegistrationActivity : BaseParentActivity() {
     private fun addObservers() {
         registrationViewModel.showLoading.observe(this, Observer { toggleShowLoading(it) })
         registrationViewModel.userType.observe(this, Observer { onUserTypeSet(it) })
-        registrationViewModel.surname.observe(this, Observer { onSurnameChanged(it) })
-        registrationViewModel.mobileNumber.observe(this, Observer { onMobileChanged(it) })
         registrationViewModel.errorMessage.observe(this, Observer { onErrorMessageSet(it) })
         registrationViewModel.isRegistered.observe(this, Observer { onAccountCreated(it) })
     }
@@ -126,14 +124,6 @@ class RegistrationActivity : BaseParentActivity() {
 
     private fun onUserTypeSet(userType: UserTypes){
         vpRegistrationSteps.setCurrentItem(1, true)
-    }
-
-    // Todo: Mock data binding if it comes to it
-    private fun onSurnameChanged(surname: String){
-        var sn = surname
-    }
-    private fun onMobileChanged(mobile: String){
-        var sn = mobile
     }
 
     private fun toggleShowLoading(isBusy: Boolean) {

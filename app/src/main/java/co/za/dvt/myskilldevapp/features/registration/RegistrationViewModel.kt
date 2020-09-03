@@ -13,11 +13,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class RegistrationViewModel(application: Application, var registrationRepository: RegistrationRepository) : BaseVieModel(application) {
-    // UserType = Personal/basic info = Varify info
 
     private val _showLoading: MutableLiveData<Boolean> = MutableLiveData()
     val showLoading: MutableLiveData<Boolean>
-        get() = _showLoading
+    get() = _showLoading
 
     private var _userType: MutableLiveData<UserTypes> = MutableLiveData()
     val userType: LiveData<UserTypes>
@@ -70,13 +69,13 @@ class RegistrationViewModel(application: Application, var registrationRepository
     var busyMessage: String = "Creating account, please wait.."
 
     init {
-        _name.value = "Boby"
-        _surname.value = "Green"
-        _email.value = "test@email.com"
-        _mobileNumber.value = "0829954990"
+        _name.value = "Teboho"
+        _surname.value = "Mabona"
+        _email.value = "tmabona@email.com"
+        _mobileNumber.value = "0849944770"
         _gender.value = Gender.Male
-        _password.value = "Bl@12345"
-        _confirmPassword.value = "Bl@12345"
+        _password.value = "Tm@12345"
+        _confirmPassword.value = "Tm@12345"
     }
 
     fun setUserType(userType: UserTypes){
