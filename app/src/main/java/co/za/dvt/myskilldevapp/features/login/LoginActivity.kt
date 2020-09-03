@@ -116,11 +116,11 @@ class LoginActivity : BaseParentActivity()  {
 
     private fun showManualLogin() {
         loginViewModel.setManualMode()
-        txtUsername.visibility = View.VISIBLE
+        txMobile.visibility = View.VISIBLE
     }
 
     private fun showSelectedUserLogin() {
-        txtUsername.visibility = View.GONE
+        txMobile.visibility = View.GONE
     }
 
     private fun showPreviousUserList() {

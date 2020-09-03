@@ -41,7 +41,7 @@
 
                 <EditText
                         style="@style/LightEditText"
-                        android:id="@+id/txtUsername"
+                        android:id="@+id/txMobile"
                         android:layout_width="0dp"
                         android:inputType="textPersonName"
                         android:hint="Username"
@@ -61,7 +61,7 @@
                         android:layout_marginTop="@dimen/medium__margin"
                         app:layout_constraintLeft_toLeftOf="@+id/btnSignIn"
                         app:layout_constraintRight_toRightOf="@+id/btnSignIn"
-                        app:layout_constraintTop_toBottomOf="@+id/txtUsername" />
+                        app:layout_constraintTop_toBottomOf="@+id/txMobile" />
 
                 <Button
                         style="@style/MyPAButton"

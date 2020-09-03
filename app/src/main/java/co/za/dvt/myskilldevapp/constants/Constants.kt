@@ -3,6 +3,8 @@ package co.za.dvt.myskilldevapp.constants
 
 //API
 const val LOGIN_MEMBER = "api/v1/members/login/"
+const val RESET_PASSWORD = "api/v1/members/reset/"
+const val GET_OTP = "api/v1/members/otp/"
 const val REGISTER_MEMBER = "api/v1/members/registration/"
 const val GET_ALL_MEMBERS = "api/v1/member/"
 //Intent keys

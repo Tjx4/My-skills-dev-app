@@ -1,14 +1,17 @@
 package co.za.dvt.myskilldevapp.features.forgotPassword
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.view.animation.Animation
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import co.za.dvt.myskilldevapp.R
 import co.za.dvt.myskilldevapp.databinding.ActivityForgotPasswordBinding
+import co.za.dvt.myskilldevapp.extensions.blinkView
 import co.za.dvt.myskilldevapp.features.activities.BaseChildActivity
-import co.za.dvt.myskilldevapp.features.forgotPassword.ForgotPasswordViewModel
-import co.za.dvt.myskilldevapp.features.forgotPassword.ForgotPasswordViewModelFactory
+import co.za.dvt.myskilldevapp.helpers.hideCurrentLoadingDialog
+import kotlinx.android.synthetic.main.activity_registration.*
 
 class ForgotPasswordActivity : BaseChildActivity() {
     private lateinit var binding: ActivityForgotPasswordBinding
@@ -33,6 +36,15 @@ class ForgotPasswordActivity : BaseChildActivity() {
     }
 
     private fun addObservers() {
+        forgotPasswordViewModel.errorMessage.observe(this, Observer { onErrorMessageSet(it) })
+    }
+
+
+    private fun onErrorMessageSet(errorMessage: String) {
+
+     }
+
+    fun onMoveToOTPStageClicked(view: View){
 
     }
 
