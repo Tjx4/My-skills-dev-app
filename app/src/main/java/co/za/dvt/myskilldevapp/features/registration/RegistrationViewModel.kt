@@ -12,9 +12,8 @@ import co.za.dvt.myskilldevapp.models.RegistrationModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class RegistrationViewModel(application: Application) : BaseVieModel(application) {
+class RegistrationViewModel(application: Application, var registrationRepository: RegistrationRepository) : BaseVieModel(application) {
     // UserType = Personal/basic info = Varify info
-    private val registrationRepository: RegistrationRepository = RegistrationRepository(application)
 
     private val _showLoading: MutableLiveData<Boolean> = MutableLiveData()
     val showLoading: MutableLiveData<Boolean>

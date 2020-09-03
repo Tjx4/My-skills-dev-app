@@ -1,23 +1,21 @@
 package co.za.dvt.myskilldevapp.features.login
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import co.za.dvt.myskilldevapp.features.database.PADatabase
 import co.za.dvt.myskilldevapp.features.database.tables.UsersTable
-import co.za.dvt.myskilldevapp.features.repositories.BaseRepositories
+import co.za.dvt.myskilldevapp.helpers.RetrofitHelper
 import co.za.dvt.myskilldevapp.models.LoginModel
 import co.za.dvt.myskilldevapp.models.UserModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-open class LoginRepository(var application: Application) : BaseRepositories() {
-    var database = PADatabase.getInstance(application).USERSDAO
+open class LoginRepository(var database: PADatabase, var retrofitHelper: RetrofitHelper){
 
     suspend fun getAllCachedUsers() : List<UserModel>?{
        return try {
-           val cachedUsers = database.getAllUsers()
+           val cachedUsers = database.USERSDAO.getAllUsers()
            if(cachedUsers.isNullOrEmpty()){
                null
            }
@@ -39,7 +37,7 @@ open class LoginRepository(var application: Application) : BaseRepositories() {
 
     suspend fun getLastCachedUser() : UserModel?{
         return try{
-            val userRow = database.getLastUser()
+            val userRow = database.USERSDAO.getLastUser()
             if(userRow != null){
                 UserModel(userRow?.id?.toInt() ?: 0, userRow?.username, userRow?.name, userRow?.surname, userRow?.email, userRow?.mobile)
             }
@@ -55,7 +53,7 @@ open class LoginRepository(var application: Application) : BaseRepositories() {
 
     suspend fun addUserToDb(user: UserModel) {
         val userTable = UsersTable(user?.id.toLong(), user?.username, user?.name, user?.surname, user?.email, user?.mobile)
-        database.insert(userTable)
+        database.USERSDAO.insert(userTable)
     }
 
     fun loginMember(params: Map<String, String>) : LiveData<LoginModel> {

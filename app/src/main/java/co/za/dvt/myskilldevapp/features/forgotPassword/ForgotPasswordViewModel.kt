@@ -4,6 +4,6 @@ import android.app.Application
 import co.za.dvt.myskilldevapp.features.registration.RegistrationRepository
 import co.za.dvt.myskilldevapp.features.viewModels.BaseVieModel
 
-class ForgotPasswordViewModel (application: Application) : BaseVieModel(application) {
-    private val registrationRepository: RegistrationRepository = RegistrationRepository(application)
+class ForgotPasswordViewModel (application: Application, var registrationRepository: RegistrationRepository) : BaseVieModel(application) {
+
 }
