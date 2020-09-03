@@ -27,9 +27,7 @@ import co.za.dvt.myskilldevapp.models.LoginModel
 import co.za.dvt.myskilldevapp.models.UserModel
 import kotlinx.android.synthetic.main.activity_login.*
 
-
 class LoginActivity : BaseParentActivity()  {
-
     private lateinit var binding: ActivityLoginBinding
     lateinit var loginViewModel: LoginViewModel
 

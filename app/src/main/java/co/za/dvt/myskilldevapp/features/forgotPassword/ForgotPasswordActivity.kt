@@ -11,7 +11,7 @@ import co.za.dvt.myskilldevapp.features.activities.BaseChildActivity
 
 class ForgotPasswordActivity : BaseChildActivity() {
     private lateinit var binding: ActivityForgotPasswordBinding
-    private lateinit var forgotPasswordViewModel: ForgotPasswordViewModel
+    lateinit var forgotPasswordViewModel: ForgotPasswordViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +41,10 @@ class ForgotPasswordActivity : BaseChildActivity() {
 
     fun onRequestOTPClicked(view: View){
         forgotPasswordViewModel.checkAndFetchOtp()
+    }
+
+    fun onResetPasswordClicked(view: View){
+        forgotPasswordViewModel.checkAndReset()
     }
 
 }

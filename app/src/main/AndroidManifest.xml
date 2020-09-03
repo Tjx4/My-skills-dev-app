@@ -13,7 +13,8 @@
             android:supportsRtl="true"
             android:usesCleartextTraffic="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".features.forgotPassword.ForgotPasswordActivity">
+        <activity
+                android:name=".features.forgotPassword.ForgotPasswordActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".features.login.LoginActivity" />
